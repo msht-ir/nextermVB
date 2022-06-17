@@ -269,7 +269,7 @@ Partial Class frmTermProgs
         '
         'Menu_Report
         '
-        Me.Menu_Report.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_Notes, Me.ToolStripMenuItem10, Me.Menu_UserActivityLogs, Me.Menu_UserActivityLog_CLEAR, Me.ToolStripMenuItem8, Me.Menu_ReportStaffPrograms, Me.Menu_ReportTechPrograms, Me.Menu_ReportClassPrograms, Me.Menu_ReportEntriesPrograms})
+        Me.Menu_Report.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_Notes, Me.ToolStripMenuItem10, Me.Menu_UserActivityLogs, Me.Menu_UserActivityLog_CLEAR, Me.ToolStripMenuItem8, Me.Menu_ReportStaffPrograms, Me.Menu_ReportTechPrograms, Me.Menu_ReportEntriesPrograms, Me.Menu_ReportClassPrograms})
         Me.Menu_Report.Name = "Menu_Report"
         Me.Menu_Report.Size = New System.Drawing.Size(50, 20)
         Me.Menu_Report.Text = "گزارش"
@@ -319,7 +319,6 @@ Partial Class frmTermProgs
         '
         'Menu_ReportClassPrograms
         '
-        Me.Menu_ReportClassPrograms.Enabled = False
         Me.Menu_ReportClassPrograms.Name = "Menu_ReportClassPrograms"
         Me.Menu_ReportClassPrograms.Size = New System.Drawing.Size(227, 22)
         Me.Menu_ReportClassPrograms.Text = "برنامه کلاس ها"

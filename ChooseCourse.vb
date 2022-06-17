@@ -28,6 +28,13 @@
         ComboBioProg.Refresh()
 
         ComboBioProg_SelectedIndexChanged(sender, e)
+        For i As Integer = 0 To GridCourse.Rows.Count - 1
+            If GridCourse(0, i).Value = intCourse Then
+                GridCourse.CurrentCell = GridCourse.Rows(i).Cells(1)
+                Exit Sub
+            End If
+        Next
+
     End Sub
 
     Private Sub ComboBioProg_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBioProg.SelectedIndexChanged

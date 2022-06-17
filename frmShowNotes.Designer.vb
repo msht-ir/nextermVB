@@ -52,7 +52,7 @@ Partial Class frmShowNotes
         Me.GridNotes.Name = "GridNotes"
         Me.GridNotes.RowHeadersVisible = False
         Me.GridNotes.RowTemplate.Height = 25
-        Me.GridNotes.Size = New System.Drawing.Size(1107, 402)
+        Me.GridNotes.Size = New System.Drawing.Size(1237, 402)
         Me.GridNotes.TabIndex = 0
         '
         'ContextMenuNotes
@@ -94,8 +94,10 @@ Partial Class frmShowNotes
         'ChkMyNotes
         '
         Me.ChkMyNotes.AutoSize = True
-        Me.ChkMyNotes.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.ChkMyNotes.Location = New System.Drawing.Point(501, 410)
+        Me.ChkMyNotes.Checked = True
+        Me.ChkMyNotes.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChkMyNotes.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.ChkMyNotes.Location = New System.Drawing.Point(563, 412)
         Me.ChkMyNotes.Name = "ChkMyNotes"
         Me.ChkMyNotes.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ChkMyNotes.Size = New System.Drawing.Size(110, 19)
@@ -107,8 +109,8 @@ Partial Class frmShowNotes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.DarkSlateGray
-        Me.ClientSize = New System.Drawing.Size(1107, 441)
+        Me.BackColor = System.Drawing.Color.Silver
+        Me.ClientSize = New System.Drawing.Size(1237, 441)
         Me.ControlBox = False
         Me.Controls.Add(Me.ChkMyNotes)
         Me.Controls.Add(Me.GridNotes)

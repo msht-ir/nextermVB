@@ -71,7 +71,6 @@ Public Class frmTermProgs
 
             Menu_ReportStaffPrograms.Enabled = False
             Menu_ReportTechPrograms.Enabled = False
-            Menu_ReportClassPrograms.Enabled = False
             Menu_ReportEntriesPrograms.Enabled = False
 
             If (Userx = "USER Faculty") And (AdminCanProg = False) Then ContextMenuGrid4.Enabled = False Else ContextMenuGrid4.Enabled = True
@@ -87,10 +86,10 @@ Public Class frmTermProgs
         Try
             Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                 Case "SqlServer"
-                    DASS.SelectCommand.CommandText = "Select ID, SentDate As [تاريخ ارسال], usrFrom As [از طرف], usrTo As [به], usrTo_ID, msgString As [يادداشت], IsActive As [فعال] FROM msgs WHERE usrTo_ID=" & intUser.ToString & " AND IsActive = 1"
+                    DASS.SelectCommand.CommandText = "Select ID, SentDate As [زمان ارسال], usrFrom As [از طرف], usrTo As [به], usrTo_ID, msgString As [يادداشت], IsActive As [جديد] FROM msgs WHERE usrTo_ID=" & intUser.ToString & " AND IsActive = 1"
                     DASS.Fill(DS, "tblMsgs")
                 Case "Access"
-                    DAAC.SelectCommand.CommandText = "SELECT ID, SentDate As [تاريخ ارسال], usrFrom As [از طرف], usrTo As [به], usrTo_ID, msgString As [يادداشت], IsActive As [فعال] FROM msgs WHERE usrTo_ID=" & intUser.ToString & " AND IsActive = True"
+                    DAAC.SelectCommand.CommandText = "SELECT ID, SentDate As [زمان ارسال], usrFrom As [از طرف], usrTo As [به], usrTo_ID, msgString As [يادداشت], IsActive As [جديد] FROM msgs WHERE usrTo_ID=" & intUser.ToString & " AND IsActive = True"
                     DAAC.Fill(DS, "tblMsgs")
             End Select
         Catch ex As Exception
@@ -606,6 +605,7 @@ Public Class frmTermProgs
 
                 intDept = ComboBox1.GetItemText(ComboBox1.SelectedValue)
                 intBioProg = DS.Tables("tblEntries").Rows(ListBox1.SelectedIndex).Item(2)
+                intCourse = DS.Tables("tblTermProgs").Rows(r).Item(1)
                 ChooseCourse.ShowDialog()
                 If strCourse = "" Then Exit Sub
                 Dim myansw As DialogResult = MsgBox("در برنامه اين ترم، درس " & vbCrLf & vbCrLf & strCourse & vbCrLf & vbCrLf & "جايگزين درس فعلي شود؟", vbYesNo + vbDefaultButton2, "نکسترم")
@@ -2427,5 +2427,124 @@ Public Class frmTermProgs
 
     End Sub
 
+    Private Sub Menu_ReportClassPrograms_Click(sender As Object, e As EventArgs) Handles Menu_ReportClassPrograms.Click
+        MsgBox("Salam")
+        FileOpen(1, Application.StartupPath & "Nexterm_class_All.html", OpenMode.Output)
+        PrintLine(1, "NexTerm Reports")
+        FileClose(1)
+        DS.Tables("tblAllProgs").Clear()
+        Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                Case "SqlServer"
+                    DASS.SelectCommand.CommandText = "SELECT TermProgs.ID, Course_ID, CourseNumber, CourseName, Units, [Group], Staff_ID, Staff.StaffName, Tech_ID, Technecians.StaffName, SAT1, SUN1, MON1, TUE1, WED1, THR1, Room1, Rooms.RoomName, SAT2, SUN2, MON2, TUE2, WED2, THR2, Room2, Rooms_1.RoomName, Capacity, ExamDate, TermProgs.Notes, CONCAT([ProgramName] , ' - ' , [Entyear]) AS Ent, Terms.Term FROM (BioProgs INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) INNER JOIN ((((((Rooms AS Rooms_1 RIGHT JOIN TermProgs ON Rooms_1.ID = TermProgs.Room2) LEFT JOIN Rooms ON TermProgs.Room1 = Rooms.ID) LEFT JOIN Terms ON TermProgs.Term_ID = Terms.ID) LEFT JOIN Courses ON TermProgs.Course_ID = Courses.ID) LEFT JOIN Staff ON TermProgs.Staff_ID = Staff.ID) LEFT JOIN Technecians ON TermProgs.Tech_ID = Technecians.ID) ON Entries.ID = TermProgs.Entry_ID WHERE ((Term_ID = " & intTerm.ToString & ") AND ((Room1 = " & intRoom.ToString & ") OR (Room2 = " & intRoom.ToString & "))) ORDER BY THR1, WED1, TUE1, MON1, SUN1, SAT1"
+                    DASS.Fill(DS, "tblAllProgs")
+                Case "Access"
+                    DAAC.SelectCommand.CommandText = "SELECT TermProgs.ID, Course_ID, CourseNumber, CourseName, Units, [Group], Staff_ID, Staff.StaffName, Tech_ID, Technecians.StaffName, SAT1, SUN1, MON1, TUE1, WED1, THR1, Room1, Rooms.RoomName, SAT2, SUN2, MON2, TUE2, WED2, THR2, Room2, Rooms_1.RoomName, Capacity, ExamDate, TermProgs.Notes, [ProgramName] & ' - ' & [Entyear], Terms.Term AS Ent FROM (BioProgs INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) INNER JOIN ((((((Rooms AS Rooms_1 RIGHT JOIN TermProgs ON Rooms_1.ID = TermProgs.Room2) LEFT JOIN Rooms ON TermProgs.Room1 = Rooms.ID) LEFT JOIN Terms ON TermProgs.Term_ID = Terms.ID) LEFT JOIN Courses ON TermProgs.Course_ID = Courses.ID) LEFT JOIN Staff ON TermProgs.Staff_ID = Staff.ID) LEFT JOIN Technecians ON TermProgs.Tech_ID = Technecians.ID) ON Entries.ID = TermProgs.Entry_ID WHERE ((Term_ID = " & intTerm.ToString & ") AND ((Room1 = " & intRoom.ToString & ") OR (Room2 = " & intRoom.ToString & "))) ORDER BY THR1, WED1, TUE1, MON1, SUN1, SAT1"
+                    DAAC.Fill(DS, "tblAllProgs")
+            End Select
+        MsgBox(DS.Tables("tblRooms").Rows.Count.ToString)
+        Dim intTimeFlag(5, 7) As Integer ' (r:days, c:times //begins from 0)
+        Dim strTadakhol As String = ""
+            Dim TadakholExists As Boolean = False
 
+        For rm = 1 To DS.Tables("tblRooms").Rows.Count
+            strTadakhol = ""
+            strTadakhol = strTadakhol & "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>"
+            strTadakhol = strTadakhol & "<tr><th>روز</th><th>ساعت</th><th>نام درس</th><th>گ</th><th>ورودي</th><th>استاد</th></tr>"
+            Try
+                For intTime As Integer = 0 To 7 ' for each time of day
+                    For intDay As Integer = 0 To 5
+                        For intThisRoom As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
+                            If ((DS.Tables("tblAllProgs").Rows(intThisRoom).Item(intDay + 10) And (2 ^ intTime)) = (2 ^ intTime)) And (DS.Tables("tblAllProgs").Rows(intThisRoom).Item(16) = intRoom) Then
+                                intTimeFlag(intDay, intTime) = intTimeFlag(intDay, intTime) + 1
+                                If intTimeFlag(intDay, intTime) > 1 Then strTadakhol = strTadakhol & "<tr><td>" & strDay(intDay) & "</td><td>" & strTime(intTime) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisRoom).Item(3) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisRoom).Item(5) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisRoom).Item(29) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisRoom).Item(7) & "</td></tr>" & vbCrLf : TadakholExists = True
+                            End If
+                            If (((DS.Tables("tblAllProgs").Rows(intThisRoom).Item(intDay + 18) And (2 ^ intTime)) = (2 ^ intTime))) And (Val(DS.Tables("tblAllProgs").Rows(intThisRoom).Item(24)) = intRoom) Then
+                                intTimeFlag(intDay, intTime) = intTimeFlag(intDay, intTime) + 1
+                                If intTimeFlag(intDay, intTime) > 1 Then strTadakhol = strTadakhol & "<tr><td>" & strDay(intDay) & "</td><td>" & strTime(intTime) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisRoom).Item(3) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisRoom).Item(5) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisRoom).Item(29) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisRoom).Item(7) & "</td></tr>" & vbCrLf : TadakholExists = True
+                            End If
+                        Next intThisRoom
+                    Next intDay
+                Next intTime
+            Catch ex As Exception
+            End Try
+            strTadakhol = strTadakhol & "</table>"
+
+            '=======================================================================OPEN Staff()
+            FileOpen(1, Application.StartupPath & "Nexterm_class_All.html", OpenMode.Append)
+            PrintLine(1, "<html dir= ""rtl"">")
+            PrintLine(1, "<head><title>برنامه کلاس/آز</title><style>table, th, td {border: 1px solid;} body {background-image:url('" & strReportBG & "');}</style></head>")
+
+            PrintLine(1, "<body>")
+            PrintLine(1, "<p style='color:blue; font-family:tahoma; font-size:12px; text-align: center'>دانشگاه شهرکرد، دانشکده علوم پايه</p>")
+            PrintLine(1, "<h1 style='color:red; text-align: center'>", strRoom, "</h1>")
+            PrintLine(1, "<h2 style='color:Green; text-align: center'>", strTerm, "</h2><hr>")
+
+
+            If TadakholExists = True Then
+                PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>")
+                PrintLine(1, "تداخل در برنامه", "<br></p>")
+                PrintLine(1, strTadakhol)
+                PrintLine(1, "<br><hr>")
+            End If
+
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه کلاس</p>")
+            PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
+            PrintLine(1, "<tr><th>شماره</th>")
+            PrintLine(1, "<th>گ</th>")
+            PrintLine(1, "<th>نام درس</th>")
+
+            PrintLine(1, "<th>واحد</th>")
+            PrintLine(1, "<th>نام مدرس</th>")
+            PrintLine(1, "<th>کارشناس</th>")
+            PrintLine(1, "<th>ش</th>")
+            PrintLine(1, "<th>ي</th>")
+            PrintLine(1, "<th>د</th>")
+            PrintLine(1, "<th>س</th>")
+            PrintLine(1, "<th>چ</th>")
+            PrintLine(1, "<th>پ</th>")
+            PrintLine(1, "<th>امتحان</th>")
+            PrintLine(1, "<th>کلاس1</th>")
+            PrintLine(1, "<th>کلاس2</th>")
+            PrintLine(1, "<th>ظرفيت</th>")
+            PrintLine(1, "<th>يادداشت</th>")
+            PrintLine(1, "<th>ورودي</th></tr>")
+
+            For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
+                PrintLine(1, "<tr>")
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(2), "</td>")   ' 2 :CourseNumber
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(5), "</td>")   ' 5 :Group
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(3), "</td>")   ' 3 :CourseName
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(4), "</td>")   ' 4 :Unit
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(7), "</td>")   ' 7 :Staff
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(9), "</td>")   ' 9 :Tech
+
+                For intday As Integer = 0 To 5
+                    Dim x As String = ""
+                    For intTime As Integer = 0 To 7
+                        If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Or ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
+                            x = x & strTime(intTime) & "<br>" ' Time
+                        End If
+                    Next intTime
+                    PrintLine(1, "<td>", x, "</td>") ' Time
+                Next intday
+
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(27), "</td>") ' 25:Exam
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(17), "</td>") ' 17:Class1
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(25), "</td>") ' 25:Class2
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(26), "</td>") ' 26:Capacity
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(28), "</td>") ' 28:Notes
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(29), "</td>") ' 29:Ent
+                PrintLine(1, "</tr>")
+            Next i
+            PrintLine(1, "</table><br><hr>")
+
+            ' //footer
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'><br></p><br><hr>")
+            PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>NexTerm computer program, Faculty of Science, SKU. Developed by: Majid Sharifi-Tehrani (PhD Plant Systematics), 1400</p>")
+            PrintLine(1, "</body></html>")
+            FileClose(1)
+
+        Next rm
+
+    End Sub
 End Class

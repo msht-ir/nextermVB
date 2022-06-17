@@ -10,16 +10,16 @@
             Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                 Case "SqlServer"
                     If ChkMyNotes.Checked = True Then
-                        DASS.SelectCommand.CommandText = "SELECT ID, SentDate As [تاريخ ارسال], usrFrom As [از طرف], usrTo As [به], usrTo_ID, msgString As [يادداشت], IsActive As [فعال] FROM msgs WHERE usrTo_ID=" & intUser.ToString & " ORDER BY SentDate"
+                        DASS.SelectCommand.CommandText = "SELECT ID, SentDate As [زمان ارسال], usrFrom As [از طرف], usrTo As [به], usrTo_ID, msgString As [يادداشت], IsActive As [جديد] FROM msgs WHERE usrTo_ID=" & intUser.ToString & " ORDER BY SentDate"
                     Else
-                        DASS.SelectCommand.CommandText = "SELECT ID, SentDate As [تاريخ ارسال], usrFrom As [از طرف], usrTo As [به], usrTo_ID, msgString As [يادداشت], IsActive As [فعال] FROM msgs ORDER BY SentDate"
+                        DASS.SelectCommand.CommandText = "SELECT ID, SentDate As [زمان ارسال], usrFrom As [از طرف], usrTo As [به], usrTo_ID, msgString As [يادداشت], IsActive As [جديد] FROM msgs ORDER BY SentDate"
                     End If
                     DASS.Fill(DS, "tblMsgs")
                 Case "Access"
                     If ChkMyNotes.Checked = True Then
-                        DAAC.SelectCommand.CommandText = "SELECT ID, SentDate As [تاريخ ارسال], usrFrom As [از طرف], usrTo As [به], usrTo_ID, msgString As [يادداشت], IsActive As [فعال] FROM msgs WHERE usrTo_ID=" & intUser.ToString & " ORDER BY SentDate"
+                        DAAC.SelectCommand.CommandText = "SELECT ID, SentDate As [زمان ارسال], usrFrom As [از طرف], usrTo As [به], usrTo_ID, msgString As [يادداشت], IsActive As [جديد] FROM msgs WHERE usrTo_ID=" & intUser.ToString & " ORDER BY SentDate"
                     Else
-                        DAAC.SelectCommand.CommandText = "SELECT ID, SentDate As [تاريخ ارسال], usrFrom As [از طرف], usrTo As [به], usrTo_ID, msgString As [يادداشت], IsActive As [فعال] FROM msgs ORDER BY SentDate"
+                        DAAC.SelectCommand.CommandText = "SELECT ID, SentDate As [زمان ارسال], usrFrom As [از طرف], usrTo As [به], usrTo_ID, msgString As [يادداشت], IsActive As [جديد] FROM msgs ORDER BY SentDate"
                     End If
                     DAAC.Fill(DS, "tblMsgs")
             End Select
@@ -34,10 +34,10 @@
         GridNotes.Columns(0).Visible = False    ' ID
         GridNotes.Columns(4).Visible = False    ' usrToID
 
-        GridNotes.Columns(1).Width = 120        'Sent
-        GridNotes.Columns(2).Width = 130        'From
+        GridNotes.Columns(1).Width = 120        'DateSent
+        GridNotes.Columns(2).Width = 200        'From
         GridNotes.Columns(3).Width = 180        'To
-        GridNotes.Columns(5).Width = 600        'msg
+        GridNotes.Columns(5).Width = 620        'msg
         GridNotes.Columns(6).Width = 35         'active
 
         For i = 0 To GridNotes.Columns.Count - 1
@@ -97,7 +97,7 @@
                     Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
                     cmd.CommandType = CommandType.Text
                     cmd.Parameters.AddWithValue("@sentdate", strDatex)
-                    cmd.Parameters.AddWithValue("@usrfrom", UserNickName)
+                    cmd.Parameters.AddWithValue("@usrfrom", strUser & " : " & UserNickName)
                     cmd.Parameters.AddWithValue("@usrto", strDept)
                     cmd.Parameters.AddWithValue("@usrtoid", intDept)
                     cmd.Parameters.AddWithValue("@msgstring", strMessage)
@@ -107,7 +107,7 @@
                     Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
                     cmd.CommandType = CommandType.Text
                     cmd.Parameters.AddWithValue("@sentdate", strDatex)
-                    cmd.Parameters.AddWithValue("@usrfrom", UserNickName)
+                    cmd.Parameters.AddWithValue("@usrfrom", strUser & " : " & UserNickName)
                     cmd.Parameters.AddWithValue("@usrto", strDept)
                     cmd.Parameters.AddWithValue("@usrtoid", intDept)
                     cmd.Parameters.AddWithValue("@msgstring", strMessage)
@@ -201,8 +201,8 @@
 
     End Sub
 
-    Private Sub ChkMyNotes_CheckedChanged(sender As Object, e As EventArgs) Handles ChkMyNotes.CheckedChanged
+    Private Sub ChkMyNotes_Click(sender As Object, e As EventArgs) Handles ChkMyNotes.Click
         ShowNotes()
-    End Sub
 
+    End Sub
 End Class

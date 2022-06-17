@@ -163,7 +163,7 @@
         Select Case c'SELECT BASED ON GRID.COLUMN
             Case 3 'Term
                 trm = DS.Tables("tblTemplateData").Rows(r).Item(3)
-                trm = Val(InputBox("Change Term to  > ", "NexTerm", trm))
+                trm = Val(InputBox("انتقال به ترم:", "NexTerm", trm))
                 If trm = 0 Then trm = 1
                 DS.Tables("tblTemplateData").Rows(r).Item(3) = trm
                 Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
@@ -187,6 +187,7 @@
             Case 4 'Course
                 intDept = ComboDepts.GetItemText(ComboDepts.SelectedValue)
                 intBioProg = DS.Tables("tblTemplates").Rows(GridTemplates.CurrentRow.Index).Item(5)
+                intCourse = DS.Tables("tbltemplateData").Rows(r).Item(2)
                 ChooseCourse.ShowDialog()
                 If strCourse = "" Then Exit Sub
 
@@ -218,8 +219,8 @@
                 Catch
                     coursenumber = 0
                 End Try
-                coursenumber = Val(InputBox("Change Term to  > ", "NexTerm", coursenumber))
-
+                coursenumber = Val(InputBox("تصحيح شماره درس", "NexTerm", coursenumber))
+                If coursenumber = 0 Then Exit Sub
                 DS.Tables("tblTemplateData").Rows(r).Item(5) = coursenumber
                 Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                     Case "SqlServer"
