@@ -14,6 +14,34 @@
 
     End Sub
 
+    Private Sub ListDepts_Click() Handles ListDepts.Click
+        Try
+            'ComboDept -> Populates ListStaff
+            Dim i As String = ListDepts.GetItemText(ListDepts.SelectedValue)
+            If Val(i) = 0 Then Exit Sub
+            If DS.Tables("tblDepartments").Rows(ListDepts.SelectedIndex).Item(6) = True Then MenuEdit.Enabled = True Else MenuEdit.Enabled = False
+            'READ FROM DATABASE
+            DS.Tables("tblStaff").Clear()
+            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                Case "SqlServer"
+                    DASS.SelectCommand.CommandText = "SELECT Staff.ID, StaffName, Affiliation FROM Staff INNER JOIN Departments ON Staff.Affiliation = Departments.ID WHERE Affiliation =" & i.ToString & " ORDER BY StaffName"
+                    DASS.Fill(DS, "tblStaff")
+                Case "Access"
+                    DAAC.SelectCommand.CommandText = "SELECT Staff.ID, StaffName, Affiliation FROM Staff INNER JOIN Departments ON Staff.Affiliation = Departments.ID WHERE Affiliation =" & i.ToString & " ORDER BY StaffName"
+                    DAAC.Fill(DS, "tblStaff")
+            End Select
+
+            ListStaff.DataSource = DS.Tables("tblStaff")
+            ListStaff.DisplayMember = "StaffName"
+            ListStaff.ValueMember = "ID"
+            ListStaff.Refresh()
+            ListStaff.SelectedIndex = -1
+            ListStaff.SelectedValue = 0
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+
+    End Sub
     Private Sub ListStaff_DoubleClick(sender As Object, e As EventArgs) Handles ListStaff.DoubleClick
         MenuOK_Click(sender, e)
 
@@ -108,32 +136,4 @@
 
     End Sub
 
-    Private Sub ListDepts_Click() Handles ListDepts.Click
-        Try
-            'ComboDept -> Populates ListStaff
-            Dim i As String = ListDepts.GetItemText(ListDepts.SelectedValue)
-            If Val(i) = 0 Then Exit Sub
-            If DS.Tables("tblDepartments").Rows(ListDepts.SelectedIndex).Item(6) = True Then MenuEdit.Enabled = True Else MenuEdit.Enabled = False
-            'READ FROM DATABASE
-            DS.Tables("tblStaff").Clear()
-            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-                Case "SqlServer"
-                    DASS.SelectCommand.CommandText = "SELECT Staff.ID, StaffName, Affiliation FROM Staff INNER JOIN Departments ON Staff.Affiliation = Departments.ID WHERE Affiliation =" & i.ToString & " ORDER BY StaffName"
-                    DASS.Fill(DS, "tblStaff")
-                Case "Access"
-                    DAAC.SelectCommand.CommandText = "SELECT Staff.ID, StaffName, Affiliation FROM Staff INNER JOIN Departments ON Staff.Affiliation = Departments.ID WHERE Affiliation =" & i.ToString & " ORDER BY StaffName"
-                    DAAC.Fill(DS, "tblStaff")
-            End Select
-
-            ListStaff.DataSource = DS.Tables("tblStaff")
-            ListStaff.DisplayMember = "StaffName"
-            ListStaff.ValueMember = "ID"
-            ListStaff.Refresh()
-            ListStaff.SelectedIndex = -1
-            ListStaff.SelectedValue = 0
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
-
-    End Sub
 End Class

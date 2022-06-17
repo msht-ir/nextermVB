@@ -69,7 +69,6 @@ Public Class frmTermProgs
             Menu_Delete_Entry_TermProg.Enabled = boolENBL
             Menu_UserActivityLog_CLEAR.Enabled = boolENBL
 
-            Menu_ReportStaffPrograms.Enabled = False
             Menu_ReportTechPrograms.Enabled = False
             Menu_ReportEntriesPrograms.Enabled = False
 
@@ -2125,7 +2124,7 @@ Public Class frmTermProgs
 
     End Sub
 
-    'Menu 4 Program
+    'Menu 3 Program
     Private Sub Menu_Templates(sender As Object, e As EventArgs) Handles M2Templates.Click
         If ComboBox1.SelectedIndex = -1 Then Exit Sub
         intDept = ComboBox1.SelectedValue
@@ -2267,165 +2266,9 @@ Public Class frmTermProgs
 
     End Sub
 
-    'Menu 5 Report
-
-    Private Sub Menu_Notes_Click(sender As Object, e As EventArgs) Handles Menu_Notes.Click
-        frmShowNotes.ShowDialog()
-
-    End Sub
-    Private Sub Menu_UserActivityLog_CLEAR_Click(sender As Object, e As EventArgs) Handles Menu_UserActivityLog_CLEAR.Click
-        Dim myansw As DialogResult = MsgBox("سوابق فعاليت کاربران پاک شود؟", vbYesNo, "نکسترم")
-        If myansw = vbNo Then
-            Exit Sub
-        Else
-            Try
-                Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-                    Case "SqlServer"
-                        DASS.SelectCommand.CommandText = "Delete From xLog"
-                        DASS.Fill(DS, "tblLogs") ' tbl Logs
-                    Case "Access"
-                        DAAC.SelectCommand.CommandText = "delete * From xLog"
-                        DAAC.Fill(DS, "tblLogs") ' tbl Logs
-                End Select
-            Catch ex As Exception
-                MsgBox(ex.ToString)
-            End Try
-            WriteLOG(12)
-            'MsgBox("پاک شد", vbInformation, "Notice:")
-            Menu_UserActivityLogs_Click(sender, e)
-        End If
-
-    End Sub
-    Private Sub Menu_UserActivityLogs_Click(sender As Object, e As EventArgs) Handles Menu_UserActivityLogs.Click
-        Try
-            DS.Tables("tblLogs").Clear()
-            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-                Case "SqlServer"
-                    DASS.SelectCommand.CommandText = "SELECT LogText From xLog ORDER BY LogText DESC"
-                    DASS.Fill(DS, "tblLogs") ' tbl Logs
-                Case "Access"
-                    DAAC.SelectCommand.CommandText = "SELECT LogText From xLog ORDER BY LogText DESC"
-                    DAAC.Fill(DS, "tblLogs") ' tbl Logs
-            End Select
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
-        FileOpen(1, Application.StartupPath & "Nexterm_log.html", OpenMode.Output)
-        PrintLine(1, "<html dir= ""ltr"">")
-        PrintLine(1, "<head><title>گزارش ورود کاربران</title><style>table, th, td {border: 1px solid;} </style></head>")
-        PrintLine(1, "<body>")
-        PrintLine(1, "<p style='color:blue; font-family:tahoma; font-size:12px; text-align: center'>دانشگاه شهرکرد، دانشکده علوم پايه</p>")
-        PrintLine(1, "<h4 style='color:red; font-family:tahoma; text-align: center'>Log for:  " & Server2Connect & "</h4>")
-        PrintLine(1, "<p style='font-family:tahoma; font-size:16px'>")
-        For i As Integer = 0 To DS.Tables("tblLogs").Rows.Count - 1
-            PrintLine(1, DS.Tables("tblLogs").Rows(i).Item(0) & "<br>")
-        Next i
-        PrintLine(1, "</p><br>")
-        ' //footer
-        PrintLine(1, "<p style='font-family:tahoma; font-size:12px'><br></p><br><hr>")
-        PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>NexTerm computer program, Faculty of Science, SKU. Developed by: Majid Sharifi-Tehrani (PhD Plant Systematics), 1400</p>")
-        PrintLine(1, "</body></html>")
-        FileClose(1)
-        Shell("explorer.exe " & Application.StartupPath & "Nexterm_log.html")
-
-    End Sub
-    Private Sub WriteLOG(intActivity As Integer)
-        If boolLog = True Then
-            'WRITE-LOG
-            Try
-                If Userx = "USER Faculty" Then intUser = 0
-                intEntry = ListBox1.SelectedValue
-                intTerm = ListBox2.SelectedValue
-                If Grid4.SelectedCells(0).RowIndex >= 0 Then
-                    intCourseNumber = Grid4.Item(2, Grid4.SelectedCells(0).RowIndex).Value
-                End If
-            Catch ex As Exception
-                'do nothing
-            End Try
-            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nick:" & UserNickName & " -pc:" & LCase(Environment.MachineName)
-            Select Case intActivity
-                Case 2 : strLog = strLog & " > logout"
-                Case 3 : strLog = strLog & " > login"
-                Case 4 : strLog = strLog & " > course added  : " & intCourseNumber.ToString & ", ent: " & intEntry.ToString & ", trm: " & strTerm
-                Case 5 : strLog = strLog & " > course deleted  : " & intCourseNumber.ToString & ", ent: " & intEntry.ToString & ", trm: " & strTerm
-                Case 6 : strLog = strLog & " > course term  : " & intCourseNumber.ToString & ", ent: " & intEntry.ToString & ", trm: " & strTerm
-                Case 7 : strLog = strLog & " > course changed : " & intCourseNumber.ToString & ", ent: " & intEntry.ToString & ", trm: " & strTerm
-                Case 8 : strLog = strLog & " > termProg refresh, ent " & intEntry.ToString & ", trm: " & strTerm.ToString
-                Case 9 : strLog = strLog & " > entryPrg deleted, ent " & intEntry.ToString
-                Case 10 : strLog = strLog & " > settings"
-                Case 11 : strLog = strLog & " > pass " & strDepartmentPass
-                Case 12 : strLog = strLog & " > log clr"
-            End Select
-
-            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-                Case "SqlServer"
-                    Try
-                        strSQL = "INSERT INTO xLog (LogText) VALUES (@logtext)"
-                        Dim cmdx As New SqlClient.SqlCommand(strSQL, CnnSS)
-                        cmdx.CommandType = CommandType.Text
-                        cmdx.Parameters.AddWithValue("@logtext", strLog)
-                        Dim ix As Integer = cmdx.ExecuteNonQuery()
-                    Catch ex As Exception
-                        MsgBox(ex.ToString) 'Do Nothing!
-                    End Try
-                Case "Access"
-                    Try
-                        strSQL = "INSERT INTO xLog (LogText) VALUES (@logtext)"
-                        Dim cmdx As New OleDb.OleDbCommand(strSQL, CnnAC)
-                        cmdx.CommandType = CommandType.Text
-                        cmdx.Parameters.AddWithValue("@logtext", strLog)
-                        Dim ix As Integer = cmdx.ExecuteNonQuery()
-                    Catch ex As Exception
-                        MsgBox(ex.ToString) 'Do Nothing!
-                    End Try
-            End Select
-        End If
-    End Sub
-
-
-    Private Sub Menu_ExitNexTerm_Click(sender As Object, e As EventArgs) Handles Menu_ExitNexTerm.Click
-        DoExitNexTerm()
-    End Sub
-    Private Sub DoExitNexTerm()
-        Dim i
-        i = MsgBox("خارج مي شويد؟", vbYesNo + vbDefaultButton1, "NexTerm")
-        If i = vbYes Then
-            WriteLOG(2)
-            Try
-                Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-                    Case "SqlServer"
-                        DS.Tables("tblSettings").Clear()
-                        DASS.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE iHerbsConstant LIKE 'Admin can prog%' ORDER BY iHerbsConstant"
-                        DASS.Fill(DS, "tblSettings")
-                        DS.Tables("tblSettings").Rows(0).Item(2) = "NO"
-                        strSQL = "UPDATE Settings SET iHerbsValue = 'NO' WHERE ID = @ID"
-                        Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
-                        cmd.CommandType = CommandType.Text
-                        cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(0).Item(0).ToString)
-                        Dim k As Integer = cmd.ExecuteNonQuery()
-
-                        CnnSS.Close() : CnnSS.Dispose() : CnnSS = Nothing : frmLogIn.Dispose() : ChooseStaff.Dispose() : ChooseTech.Dispose() : Me.Dispose() : Application.Exit() : End
-                    Case "Access"
-                        DS.Tables("tblSettings").Clear()
-                        DAAC.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE iHerbsConstant LIKE 'Admin can prog%' ORDER BY iHerbsConstant"
-                        DAAC.Fill(DS, "tblSettings")
-                        DS.Tables("tblSettings").Rows(0).Item(2) = "NO"
-                        strSQL = "UPDATE Settings SET iHerbsValue = 'NO' WHERE ID = @ID"
-                        Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
-                        cmd.CommandType = CommandType.Text
-                        cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(0).Item(0).ToString)
-                        Dim k As Integer = cmd.ExecuteNonQuery()
-
-                        CnnAC.Close() : CnnAC.Dispose() : CnnAC = Nothing : frmLogIn.Dispose() : ChooseStaff.Dispose() : ChooseTech.Dispose() : Me.Dispose() : Application.Exit() : End
-                End Select
-            Catch
-                MsgBox("Error in Exit module ....")
-            End Try
-        End If
-
-    End Sub
-
+    'Menu 4 Report
     Private Sub Menu_ReportClassPrograms_Click(sender As Object, e As EventArgs) Handles Menu_ReportClassPrograms.Click
+        'REPORT CLASSES
         intTerm = ListBox2.SelectedValue
         If intTerm < 1 Then
             ChooseTerm.ShowDialog()
@@ -2502,7 +2345,6 @@ Public Class frmTermProgs
                 PrintLine(1, "<br>")
             End If
 
-
             PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه کلاس</p>")
             PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
             PrintLine(1, "<tr><th>شماره</th>")
@@ -2549,7 +2391,6 @@ Public Class frmTermProgs
                 PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(29), "</td>") ' 29:Ent
                 PrintLine(1, "</tr>")
             Next i
-            'PrintLine(1, "</table><br><hr>")
             PrintLine(1, "</table><br>")
 
 lblx:
@@ -2591,4 +2432,362 @@ lblx:
         Shell("explorer.exe " & Application.StartupPath & "Nexterm_class_All.html")
 
     End Sub
+    Private Sub Menu_ReportStaffPrograms_Click(sender As Object, e As EventArgs) Handles Menu_ReportStaffPrograms.Click
+        'Report STAFFs
+        intDept = intUser
+        If intUser = 0 Then intDept = ComboBox1.SelectedValue
+        If intDept = 0 Then
+            ChooseDept.ShowDialog()
+            If intDept = 0 Then Exit Sub
+        End If
+        intTerm = ListBox2.SelectedValue
+        If intTerm < 1 Then
+            ChooseTerm.ShowDialog()
+            If intTerm < 1 Then Exit Sub
+        End If
+
+        Dim myansw As DialogResult = MsgBox("جزئيات ارايه شود؟", vbYesNoCancel, "نکسترم")
+        If myansw = vbCancel Then Exit Sub
+
+        'READ STAFF TABLE
+        DS.Tables("tblStaff").Clear()
+        Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+            Case "SqlServer"
+                DASS.SelectCommand.CommandText = "SELECT Staff.ID, StaffName, Affiliation FROM Staff INNER JOIN Departments ON Staff.Affiliation = Departments.ID WHERE Affiliation =" & intDept.ToString & " ORDER BY StaffName"
+                DASS.Fill(DS, "tblStaff")
+            Case "Access"
+                DAAC.SelectCommand.CommandText = "SELECT Staff.ID, StaffName, Affiliation FROM Staff INNER JOIN Departments ON Staff.Affiliation = Departments.ID WHERE Affiliation =" & intDept.ToString & " ORDER BY StaffName"
+                DAAC.Fill(DS, "tblStaff")
+        End Select
+
+        FileOpen(1, Application.StartupPath & "Nexterm_staff_All.html", OpenMode.Output)
+        PrintLine(1, "<html dir= ""rtl"">")
+        PrintLine(1, "<head><title>برنامه استاد</title><style>table, th, td {border: 1px solid;} body {background-image:url('" & strReportBG & "');}</style></head>")
+        PrintLine(1, "<body>")
+        PrintLine(1, "<p style='color:blue; font-family:tahoma; font-size:12px; text-align: center'>دانشگاه شهرکرد، دانشکده علوم پايه</p>")
+        PrintLine(1, "<h2 style='color:Green; text-align: center'>", strTerm, "</h2><hr>")
+
+        For stf As Integer = 0 To DS.Tables("tblStaff").Rows.Count - 1
+            intStaff = DS.Tables("tblStaff").Rows(stf).Item(0)
+            DS.Tables("tblAllProgs").Clear()
+            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                Case "SqlServer"
+                    DASS.SelectCommand.CommandText = "SELECT TermProgs.ID, Course_ID, CourseNumber, CourseName, Units, [Group], Staff_ID, Staff.StaffName, Tech_ID, Technecians.StaffName, SAT1, SUN1, MON1, TUE1, WED1, THR1, Room1, Rooms.RoomName, SAT2, SUN2, MON2, TUE2, WED2, THR2, Room2, Rooms_1.RoomName, Capacity, ExamDate, TermProgs.Notes, CONCAT([ProgramName] , ' - ' , [Entyear]) AS Ent, Terms.Term FROM (BioProgs INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) INNER JOIN ((((((Rooms AS Rooms_1 RIGHT JOIN TermProgs ON Rooms_1.ID = TermProgs.Room2) LEFT JOIN Rooms ON TermProgs.Room1 = Rooms.ID) LEFT JOIN Terms ON TermProgs.Term_ID = Terms.ID) LEFT JOIN Courses ON TermProgs.Course_ID = Courses.ID) LEFT JOIN Staff ON TermProgs.Staff_ID = Staff.ID) LEFT JOIN Technecians ON TermProgs.Tech_ID = Technecians.ID) ON Entries.ID = TermProgs.Entry_ID WHERE Term_ID = " & intTerm.ToString & " AND Staff_ID = " & intStaff.ToString & " ORDER BY THR1, WED1, TUE1, MON1, SUN1, SAT1"
+                    DASS.Fill(DS, "tblAllProgs")
+                Case "Access"
+                    DAAC.SelectCommand.CommandText = "SELECT TermProgs.ID, Course_ID, CourseNumber, CourseName, Units, [Group], Staff_ID, Staff.StaffName, Tech_ID, Technecians.StaffName, SAT1, SUN1, MON1, TUE1, WED1, THR1, Room1, Rooms.RoomName, SAT2, SUN2, MON2, TUE2, WED2, THR2, Room2, Rooms_1.RoomName, Capacity, ExamDate, TermProgs.Notes, [ProgramName] & ' - ' & [Entyear], Terms.Term AS Ent FROM (BioProgs INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) INNER JOIN ((((((Rooms AS Rooms_1 RIGHT JOIN TermProgs ON Rooms_1.ID = TermProgs.Room2) LEFT JOIN Rooms ON TermProgs.Room1 = Rooms.ID) LEFT JOIN Terms ON TermProgs.Term_ID = Terms.ID) LEFT JOIN Courses ON TermProgs.Course_ID = Courses.ID) LEFT JOIN Staff ON TermProgs.Staff_ID = Staff.ID) LEFT JOIN Technecians ON TermProgs.Tech_ID = Technecians.ID) ON Entries.ID = TermProgs.Entry_ID WHERE Term_ID = " & intTerm.ToString & " AND Staff_ID = " & intStaff.ToString & " ORDER BY THR1, WED1, TUE1, MON1, SUN1, SAT1"
+                    DAAC.Fill(DS, "tblAllProgs")
+            End Select
+
+            strStaff = DS.Tables("tblStaff").Rows(stf).Item(1)
+            PrintLine(1, "<h1 style='color:red; text-align: center'>", strStaff, "</h1>")
+
+            Dim intTimeFlag(5, 7) As Integer ' (r:days, c:times //begins from 0)
+            Dim strTadakhol As String = ""
+            Dim TadakholExists As Boolean = False
+
+            strTadakhol = strTadakhol & "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>"
+            strTadakhol = strTadakhol & "<tr><th>روز</th><th>ساعت</th><th>نام درس</th><th>گ</th><th>ورودي</th></tr>"
+            For intTime As Integer = 0 To 7 ' for each time of day
+                For intDay As Integer = 0 To 5 'each day
+                    For intThisStaff As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
+                        If (DS.Tables("tblAllProgs").Rows(intThisStaff).Item(intDay + 10) And (2 ^ intTime)) = (2 ^ intTime) Then
+                            intTimeFlag(intDay, intTime) = intTimeFlag(intDay, intTime) + 1
+                            If intTimeFlag(intDay, intTime) > 1 Then strTadakhol = strTadakhol & "<tr><td>" & strDay(intDay) & "</td><td>" & strTime(intTime) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisStaff).Item(3) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisStaff).Item(5) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisStaff).Item(29) & "</td></tr>" & vbCrLf : TadakholExists = True
+                        End If
+                        If (DS.Tables("tblAllProgs").Rows(intThisStaff).Item(intDay + 18) And (2 ^ intTime)) = (2 ^ intTime) Then
+                            intTimeFlag(intDay, intTime) = intTimeFlag(intDay, intTime) + 1
+                            If intTimeFlag(intDay, intTime) > 1 Then strTadakhol = strTadakhol & "<tr><td>" & strDay(intDay) & "</td><td>" & strTime(intTime) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisStaff).Item(3) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisStaff).Item(5) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisStaff).Item(29) & "</td></tr>" & vbCrLf : TadakholExists = True
+                        End If
+                    Next intThisStaff
+                Next intDay
+            Next intTime
+            strTadakhol = strTadakhol & "</table>"
+
+            If myansw = vbNo Then GoTo lblx
+            If TadakholExists = True Then
+                PrintLine(1, "تداخل در برنامه", "<br></p>")
+                PrintLine(1, strTadakhol)
+            End If
+
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه استاد</p>")
+            PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
+            PrintLine(1, "<tr><th>شماره</th>")
+            PrintLine(1, "<th>گ</th>")
+            PrintLine(1, "<th>نام درس</th>")
+            PrintLine(1, "<th>واحد</th>")
+            PrintLine(1, "<th>نام مدرس</th>")
+            PrintLine(1, "<th>کارشناس</th>")
+            PrintLine(1, "<th>ش</th>")
+            PrintLine(1, "<th>ي</th>")
+            PrintLine(1, "<th>د</th>")
+            PrintLine(1, "<th>س</th>")
+            PrintLine(1, "<th>چ</th>")
+            PrintLine(1, "<th>پ</th>")
+            PrintLine(1, "<th>امتحان</th>")
+            PrintLine(1, "<th>کلاس1</th>")
+            PrintLine(1, "<th>کلاس2</th>")
+            PrintLine(1, "<th>ظرفيت</th>")
+            PrintLine(1, "<th>يادداشت</th>")
+            PrintLine(1, "<th>ورودي</th></tr>")
+
+            For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
+                PrintLine(1, "<tr>")
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(2), "</td>")   ' 2 :CourseNumber
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(5), "</td>")   ' 5 :Group
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(3), "</td>")   ' 3 :CourseName
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(4), "</td>")   ' 4 :Unit
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(7), "</td>")   ' 7 :Staff
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(9), "</td>")   ' 9 :Tech
+
+                For intday As Integer = 0 To 5
+                    Dim x As String = ""
+                    For intTime As Integer = 0 To 7
+                        If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Or ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
+                            x = x & strTime(intTime) & "<br>" ' Time
+                        End If
+                    Next intTime
+                    PrintLine(1, "<td>", x, "</td>") ' Time
+                Next intday
+
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(27), "</td>") ' 27:Exam
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(17), "</td>") ' 17:Class1
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(25), "</td>") ' 25:Class2
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(26), "</td>") ' 26:Capacity
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(28), "</td>") ' 28:Notes
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(29), "</td>") ' 29:Ent
+                PrintLine(1, "</tr>")
+            Next i
+            PrintLine(1, "</table><br><hr>")
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>ساعت هاي آزاد</p>")
+lblx:
+            'Draw 3rd Table: Weekly
+            Dim strTableTag As String = ""
+
+            PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
+            PrintLine(1, "<tr><th>روز</th>")
+            PrintLine(1, "<th>08:30</th>")
+            PrintLine(1, "<th>09:30</th>")
+            PrintLine(1, "<th>10:30</th>")
+            PrintLine(1, "<th>11:30</th>")
+            PrintLine(1, "<th>13:30</th>")
+            PrintLine(1, "<th>14:30</th>")
+            PrintLine(1, "<th>15:30</th>")
+            PrintLine(1, "<th>16:30</th></tr>")
+
+            For d As Integer = 0 To 5
+                PrintLine(1, "<tr>")
+                PrintLine(1, "<td>" & strDay(d) & "</th>")
+                For i As Integer = 0 To 7
+                    If Val(intTimeFlag(d, i)) > 1 Then
+                        strTableTag = "<td style=text-align:center;background-color:yellow;>"
+                    ElseIf Val(intTimeFlag(d, i)) = 1 Then
+                        strTableTag = "<td style=text-align:center;background-color:white;>"
+                    Else
+                        strTableTag = "<td style=text-align:center;>"
+                    End If
+                    If intTimeFlag(d, i) = 0 Then
+                        PrintLine(1, strTableTag, "</td>") ' 08:30-16:30
+                    Else
+                        PrintLine(1, strTableTag, intTimeFlag(d, i), "</td>") ' 08:30-16:30
+                    End If
+                Next i
+                PrintLine(1, "</tr>")
+            Next d
+            PrintLine(1, "</table>")
+
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'></p>")
+            If myansw = vbNo Then GoTo lblx2
+            ' // table of Exams dates for Staff
+            DS.Tables("tblTermExams").Clear()
+            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                Case "SqlServer"
+                    DASS.SelectCommand.CommandText = "SELECT TermProgs.ID, ExamDate, CourseName, Course_ID, [Group], StaffName, Staff_ID, CONCAT([ProgramName] , ' - ' , [Entyear]) AS strEnt FROM (BioProgs INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) INNER JOIN (((TermProgs LEFT JOIN Terms ON TermProgs.Term_ID = Terms.ID) LEFT JOIN Courses ON TermProgs.Course_ID = Courses.ID) LEFT JOIN Staff ON TermProgs.Staff_ID = Staff.ID) ON Entries.ID = TermProgs.Entry_ID WHERE Term_ID = " & intTerm.ToString & " AND Staff_ID = " & intStaff.ToString & " ORDER BY ExamDate"
+                    DASS.Fill(DS, "tblTermExams")
+                Case "Access"
+                    DAAC.SelectCommand.CommandText = "SELECT TermProgs.ID, ExamDate, CourseName, Course_ID, [Group], StaffName, Staff_ID, [ProgramName] & ' - ' & [Entyear] AS strEnt FROM (BioProgs INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) INNER JOIN (((TermProgs LEFT JOIN Terms ON TermProgs.Term_ID = Terms.ID) LEFT JOIN Courses ON TermProgs.Course_ID = Courses.ID) LEFT JOIN Staff ON TermProgs.Staff_ID = Staff.ID) ON Entries.ID = TermProgs.Entry_ID WHERE Term_ID = " & intTerm.ToString & " AND Staff_ID = " & intStaff.ToString & " ORDER BY ExamDate"
+                    DAAC.Fill(DS, "tblTermExams")
+            End Select
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه امتحانات</p>")
+            PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
+            PrintLine(1, "<tr><th>تاريخ</th>")
+            PrintLine(1, "<th>درس</th>")
+            PrintLine(1, "<th>ورودي</th></tr>")
+            For i As Integer = 0 To DS.Tables("tblTermExams").Rows.Count - 1
+                PrintLine(1, "<tr><td>", DS.Tables("tblTermExams").Rows(i).Item(1), "</td>")  ' 1 :Exam
+                PrintLine(1, "<td>", DS.Tables("tblTermExams").Rows(i).Item(2), "</td>")      ' 2 :Course
+                PrintLine(1, "<td>", DS.Tables("tblTermExams").Rows(i).Item(7), "</td></tr>") ' 7 :Entry string
+            Next
+            PrintLine(1, "</table>")
+lblx2:
+            PrintLine(1, "<hr>")
+        Next stf
+
+
+        ' //footer
+        PrintLine(1, "<p style='font-family:tahoma; font-size:12px'><br></p><br>")
+        PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>NexTerm computer program, Faculty of Science, SKU. Developed by: Majid Sharifi-Tehrani (PhD Plant Systematics), 1400</p>")
+        PrintLine(1, "</body></html>")
+        FileClose(1)
+
+        Shell("explorer.exe " & Application.StartupPath & "Nexterm_staff_All.html")
+
+    End Sub
+    Private Sub Menu_Notes_Click(sender As Object, e As EventArgs) Handles Menu_Notes.Click
+        frmShowNotes.ShowDialog()
+
+    End Sub
+    Private Sub Menu_UserActivityLog_CLEAR_Click(sender As Object, e As EventArgs) Handles Menu_UserActivityLog_CLEAR.Click
+        Dim myansw As DialogResult = MsgBox("سوابق فعاليت کاربران پاک شود؟", vbYesNo, "نکسترم")
+        If myansw = vbNo Then
+            Exit Sub
+        Else
+            Try
+                Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                    Case "SqlServer"
+                        DASS.SelectCommand.CommandText = "Delete From xLog"
+                        DASS.Fill(DS, "tblLogs") ' tbl Logs
+                    Case "Access"
+                        DAAC.SelectCommand.CommandText = "delete * From xLog"
+                        DAAC.Fill(DS, "tblLogs") ' tbl Logs
+                End Select
+            Catch ex As Exception
+                MsgBox(ex.ToString)
+            End Try
+            WriteLOG(12)
+            'MsgBox("پاک شد", vbInformation, "Notice:")
+            Menu_UserActivityLogs_Click(sender, e)
+        End If
+
+    End Sub
+    Private Sub Menu_UserActivityLogs_Click(sender As Object, e As EventArgs) Handles Menu_UserActivityLogs.Click
+        Try
+            DS.Tables("tblLogs").Clear()
+            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                Case "SqlServer"
+                    DASS.SelectCommand.CommandText = "SELECT LogText From xLog ORDER BY LogText DESC"
+                    DASS.Fill(DS, "tblLogs") ' tbl Logs
+                Case "Access"
+                    DAAC.SelectCommand.CommandText = "SELECT LogText From xLog ORDER BY LogText DESC"
+                    DAAC.Fill(DS, "tblLogs") ' tbl Logs
+            End Select
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+        FileOpen(1, Application.StartupPath & "Nexterm_log.html", OpenMode.Output)
+        PrintLine(1, "<html dir= ""ltr"">")
+        PrintLine(1, "<head><title>گزارش ورود کاربران</title><style>table, th, td {border: 1px solid;} </style></head>")
+        PrintLine(1, "<body>")
+        PrintLine(1, "<p style='color:blue; font-family:tahoma; font-size:12px; text-align: center'>دانشگاه شهرکرد، دانشکده علوم پايه</p>")
+        PrintLine(1, "<h4 style='color:red; font-family:tahoma; text-align: center'>Log for:  " & Server2Connect & "</h4>")
+        PrintLine(1, "<p style='font-family:tahoma; font-size:16px'>")
+        For i As Integer = 0 To DS.Tables("tblLogs").Rows.Count - 1
+            PrintLine(1, DS.Tables("tblLogs").Rows(i).Item(0) & "<br>")
+        Next i
+        PrintLine(1, "</p><br>")
+        ' //footer
+        PrintLine(1, "<p style='font-family:tahoma; font-size:12px'><br></p><br><hr>")
+        PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>NexTerm computer program, Faculty of Science, SKU. Developed by: Majid Sharifi-Tehrani (PhD Plant Systematics), 1400</p>")
+        PrintLine(1, "</body></html>")
+        FileClose(1)
+        Shell("explorer.exe " & Application.StartupPath & "Nexterm_log.html")
+
+    End Sub
+
+
+    Private Sub WriteLOG(intActivity As Integer)
+        If boolLog = True Then
+            'WRITE-LOG
+            Try
+                If Userx = "USER Faculty" Then intUser = 0
+                intEntry = ListBox1.SelectedValue
+                intTerm = ListBox2.SelectedValue
+                If Grid4.SelectedCells(0).RowIndex >= 0 Then
+                    intCourseNumber = Grid4.Item(2, Grid4.SelectedCells(0).RowIndex).Value
+                End If
+            Catch ex As Exception
+                'do nothing
+            End Try
+            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nick:" & UserNickName & " -pc:" & LCase(Environment.MachineName)
+            Select Case intActivity
+                Case 2 : strLog = strLog & " > logout"
+                Case 3 : strLog = strLog & " > login"
+                Case 4 : strLog = strLog & " > course added  : " & intCourseNumber.ToString & ", ent: " & intEntry.ToString & ", trm: " & strTerm
+                Case 5 : strLog = strLog & " > course deleted  : " & intCourseNumber.ToString & ", ent: " & intEntry.ToString & ", trm: " & strTerm
+                Case 6 : strLog = strLog & " > course term  : " & intCourseNumber.ToString & ", ent: " & intEntry.ToString & ", trm: " & strTerm
+                Case 7 : strLog = strLog & " > course changed : " & intCourseNumber.ToString & ", ent: " & intEntry.ToString & ", trm: " & strTerm
+                Case 8 : strLog = strLog & " > termProg refresh, ent " & intEntry.ToString & ", trm: " & strTerm.ToString
+                Case 9 : strLog = strLog & " > entryPrg deleted, ent " & intEntry.ToString
+                Case 10 : strLog = strLog & " > settings"
+                Case 11 : strLog = strLog & " > pass " & strDepartmentPass
+                Case 12 : strLog = strLog & " > log clr"
+            End Select
+
+            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                Case "SqlServer"
+                    Try
+                        strSQL = "INSERT INTO xLog (LogText) VALUES (@logtext)"
+                        Dim cmdx As New SqlClient.SqlCommand(strSQL, CnnSS)
+                        cmdx.CommandType = CommandType.Text
+                        cmdx.Parameters.AddWithValue("@logtext", strLog)
+                        Dim ix As Integer = cmdx.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox(ex.ToString) 'Do Nothing!
+                    End Try
+                Case "Access"
+                    Try
+                        strSQL = "INSERT INTO xLog (LogText) VALUES (@logtext)"
+                        Dim cmdx As New OleDb.OleDbCommand(strSQL, CnnAC)
+                        cmdx.CommandType = CommandType.Text
+                        cmdx.Parameters.AddWithValue("@logtext", strLog)
+                        Dim ix As Integer = cmdx.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox(ex.ToString) 'Do Nothing!
+                    End Try
+            End Select
+        End If
+    End Sub
+
+    Private Sub Menu_ExitNexTerm_Click(sender As Object, e As EventArgs) Handles Menu_ExitNexTerm.Click
+        DoExitNexTerm()
+    End Sub
+    Private Sub DoExitNexTerm()
+        Dim i
+        i = MsgBox("خارج مي شويد؟", vbYesNo + vbDefaultButton1, "NexTerm")
+        If i = vbYes Then
+            WriteLOG(2)
+            Try
+                Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                    Case "SqlServer"
+                        DS.Tables("tblSettings").Clear()
+                        DASS.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE iHerbsConstant LIKE 'Admin can prog%' ORDER BY iHerbsConstant"
+                        DASS.Fill(DS, "tblSettings")
+                        DS.Tables("tblSettings").Rows(0).Item(2) = "NO"
+                        strSQL = "UPDATE Settings SET iHerbsValue = 'NO' WHERE ID = @ID"
+                        Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
+                        cmd.CommandType = CommandType.Text
+                        cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(0).Item(0).ToString)
+                        Dim k As Integer = cmd.ExecuteNonQuery()
+
+                        CnnSS.Close() : CnnSS.Dispose() : CnnSS = Nothing : frmLogIn.Dispose() : ChooseStaff.Dispose() : ChooseTech.Dispose() : Me.Dispose() : Application.Exit() : End
+                    Case "Access"
+                        DS.Tables("tblSettings").Clear()
+                        DAAC.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE iHerbsConstant LIKE 'Admin can prog%' ORDER BY iHerbsConstant"
+                        DAAC.Fill(DS, "tblSettings")
+                        DS.Tables("tblSettings").Rows(0).Item(2) = "NO"
+                        strSQL = "UPDATE Settings SET iHerbsValue = 'NO' WHERE ID = @ID"
+                        Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
+                        cmd.CommandType = CommandType.Text
+                        cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(0).Item(0).ToString)
+                        Dim k As Integer = cmd.ExecuteNonQuery()
+
+                        CnnAC.Close() : CnnAC.Dispose() : CnnAC = Nothing : frmLogIn.Dispose() : ChooseStaff.Dispose() : ChooseTech.Dispose() : Me.Dispose() : Application.Exit() : End
+                End Select
+            Catch
+                MsgBox("Error in Exit module ....")
+            End Try
+        End If
+
+    End Sub
+
 End Class
