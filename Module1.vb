@@ -53,7 +53,9 @@ Module Module1
     Public intClass2DayData(5) As Integer '5 days for Class 2
     Public strTime() As String = {"08:30", "09:30", "10:30", "11:30", "13:30", "14:30", "15:30", "16:30"}
     Public strDay() As String = {"شنبه", "يکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه"}
+    Public intTimeFlag(5, 7) As Integer ' (r:6days, c:8times //begins from 0)
     Public boolLog As Boolean 'Log User Activity (YES/NO) in Setting
+    Public strReportsFooter As String = "NexTerm Desktop App [ www.msht.ir ], Faculty of Science, SKU. Developer: Dr. Majid Sharifi-Tehrani (1400-1401)"
 
 
     Sub Main()

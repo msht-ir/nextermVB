@@ -38,6 +38,7 @@ Partial Class frmTermProgs
         Me.Menu_Help = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_About = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Menu_Notes = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_Quit = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_Departments = New System.Windows.Forms.ToolStripMenuItem()
@@ -53,15 +54,13 @@ Partial Class frmTermProgs
         Me.Menu_ReProgram_ThisEnteryTerm = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_Delete_Entry_TermProg = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_Report = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Menu_ReportClassPrograms = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Menu_ReportStaffPrograms = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Menu_ReportTechPrograms = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Menu_ReportEntriesPrograms = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem8 = New System.Windows.Forms.ToolStripSeparator()
-        Me.Menu_Notes = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem10 = New System.Windows.Forms.ToolStripSeparator()
         Me.Menu_UserActivityLogs = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_UserActivityLog_CLEAR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem10 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Menu_ReportStaffProgsInTerms = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Menu_ReportStaffPrograms = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Menu_ReportTechPrograms = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Menu_ReportClassPrograms = New System.Windows.Forms.ToolStripMenuItem()
         Me.Grid4 = New System.Windows.Forms.DataGridView()
         Me.ContextMenuGrid4 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.MenuAddGroup = New System.Windows.Forms.ToolStripMenuItem()
@@ -113,6 +112,7 @@ Partial Class frmTermProgs
         Me.lblCourse = New System.Windows.Forms.Label()
         Me.RadioBtn1 = New System.Windows.Forms.RadioButton()
         Me.RadioBtn2 = New System.Windows.Forms.RadioButton()
+        Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripSeparator()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.Grid4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuGrid4.SuspendLayout()
@@ -137,7 +137,7 @@ Partial Class frmTermProgs
         '
         'Menu_1
         '
-        Me.Menu_1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_Userx, Me.Menu_ChangePass, Me.ToolStripMenuItem2, Me.Menu_Settings, Me.Menu_Help, Me.Menu_About, Me.ToolStripMenuItem6, Me.Menu_Quit})
+        Me.Menu_1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_Userx, Me.Menu_ChangePass, Me.ToolStripMenuItem2, Me.Menu_Settings, Me.Menu_Help, Me.Menu_About, Me.ToolStripMenuItem6, Me.Menu_Notes, Me.Menu_Quit})
         Me.Menu_1.Name = "Menu_1"
         Me.Menu_1.Size = New System.Drawing.Size(42, 20)
         Me.Menu_1.Text = "کاربر"
@@ -145,47 +145,53 @@ Partial Class frmTermProgs
         'Menu_Userx
         '
         Me.Menu_Userx.Name = "Menu_Userx"
-        Me.Menu_Userx.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Userx.Size = New System.Drawing.Size(149, 22)
         Me.Menu_Userx.Text = "کاربر ..."
         '
         'Menu_ChangePass
         '
         Me.Menu_ChangePass.Name = "Menu_ChangePass"
-        Me.Menu_ChangePass.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ChangePass.Size = New System.Drawing.Size(149, 22)
         Me.Menu_ChangePass.Text = "تغيير کلمه عبور"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(146, 6)
         '
         'Menu_Settings
         '
         Me.Menu_Settings.Name = "Menu_Settings"
-        Me.Menu_Settings.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Settings.Size = New System.Drawing.Size(149, 22)
         Me.Menu_Settings.Text = "تنظيمات ..."
         '
         'Menu_Help
         '
         Me.Menu_Help.Name = "Menu_Help"
-        Me.Menu_Help.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Help.Size = New System.Drawing.Size(149, 22)
         Me.Menu_Help.Text = "راهنما"
         '
         'Menu_About
         '
         Me.Menu_About.Name = "Menu_About"
-        Me.Menu_About.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_About.Size = New System.Drawing.Size(149, 22)
         Me.Menu_About.Text = "درباره"
         '
         'ToolStripMenuItem6
         '
         Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
-        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(146, 6)
+        '
+        'Menu_Notes
+        '
+        Me.Menu_Notes.Name = "Menu_Notes"
+        Me.Menu_Notes.Size = New System.Drawing.Size(149, 22)
+        Me.Menu_Notes.Text = "يادداشت ..."
         '
         'Menu_Quit
         '
         Me.Menu_Quit.Name = "Menu_Quit"
-        Me.Menu_Quit.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Quit.Size = New System.Drawing.Size(149, 22)
         Me.Menu_Quit.Text = "خروج از برنامه"
         '
         'Menu_2
@@ -269,58 +275,16 @@ Partial Class frmTermProgs
         '
         'Menu_Report
         '
-        Me.Menu_Report.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_Notes, Me.ToolStripMenuItem8, Me.Menu_UserActivityLogs, Me.Menu_UserActivityLog_CLEAR, Me.ToolStripMenuItem10, Me.Menu_ReportClassPrograms, Me.Menu_ReportStaffPrograms, Me.Menu_ReportTechPrograms, Me.Menu_ReportEntriesPrograms})
+        Me.Menu_Report.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_UserActivityLogs, Me.Menu_UserActivityLog_CLEAR, Me.ToolStripMenuItem10, Me.Menu_ReportStaffProgsInTerms, Me.ToolStripMenuItem5, Me.Menu_ReportStaffPrograms, Me.Menu_ReportTechPrograms, Me.Menu_ReportClassPrograms})
         Me.Menu_Report.Name = "Menu_Report"
         Me.Menu_Report.Size = New System.Drawing.Size(50, 20)
         Me.Menu_Report.Text = "گزارش"
-        '
-        'Menu_ReportClassPrograms
-        '
-        Me.Menu_ReportClassPrograms.Name = "Menu_ReportClassPrograms"
-        Me.Menu_ReportClassPrograms.Size = New System.Drawing.Size(180, 22)
-        Me.Menu_ReportClassPrograms.Text = "کلاس ها"
-        '
-        'Menu_ReportStaffPrograms
-        '
-        Me.Menu_ReportStaffPrograms.Name = "Menu_ReportStaffPrograms"
-        Me.Menu_ReportStaffPrograms.Size = New System.Drawing.Size(180, 22)
-        Me.Menu_ReportStaffPrograms.Text = "اساتيد يک گروه"
-        '
-        'Menu_ReportTechPrograms
-        '
-        Me.Menu_ReportTechPrograms.Enabled = False
-        Me.Menu_ReportTechPrograms.Name = "Menu_ReportTechPrograms"
-        Me.Menu_ReportTechPrograms.Size = New System.Drawing.Size(180, 22)
-        Me.Menu_ReportTechPrograms.Text = "کارشناسان"
-        '
-        'Menu_ReportEntriesPrograms
-        '
-        Me.Menu_ReportEntriesPrograms.Enabled = False
-        Me.Menu_ReportEntriesPrograms.Name = "Menu_ReportEntriesPrograms"
-        Me.Menu_ReportEntriesPrograms.Size = New System.Drawing.Size(180, 22)
-        Me.Menu_ReportEntriesPrograms.Text = "ورودي هاي يک گروه"
-        '
-        'ToolStripMenuItem8
-        '
-        Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
-        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(177, 6)
-        '
-        'Menu_Notes
-        '
-        Me.Menu_Notes.Name = "Menu_Notes"
-        Me.Menu_Notes.Size = New System.Drawing.Size(180, 22)
-        Me.Menu_Notes.Text = "يادداشت ..."
-        '
-        'ToolStripMenuItem10
-        '
-        Me.ToolStripMenuItem10.Name = "ToolStripMenuItem10"
-        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(177, 6)
         '
         'Menu_UserActivityLogs
         '
         Me.Menu_UserActivityLogs.Name = "Menu_UserActivityLogs"
         Me.Menu_UserActivityLogs.Size = New System.Drawing.Size(180, 22)
-        Me.Menu_UserActivityLogs.Text = "فعاليت ها"
+        Me.Menu_UserActivityLogs.Text = "فعاليت کاربران"
         '
         'Menu_UserActivityLog_CLEAR
         '
@@ -328,6 +292,36 @@ Partial Class frmTermProgs
         Me.Menu_UserActivityLog_CLEAR.Name = "Menu_UserActivityLog_CLEAR"
         Me.Menu_UserActivityLog_CLEAR.Size = New System.Drawing.Size(180, 22)
         Me.Menu_UserActivityLog_CLEAR.Text = "پاک شود"
+        '
+        'ToolStripMenuItem10
+        '
+        Me.ToolStripMenuItem10.Name = "ToolStripMenuItem10"
+        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(177, 6)
+        '
+        'Menu_ReportStaffProgsInTerms
+        '
+        Me.Menu_ReportStaffProgsInTerms.Name = "Menu_ReportStaffProgsInTerms"
+        Me.Menu_ReportStaffProgsInTerms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportStaffProgsInTerms.Text = "مرور برنامه اساتيد"
+        '
+        'Menu_ReportStaffPrograms
+        '
+        Me.Menu_ReportStaffPrograms.Name = "Menu_ReportStaffPrograms"
+        Me.Menu_ReportStaffPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportStaffPrograms.Text = "برنامه اساتيد"
+        '
+        'Menu_ReportTechPrograms
+        '
+        Me.Menu_ReportTechPrograms.Enabled = False
+        Me.Menu_ReportTechPrograms.Name = "Menu_ReportTechPrograms"
+        Me.Menu_ReportTechPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportTechPrograms.Text = "برنامه کارشناسان"
+        '
+        'Menu_ReportClassPrograms
+        '
+        Me.Menu_ReportClassPrograms.Name = "Menu_ReportClassPrograms"
+        Me.Menu_ReportClassPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportClassPrograms.Text = "برنامه کلاس ها"
         '
         'Grid4
         '
@@ -785,6 +779,11 @@ Partial Class frmTermProgs
         Me.RadioBtn2.UseVisualStyleBackColor = False
         Me.RadioBtn2.Visible = False
         '
+        'ToolStripMenuItem5
+        '
+        Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(177, 6)
+        '
         'frmTermProgs
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -906,15 +905,15 @@ Partial Class frmTermProgs
     Friend WithEvents MenuDelClass1 As ToolStripMenuItem
     Friend WithEvents MenuDelClass2 As ToolStripMenuItem
     Friend WithEvents Menu_Report As ToolStripMenuItem
-    Friend WithEvents Menu_Notes As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem10 As ToolStripSeparator
     Friend WithEvents Menu_UserActivityLogs As ToolStripMenuItem
     Friend WithEvents Menu_UserActivityLog_CLEAR As ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem8 As ToolStripSeparator
     Friend WithEvents Menu_ReportStaffPrograms As ToolStripMenuItem
     Friend WithEvents Menu_ReportTechPrograms As ToolStripMenuItem
     Friend WithEvents Menu_ReportClassPrograms As ToolStripMenuItem
-    Friend WithEvents Menu_ReportEntriesPrograms As ToolStripMenuItem
     Friend WithEvents Menu_ReProgram_ThisEnteryTerm_inclStaff As ToolStripMenuItem
     Friend WithEvents Menu_Departments As ToolStripMenuItem
+    Friend WithEvents Menu_ReportStaffProgsInTerms As ToolStripMenuItem
+    Friend WithEvents Menu_Notes As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem5 As ToolStripSeparator
 End Class

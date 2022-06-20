@@ -502,7 +502,7 @@
 
         PrintLine(1, "<br>")
         PrintLine(1, "<hr>")
-        PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>NexTerm computer program, Faculty of Science, SKU. Developed by: Majid Sharifi-Tehrani (PhD Plant Systematics), 1400</p>")
+        PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>" & strReportsFooter & "</p>")
         PrintLine(1, "</body>")
         PrintLine(1, "</html>")
         FileClose(1)

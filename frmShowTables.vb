@@ -99,7 +99,7 @@
             Case "SqlServer"
                 strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @newcourse, @coursenumber, 2, 2)"
                 Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
-        cmd.CommandType = CommandType.Text
+                cmd.CommandType = CommandType.Text
                 cmd.Parameters.AddWithValue("@bioprogid", intBioProg.ToString)
                 cmd.Parameters.AddWithValue("@newcourse", strNewCourse)
                 cmd.Parameters.AddWithValue("@newcourse", intNewCourse.ToString)
