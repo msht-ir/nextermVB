@@ -937,7 +937,7 @@ Public Class frmTermProgs
         Next c
         GridTime.Visible = True
         lblCourse.Visible = True
-        lblCourse.Text = "برنامه هفتگي درس " & strCourse
+        lblCourse.Text = "زمان بندي درس " & strCourse
         txtExamDate.Visible = True
         lblExamDate.Visible = True
         RadioBtn1.Visible = True

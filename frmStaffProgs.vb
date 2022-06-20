@@ -203,4 +203,33 @@
 
     End Sub
 
+    Private Sub GridTime_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridTime.CellClick
+        Try
+            strTerm = ListBox2.Text
+            Dim r As Integer = GridTime.CurrentCell.RowIndex    'count from 0
+            Dim c As Integer = GridTime.CurrentCell.ColumnIndex 'count from 0
+            If r < 0 Or c < 0 Then Exit Sub
+
+            Select Case strCaption
+                Case "Staff" '-------------- staff ----------------- staff ----------------- staff ----------------- staff -----------------
+                    Try
+                        Dim strTadakholMessage As String = ""
+                        If Val(GridTime(c, r).Value) > 0 Then
+                            For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
+                                If ((DS.Tables("tblAllProgs").Rows(i).Item(r + 10) And (2 ^ (c - 1))) = (2 ^ (c - 1))) Or ((DS.Tables("tblAllProgs").Rows(i).Item(r + 18) And (2 ^ (c - 1))) = (2 ^ (c - 1))) Then
+                                    strTadakholMessage = strTadakholMessage & " درس " & DS.Tables("tblAllProgs").Rows(i).Item(3) & vbCrLf & " ورودي " & DS.Tables("tblAllProgs").Rows(i).Item(29) & vbCrLf & DS.Tables("tblAllProgs").Rows(i).Item(17) & "   " & DS.Tables("tblAllProgs").Rows(i).Item(25) & vbCrLf & vbCrLf & vbCrLf
+                                End If
+                            Next
+                            MsgBox(strTadakholMessage, vbOKOnly, "نکسترم")
+                            GridTime.CurrentCell = GridTime(0, r)
+                        End If
+                    Catch ex As Exception
+                        MsgBox("err")
+                    End Try
+            End Select
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+
+    End Sub
 End Class

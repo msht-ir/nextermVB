@@ -64,7 +64,7 @@ lbl_SelectDB:
         frmCNN.ShowDialog()
         Try
             Select Case Server2Connect
-                Case "Faculty of Sci Host Server"
+                Case "Faculty of Sci"
                     strCaption = "Connected to Sci SqlServer on host"
                     CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NexTerm; User ID=mshtir_db; Password=majid_1375_nx;")
                     CnnSS.Open()
@@ -82,7 +82,7 @@ lbl_SelectDB:
                     CnnAC = New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & strDbBackEnd & ";Jet OLEDB:Database Password=" & BackEndPass & ";")
                     CnnAC.Open()
                     DatabaseType = "Access"
-                Case "Local Server on my PC"
+                Case "Local Server"
                     strCaption = "Connected to Local Sql Server"
                     CnnSS = New SqlClient.SqlConnection(strDbBackEnd)
                     CnnSS.Open()

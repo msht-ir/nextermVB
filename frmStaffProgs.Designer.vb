@@ -59,10 +59,10 @@ Partial Class frmStaffProgs
         Me.ListBox2.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ListBox2.FormattingEnabled = True
         Me.ListBox2.ItemHeight = 20
-        Me.ListBox2.Location = New System.Drawing.Point(937, 39)
+        Me.ListBox2.Location = New System.Drawing.Point(937, 30)
         Me.ListBox2.Name = "ListBox2"
         Me.ListBox2.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.ListBox2.Size = New System.Drawing.Size(88, 260)
+        Me.ListBox2.Size = New System.Drawing.Size(88, 320)
         Me.ListBox2.TabIndex = 33
         '
         'ContextMenu_frmStaff
@@ -70,24 +70,24 @@ Partial Class frmStaffProgs
         Me.ContextMenu_frmStaff.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Munu_Report, Me.ToolStripMenuItem1, Me.Munu_Exit})
         Me.ContextMenu_frmStaff.Name = "ContextMenu_frmStaff"
         Me.ContextMenu_frmStaff.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenu_frmStaff.Size = New System.Drawing.Size(181, 76)
+        Me.ContextMenu_frmStaff.Size = New System.Drawing.Size(106, 54)
         '
         'Munu_Report
         '
         Me.Munu_Report.Enabled = False
         Me.Munu_Report.Name = "Munu_Report"
-        Me.Munu_Report.Size = New System.Drawing.Size(180, 22)
+        Me.Munu_Report.Size = New System.Drawing.Size(105, 22)
         Me.Munu_Report.Text = "گزارش"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(102, 6)
         '
         'Munu_Exit
         '
         Me.Munu_Exit.Name = "Munu_Exit"
-        Me.Munu_Exit.Size = New System.Drawing.Size(180, 22)
+        Me.Munu_Exit.Size = New System.Drawing.Size(105, 22)
         Me.Munu_Exit.Text = "خروج"
         '
         'ComboBox1
@@ -115,7 +115,7 @@ Partial Class frmStaffProgs
         Me.ListStaff.Location = New System.Drawing.Point(1036, 44)
         Me.ListStaff.Name = "ListStaff"
         Me.ListStaff.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ListStaff.Size = New System.Drawing.Size(219, 255)
+        Me.ListStaff.Size = New System.Drawing.Size(219, 306)
         Me.ListStaff.TabIndex = 32
         '
         'Grid4
@@ -147,7 +147,7 @@ Partial Class frmStaffProgs
         Me.Grid4.DefaultCellStyle = DataGridViewCellStyle2
         Me.Grid4.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.Grid4.GridColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Grid4.Location = New System.Drawing.Point(12, 11)
+        Me.Grid4.Location = New System.Drawing.Point(12, 13)
         Me.Grid4.MultiSelect = False
         Me.Grid4.Name = "Grid4"
         Me.Grid4.RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -157,7 +157,7 @@ Partial Class frmStaffProgs
         Me.Grid4.RowTemplate.Height = 25
         Me.Grid4.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.Grid4.ShowCellToolTips = False
-        Me.Grid4.Size = New System.Drawing.Size(912, 288)
+        Me.Grid4.Size = New System.Drawing.Size(912, 337)
         Me.Grid4.TabIndex = 34
         '
         'GridTime
@@ -190,7 +190,7 @@ Partial Class frmStaffProgs
         Me.GridTime.DefaultCellStyle = DataGridViewCellStyle5
         Me.GridTime.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.GridTime.GridColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.GridTime.Location = New System.Drawing.Point(12, 307)
+        Me.GridTime.Location = New System.Drawing.Point(12, 359)
         Me.GridTime.Name = "GridTime"
         Me.GridTime.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.GridTime.RowHeadersVisible = False
@@ -251,7 +251,7 @@ Partial Class frmStaffProgs
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.ClientSize = New System.Drawing.Size(1266, 505)
+        Me.ClientSize = New System.Drawing.Size(1266, 552)
         Me.ControlBox = False
         Me.Controls.Add(Me.GridTime)
         Me.Controls.Add(Me.ListBox2)
