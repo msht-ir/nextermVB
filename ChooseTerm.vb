@@ -100,6 +100,7 @@
 
     Private Sub Menu_Add_Click(sender As Object, e As EventArgs) Handles Menu_Add.Click
         If Userx <> "USER Faculty" Then Exit Sub
+        If (Userx = "USER Faculty") And (AdminCanProg = False) Then MsgBox("مجوز افزودن ترم بطور دستي را نداريد", vbOKOnly, "تنظيمات نکسترم") : Exit Sub
 
         Dim myansw As DialogResult = MsgBox("يک ترم جديد اضافه شود؟", vbQuestion + vbYesNo + vbDefaultButton2, "نکسترم" & strCaption)
         If myansw = vbNo Then
@@ -145,6 +146,7 @@
         Try
             Select Case c
                 Case 1 ' TERM
+                    If (Userx = "USER Faculty") And (AdminCanProg = False) Then MsgBox("مجوز تغيير نام ترم را نداريد", vbOKOnly, "تنظيمات نکسترم") : Exit Sub
                     Dim strValue As String = Grid1(c, r).Value
                     strValue = InputBox("مقدار جديد را وارد کنيد", "نکسترم", strValue)
                     If Trim(strValue) = "" Then Exit Sub

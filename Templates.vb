@@ -511,6 +511,8 @@
 
     End Sub
     Private Sub Menu_Apply_Click(sender As Object, e As EventArgs) Handles Menu_Apply.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
         If GridTemplateData.Rows.Count = 0 Then Exit Sub
 
         ' A: Get an Entry ID 
@@ -722,11 +724,11 @@
         If boolLog = True Then
             'WRITE-LOG 'There is a similar SUB() in TermProgs_Form
             If Userx = "USER Faculty" Then intUser = 0
-            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nick:" & UserNickName & " -pc:" & LCase(Environment.MachineName)
+            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nck:" & UserNickName & " -clnt:" & LCase(Environment.MachineName)
             Select Case intActivity
-                Case 21 : strLog = strLog & " > template Prog added    : " & intBioProg.ToString
-                Case 22 : strLog = strLog & " > template Prog deleted  : " & intBioProg.ToString
-                Case 23 : strLog = strLog & " > template Prog applied  : " & intBioProg.ToString
+                Case 21 : strLog = strLog & " > tmplt+:" & intBioProg.ToString
+                Case 22 : strLog = strLog & " > tmplt-:" & intBioProg.ToString
+                Case 23 : strLog = strLog & " > tmplt.usd:" & intBioProg.ToString
             End Select
             Try
                 Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----

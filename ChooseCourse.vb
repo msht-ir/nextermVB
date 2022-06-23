@@ -235,10 +235,10 @@
         If boolLog = True Then
             'WRITE-LOG 'There is a similar SUB() in TermProgs_Form
             If Userx = "USER Faculty" Then intUser = 0
-            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nick:" & UserNickName & " -pc:" & LCase(Environment.MachineName)
+            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nck:" & UserNickName & " -clnt:" & LCase(Environment.MachineName)
             Select Case intActivity
-                Case 31 : strLog = strLog & " > course name editted: " & strCourse
-                Case 32 : strLog = strLog & " > course nr/u editted: " & intCourseNumber.ToString
+                Case 31 : strLog = strLog & " > crs? : " & strCourse
+                Case 32 : strLog = strLog & " > crs.nr/unt? : " & intCourseNumber.ToString
             End Select
             Try
                 Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----

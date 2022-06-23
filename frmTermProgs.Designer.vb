@@ -58,9 +58,11 @@ Partial Class frmTermProgs
         Me.Menu_UserActivityLog_CLEAR = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem10 = New System.Windows.Forms.ToolStripSeparator()
         Me.Menu_ReportStaffProgsInTerms = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripSeparator()
         Me.Menu_ReportStaffPrograms = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_ReportTechPrograms = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_ReportClassPrograms = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Menu_ReportEntriesPrograms = New System.Windows.Forms.ToolStripMenuItem()
         Me.Grid4 = New System.Windows.Forms.DataGridView()
         Me.ContextMenuGrid4 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.MenuAddGroup = New System.Windows.Forms.ToolStripMenuItem()
@@ -112,7 +114,6 @@ Partial Class frmTermProgs
         Me.lblCourse = New System.Windows.Forms.Label()
         Me.RadioBtn1 = New System.Windows.Forms.RadioButton()
         Me.RadioBtn2 = New System.Windows.Forms.RadioButton()
-        Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripSeparator()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.Grid4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuGrid4.SuspendLayout()
@@ -275,7 +276,7 @@ Partial Class frmTermProgs
         '
         'Menu_Report
         '
-        Me.Menu_Report.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_UserActivityLogs, Me.Menu_UserActivityLog_CLEAR, Me.ToolStripMenuItem10, Me.Menu_ReportStaffProgsInTerms, Me.ToolStripMenuItem5, Me.Menu_ReportStaffPrograms, Me.Menu_ReportTechPrograms, Me.Menu_ReportClassPrograms})
+        Me.Menu_Report.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_UserActivityLogs, Me.Menu_UserActivityLog_CLEAR, Me.ToolStripMenuItem10, Me.Menu_ReportStaffProgsInTerms, Me.ToolStripMenuItem5, Me.Menu_ReportStaffPrograms, Me.Menu_ReportTechPrograms, Me.Menu_ReportClassPrograms, Me.Menu_ReportEntriesPrograms})
         Me.Menu_Report.Name = "Menu_Report"
         Me.Menu_Report.Size = New System.Drawing.Size(50, 20)
         Me.Menu_Report.Text = "گزارش"
@@ -304,6 +305,11 @@ Partial Class frmTermProgs
         Me.Menu_ReportStaffProgsInTerms.Size = New System.Drawing.Size(180, 22)
         Me.Menu_ReportStaffProgsInTerms.Text = "مرور برنامه اساتيد"
         '
+        'ToolStripMenuItem5
+        '
+        Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(177, 6)
+        '
         'Menu_ReportStaffPrograms
         '
         Me.Menu_ReportStaffPrograms.Name = "Menu_ReportStaffPrograms"
@@ -322,6 +328,12 @@ Partial Class frmTermProgs
         Me.Menu_ReportClassPrograms.Name = "Menu_ReportClassPrograms"
         Me.Menu_ReportClassPrograms.Size = New System.Drawing.Size(180, 22)
         Me.Menu_ReportClassPrograms.Text = "برنامه کلاس ها"
+        '
+        'Menu_ReportEntriesPrograms
+        '
+        Me.Menu_ReportEntriesPrograms.Name = "Menu_ReportEntriesPrograms"
+        Me.Menu_ReportEntriesPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportEntriesPrograms.Text = "برنامه ورودي ها"
         '
         'Grid4
         '
@@ -779,11 +791,6 @@ Partial Class frmTermProgs
         Me.RadioBtn2.UseVisualStyleBackColor = False
         Me.RadioBtn2.Visible = False
         '
-        'ToolStripMenuItem5
-        '
-        Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(177, 6)
-        '
         'frmTermProgs
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -916,4 +923,5 @@ Partial Class frmTermProgs
     Friend WithEvents Menu_ReportStaffProgsInTerms As ToolStripMenuItem
     Friend WithEvents Menu_Notes As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem5 As ToolStripSeparator
+    Friend WithEvents Menu_ReportEntriesPrograms As ToolStripMenuItem
 End Class

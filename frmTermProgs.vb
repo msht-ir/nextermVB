@@ -580,6 +580,8 @@ Public Class frmTermProgs
 
     ' Grid4
     Private Sub Grid4_CellDblClick(sender As Object, e As DataGridViewCellEventArgs) Handles Grid4.CellDoubleClick
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = e.RowIndex 'count from 0
         Dim c As Integer = e.ColumnIndex 'count from 0
@@ -1478,7 +1480,9 @@ Public Class frmTermProgs
 
             Select Case strCaption
                 Case "Course" ' --------------- course --------------- course --------------- course --------------- course ---------------
+                    If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
                     If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
+
                     If RadioBtn2.Checked = True Then strColor = "MistyRose"
                     If GridTime.Item(c, r).Value = "" Then
                         Select Case c
@@ -1562,6 +1566,8 @@ Public Class frmTermProgs
 
     'Popup Menus
     Private Sub PopMenu_AddGroup(sender As Object, e As EventArgs) Handles MenuAddGroup.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.SelectedCells(0).RowIndex 'count from 0
         Dim c As Integer = Grid4.SelectedCells(0).ColumnIndex 'count from 0
@@ -1603,6 +1609,8 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub PopMenu_AddCourse(sender As Object, e As EventArgs) Handles MenuAddCourse.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         intDept = ComboBox1.GetItemText(ComboBox1.SelectedValue)
         intBioProg = DS.Tables("tblEntries").Rows(ListBox1.SelectedIndex).Item(2)
@@ -1651,6 +1659,8 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub PopMenu_DelCourse(sender As Object, e As EventArgs) Handles MenuDelCourse.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.SelectedCells(0).RowIndex 'count from 0
         Dim c As Integer = Grid4.SelectedCells(0).ColumnIndex 'count from 0
@@ -1688,6 +1698,8 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_ReplaceCourse(sender As Object, e As EventArgs) Handles MenuReplaceCourse.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.SelectedCells(0).RowIndex 'count from 0
         Dim c As Integer = Grid4.SelectedCells(0).ColumnIndex 'count from 0
@@ -1741,6 +1753,8 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub MenuDelClass1_Click(sender As Object, e As EventArgs) Handles MenuDelClass1.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.CurrentCell.RowIndex 'count from 0
         Dim c As Integer = Grid4.CurrentCell.ColumnIndex 'count from 0
@@ -1767,6 +1781,8 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub MenuDelClass2_Click(sender As Object, e As EventArgs) Handles MenuDelClass2.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.CurrentCell.RowIndex 'count from 0
         Dim c As Integer = Grid4.CurrentCell.ColumnIndex 'count from 0
@@ -2003,24 +2019,26 @@ Public Class frmTermProgs
 
     'Menu 2 Resource
     Private Sub Menu_Departments_Click(sender As Object, e As EventArgs) Handles Menu_Departments.Click
-        'Me.Hide()
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
         frmDepts.ShowDialog()
         ClrForm()
         EnableMenu()
 
     End Sub
     Private Sub Menu_Courses_Click(sender As Object, e As EventArgs) Handles Menu_Courses.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
         Dim i As String = ListBox1.GetItemText(ListBox1.SelectedValue)
         If Val(i) = 0 Then Exit Sub
         intBioProg = DS.Tables("tblEntries").Rows(ListBox1.SelectedIndex).Item(2)
 
         strCaption = "Courses"
-        'Me.Hide()
         frmShowTables.ShowDialog()
         ClrForm()
 
     End Sub
     Private Sub Menu_Classes_Click(sender As Object, e As EventArgs) Handles Menu_Classes.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
         intTerm = ListBox2.SelectedValue
         For c As Integer = 0 To 7
             For r As Integer = 0 To 5
@@ -2033,21 +2051,22 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_Terms_Click(sender As Object, e As EventArgs) Handles Menu_Terms.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
         strCaption = "Terms"
         ChooseTerm.ShowDialog()
         ClrForm()
 
     End Sub
     Private Sub Menu_Staff_Click(sender As Object, e As EventArgs) Handles Menu_Staff.Click
-        'If ComboBox1.SelectedIndex = -1 Then Exit Sub
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
         intDept = ComboBox1.SelectedValue
         If ComboBox1.SelectedIndex = -1 Then intDept = 0
-        'Me.Hide()
         ChooseStaff.ShowDialog()
         ClrForm()
 
     End Sub
     Private Sub Menu_Tech_Click(sender As Object, e As EventArgs) Handles Menu_Tech.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
         ChooseTech.ShowDialog()
         ClrForm()
 
@@ -2064,6 +2083,8 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_Delete_Entry_TermProg_Click(sender As Object, e As EventArgs) Handles Menu_Delete_Entry_TermProg.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
         If ListBox1.SelectedIndex = -1 Then Exit Sub
         Dim myansw As Integer = MsgBox("برنامه آموزشي همه ترم هاي اين ورودي حذف شوند؟", vbYesNo + vbDefaultButton2, "تاييد کنيد")
         If myansw = vbNo Then Exit Sub
@@ -2103,6 +2124,8 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_ReProgram_ThisEnteryTerm_inclStaff_Click(sender As Object, e As EventArgs) Handles Menu_ReProgram_ThisEnteryTerm_inclStaff.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
         If ListBox2.SelectedIndex = -1 Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
 
@@ -2148,6 +2171,8 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_ReProgram_ThisEnteryTerm_Click(sender As Object, e As EventArgs) Handles Menu_ReProgram_ThisEnteryTerm.Click
+        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
         If ListBox2.SelectedIndex = -1 Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
 
@@ -2190,8 +2215,6 @@ Public Class frmTermProgs
                     MsgBox(ex.ToString)
                 End Try
         End Select
-
-
 
     End Sub
 
@@ -2429,7 +2452,7 @@ lblx2:
 
     End Sub
     Private Sub Menu_ReportClassPrograms_Click(sender As Object, e As EventArgs) Handles Menu_ReportClassPrograms.Click
-        'REPORT CLASSES
+        'REPORT all CLASSES (in a term)
         intTerm = ListBox2.SelectedValue
         If intTerm < 1 Then
             ChooseTerm.ShowDialog()
@@ -2568,8 +2591,179 @@ lblx:
         Shell("explorer.exe " & Application.StartupPath & "Nexterm_class_All.html")
 
     End Sub
+    Private Sub Menu_ReportEntriesPrograms_Click(sender As Object, e As EventArgs) Handles Menu_ReportEntriesPrograms.Click
+        'Report all Entries (in a Dept)
+        intDept = intUser
+        If intUser = 0 Then intDept = ComboBox1.SelectedValue
+        If intDept = 0 Then
+            ChooseDept.ShowDialog()
+            If intDept = 0 Then Exit Sub
+        End If
+
+        intTerm = ListBox2.SelectedValue
+        If intTerm < 1 Then
+            ChooseTerm.ShowDialog()
+            If intTerm < 1 Then Exit Sub
+        End If
+
+        Dim myansw As DialogResult = MsgBox("جزئيات ارايه شود؟", vbYesNoCancel, "نکسترم")
+        If myansw = vbCancel Then Exit Sub
+
+        'READ STAFF TABLE
+        DS.Tables("tblEntries").Clear()
+        'READ (from DB) the Entries of the selected Department
+        Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+            Case "SqlServer"
+                DASS.SelectCommand.CommandText = "SELECT Entries.ID AS EntID, CONCAT(EntYear , ' - ' , ProgramName) As Prog, BioProg_ID FROM ((BioProgs INNER JOIN Departments ON BioProgs.Department_ID = Departments.ID) INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) WHERE Department_ID =" & intDept.ToString & " AND Active = 1 ORDER BY EntYear, ProgramName"
+                DASS.Fill(DS, "tblEntries")
+            Case "Access"
+                DAAC.SelectCommand.CommandText = "SELECT Entries.ID AS EntID, EntYear & ' - ' & ProgramName As Prog, BioProg_ID FROM ((BioProgs INNER JOIN Departments ON BioProgs.Department_ID = Departments.ID) INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) WHERE Department_ID =" & intDept.ToString & " AND Active = True ORDER BY EntYear, ProgramName"
+                DAAC.Fill(DS, "tblEntries")
+        End Select
 
 
+        FileOpen(1, Application.StartupPath & "Nexterm_entries_All.html", OpenMode.Output)
+        PrintLine(1, "<html dir= ""rtl"">")
+        PrintLine(1, "<head><title>برنامه ورودي ها</title><style>table, th, td {border: 1px solid;} body {background-image:url('" & strReportBG & "');}</style></head>")
+        PrintLine(1, "<body>")
+        PrintLine(1, "<p style='color:blue; font-family:tahoma; font-size:12px; text-align: center'>دانشگاه شهرکرد، دانشکده علوم پايه</p>")
+        PrintLine(1, "<h2 style='color:Green; text-align: center'>", strTerm, "</h2><hr>")
+
+        For ent As Integer = 0 To DS.Tables("tblEntries").Rows.Count - 1
+            intEntry = DS.Tables("tblEntries").Rows(ent).Item(0)
+            DS.Tables("tblAllProgs").Clear()
+            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                Case "SqlServer"
+                    DASS.SelectCommand.CommandText = "SELECT TermProgs.ID, Course_ID, CourseNumber, CourseName, Units, [Group], Staff_ID, Staff.StaffName, Tech_ID, Technecians.StaffName, SAT1, SUN1, MON1, TUE1, WED1, THR1, Room1, Rooms.RoomName, SAT2, SUN2, MON2, TUE2, WED2, THR2, Room2, Rooms_1.RoomName, Capacity, ExamDate, TermProgs.Notes, CONCAT([ProgramName] , ' - ' , [Entyear]) AS Ent, Terms.Term FROM (BioProgs INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) INNER JOIN ((((((Rooms AS Rooms_1 RIGHT JOIN TermProgs ON Rooms_1.ID = TermProgs.Room2) LEFT JOIN Rooms ON TermProgs.Room1 = Rooms.ID) LEFT JOIN Terms ON TermProgs.Term_ID = Terms.ID) LEFT JOIN Courses ON TermProgs.Course_ID = Courses.ID) LEFT JOIN Staff ON TermProgs.Staff_ID = Staff.ID) LEFT JOIN Technecians ON TermProgs.Tech_ID = Technecians.ID) ON Entries.ID = TermProgs.Entry_ID WHERE Term_ID = " & intTerm.ToString & " AND Entry_ID = " & intEntry.ToString & " ORDER BY THR1, WED1, TUE1, MON1, SUN1, SAT1"
+                    DASS.Fill(DS, "tblAllProgs")
+                Case "Access"
+                    DAAC.SelectCommand.CommandText = "SELECT TermProgs.ID, Course_ID, CourseNumber, CourseName, Units, [Group], Staff_ID, Staff.StaffName, Tech_ID, Technecians.StaffName, SAT1, SUN1, MON1, TUE1, WED1, THR1, Room1, Rooms.RoomName, SAT2, SUN2, MON2, TUE2, WED2, THR2, Room2, Rooms_1.RoomName, Capacity, ExamDate, TermProgs.Notes, [ProgramName] & ' - ' & [Entyear], Terms.Term AS Ent FROM (BioProgs INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) INNER JOIN ((((((Rooms AS Rooms_1 RIGHT JOIN TermProgs ON Rooms_1.ID = TermProgs.Room2) LEFT JOIN Rooms ON TermProgs.Room1 = Rooms.ID) LEFT JOIN Terms ON TermProgs.Term_ID = Terms.ID) LEFT JOIN Courses ON TermProgs.Course_ID = Courses.ID) LEFT JOIN Staff ON TermProgs.Staff_ID = Staff.ID) LEFT JOIN Technecians ON TermProgs.Tech_ID = Technecians.ID) ON Entries.ID = TermProgs.Entry_ID WHERE Term_ID = " & intTerm.ToString & " AND Entry_ID = " & intEntry.ToString & " ORDER BY THR1, WED1, TUE1, MON1, SUN1, SAT1"
+                    DAAC.Fill(DS, "tblAllProgs")
+            End Select
+
+            strEntry = DS.Tables("tblEntries").Rows(ent).Item(1)
+            PrintLine(1, "<h1 style='color:red; text-align: center'>", strEntry, "</h1>")
+
+            Array.Clear(intTimeFlag, 0, intTimeFlag.Length) ' clear data in intTimeFlag (r:6days, c:8times //begins from 0)
+            Dim strTadakhol As String = ""
+            Dim TadakholExists As Boolean = False
+
+            strTadakhol = strTadakhol & "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>"
+            strTadakhol = strTadakhol & "<tr><th>روز</th><th>ساعت</th><th>نام درس</th><th>گ</th><th>استاد</th></tr>"
+            For intTime As Integer = 0 To 7 ' for each time of day
+                For intDay As Integer = 0 To 5 'each day
+                    For intThisEntry As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
+                        If (DS.Tables("tblAllProgs").Rows(intThisEntry).Item(intDay + 10) And (2 ^ intTime)) = (2 ^ intTime) Then
+                            intTimeFlag(intDay, intTime) = intTimeFlag(intDay, intTime) + 1
+                            If intTimeFlag(intDay, intTime) > 1 Then strTadakhol = strTadakhol & "<tr><td>" & strDay(intDay) & "</td><td>" & strTime(intTime) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisEntry).Item(3) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisEntry).Item(5) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisEntry).Item(7) & "</td></tr>" & vbCrLf : TadakholExists = True
+                        End If
+                        If (DS.Tables("tblAllProgs").Rows(intThisEntry).Item(intDay + 18) And (2 ^ intTime)) = (2 ^ intTime) Then
+                            intTimeFlag(intDay, intTime) = intTimeFlag(intDay, intTime) + 1
+                            If intTimeFlag(intDay, intTime) > 1 Then strTadakhol = strTadakhol & "<tr><td>" & strDay(intDay) & "</td><td>" & strTime(intTime) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisEntry).Item(3) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisEntry).Item(5) & "</td><td>" & DS.Tables("tblAllProgs").Rows(intThisEntry).Item(7) & "</td></tr>" & vbCrLf : TadakholExists = True
+                        End If
+                    Next intThisEntry
+                Next intDay
+            Next intTime
+            strTadakhol = strTadakhol & "</table>"
+
+            If myansw = vbNo Then GoTo lblx
+            If TadakholExists = True Then
+                PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>")
+                PrintLine(1, "براي رفع تداخل، زمان بندي دروس زير را تغيير دهيد", "<br></p>")
+                PrintLine(1, strTadakhol)
+                PrintLine(1, "<br>")
+            End If
+
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه ورودي</p>")
+            PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
+            PrintLine(1, "<tr><th>شماره</th>")
+            PrintLine(1, "<th>گ</th>")
+            PrintLine(1, "<th>نام درس</th>")
+            PrintLine(1, "<th>واحد</th>")
+            PrintLine(1, "<th>نام مدرس</th>")
+            PrintLine(1, "<th>کارشناس</th>")
+            PrintLine(1, "<th>ش</th>")
+            PrintLine(1, "<th>ي</th>")
+            PrintLine(1, "<th>د</th>")
+            PrintLine(1, "<th>س</th>")
+            PrintLine(1, "<th>چ</th>")
+            PrintLine(1, "<th>پ</th>")
+            PrintLine(1, "<th>امتحان</th>")
+            PrintLine(1, "<th>کلاس1</th>")
+            PrintLine(1, "<th>کلاس2</th>")
+            PrintLine(1, "<th>ظرفيت</th>")
+            PrintLine(1, "<th>يادداشت</th></tr>")
+
+            For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
+                PrintLine(1, "<tr>")
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(2), "</td>")   ' 2 :CourseNumber
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(5), "</td>")   ' 5 :Group
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(3), "</td>")   ' 3 :CourseName
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(4), "</td>")   ' 4 :Unit
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(7), "</td>")   ' 7 :Staff
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(9), "</td>")   ' 9 :Tech
+
+                For intday As Integer = 0 To 5
+                    Dim x As String = ""
+                    For intTime As Integer = 0 To 7
+                        If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Or ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
+                            x = x & strTime(intTime) & "<br>" ' Time
+                        End If
+                    Next intTime
+                    PrintLine(1, "<td>", x, "</td>") ' Time
+                Next intday
+
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(27), "</td>") ' 27:Exam
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(17), "</td>") ' 17:Class1
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(25), "</td>") ' 25:Class2
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(26), "</td>") ' 26:Capacity
+                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(28), "</td>") ' 28:Notes
+                PrintLine(1, "</tr>")
+            Next i
+            PrintLine(1, "</table><br>")
+lblx:
+            ' // table: free times
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>ساعت هاي آزاد</p>")
+            DrawFreeTimeTable()
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'></p>")
+
+            If myansw = vbNo Then GoTo lblx2
+
+            ' // table: Exams dates for Staff
+            DS.Tables("tblTermExams").Clear()
+            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                Case "SqlServer"
+                    DASS.SelectCommand.CommandText = "SELECT TermProgs.ID, ExamDate, CourseName, Course_ID, [Group], StaffName, Staff_ID, CONCAT([ProgramName] , ' - ' , [Entyear]) AS strEnt FROM (BioProgs INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) INNER JOIN (((TermProgs LEFT JOIN Terms ON TermProgs.Term_ID = Terms.ID) LEFT JOIN Courses ON TermProgs.Course_ID = Courses.ID) LEFT JOIN Staff ON TermProgs.Staff_ID = Staff.ID) ON Entries.ID = TermProgs.Entry_ID WHERE Term_ID = " & intTerm.ToString & " AND Entry_ID = " & intEntry.ToString & " ORDER BY ExamDate"
+                    DASS.Fill(DS, "tblTermExams")
+                Case "Access"
+                    DAAC.SelectCommand.CommandText = "SELECT TermProgs.ID, ExamDate, CourseName, Course_ID, [Group], StaffName, Staff_ID, [ProgramName] & ' - ' & [Entyear] AS strEnt FROM (BioProgs INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) INNER JOIN (((TermProgs LEFT JOIN Terms ON TermProgs.Term_ID = Terms.ID) LEFT JOIN Courses ON TermProgs.Course_ID = Courses.ID) LEFT JOIN Staff ON TermProgs.Staff_ID = Staff.ID) ON Entries.ID = TermProgs.Entry_ID WHERE Term_ID = " & intTerm.ToString & " AND Entry_ID = " & intEntry.ToString & " ORDER BY ExamDate"
+                    DAAC.Fill(DS, "tblTermExams")
+            End Select
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه امتحانات</p>")
+            PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
+            PrintLine(1, "<tr><th>تاريخ</th>")
+            PrintLine(1, "<th>درس</th>")
+            PrintLine(1, "<th>استاد</th></tr>")
+            For i As Integer = 0 To DS.Tables("tblTermExams").Rows.Count - 1
+                PrintLine(1, "<tr><td>", DS.Tables("tblTermExams").Rows(i).Item(1), "</td>")  ' 1 :Exam
+                PrintLine(1, "<td>", DS.Tables("tblTermExams").Rows(i).Item(2), "</td>")      ' 2 :Course
+                PrintLine(1, "<td>", DS.Tables("tblTermExams").Rows(i).Item(5), "</td></tr>") ' 5 :StaffName
+            Next
+            PrintLine(1, "</table>")
+            PrintLine(1, "<hr>")
+lblx2:
+        Next ent
+
+
+        ' //footer
+        PrintLine(1, "<p style='font-family:tahoma; font-size:12px'><br></p><br>")
+        PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>" & strReportsFooter & "</p>")
+        PrintLine(1, "</body></html>")
+        FileClose(1)
+
+        Shell("explorer.exe " & Application.StartupPath & "Nexterm_entries_All.html")
+
+    End Sub
 
 
     Private Sub WriteLOG(intActivity As Integer)
@@ -2585,19 +2779,19 @@ lblx:
             Catch ex As Exception
                 'do nothing
             End Try
-            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nick:" & UserNickName & " -pc:" & LCase(Environment.MachineName)
+            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nck:" & UserNickName & " -clnt:" & LCase(Environment.MachineName)
             Select Case intActivity
-                Case 2 : strLog = strLog & " > logout"
-                Case 3 : strLog = strLog & " > login"
-                Case 4 : strLog = strLog & " > course added  : " & intCourseNumber.ToString & ", ent: " & intEntry.ToString & ", trm: " & strTerm
-                Case 5 : strLog = strLog & " > course deleted  : " & intCourseNumber.ToString & ", ent: " & intEntry.ToString & ", trm: " & strTerm
-                Case 6 : strLog = strLog & " > course term  : " & intCourseNumber.ToString & ", ent: " & intEntry.ToString & ", trm: " & strTerm
-                Case 7 : strLog = strLog & " > course changed : " & intCourseNumber.ToString & ", ent: " & intEntry.ToString & ", trm: " & strTerm
-                Case 8 : strLog = strLog & " > termProg refresh, ent " & intEntry.ToString & ", trm: " & strTerm.ToString
-                Case 9 : strLog = strLog & " > entryPrg deleted, ent " & intEntry.ToString
+                Case 2 : strLog = strLog & " > log-out"
+                Case 3 : strLog = strLog & " > log-in"
+                Case 4 : strLog = strLog & " > crs+:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
+                Case 5 : strLog = strLog & " > crs-:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
+                Case 6 : strLog = strLog & " > crs.trm?:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
+                Case 7 : strLog = strLog & " > crs?:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
+                Case 8 : strLog = strLog & " > trmPrg.clr, ent:" & intEntry.ToString & ", trm:" & strTerm.ToString
+                Case 9 : strLog = strLog & " > entPrg-, ent:" & intEntry.ToString
                 Case 10 : strLog = strLog & " > settings"
-                Case 11 : strLog = strLog & " > pass " & strDepartmentPass
-                Case 12 : strLog = strLog & " > log clr"
+                Case 11 : strLog = strLog & " > pwd?" & strDepartmentPass
+                Case 12 : strLog = strLog & " > log clrd"
             End Select
 
             Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----

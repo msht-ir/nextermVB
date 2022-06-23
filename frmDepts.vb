@@ -2,6 +2,7 @@
     ' GRID DEPARTMENT
     Private Sub frmShowTables_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = "NexTerm  [organisation]   |  " & Userx & "  Connected to :  " & Server2Connect
+        WriteLOG(0)
         Show_DeptTable()
         EnableDisableMenus()
 
@@ -138,7 +139,7 @@
             MsgBox("Changes discarded", vbOK, "کاربر : گروه آموزشي")
             Exit Sub
         Else
-            WriteLOG(Grid1.CurrentCell.ColumnIndex)
+            WriteLOG(Grid1.CurrentCell.ColumnIndex) ' cols> 1:name 2:act 3: note 4:pass 5-9:acc
             SaveChanges_Departments()
         End If
 
@@ -253,11 +254,11 @@
     End Sub
     Private Sub Menu_GuideDept_Click(sender As Object, e As EventArgs) Handles Menu_GuideDept.Click
         Dim hlp As String = ""
-        hlp = hlp & "acc1: Courses(دسترسي به ويرايش درس ها)" & vbCrLf
-        hlp = hlp & "acc2: Staff(دسترسي به ويرايش نام استاد / کارشناس)" & vbCrLf
-        hlp = hlp & "acc3: Class (امکان تخصيص کلاس توسط مدير گروه)" & vbCrLf
+        hlp = hlp & "acc1: Courses(امکان ويرايش درس ها)" & vbCrLf
+        hlp = hlp & "acc2: Staff(امکان ويرايش نام استاد / کارشناس)" & vbCrLf
+        hlp = hlp & "acc3: Class (امکان تخصيص کلاس)" & vbCrLf
         hlp = hlp & "acc4: all Terms(مشاهده همه ترم هاي يک ورودي + حذف برنامه يک ورودي در يک ترم)" & vbCrLf
-        hlp = hlp & "acc5: Pass (امکان تغيير کلمه عبور توسط مدير گروه)" & vbCrLf & vbCrLf & vbCrLf
+        hlp = hlp & "acc5: Pass (فعال بودن اکانت براي برنامه ريزي و امکان تغيير کلمه عبور)" & vbCrLf & vbCrLf & vbCrLf
         hlp = hlp & "نياز به راهنمايي بيشتر؟" & vbCrLf
 
         Dim myansw As DialogResult = MsgBox(hlp.ToString, vbInformation + vbYesNo + vbDefaultButton2, "نکسترم")
@@ -747,11 +748,15 @@
                         Dim myansw As DialogResult = MsgBox("نام درس را به " & vbCrLf & strValue & vbCrLf & "تغيير مي دهيد؟", vbYesNo + vbDefaultButton2, "نکسترم: توجه: در حال ويرايش نام درس هستيد")
                         If myansw = vbNo Then Exit Sub
                         GridCourse(c, r).Value = strValue
-                        WriteLOG(31)
+                        WriteLOG(18)
                     Case 2, 3 ' Number, Unit
                         If Val(strValue) = 0 Then Exit Sub
                         GridCourse(c, r).Value = strValue
-                        WriteLOG(32)
+                        If c = 2 Then
+                            WriteLOG(19)
+                        ElseIf c = 3 Then
+                            WriteLOG(20)
+                        End If
                 End Select
 
             Catch ex As Exception
@@ -857,7 +862,7 @@
             Exit Sub
         Else
             GridCourse(2, r).Value = intCourseNumber
-            WriteLOG(32)
+            WriteLOG(19)
         End If
 
     End Sub
@@ -884,37 +889,37 @@
     End Sub
 
 
-
-
     'remember: ADD trigger to subs
     Private Sub WriteLOG(intActivity As Integer)
         If boolLog = True Then
             'WRITE-LOG
-            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr: " & intUser.ToString & " -nick: " & UserNickName & " -pc: '" & LCase(Environment.MachineName) & "'"
+            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nck:" & UserNickName & " -clnt:" & LCase(Environment.MachineName)
             Select Case intActivity
-                Case 1 : strLog = strLog & " department.name.edited; department: " & intDept.ToString
-                Case 2 : strLog = strLog & " department.(in)activated; department: " & intDept.ToString
-                Case 3 : strLog = strLog & " department.note.edited; department: " & intDept.ToString
-                Case 4 : strLog = strLog & " department.password.edited; department: " & intDept.ToString
-                Case 5 : strLog = strLog & " department.acc1.changed; department: " & intDept.ToString
-                Case 6 : strLog = strLog & " department.acc2.changed; department: " & intDept.ToString
-                Case 7 : strLog = strLog & " department.acc3.changed; department: " & intDept.ToString
-                Case 8 : strLog = strLog & " department.acc4.changed; department: " & intDept.ToString
-                Case 9 : strLog = strLog & " department.acc5.changed; department: " & intDept.ToString
+                Case 0 : strLog = strLog & " > resources"
+                Case 1 : strLog = strLog & " > dpt.name?; dpt:" & intDept.ToString
+                Case 2 : strLog = strLog & " > dpt.actv?; dpt:" & intDept.ToString
+                Case 3 : strLog = strLog & " > dpt.note?; dpt:" & intDept.ToString
+                Case 4 : strLog = strLog & " > dpt.pswd?; dpt:" & intDept.ToString
+                Case 5 : strLog = strLog & " > dpt.acc1?; dpt:" & intDept.ToString
+                Case 6 : strLog = strLog & " > dpt.acc2?; dpt:" & intDept.ToString
+                Case 7 : strLog = strLog & " > dpt.acc3?; dpt:" & intDept.ToString
+                Case 8 : strLog = strLog & " > dpt.acc4?; dpt:" & intDept.ToString
+                Case 9 : strLog = strLog & " > dpt.acc5?; dpt:" & intDept.ToString
 
-                Case 10 : strLog = strLog & " staff.added; department: " & intDept.ToString
-                Case 11 : strLog = strLog & " staff.edited; department: " & intDept.ToString
+                Case 10 : strLog = strLog & " > staff+; dpt:" & intDept.ToString
+                Case 11 : strLog = strLog & " > staff?; dpt:" & intDept.ToString
 
-                Case 12 : strLog = strLog & " program.added; program: " & intBioProg.ToString
-                Case 13 : strLog = strLog & " program.edited; program: " & intBioProg.ToString
+                Case 12 : strLog = strLog & " > prg+; prg:" & intBioProg.ToString
+                Case 13 : strLog = strLog & " > prg?; prg:" & intBioProg.ToString
 
-                Case 14 : strLog = strLog & " entry.added; entry: " & intEntry.ToString
-                Case 15 : strLog = strLog & " entry.year/count.edited; entry: " & intEntry.ToString
-                Case 16 : strLog = strLog & " entry.(in)activated; entry: " & intEntry.ToString
-                Case 17 : strLog = strLog & " entry.note.edited; entry: " & intEntry.ToString
+                Case 14 : strLog = strLog & " > ent?; ent:" & intEntry.ToString
+                Case 15 : strLog = strLog & " > ent.yr/cnt?; ent:" & intEntry.ToString
+                Case 16 : strLog = strLog & " > ent.actv?; ent:" & intEntry.ToString
+                Case 17 : strLog = strLog & " > ent.note?; ent:" & intEntry.ToString
 
-                Case 18 : strLog = strLog & " > course name editted: " & strCourse
-                Case 19 : strLog = strLog & " > course nr/u editted: " & intCourseNumber.ToString
+                Case 18 : strLog = strLog & " > crs?:" & strCourse
+                Case 19 : strLog = strLog & " > crs.nr?:" & intCourseNumber.ToString
+                Case 20 : strLog = strLog & " > crs.unt?:" & intCourseNumber.ToString
             End Select
 
             Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----

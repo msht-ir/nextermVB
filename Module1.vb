@@ -43,7 +43,7 @@ Module Module1
     Public Roomx As Integer ' used in frm.Choose_Class: prog is for Room1 or Room2?
 
     Public strFilename As String        ' // path of text file for backend.path, user.id, pass strings
-    Public strDbBackEnd As String = ""  ' // Path of Backend file on local or server
+    Public strDbBackEnd As String = ""  ' // (read from cnn file) Path of Backend file on local or server 
     Public BackEndPass As String = "NexTermSiliconPower" ' //encryption password of ACCDB Backend file
     Public strserveruid As String = ""
     Public strserverpwd As String = ""
@@ -66,28 +66,28 @@ lbl_SelectDB:
             Select Case Server2Connect
                 Case "Faculty of Sci"
                     strCaption = "Connected to Sci SqlServer on host"
-                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NexTerm; User ID=mshtir_db; Password=majid_1375_nx;")
+                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NexTerm; User ID=mshtir_db; Password=nExTeRm_1401_uSr;")
                     CnnSS.Open()
                     DatabaseType = "SqlServer"
-                Case "SKU NAS Server-1" ' connect to SKU.NAS (msht folder)
+                Case "SKU NAS Server-1" ' SKU.NAS (msht)
                     NexTerm.connectnetworkdrive.ConnectToNetwork.PinvokeWindowsNetworking.connectToRemote("\\185.105.121.99", $"sharifi-m@sku.ac.ir", "1289463557")
                     strCaption = "Connected to AccDB on SKU.NAS Storage"
                     strDbBackEnd = "\\185.105.121.99\sharifi-m@sku.ac.ir\NexTerm.accdb"
                     CnnAC = New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & strDbBackEnd & ";Jet OLEDB:Database Password=" & BackEndPass & ";")
                     CnnAC.Open()
                     DatabaseType = "Access"
-                Case "SKU NAS Server-2" ' connect to SKU.NAS +uid/pwd
+                Case "SKU NAS Server-2" ' SKU.NAS +uid/pwd
                     NexTerm.connectnetworkdrive.ConnectToNetwork.PinvokeWindowsNetworking.connectToRemote("\\185.105.121.99", strserveruid, strserverpwd)
                     strCaption = "Connected to AccDB on SKU.NAS"
                     CnnAC = New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & strDbBackEnd & ";Jet OLEDB:Database Password=" & BackEndPass & ";")
                     CnnAC.Open()
                     DatabaseType = "Access"
-                Case "Local Server"
+                Case "Local Server" ' sql server on my PC
                     strCaption = "Connected to Local Sql Server"
                     CnnSS = New SqlClient.SqlConnection(strDbBackEnd)
                     CnnSS.Open()
                     DatabaseType = "SqlServer"
-                Case Else
+                Case Else ' ACCDB on my PC
                     strCaption = "Connected to Local ACCDB ; " & strDbBackEnd
                     CnnAC = New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & strDbBackEnd & ";Jet OLEDB:Database Password=" & BackEndPass & ";")
                     CnnAC.Open()
@@ -285,7 +285,7 @@ lbl_SelectDB:
             If boolLog = True Then
                 Try ' WRITE-LOG
                     If Userx = "USER Faculty" Then intUser = 0
-                    Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nick:" & UserNickName & " -pc:" & LCase(Environment.MachineName) & " > login -fe: " & LCase(strBuildInfo)
+                    Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nck:" & UserNickName & " -clnt:" & LCase(Environment.MachineName) & " > log-in fe:" & LCase(strBuildInfo)
                     strSQL = "INSERT INTO xLog (LogText) VALUES (@logtext)"
                     Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                         Case "SqlServer"

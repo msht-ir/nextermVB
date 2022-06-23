@@ -389,13 +389,13 @@
     Private Sub WriteLOG(intActivity As Integer)
         If boolLog = True Then
             'WRITE-LOG
-            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nick:" & UserNickName & " -pc:" & LCase(Environment.MachineName)
+            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nck:" & UserNickName & " -clnt:" & LCase(Environment.MachineName)
             Select Case intActivity
-                Case 1 : strLog = strLog & " > class added"
-                Case 2 : strLog = strLog & " > class name editted"
-                Case 3 : strLog = strLog & " > class capa editted"
-                Case 4 : strLog = strLog & " > class a.v (y/n) editted"
-                Case 5 : strLog = strLog & " > class act (y/n) editted"
+                Case 1 : strLog = strLog & " > clss+"
+                Case 2 : strLog = strLog & " > clss?"
+                Case 3 : strLog = strLog & " > clss.capa?"
+                Case 4 : strLog = strLog & " > clss.av?"
+                Case 5 : strLog = strLog & " > clss.actv?"
             End Select
 
             Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----

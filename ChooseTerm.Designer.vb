@@ -63,40 +63,40 @@ Partial Class ChooseTerm
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_OK, Me.ToolStripMenuItem2, Me.Menu_Add, Me.Menu_Edit, Me.ToolStripMenuItem1, Me.Menu_Cancel})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(148, 104)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 126)
         '
         'Menu_OK
         '
         Me.Menu_OK.Name = "Menu_OK"
-        Me.Menu_OK.Size = New System.Drawing.Size(147, 22)
+        Me.Menu_OK.Size = New System.Drawing.Size(180, 22)
         Me.Menu_OK.Text = "انتخاب / تاييد"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(144, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
         '
         'Menu_Add
         '
         Me.Menu_Add.Name = "Menu_Add"
-        Me.Menu_Add.Size = New System.Drawing.Size(147, 22)
+        Me.Menu_Add.Size = New System.Drawing.Size(180, 22)
         Me.Menu_Add.Text = "افزودن"
         '
         'Menu_Edit
         '
         Me.Menu_Edit.Name = "Menu_Edit"
-        Me.Menu_Edit.Size = New System.Drawing.Size(147, 22)
-        Me.Menu_Edit.Text = "ويرايش"
+        Me.Menu_Edit.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Edit.Text = "ويرايش / تغيير حالت"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(144, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
         '
         'Menu_Cancel
         '
         Me.Menu_Cancel.Name = "Menu_Cancel"
-        Me.Menu_Cancel.Size = New System.Drawing.Size(147, 22)
+        Me.Menu_Cancel.Size = New System.Drawing.Size(180, 22)
         Me.Menu_Cancel.Text = "انصراف / خروج"
         '
         'ChooseTerm

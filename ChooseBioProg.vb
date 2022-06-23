@@ -136,10 +136,10 @@
     Private Sub WriteLOG(intActivity As Integer)
         If boolLog = True Then
             'WRITE-LOG
-            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr: " & intUser.ToString & " -nick: " & UserNickName & " -pc: '" & LCase(Environment.MachineName) & "'"
+            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nck:" & UserNickName & " -clnt:'" & LCase(Environment.MachineName) & "'"
             Select Case intActivity
-                Case 3 : strLog = strLog & " program.add; department: " & ListDepts.SelectedValue.ToString
-                Case 4 : strLog = strLog & " program.edit; department: " & ListDepts.SelectedValue.ToString
+                Case 3 : strLog = strLog & " > prg+; dpt:" & ListDepts.SelectedValue.ToString
+                Case 4 : strLog = strLog & " > prg?; dpt:" & ListDepts.SelectedValue.ToString
             End Select
 
             Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
