@@ -306,49 +306,49 @@ Partial Class frmDepts
         Me.ContextMenu_Staff.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_AddStaff, Me.ToolStripSeparator2, Me.Menu_EditStaff, Me.Menu_DelStaff, Me.ToolStripSeparator6, Me.Menu_OKStaff, Me.Menu_CancelStaff})
         Me.ContextMenu_Staff.Name = "ContextMenuStrip1"
         Me.ContextMenu_Staff.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenu_Staff.Size = New System.Drawing.Size(148, 126)
+        Me.ContextMenu_Staff.Size = New System.Drawing.Size(181, 148)
         '
         'Menu_AddStaff
         '
         Me.Menu_AddStaff.Name = "Menu_AddStaff"
-        Me.Menu_AddStaff.Size = New System.Drawing.Size(147, 22)
+        Me.Menu_AddStaff.Size = New System.Drawing.Size(180, 22)
         Me.Menu_AddStaff.Text = "+   استاد جديد"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(144, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
         '
         'Menu_EditStaff
         '
         Me.Menu_EditStaff.Name = "Menu_EditStaff"
-        Me.Menu_EditStaff.Size = New System.Drawing.Size(147, 22)
+        Me.Menu_EditStaff.Size = New System.Drawing.Size(180, 22)
         Me.Menu_EditStaff.Text = "ويرايش"
         '
         'Menu_DelStaff
         '
         Me.Menu_DelStaff.Enabled = False
         Me.Menu_DelStaff.Name = "Menu_DelStaff"
-        Me.Menu_DelStaff.Size = New System.Drawing.Size(147, 22)
+        Me.Menu_DelStaff.Size = New System.Drawing.Size(180, 22)
         Me.Menu_DelStaff.Text = "حذف استاد"
         '
         'ToolStripSeparator6
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(144, 6)
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(177, 6)
         '
         'Menu_OKStaff
         '
         Me.Menu_OKStaff.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_OKStaff.Name = "Menu_OKStaff"
-        Me.Menu_OKStaff.Size = New System.Drawing.Size(147, 22)
+        Me.Menu_OKStaff.Size = New System.Drawing.Size(180, 22)
         Me.Menu_OKStaff.Text = "تاييد / انتخاب"
         '
         'Menu_CancelStaff
         '
         Me.Menu_CancelStaff.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_CancelStaff.Name = "Menu_CancelStaff"
-        Me.Menu_CancelStaff.Size = New System.Drawing.Size(147, 22)
+        Me.Menu_CancelStaff.Size = New System.Drawing.Size(180, 22)
         Me.Menu_CancelStaff.Text = "انصراف / خروج"
         '
         'PanelDept

@@ -44,10 +44,7 @@ lbl_GetUserNickName1:
             intUser = cboUser.SelectedValue ' ID of selected Department
             If intUser = 0 Then Exit Sub
             If PasswordTextBox.Text = DS.Tables("tblDepartments").Rows(cboUser.SelectedIndex).Item(4) Then
-                Select Case DS.Tables("tblDepartments").Rows(cboUser.SelectedIndex).Item(9)
-                    Case True : Userx = "usrDept1"
-                    Case False : Userx = "usrDept2"
-                End Select
+                Userx = "USER Department"
 lbl_GetUserNickName2:
                 If Trim(UserNickName) = "" Then UserNickName = Trim(InputBox("What's your NickName?", "NexTerm:", ""))
                 If Trim(UserNickName) = "" Then GoTo lbl_GetUserNickName2

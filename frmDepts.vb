@@ -63,29 +63,40 @@
                     Menu_EditStaff.Enabled = boolENBL
                     Menu_AddEntry.Enabled = boolENBL
                     Menu_EditEntry.Enabled = boolENBL
+                    Menu_AddDept.Enabled = boolENBL
+                    Menu_AddBioProg.Enabled = boolENBL
+                    Menu_EditBioProg.Enabled = boolENBL
+                    Menu_AddCourse.Enabled = boolENBL
+                    Menu_EditCourseNumber.Enabled = boolENBL
                     If (UserAccessConntrols And (2 ^ 4)) = (2 ^ 4) Then Grid1.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2 Else Grid1.EditMode = DataGridViewEditMode.EditProgrammatically
                 Case "USER Department" ' Userx: Department | quit
-                    boolENBL = False
+                    Menu_AddDept.Enabled = False
+                    Menu_AddBioProg.Enabled = False
+                    Menu_EditBioProg.Enabled = False
+                    Menu_EditCourseNumber.Enabled = True
                     Grid1.EditMode = DataGridViewEditMode.EditProgrammatically
-                    If intDept > 0 Then
-                        ' acc1: BioPrors,Entries,Courses
-                        If (UserAccessConntrols And (2 ^ 0)) = 0 Then Menu_EditBioProg.Enabled = False Else Menu_EditBioProg.Enabled = True
-                        If (UserAccessConntrols And (2 ^ 0)) = 0 Then Menu_AddBioProg.Enabled = False Else Menu_AddBioProg.Enabled = True
+                    If (UserAccessConntrols And (2 ^ 4)) = (2 ^ 4) Then
+                        ' acc1: Courses
                         If (UserAccessConntrols And (2 ^ 0)) = 0 Then Menu_EditEntry.Enabled = False Else Menu_EditEntry.Enabled = True
                         If (UserAccessConntrols And (2 ^ 0)) = 0 Then Menu_AddEntry.Enabled = False Else Menu_AddEntry.Enabled = True
+                        If (UserAccessConntrols And (2 ^ 0)) = 0 Then Menu_AddCourse.Enabled = False Else Menu_AddEntry.Enabled = True
                         ' acc2: staff
                         If (UserAccessConntrols And (2 ^ 1)) = 0 Then Menu_EditStaff.Enabled = False Else Menu_EditStaff.Enabled = True
                         If (UserAccessConntrols And (2 ^ 1)) = 0 Then Menu_AddStaff.Enabled = False Else Menu_AddStaff.Enabled = True
                         ' acc5: pass
                         If (UserAccessConntrols And (2 ^ 4)) = 0 Then Menu_ChangePassDept.Enabled = False Else Menu_ChangePassDept.Enabled = True
+                    Else
+                        ' acc1: Courses
+                        Menu_EditEntry.Enabled = False
+                        Menu_AddEntry.Enabled = False
+                        Menu_AddCourse.Enabled = False
+                        ' acc2: staff
+                        Menu_EditStaff.Enabled = False
+                        Menu_AddStaff.Enabled = False
+                        ' acc5: pass
+                        Menu_ChangePassDept.Enabled = False
                     End If
             End Select
-
-            'B: now, depending on userx
-            Menu_AddDept.Enabled = boolENBL
-            Menu_AddBioProg.Enabled = boolENBL
-            Menu_EditBioProg.Enabled = boolENBL
-
         Catch ex As Exception
             MsgBox(ex.ToString, vbOKOnly, "گزارش خطا در اجراي نکسترم")
         End Try
@@ -100,8 +111,10 @@
         ' A: populate BioProgs list
         Dim r As Integer = Grid1.CurrentCell.RowIndex
         If r < 0 Then Exit Sub
-        intDept = Grid1(0, r).Value
-        If (Userx = "USER Department") And (intDept <> intUser) Then Exit Sub
+        intDept = Val(Grid1(0, r).Value)
+        If ((Userx = "USER Department") And (intDept <> intUser)) Then
+            Exit Sub
+        End If
 
         ' READ FROM DATABASE
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
@@ -112,7 +125,6 @@
                 DAAC.SelectCommand.CommandText = "SELECT BioProgs.ID, ProgramName, Department_ID FROM BioProgs INNER JOIN Departments ON BioProgs.Department_ID = Departments.ID WHERE Department_ID =" & intDept.ToString & " ORDER BY ProgramName"
                 DAAC.Fill(DS, "tblBioProgs")
         End Select
-
         ListBioProg.DataSource = DS.Tables("tblBioProgs")
         ListBioProg.DisplayMember = "ProgramName"
         ListBioProg.ValueMember = "ID"
@@ -120,12 +132,7 @@
         ListBioProg.SelectedIndex = -1
         ListBioProg.SelectedValue = 0
 
-
-
-
-
         ' B: populate Staff list
-        If DS.Tables("tblDepartments").Rows(r).Item(6) = True Then Menu_EditStaff.Enabled = True Else Menu_EditStaff.Enabled = False
         'READ FROM DATABASE
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
             Case "SqlServer"
@@ -142,9 +149,6 @@
         ListStaff.Refresh()
         ListStaff.SelectedIndex = -1
         ListStaff.SelectedValue = 0
-
-
-
 
     End Sub
     Private Sub Grid1_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles Grid1.CellValueChanged
@@ -250,19 +254,24 @@
     End Sub
     Private Sub Menu_ChangePassDept_Click(sender As Object, e As EventArgs) Handles Menu_ChangePassDept.Click
         If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
-        Dim r As Integer = Grid1.CurrentCell.RowIndex
-        If r < 0 Then MsgBox("select a row!", vbOKOnly, "NexTerm") : Exit Sub
-        If (Grid1(0, Grid1.CurrentCell.RowIndex).Value = intUser Or intUser = 0) Then
-            Dim strOldPass As String = Grid1(4, r).Value
-            Dim strNewPass As String = InputBox("کلمه عبور جديد را وارد کنيد", "تغيير کلمه عبور", strOldPass)
-            If Trim(strNewPass) = "" Then MsgBox("انصراف توسط کاربر", vbOKOnly, "نکسترم") : Exit Sub
-            strOldPass = InputBox("کلمه عبور جديد را (مجددا) وارد کنيد", "تغيير کلمه عبور", "")
-            If strOldPass <> strNewPass Then MsgBox("تکرار کلمه عبور نادرست بود", vbInformation + vbOKOnly, "تغيير کلمه عبور انجام نشد") : Exit Sub
-            Grid1(4, r).Value = strOldPass
-            MsgBox("Password changed to :   " & strOldPass, vbOKOnly, "NexTerm")
-        Else
-            MsgBox("نمي توانيد کلمه عبور ساير گروه ها را تغيير دهيد", vbOKOnly, "نکسترم")
-        End If
+        Try
+            Dim r As Integer = Grid1.CurrentCell.RowIndex
+            If r < 0 Then MsgBox("select a row!", vbOKOnly, "NexTerm") : Exit Sub
+            If (Grid1(0, Grid1.CurrentCell.RowIndex).Value = intUser Or intUser = 0) Then
+                Dim strOldPass As String = Grid1(4, r).Value
+                Dim strNewPass As String = InputBox("کلمه عبور جديد را وارد کنيد", "تغيير کلمه عبور", strOldPass)
+                If Trim(strNewPass) = "" Then MsgBox("انصراف توسط کاربر", vbOKOnly, "نکسترم") : Exit Sub
+                strOldPass = InputBox("کلمه عبور جديد را (مجددا) وارد کنيد", "تغيير کلمه عبور", "")
+                If strOldPass <> strNewPass Then MsgBox("تکرار کلمه عبور نادرست بود", vbInformation + vbOKOnly, "تغيير کلمه عبور انجام نشد") : Exit Sub
+                Grid1(4, r).Value = strOldPass
+                MsgBox("Password changed to :   " & strOldPass, vbOKOnly, "NexTerm")
+            Else
+                MsgBox("نمي توانيد کلمه عبور ساير گروه ها را تغيير دهيد", vbOKOnly, "نکسترم")
+            End If
+        Catch ex As Exception
+            'MsgBox("select a row!", vbOKOnly, "NexTerm")
+        End Try
+
     End Sub
     Private Sub Menu_GuideDept_Click(sender As Object, e As EventArgs) Handles Menu_GuideDept.Click
         Dim hlp As String = ""
