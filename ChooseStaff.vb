@@ -63,6 +63,7 @@
 
     Private Sub MenuAddNew_Click(sender As Object, e As EventArgs) Handles MenuAddNew.Click
         If Userx = "USER Department" Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ListDepts.SelectedIndex = -1 Then Exit Sub
         Dim myansw As DialogResult = MsgBox("استاد جديد به اين گروه افزوده شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
         If myansw = vbYes Then
@@ -99,6 +100,7 @@
     Private Sub MenuEdit_Click(sender As Object, e As EventArgs) Handles MenuEdit.Click
         'Edit
         If Userx = "USER Department" Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
 
         Dim myansw As DialogResult = MsgBox("نام استاد ويرايش شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
         strStaff = ListStaff.Text

@@ -104,6 +104,7 @@
         trm = 1
     End Sub
     Private Sub Grid1_Dbl(sender As Object, e As DataGridViewCellEventArgs) Handles GridTemplates.CellContentDoubleClick
+        If (Userx = "USER Faculty") Then MsgBox("برنامه ريزي ترميک در اختيار مدير گروه است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridTemplates.RowCount < 1 Then Exit Sub
         Dim r As Integer = e.RowIndex 'count from 0
         Dim c As Integer = e.ColumnIndex 'count from 0
@@ -155,6 +156,7 @@
         End Select
     End Sub
     Private Sub Grid2_DoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridTemplateData.CellDoubleClick
+        If (Userx = "USER Faculty") Then MsgBox("برنامه ريزي ترميک در اختيار مدير گروه است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridTemplateData.RowCount < 1 Then Exit Sub
         Dim r As Integer = e.RowIndex 'count from 0
         Dim c As Integer = e.ColumnIndex 'count from 0
@@ -252,6 +254,7 @@
     End Sub
 
     Private Sub Menu_AddCourse_Click(sender As Object, e As EventArgs) Handles Menu_AddCourse.Click
+        If (Userx = "USER Faculty") Then MsgBox("برنامه ريزي ترميک در اختيار مدير گروه است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridTemplates.SelectedCells.Count < 1 Then
             MsgBox("يک برنامه الگو از ليست انتخاب کنيد", vbOKOnly, "نکسترم")
             Exit Sub
@@ -308,6 +311,7 @@
 
     End Sub
     Private Sub Menu_DelCourse_Click(sender As Object, e As EventArgs) Handles Menu_DelCourse.Click
+        If (Userx = "USER Faculty") Then MsgBox("برنامه ريزي ترميک در اختيار مدير گروه است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Try
             If GridTemplateData.SelectedCells.Count < 1 Then
                 MsgBox("يک برنامه الگو از ليست انتخاب کنيد", vbOKOnly, "نکسترم")
@@ -355,6 +359,7 @@
     End Sub
 
     Private Sub Menu_AddNew_Click(sender As Object, e As EventArgs) Handles Menu_AddNew.Click
+        If (Userx = "USER Faculty") Then MsgBox("برنامه ريزي ترميک در اختيار مدير گروه است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ComboDepts.SelectedIndex = -1 Then Exit Sub
         intDept = ComboDepts.SelectedValue
         ChooseBioProg.ShowDialog()
@@ -396,6 +401,7 @@
 
     End Sub
     Private Sub Menu_Del_Click(sender As Object, e As EventArgs) Handles Menu_Del.Click
+        If (Userx = "USER Faculty") Then MsgBox("برنامه ريزي ترميک در اختيار مدير گروه است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridTemplates.RowCount < 1 Then Exit Sub
 
         Dim myansw As Integer
@@ -511,8 +517,9 @@
 
     End Sub
     Private Sub Menu_Apply_Click(sender As Object, e As EventArgs) Handles Menu_Apply.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
+
         If GridTemplateData.Rows.Count = 0 Then Exit Sub
 
         ' A: Get an Entry ID 

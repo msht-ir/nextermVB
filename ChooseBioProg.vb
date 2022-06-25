@@ -46,7 +46,7 @@
 
     Private Sub MenuEditThisProg_Click(sender As Object, e As EventArgs) Handles MenuEditThisProg.Click
         If (Userx = "USER Department") Then Exit Sub
-
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim r As Integer = ListBioProg.SelectedIndex
         If r = -1 Then Exit Sub
         intBioProg = ListBioProg.SelectedValue
@@ -81,9 +81,8 @@
     End Sub
 
     Private Sub MenuAddNewProg_Click(sender As Object, e As EventArgs) Handles MenuAddNewProg.Click
-        'MsgBox("اين قابليت در آينده افزوده خواهد شد")
-        'ADD CODE HERE
         If Userx = "USER Department" Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ListDepts.SelectedIndex = -1 Then Exit Sub
         Dim myansw As DialogResult = MsgBox("دوره آموزشي جديد به اين گروه افزوده شود؟", vbYesNo + vbDefaultButton2, "نکسترم")
         If myansw = vbYes Then

@@ -36,6 +36,7 @@
 
     Private Sub MenuAddNew_Click(sender As Object, e As EventArgs) Handles MenuAddNew.Click
         If Userx = "USER Department" Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim myansw As DialogResult = MsgBox("کارشناس جديد افزوده شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
         If myansw = vbYes Then
             strTech = InputBox("نام کارشناس را وارد کنيد", "NexTerm", " کارشناس جديد " & ListTechs.Text)
@@ -66,7 +67,8 @@
     End Sub
     Private Sub MenuEdit_Click(sender As Object, e As EventArgs) Handles MenuEdit.Click
         'Edit
-        ' User is Faculty: So EDIT StaffName
+        If Userx = "USER Department" Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim myansw As DialogResult = MsgBox("نام کارشناس ويرايش شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
         strTech = ListTechs.Text
         Dim r As Integer = ListTechs.SelectedValue

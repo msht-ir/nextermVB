@@ -74,7 +74,7 @@ Partial Class frmTermProgs
         Me.MenuDelClass1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuDelClass2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ListBox1 = New System.Windows.Forms.ListBox()
-        Me.ContextMenu1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ContextMenuTermic = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Menu_EntryProg_AllTerms = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem7 = New System.Windows.Forms.ToolStripSeparator()
         Me.Menu_ExitNexTerm = New System.Windows.Forms.ToolStripMenuItem()
@@ -117,7 +117,7 @@ Partial Class frmTermProgs
         Me.MenuStrip1.SuspendLayout()
         CType(Me.Grid4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuGrid4.SuspendLayout()
-        Me.ContextMenu1.SuspendLayout()
+        Me.ContextMenuTermic.SuspendLayout()
         Me.ContextMenuGridTime.SuspendLayout()
         CType(Me.GridTime, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridWeek, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -276,7 +276,7 @@ Partial Class frmTermProgs
         '
         'Menu_Report
         '
-        Me.Menu_Report.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_UserActivityLogs, Me.Menu_UserActivityLog_CLEAR, Me.ToolStripMenuItem10, Me.Menu_ReportStaffProgsInTerms, Me.ToolStripMenuItem5, Me.Menu_ReportStaffPrograms, Me.Menu_ReportTechPrograms, Me.Menu_ReportClassPrograms, Me.Menu_ReportEntriesPrograms})
+        Me.Menu_Report.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_UserActivityLogs, Me.Menu_UserActivityLog_CLEAR, Me.ToolStripMenuItem10, Me.Menu_ReportStaffProgsInTerms, Me.ToolStripMenuItem5, Me.Menu_ReportClassPrograms, Me.Menu_ReportEntriesPrograms, Me.Menu_ReportStaffPrograms, Me.Menu_ReportTechPrograms})
         Me.Menu_Report.Name = "Menu_Report"
         Me.Menu_Report.Size = New System.Drawing.Size(50, 20)
         Me.Menu_Report.Text = "گزارش"
@@ -433,7 +433,7 @@ Partial Class frmTermProgs
         '
         Me.ListBox1.BackColor = System.Drawing.SystemColors.Control
         Me.ListBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.ListBox1.ContextMenuStrip = Me.ContextMenu1
+        Me.ListBox1.ContextMenuStrip = Me.ContextMenuTermic
         Me.ListBox1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ListBox1.ForeColor = System.Drawing.Color.IndianRed
         Me.ListBox1.FormattingEnabled = True
@@ -444,12 +444,12 @@ Partial Class frmTermProgs
         Me.ListBox1.Size = New System.Drawing.Size(296, 340)
         Me.ListBox1.TabIndex = 1
         '
-        'ContextMenu1
+        'ContextMenuTermic
         '
-        Me.ContextMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_EntryProg_AllTerms, Me.ToolStripMenuItem7, Me.Menu_ExitNexTerm})
-        Me.ContextMenu1.Name = "ContextMenuStrip3"
-        Me.ContextMenu1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenu1.Size = New System.Drawing.Size(188, 54)
+        Me.ContextMenuTermic.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_EntryProg_AllTerms, Me.ToolStripMenuItem7, Me.Menu_ExitNexTerm})
+        Me.ContextMenuTermic.Name = "ContextMenuStrip3"
+        Me.ContextMenuTermic.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ContextMenuTermic.Size = New System.Drawing.Size(188, 54)
         '
         'Menu_EntryProg_AllTerms
         '
@@ -826,7 +826,7 @@ Partial Class frmTermProgs
         Me.MenuStrip1.PerformLayout()
         CType(Me.Grid4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuGrid4.ResumeLayout(False)
-        Me.ContextMenu1.ResumeLayout(False)
+        Me.ContextMenuTermic.ResumeLayout(False)
         Me.ContextMenuGridTime.ResumeLayout(False)
         CType(Me.GridTime, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridWeek, System.ComponentModel.ISupportInitialize).EndInit()
@@ -900,7 +900,7 @@ Partial Class frmTermProgs
     Friend WithEvents Menu_ReProgram_ThisEnteryTerm As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem6 As ToolStripSeparator
     Friend WithEvents Menu_ChangePass As ToolStripMenuItem
-    Friend WithEvents ContextMenu1 As ContextMenuStrip
+    Friend WithEvents ContextMenuTermic As ContextMenuStrip
     Friend WithEvents Menu_ExitNexTerm As ToolStripMenuItem
     Friend WithEvents Menu_EntryProg_AllTerms As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem7 As ToolStripSeparator

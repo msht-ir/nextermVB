@@ -37,7 +37,12 @@
         If c = 2 And r = 0 Then 'AdminCanProg
             If DS.Tables("tblSettings").Rows(0).Item(2) = "NO" Then
                 DS.Tables("tblSettings").Rows(0).Item(2) = "YES"
-                Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                UserAccessConntrols = (UserAccessConntrols Or (2 ^ 4))
+            Else 'AdminCanProg Already YES
+                DS.Tables("tblSettings").Rows(0).Item(2) = "NO"
+                UserAccessConntrols = 0
+            End If
+            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                     Case "SqlServer"
                         strSQL = "UPDATE Settings SET iHerbsValue = 'YES' WHERE ID = @ID"
                         Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
@@ -53,14 +58,10 @@
                         Dim i As Integer = cmd.ExecuteNonQuery()
                         Exit Sub
                 End Select
-            Else 'AdminCanProg Already YES
-                Exit Sub
-            End If
-        Else ' now, other Settings
-            Select Case c 'SELECT BASED ON GRID.COLUMN
+            Else ' now, other Settings
+                Select Case c 'SELECT BASED ON GRID.COLUMN
                 Case 2 'iHerbsValue
                     Dim sttng As String = DS.Tables("tblsettings").Rows(r).Item(2)
-
                     sttng = Trim(InputBox("تغيير داده شود به", "تنظيمات نکسترم", sttng))
                     If sttng = "" Then Exit Sub
                     DS.Tables("tblSettings").Rows(r).Item(2) = sttng

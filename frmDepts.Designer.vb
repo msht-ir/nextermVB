@@ -59,6 +59,7 @@ Partial Class frmDepts
         Me.Menu_OKStaff = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_CancelStaff = New System.Windows.Forms.ToolStripMenuItem()
         Me.PanelDept = New System.Windows.Forms.Panel()
+        Me.lblHelp = New System.Windows.Forms.Label()
         Me.btnExit = New System.Windows.Forms.Button()
         Me.GridCourse = New System.Windows.Forms.DataGridView()
         Me.ContextMenuCourses = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -95,7 +96,7 @@ Partial Class frmDepts
         Me.Grid1.BackgroundColor = System.Drawing.SystemColors.Control
         Me.Grid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.Grid1.ContextMenuStrip = Me.ContextMenu_Depts
-        Me.Grid1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Grid1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Grid1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.Grid1.GridColor = System.Drawing.SystemColors.InactiveCaption
         Me.Grid1.Location = New System.Drawing.Point(0, 0)
@@ -105,7 +106,7 @@ Partial Class frmDepts
         Me.Grid1.RowHeadersVisible = False
         Me.Grid1.RowTemplate.Height = 25
         Me.Grid1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.Grid1.Size = New System.Drawing.Size(573, 623)
+        Me.Grid1.Size = New System.Drawing.Size(573, 498)
         Me.Grid1.TabIndex = 10
         '
         'ContextMenu_Depts
@@ -352,6 +353,8 @@ Partial Class frmDepts
         '
         'PanelDept
         '
+        Me.PanelDept.BackColor = System.Drawing.SystemColors.Control
+        Me.PanelDept.Controls.Add(Me.lblHelp)
         Me.PanelDept.Controls.Add(Me.Grid1)
         Me.PanelDept.Controls.Add(Me.btnExit)
         Me.PanelDept.Dock = System.Windows.Forms.DockStyle.Right
@@ -360,14 +363,25 @@ Partial Class frmDepts
         Me.PanelDept.Size = New System.Drawing.Size(573, 623)
         Me.PanelDept.TabIndex = 20
         '
+        'lblHelp
+        '
+        Me.lblHelp.AutoSize = True
+        Me.lblHelp.BackColor = System.Drawing.SystemColors.Control
+        Me.lblHelp.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblHelp.Location = New System.Drawing.Point(0, 498)
+        Me.lblHelp.Name = "lblHelp"
+        Me.lblHelp.Size = New System.Drawing.Size(41, 15)
+        Me.lblHelp.TabIndex = 11
+        Me.lblHelp.Text = "Label1"
+        '
         'btnExit
         '
         Me.btnExit.BackColor = System.Drawing.SystemColors.Control
         Me.btnExit.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.btnExit.Location = New System.Drawing.Point(468, 577)
+        Me.btnExit.Location = New System.Drawing.Point(7, 436)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(102, 25)
-        Me.btnExit.TabIndex = 17
+        Me.btnExit.TabIndex = 1
         Me.btnExit.Text = "خروج"
         Me.btnExit.UseVisualStyleBackColor = False
         '
@@ -378,7 +392,6 @@ Partial Class frmDepts
         Me.GridCourse.AllowUserToResizeColumns = False
         Me.GridCourse.AllowUserToResizeRows = False
         Me.GridCourse.BackgroundColor = System.Drawing.Color.WhiteSmoke
-        Me.GridCourse.BorderStyle = System.Windows.Forms.BorderStyle.None
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
@@ -405,35 +418,35 @@ Partial Class frmDepts
         Me.ContextMenuCourses.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_AddCourse, Me.Menu_EditCourseNumber, Me.ToolStripSeparator4, Me.Menu_OKCourse, Me.Menu_CancelCourse})
         Me.ContextMenuCourses.Name = "ContextMenuStrip1"
         Me.ContextMenuCourses.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuCourses.Size = New System.Drawing.Size(181, 120)
+        Me.ContextMenuCourses.Size = New System.Drawing.Size(171, 98)
         '
         'Menu_AddCourse
         '
         Me.Menu_AddCourse.Name = "Menu_AddCourse"
-        Me.Menu_AddCourse.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_AddCourse.Size = New System.Drawing.Size(170, 22)
         Me.Menu_AddCourse.Text = "+  درس جديد"
         '
         'Menu_EditCourseNumber
         '
         Me.Menu_EditCourseNumber.Name = "Menu_EditCourseNumber"
-        Me.Menu_EditCourseNumber.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_EditCourseNumber.Size = New System.Drawing.Size(170, 22)
         Me.Menu_EditCourseNumber.Text = "ويرايش شماره درس"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(167, 6)
         '
         'Menu_OKCourse
         '
         Me.Menu_OKCourse.Name = "Menu_OKCourse"
-        Me.Menu_OKCourse.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_OKCourse.Size = New System.Drawing.Size(170, 22)
         Me.Menu_OKCourse.Text = " تاييد / انتخاب"
         '
         'Menu_CancelCourse
         '
         Me.Menu_CancelCourse.Name = "Menu_CancelCourse"
-        Me.Menu_CancelCourse.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_CancelCourse.Size = New System.Drawing.Size(170, 22)
         Me.Menu_CancelCourse.Text = "خروج / انصراف"
         '
         'Panel4
@@ -490,6 +503,7 @@ Partial Class frmDepts
         Me.Panel2.ResumeLayout(False)
         Me.ContextMenu_Staff.ResumeLayout(False)
         Me.PanelDept.ResumeLayout(False)
+        Me.PanelDept.PerformLayout()
         CType(Me.GridCourse, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuCourses.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
@@ -543,4 +557,5 @@ Partial Class frmDepts
     Friend WithEvents Menu_EditCourseNumber As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents Menu_CancelCourse As ToolStripMenuItem
+    Friend WithEvents lblHelp As Label
 End Class

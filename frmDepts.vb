@@ -1,11 +1,18 @@
 ﻿Public Class frmDepts
     ' GRID DEPARTMENT
     Private Sub frmShowTables_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text = "NexTerm  [organisation]   |  " & Userx & "  Connected to :  " & Server2Connect
+        Me.Text = "NexTerm  |  " & Userx & "  Connected to :  " & Server2Connect
         WriteLOG(0)
         Show_DeptTable()
         EnableDisableMenus()
 
+        Dim hlp As String = ""
+        hlp = hlp & "acc1: Courses(امکان ويرايش درس ها)" & vbCrLf
+        hlp = hlp & "acc2: Staff(امکان ويرايش نام استاد / کارشناس)" & vbCrLf
+        hlp = hlp & "acc3: Class (امکان تخصيص کلاس)" & vbCrLf
+        hlp = hlp & "acc4: all Terms(مشاهده همه ترم هاي يک ورودي + حذف برنامه يک ورودي در يک ترم)" & vbCrLf
+        hlp = hlp & "acc5: Pass (فعال بودن اکانت براي برنامه ريزي و امکان تغيير کلمه عبور)"
+        lblHelp.Text = hlp
     End Sub
     Private Sub Show_DeptTable()
         DS.Tables("tblDepartments").Clear()
@@ -20,13 +27,19 @@
 
         Grid1.DataSource = DS.Tables("tblDepartments")
         Grid1.Refresh()
-        Grid1.Columns(4).Visible = False      'Pass
-        Grid1.Columns(0).Visible = False      'ID
+        If Userx = "USER Faculty" And UserAccessConntrols And (2 ^ 4) = (2 ^ 4) Then
+            Grid1.Columns(0).Visible = False      'ID
+            Grid1.Columns(4).Visible = True      'Pass
+            Grid1.Columns(4).Width = 35          'Pass
+        Else
+            Grid1.Columns(0).Visible = False      'ID
+            Grid1.Columns(4).Visible = False      'Pass
+        End If
+
         Grid1.Columns(0).Width = 0        'ID
         Grid1.Columns(1).Width = 230      'DepartmentName
         Grid1.Columns(2).Width = 43       'Active
-        Grid1.Columns(3).Width = 60       'Notes
-        'Grid1.Columns(4).Width = 0       'Pass
+        Grid1.Columns(3).Width = 50       'Notes
         Grid1.Columns(5).Width = 40       'Access-1 : Add/Edit Courses
         Grid1.Columns(6).Width = 40       'Access-2 : Add/Edit Staff & Techs
         Grid1.Columns(7).Width = 40       'Access-3 : Add/Edit Use/Set Class
@@ -44,13 +57,13 @@
             'A: strictly for each user
             Select Case Userx
                 Case "USER Faculty"
-                    boolENBL = True
+                    If (UserAccessConntrols And (2 ^ 4)) = (2 ^ 4) Then boolENBL = True Else boolENBL = False
                     Menu_ChangePassDept.Enabled = boolENBL
                     Menu_AddStaff.Enabled = boolENBL
                     Menu_EditStaff.Enabled = boolENBL
                     Menu_AddEntry.Enabled = boolENBL
                     Menu_EditEntry.Enabled = boolENBL
-                    Grid1.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2
+                    If (UserAccessConntrols And (2 ^ 4)) = (2 ^ 4) Then Grid1.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2 Else Grid1.EditMode = DataGridViewEditMode.EditProgrammatically
                 Case "USER Department" ' Userx: Department | quit
                     boolENBL = False
                     Grid1.EditMode = DataGridViewEditMode.EditProgrammatically
@@ -135,7 +148,8 @@
 
     End Sub
     Private Sub Grid1_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles Grid1.CellValueChanged
-        If Userx <> "USER Faculty" Then
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If Userx <> "USER Faculty" Then 
             MsgBox("Changes discarded", vbOK, "کاربر : گروه آموزشي")
             Exit Sub
         Else
@@ -212,11 +226,8 @@
 
     End Sub
     Private Sub Menu_AddDept_Click(sender As Object, e As EventArgs) Handles Menu_AddDept.Click
-        If Userx <> "USER Faculty" Then
-            MsgBox("Changes discarded", vbOK, "کاربر : گروه آموزشي")
-            Exit Sub
-        End If
-
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If Userx <> "USER Faculty" Then MsgBox("Changes discarded", vbOK, "کاربر : گروه آموزشي") : Exit Sub
         Dim myansw As DialogResult = MsgBox("يک گروه آموزشي جديد افزوده شود؟", vbQuestion + vbYesNo + vbDefaultButton2, "NexTerm")
         If myansw = vbNo Then Exit Sub
 
@@ -238,6 +249,7 @@
 
     End Sub
     Private Sub Menu_ChangePassDept_Click(sender As Object, e As EventArgs) Handles Menu_ChangePassDept.Click
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim r As Integer = Grid1.CurrentCell.RowIndex
         If r < 0 Then MsgBox("select a row!", vbOKOnly, "NexTerm") : Exit Sub
         If (Grid1(0, Grid1.CurrentCell.RowIndex).Value = intUser Or intUser = 0) Then
@@ -299,6 +311,7 @@
         Menu_OKStaff_Click(sender, e)
     End Sub
     Private Sub Menu_AddStaff_Click(sender As Object, e As EventArgs) Handles Menu_AddStaff.Click
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid1.CurrentCell.RowIndex < 0 Then Exit Sub
         Dim myansw As DialogResult = MsgBox("استاد جديد به اين گروه افزوده شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
         If myansw = vbYes Then
@@ -333,7 +346,7 @@
     End Sub
     Private Sub Menu_EditStaff_Click(sender As Object, e As EventArgs) Handles Menu_EditStaff.Click
         'Edit
-        'If Userx = "USER Department" Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim myansw As DialogResult = MsgBox("نام استاد ويرايش شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
         strStaff = ListStaff.Text
         Dim r As Integer = ListStaff.SelectedValue
@@ -366,7 +379,7 @@
 
     End Sub
     Private Sub Menu_DelStaff_Click(sender As Object, e As EventArgs) Handles Menu_DelStaff.Click
-        MsgBox("اين ويژگي براي همه کاربران غير فعال است", vbOKOnly, "نکسترم")
+        MsgBox("امکان حذف نام استاد اکنون وجود ندارد", vbOKOnly, "نکسترم")
 
     End Sub
     Private Sub Menu_OKStaff_Click(sender As Object, e As EventArgs) Handles Menu_OKStaff.Click
@@ -388,6 +401,7 @@
         Menu_OKBioProg_Click(sender, e)
     End Sub
     Private Sub Menu_AddBioProg_Click(sender As Object, e As EventArgs) Handles Menu_AddBioProg.Click
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid1.CurrentCell.RowIndex < 0 Then Exit Sub
         Dim myansw As DialogResult = MsgBox("دوره آموزشي جديد به اين گروه افزوده شود؟", vbYesNo + vbDefaultButton2, "نکسترم")
         If myansw = vbYes Then
@@ -419,6 +433,7 @@
 
     End Sub
     Private Sub Menu_EditBioProg_Click(sender As Object, e As EventArgs) Handles Menu_EditBioProg.Click
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim r As Integer = ListBioProg.SelectedIndex
         If r = -1 Then Exit Sub
         intBioProg = ListBioProg.SelectedValue
@@ -560,6 +575,7 @@
     'GRID ENTRY
     Private Sub GridEntries_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles GridEntries.CellValueChanged
         If Userx = "USER Department" Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridEntries.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridEntries.CurrentCell.RowIndex   'count from 0
         Dim c As Integer = GridEntries.CurrentCell.ColumnIndex 'count from 0
@@ -608,6 +624,7 @@
     End Sub
     Private Sub Menu_AddEntry_Click(sender As Object, e As EventArgs) Handles Menu_AddEntry.Click
         If Userx = "USER Department" Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid1.CurrentCell.RowIndex < 0 Then Exit Sub
         If ListBioProg.SelectedIndex = -1 Then Exit Sub
         intBioProg = Int(Val(ListBioProg.SelectedValue))
@@ -659,11 +676,13 @@
                 Menu_OKEntry_Click(sender, e)
                 Exit Sub
             Case "USER Faculty"
+                If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                 Menu_EditEntry_Click(sender, e)
         End Select
 
     End Sub
     Private Sub Menu_EditEntry_Click(sender As Object, e As EventArgs) Handles Menu_EditEntry.Click
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridEntries.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridEntries.SelectedCells(0).RowIndex    'count from 0
         Dim c As Integer = GridEntries.SelectedCells(0).ColumnIndex 'count from 0
@@ -730,6 +749,7 @@
 
     'GRID COURSE
     Private Sub GridCourse_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellDoubleClick
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim r As Integer = GridCourse.SelectedCells(0).RowIndex    'count from 0
         Dim c As Integer = GridCourse.SelectedCells(0).ColumnIndex 'count from 0
         If GridCourse.RowCount < 1 Then Exit Sub
@@ -766,6 +786,7 @@
 
     End Sub
     Private Sub GridCourse_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellValueChanged
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridCourse.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridCourse.CurrentCell.RowIndex   'count from 0
         If r < 0 Then Exit Sub
@@ -803,6 +824,7 @@
 
     End Sub
     Private Sub Menu_AddCourse_Click(sender As Object, e As EventArgs) Handles Menu_AddCourse.Click
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ListBioProg.SelectedIndex = -1 Then Exit Sub
         Dim myansw As DialogResult = MsgBox("درس جديد به اين دوره آموزشي افزوده شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
         If myansw = vbYes Then

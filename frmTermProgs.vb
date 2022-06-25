@@ -37,46 +37,44 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub EnableMenu()
+        Dim boolENBL As Boolean = True
         Try
-            Dim boolENBL As Boolean
             Select Case Userx
                 Case "USER Faculty"
-                    boolENBL = True
-                    Menu_Courses.Enabled = True
-                    Menu_Staff.Enabled = True
-                    Menu_Tech.Enabled = True
-                    Menu_ReProgram_ThisEnteryTerm.Enabled = True
-                    Menu_ReProgram_ThisEnteryTerm_inclStaff.Enabled = True
-                    Menu_ChangePass.Enabled = True
-
-                Case "USER Department" ' Userx: Department | quit
-                    boolENBL = False
-                    If ComboBox1.SelectedValue > 0 Then
-                        If (UserAccessConntrols And (2 ^ 0)) = 0 Then Menu_Courses.Enabled = False Else Menu_Courses.Enabled = True
-                        If (UserAccessConntrols And (2 ^ 1)) = 0 Then Menu_Staff.Enabled = False Else Menu_Staff.Enabled = True
-                        If (UserAccessConntrols And (2 ^ 1)) = 0 Then Menu_Tech.Enabled = False Else Menu_Tech.Enabled = True
-                        If (UserAccessConntrols And (2 ^ 3)) = 0 Then Menu_ReProgram_ThisEnteryTerm.Enabled = False Else Menu_ReProgram_ThisEnteryTerm.Enabled = True
-                        If (UserAccessConntrols And (2 ^ 3)) = 0 Then Menu_ReProgram_ThisEnteryTerm_inclStaff.Enabled = False Else Menu_ReProgram_ThisEnteryTerm_inclStaff.Enabled = True
-                        If (UserAccessConntrols And (2 ^ 4)) = 0 Then Menu_ChangePass.Enabled = False Else Menu_ChangePass.Enabled = True
-                    End If
+                    Menu_Settings.Enabled = True
+                    If (UserAccessConntrols And (2 ^ 4)) = 0 Then boolENBL = False Else boolENBL = True 'Viewer mode for Faculty
+                    'MsgBox(boolENBL.ToString & "  /  " & UserAccessConntrols.ToString)
+                    Menu_Courses.Enabled = boolENBL
+                    Menu_Staff.Enabled = boolENBL
+                    Menu_Tech.Enabled = boolENBL
+                    Menu_ReProgram_ThisEnteryTerm.Enabled = boolENBL
+                    Menu_ReProgram_ThisEnteryTerm_inclStaff.Enabled = boolENBL
+                    Menu_ChangePass.Enabled = boolENBL
+                    Menu_Classes.Enabled = boolENBL
+                    Menu_Terms.Enabled = boolENBL
+                    Menu_Delete_Entry_TermProg.Enabled = boolENBL
+                    Menu_UserActivityLog_CLEAR.Enabled = boolENBL
+                    ContextMenuGrid4.Enabled = boolENBL
+                    Menu_ReportTechPrograms.Visible = False 'under construction
+                Case "USER Department"
+                    Menu_Settings.Enabled = False
+                    If (UserAccessConntrols And (2 ^ 0)) = 0 Then Menu_Courses.Enabled = False Else Menu_Courses.Enabled = True
+                    If (UserAccessConntrols And (2 ^ 1)) = 0 Then Menu_Staff.Enabled = False Else Menu_Staff.Enabled = True
+                    If (UserAccessConntrols And (2 ^ 1)) = 0 Then Menu_Tech.Enabled = False Else Menu_Tech.Enabled = True
+                    If (UserAccessConntrols And (2 ^ 3)) = 0 Then Menu_ReProgram_ThisEnteryTerm.Enabled = False Else Menu_ReProgram_ThisEnteryTerm.Enabled = True
+                    If (UserAccessConntrols And (2 ^ 3)) = 0 Then Menu_ReProgram_ThisEnteryTerm_inclStaff.Enabled = False Else Menu_ReProgram_ThisEnteryTerm_inclStaff.Enabled = True
+                    If (UserAccessConntrols And (2 ^ 4)) = 0 Then Menu_ChangePass.Enabled = False Else Menu_ChangePass.Enabled = True
+                    If (UserAccessConntrols And (2 ^ 4)) = 0 Then ContextMenuGrid4.Enabled = False Else ContextMenuGrid4.Enabled = True
+                    Menu_Classes.Enabled = False
+                    Menu_Terms.Enabled = False
+                    Menu_Delete_Entry_TermProg.Enabled = False
+                    Menu_UserActivityLog_CLEAR.Enabled = False
+                    Menu_ReportTechPrograms.Visible = False 'under construction 
             End Select
-
-            Menu_Settings.Enabled = boolENBL
-
-            Menu_Classes.Enabled = boolENBL
-            Menu_Terms.Enabled = boolENBL
-
-            Menu_Delete_Entry_TermProg.Enabled = boolENBL
-            Menu_UserActivityLog_CLEAR.Enabled = boolENBL
-            Menu_ReportTechPrograms.Enabled = False
-
-            If (Userx = "USER Faculty") And (AdminCanProg = False) Then ContextMenuGrid4.Enabled = False Else ContextMenuGrid4.Enabled = True
             CheckMessages()
-
         Catch ex As Exception
             MsgBox(ex.ToString, vbOKOnly, "گزارش خطا در اجراي نکسترم")
         End Try
-
     End Sub
     Private Sub CheckMessages()
         DS.Tables("tblMSgs").Clear()
@@ -120,8 +118,9 @@ Public Class frmTermProgs
         If Userx = "quit" Then Exit Sub
 
         ' Clear Grid4 :Term_Prog data
-        Menu_EntryProg_AllTerms.Enabled = False
-        Grid4.DataSource = ""
+        Try
+            Menu_EntryProg_AllTerms.Enabled = False
+            Grid4.DataSource = ""
         txtExamDate.Text = ""
         GridTime_Hide()
 
@@ -130,9 +129,8 @@ Public Class frmTermProgs
 
         Dim i As String = ComboBox1.GetItemText(ComboBox1.SelectedValue)
         If Val(i) = 0 Then Exit Sub
-        Try
-            If (Userx = "USER Department") And (ComboBox1.SelectedValue <> intUser) Then Exit Sub
-            If (Userx = "USER Department") And (DS.Tables("tblDepartments").Rows(ComboBox1.SelectedIndex).Item(2)) = False Then Exit Sub ' check if department is active  //  Item(2):DepartmentActive
+        If (Userx = "USER Department") And (ComboBox1.SelectedValue <> intUser) Then Exit Sub
+        If (Userx = "USER Department") And (DS.Tables("tblDepartments").Rows(ComboBox1.SelectedIndex).Item(2)) = False Then Exit Sub ' check if department is active  //  Item(2):DepartmentActive
             'READ (from DB) the Entries of the selected Department
             Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                 Case "SqlServer"
@@ -306,7 +304,6 @@ Public Class frmTermProgs
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
-
         '======================================================================= PRINT
         FileOpen(1, Application.StartupPath & "\Nexterm_Entry.html", OpenMode.Output)
         PrintLine(1, "<html dir= ""rtl"">")
@@ -421,7 +418,6 @@ Public Class frmTermProgs
         Dim Trm As String = ListBox2.GetItemText(ListBox2.SelectedValue)
         If Val(Ent) = 0 Then Exit Sub
         If Val(Trm) = 0 Then Exit Sub
-
         ' Clear GridWeek
         For c As Integer = 1 To 8 ' cols are day_times
             For r As Integer = 0 To 5 ' rows are week_days
@@ -431,18 +427,14 @@ Public Class frmTermProgs
         Next c
         GridWeek.Visible = True
         lblWeek.Visible = True
-
         ' Grid4.Cols:  6=SAT ... 11=THR
         Array.Clear(intTimeFlag, 0, intTimeFlag.Length) ' clear data in intTimeFlag (r:6days, c:8times //begins from 0)
         Dim strTadakhol As String = ""
         Dim TadakholExists As Boolean = False
-
         strEntry = ListBox1.Text
         strTerm = ListBox2.Text
-
         strTadakhol = strTadakhol & "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>"
         strTadakhol = strTadakhol & "<tr><th>روز</th><th>ساعت</th><th>نام درس</th><th>گ</th></tr>"
-
         For intThisCourse As Integer = 0 To DS.Tables("tblTermProgs").Rows.Count - 1
             For intTime As Integer = 0 To 7 ' for each time of day
                 For intDay As Integer = 0 To 5
@@ -460,7 +452,6 @@ Public Class frmTermProgs
             Next intTime
         Next intThisCourse
         strTadakhol = strTadakhol & "</table>"
-
         '======================================================================= OPEN Week()
         FileOpen(1, Application.StartupPath & "\Nexterm_EntryTerm.html", OpenMode.Output)
         PrintLine(1, "<html dir= ""rtl"">")
@@ -476,7 +467,6 @@ Public Class frmTermProgs
             PrintLine(1, strTadakhol)
             PrintLine(1, "<br>")
         End If
-
         ' draw table2: TermProg (html)
         PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه آموزشي</p>")
         PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
@@ -497,7 +487,6 @@ Public Class frmTermProgs
         PrintLine(1, "<th>کلاس2</th>")
         PrintLine(1, "<th>ظرفيت</th>")
         PrintLine(1, "<th>يادداشت</th></tr>")
-
         For i As Integer = 0 To DS.Tables("tblTermProgs").Rows.Count - 1
             PrintLine(1, "<tr>")
             PrintLine(1, "<td>", DS.Tables("tblTermProgs").Rows(i).Item(2), "</td>")   ' 2 :CourseNumber
@@ -506,7 +495,6 @@ Public Class frmTermProgs
             PrintLine(1, "<td>", DS.Tables("tblTermProgs").Rows(i).Item(4), "</td>")   ' 4 :Unit
             PrintLine(1, "<td>", DS.Tables("tblTermProgs").Rows(i).Item(7), "</td>")   ' 7 :Staff
             PrintLine(1, "<td>", DS.Tables("tblTermProgs").Rows(i).Item(9), "</td>")   ' 9 :Tech
-
             For intday As Integer = 0 To 5
                 Dim x As String = ""
                 For intTime As Integer = 0 To 7
@@ -519,7 +507,6 @@ Public Class frmTermProgs
                 Next intTime
                 PrintLine(1, "<td>", x, "</td>") ' Time
             Next intday
-
             PrintLine(1, "<td>", DS.Tables("tblTermProgs").Rows(i).Item(27), "</td>") ' 27:Exam
             PrintLine(1, "<td>", DS.Tables("tblTermProgs").Rows(i).Item(17), "</td>") ' 17:Class1
             PrintLine(1, "<td>", DS.Tables("tblTermProgs").Rows(i).Item(25), "</td>") ' 25:Class2
@@ -528,12 +515,10 @@ Public Class frmTermProgs
             PrintLine(1, "</tr>")
         Next i
         PrintLine(1, "</table><br>")
-
         ' // table: free times
         PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>ساعت هاي آزاد</p>")
         DrawFreeTimeTable()
         PrintLine(1, "<p style='font-family:tahoma; font-size:12px'></p>")
-
         ' // table of Exams dates for GridWeek
         DS.Tables("tblTermExams").Clear()
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
@@ -544,7 +529,6 @@ Public Class frmTermProgs
                 DAAC.SelectCommand.CommandText = "SELECT TermProgs.ID, ExamDate, CourseName, Course_ID, [Group], StaffName, Staff_ID, [ProgramName] & ' - ' & [Entyear] AS strEnt, Entry_ID FROM (BioProgs INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) INNER JOIN (((TermProgs LEFT JOIN Terms ON TermProgs.Term_ID = Terms.ID) LEFT JOIN Courses ON TermProgs.Course_ID = Courses.ID) LEFT JOIN Staff ON TermProgs.Staff_ID = Staff.ID) ON Entries.ID = TermProgs.Entry_ID WHERE Term_ID = " & Trm.ToString & " AND Entry_ID = " & Ent.ToString & " ORDER BY ExamDate"
                 DAAC.Fill(DS, "tblTermExams")
         End Select
-
         PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>")
         PrintLine(1, "برنامه امتحانات")
         PrintLine(1, "</p>")
@@ -559,29 +543,22 @@ Public Class frmTermProgs
             PrintLine(1, "</tr>")
         Next
         PrintLine(1, "</table>")
-
         ' //FOOTER
         PrintLine(1, "<br><hr>")
         PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>" & strReportsFooter & "</p>")
         PrintLine(1, "</body></html>")
-
         FileClose(1)
-
         For c As Integer = 1 To 8
             For r As Integer = 0 To 5
                 If Val(GridWeek(c, r).Value) > 1 Then GridWeek(c, r).Style.ForeColor = Color.Red
             Next r
         Next c
-
         GridWeek.Visible = True
         lblWeek.Visible = True
-
     End Sub
 
     ' Grid4
     Private Sub Grid4_CellDblClick(sender As Object, e As DataGridViewCellEventArgs) Handles Grid4.CellDoubleClick
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
-        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = e.RowIndex 'count from 0
         Dim c As Integer = e.ColumnIndex 'count from 0
@@ -604,11 +581,7 @@ Public Class frmTermProgs
 
         Select Case c'SELECT BASED ON GRID.COLUMN
             Case 3 'Course
-                If (Userx = "USER Faculty") And (AdminCanProg = False) Then
-                    MsgBox("قابليت (برنامه ريزي) براي (کاربر دانشکده) غير فعال است", vbInformation, "تنظيمات نکسترم")
-                    Exit Sub
-                End If
-
+                If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                 intDept = ComboBox1.GetItemText(ComboBox1.SelectedValue)
                 intBioProg = DS.Tables("tblEntries").Rows(ListBox1.SelectedIndex).Item(2)
                 intCourse = DS.Tables("tblTermProgs").Rows(r).Item(1)
@@ -640,11 +613,7 @@ Public Class frmTermProgs
 
 
             Case 7 'Staff
-                If (Userx = "USER Faculty") And (AdminCanProg = False) Then
-                    MsgBox("قابليت (برنامه ريزي) براي (کاربر دانشکده) غير فعال است", vbInformation, "تنظيمات نکسترم")
-                    Exit Sub
-                End If
-
+                If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                 intDept = ComboBox1.SelectedValue
                 ChooseStaff.ShowDialog()
                 Dim z As DialogResult
@@ -673,11 +642,7 @@ Public Class frmTermProgs
                 End Select
 
             Case 5 'Group
-                If (Userx = "USER Faculty") And (AdminCanProg = False) Then
-                    MsgBox("قابليت (برنامه ريزي) براي (کاربر دانشکده) غير فعال است", vbInformation, "تنظيمات نکسترم")
-                    Exit Sub
-                End If
-
+                If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                 Dim grp As Integer = DS.Tables("tblTermProgs").Rows(r).Item(5)
                 grp = Val(InputBox("شماره گروه", "NexTerm", grp))
                 DS.Tables("tblTermProgs").Rows(r).Item(5) = grp
@@ -702,11 +667,7 @@ Public Class frmTermProgs
 
 
             Case 9 'Tech
-                If (Userx = "USER Faculty") And (AdminCanProg = False) Then
-                    MsgBox("قابليت (برنامه ريزي) براي (کاربر دانشکده) غير فعال است", vbInformation, "تنظيمات نکسترم")
-                    Exit Sub
-                End If
-
+                If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                 ChooseTech.ShowDialog()
                 If strTech = "" Then
                     Dim z As DialogResult
@@ -732,7 +693,6 @@ Public Class frmTermProgs
                         cmd.Parameters.AddWithValue("@ID", DS.Tables("tblTermProgs").Rows(r).Item(0).ToString)
                         Dim i As Integer
                         i = cmd.ExecuteNonQuery()
-
                 End Select
 
             Case 26 'Capacity
@@ -762,9 +722,9 @@ Public Class frmTermProgs
                         Dim i As Integer = cmd.ExecuteNonQuery()
                 End Select
 
-            Case 17, 25 'Room1, Room2 /////////////////////////////////////////////////////////////////////////////////////
+            Case 17, 25 'Room1, Room2
                 If DS.Tables("tblDepartments").Rows(ComboBox1.SelectedIndex).Item(7) <> True Then
-                    MsgBox("تعيين کلاس اکنون (غير فعال) است", vbInformation, "تنظيمات نکسترم")
+                    If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                     Exit Sub
                 End If
                 Try
@@ -1480,9 +1440,7 @@ Public Class frmTermProgs
 
             Select Case strCaption
                 Case "Course" ' --------------- course --------------- course --------------- course --------------- course ---------------
-                    If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
-                    If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
-
+                    If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                     If RadioBtn2.Checked = True Then strColor = "MistyRose"
                     If GridTime.Item(c, r).Value = "" Then
                         Select Case c
@@ -1566,8 +1524,7 @@ Public Class frmTermProgs
 
     'Popup Menus
     Private Sub PopMenu_AddGroup(sender As Object, e As EventArgs) Handles MenuAddGroup.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
-        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.SelectedCells(0).RowIndex 'count from 0
         Dim c As Integer = Grid4.SelectedCells(0).ColumnIndex 'count from 0
@@ -1609,8 +1566,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub PopMenu_AddCourse(sender As Object, e As EventArgs) Handles MenuAddCourse.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
-        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         intDept = ComboBox1.GetItemText(ComboBox1.SelectedValue)
         intBioProg = DS.Tables("tblEntries").Rows(ListBox1.SelectedIndex).Item(2)
@@ -1659,8 +1615,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub PopMenu_DelCourse(sender As Object, e As EventArgs) Handles MenuDelCourse.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
-        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.SelectedCells(0).RowIndex 'count from 0
         Dim c As Integer = Grid4.SelectedCells(0).ColumnIndex 'count from 0
@@ -1698,8 +1653,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_ReplaceCourse(sender As Object, e As EventArgs) Handles MenuReplaceCourse.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
-        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.SelectedCells(0).RowIndex 'count from 0
         Dim c As Integer = Grid4.SelectedCells(0).ColumnIndex 'count from 0
@@ -1753,8 +1707,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub MenuDelClass1_Click(sender As Object, e As EventArgs) Handles MenuDelClass1.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
-        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.CurrentCell.RowIndex 'count from 0
         Dim c As Integer = Grid4.CurrentCell.ColumnIndex 'count from 0
@@ -1781,8 +1734,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub MenuDelClass2_Click(sender As Object, e As EventArgs) Handles MenuDelClass2.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
-        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.CurrentCell.RowIndex 'count from 0
         Dim c As Integer = Grid4.CurrentCell.ColumnIndex 'count from 0
@@ -1915,47 +1867,17 @@ Public Class frmTermProgs
         GridTime_Hide()
 
     End Sub
-    Private Sub Menu_Settings_Click(sender As Object, e As EventArgs) Handles Menu_Settings.Click
-        If Userx = "USER Faculty" Then
-            Settings.ShowDialog()
-            WriteLOG(10)
-            EnableMenu()
-            ClrForm()
-            GridTime_Hide()
-        End If
-
-    End Sub
-    Private Sub Menu_About_Click(sender As Object, e As EventArgs) Handles Menu_About.Click
-        frmAbout.ShowDialog()
-
-    End Sub
-    Private Sub Menu_Help_Click(sender As Object, e As EventArgs) Handles Menu_Help.Click
-        Try
-            Dim pWeb As Process = New Process()
-            pWeb.StartInfo.UseShellExecute = True
-            pWeb.StartInfo.FileName = "microsoft-edge:http://msht.ir"
-            pWeb.Start()
-
-        Catch ex As Exception
-            MsgBox("توجه: راهنماي نکسترم با مرورگر اج باز مي شود", vbOKOnly, "مرورگر اج پيدا نشد") 'MsgBox(ex.ToString)
-        End Try
-
-    End Sub
     Private Sub Menu_ChangePass_Click(sender As Object, e As EventArgs) Handles Menu_ChangePass.Click
-        If (Userx = "USER Faculty") Or (intUser = 0) Then
-            Menu_Settings_Click(sender, e) 'MsgBox("کاربر دانشکده (ادمين) براي تغيير پسورد به بخش تنظيمات مراجعه کنيد", vbOKOnly, "نکسترم")
+        If (Userx = "USER Faculty") Or (intUser = 0) Then 'MsgBox("کاربر دانشکده (ادمين) براي تغيير پسورد به بخش تنظيمات مراجعه کنيد", vbOKOnly, "نکسترم")
+            Menu_Settings_Click(sender, e)
             Exit Sub
         End If
-        If DS.Tables("tblDepartments").Rows(ComboBox1.SelectedIndex).Item(9) <> True Then
-            MsgBox("تغيير کلمه عبور اکنون فعال نيست", vbInformation, "تنظيمات نکسترم")
-            Exit Sub
-        End If
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (تغيير کلمه عبور) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim strOldPass As String = ""
         Dim strNewPass As String = ""
         Dim strcheckPass As String = ""
 
         strOldPass = DS.Tables("tblDepartments").Rows(ComboBox1.SelectedIndex).Item(4)
-
         strcheckPass = InputBox("پسورد فعلي را وارد کنيد", "نکسترم", "")
         If strcheckPass <> strOldPass Then
             strcheckPass = InputBox("پسورد فعلي را  - بطور صحيح -  وارد کنيد", "توجه:", "")
@@ -2008,8 +1930,34 @@ Public Class frmTermProgs
         WriteLOG(11)
         MsgBox("کلمه عبور تغيير يافت", vbInformation, "نکسترم")
     End Sub
+    Private Sub Menu_Settings_Click(sender As Object, e As EventArgs) Handles Menu_Settings.Click
+        If Userx = "USER Faculty" Then
+            Settings.ShowDialog()
+            WriteLOG(10)
+            EnableMenu()
+            ClrForm()
+            GridTime_Hide()
+        End If
+
+    End Sub
+    Private Sub Menu_About_Click(sender As Object, e As EventArgs) Handles Menu_About.Click
+        frmAbout.ShowDialog()
+
+    End Sub
+    Private Sub Menu_Help_Click(sender As Object, e As EventArgs) Handles Menu_Help.Click
+        Try
+            Dim pWeb As Process = New Process()
+            pWeb.StartInfo.UseShellExecute = True
+            pWeb.StartInfo.FileName = "microsoft-edge:http://msht.ir"
+            pWeb.Start()
+
+        Catch ex As Exception
+            MsgBox("توجه: راهنماي نکسترم با مرورگر اج باز مي شود", vbOKOnly, "مرورگر اج پيدا نشد") 'MsgBox(ex.ToString)
+        End Try
+
+    End Sub
     Private Sub Menu_Notes_Click(sender As Object, e As EventArgs) Handles Menu_Notes.Click
-        'OPEN notes form
+        'OPEN notes form (messaging)
         frmShowNotes.ShowDialog()
 
     End Sub
@@ -2019,15 +1967,14 @@ Public Class frmTermProgs
 
     'Menu 2 Resource
     Private Sub Menu_Departments_Click(sender As Object, e As EventArgs) Handles Menu_Departments.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
-        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         frmDepts.ShowDialog()
         ClrForm()
         EnableMenu()
 
     End Sub
     Private Sub Menu_Courses_Click(sender As Object, e As EventArgs) Handles Menu_Courses.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim i As String = ListBox1.GetItemText(ListBox1.SelectedValue)
         If Val(i) = 0 Then Exit Sub
         intBioProg = DS.Tables("tblEntries").Rows(ListBox1.SelectedIndex).Item(2)
@@ -2038,7 +1985,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_Classes_Click(sender As Object, e As EventArgs) Handles Menu_Classes.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         intTerm = ListBox2.SelectedValue
         For c As Integer = 0 To 7
             For r As Integer = 0 To 5
@@ -2051,14 +1998,14 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_Terms_Click(sender As Object, e As EventArgs) Handles Menu_Terms.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         strCaption = "Terms"
         ChooseTerm.ShowDialog()
         ClrForm()
 
     End Sub
     Private Sub Menu_Staff_Click(sender As Object, e As EventArgs) Handles Menu_Staff.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         intDept = ComboBox1.SelectedValue
         If ComboBox1.SelectedIndex = -1 Then intDept = 0
         ChooseStaff.ShowDialog()
@@ -2066,7 +2013,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_Tech_Click(sender As Object, e As EventArgs) Handles Menu_Tech.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         ChooseTech.ShowDialog()
         ClrForm()
 
@@ -2083,8 +2030,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_Delete_Entry_TermProg_Click(sender As Object, e As EventArgs) Handles Menu_Delete_Entry_TermProg.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
-        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ListBox1.SelectedIndex = -1 Then Exit Sub
         Dim myansw As Integer = MsgBox("برنامه آموزشي همه ترم هاي اين ورودي حذف شوند؟", vbYesNo + vbDefaultButton2, "تاييد کنيد")
         If myansw = vbNo Then Exit Sub
@@ -2124,8 +2070,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_ReProgram_ThisEnteryTerm_inclStaff_Click(sender As Object, e As EventArgs) Handles Menu_ReProgram_ThisEnteryTerm_inclStaff.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
-        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ListBox2.SelectedIndex = -1 Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
 
@@ -2171,8 +2116,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_ReProgram_ThisEnteryTerm_Click(sender As Object, e As EventArgs) Handles Menu_ReProgram_ThisEnteryTerm.Click
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 4)) = 0) Then Exit Sub ' A Dept user account is diabled (acc5)
-        If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ListBox2.SelectedIndex = -1 Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
 
@@ -2239,6 +2183,18 @@ Public Class frmTermProgs
         PrintLine(1, "<body>")
         PrintLine(1, "<p style='color:blue; font-family:tahoma; font-size:12px; text-align: center'>دانشگاه شهرکرد، دانشکده علوم پايه</p>")
         PrintLine(1, "<h4 style='color:red; font-family:tahoma; text-align: center'>Log for:  " & Server2Connect & "</h4>")
+
+
+        PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
+        PrintLine(1, "<tr><th>شناسه</th><th>نام گروه آموزشي</th></tr>")
+        For i As Integer = 0 To DS.Tables("tblDepartments").Rows.Count - 1
+            PrintLine(1, "<tr><td>", DS.Tables("tblDepartments").Rows(i).Item(0), "</td>")      ' 1 :id
+            PrintLine(1, "<td>", DS.Tables("tblDepartments").Rows(i).Item(1), "</td>")      ' 2 :DeptName
+        Next
+        PrintLine(1, "</table>")
+        PrintLine(1, "<hr>")
+
+        PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>فعاليت کاربران </p>")
         PrintLine(1, "<p style='font-family:tahoma; font-size:16px'>")
         For i As Integer = 0 To DS.Tables("tblLogs").Rows.Count - 1
             PrintLine(1, DS.Tables("tblLogs").Rows(i).Item(0) & "<br>")
@@ -2781,8 +2737,8 @@ lblx2:
             End Try
             Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nck:" & UserNickName & " -clnt:" & LCase(Environment.MachineName)
             Select Case intActivity
-                Case 2 : strLog = strLog & " > log-out"
-                Case 3 : strLog = strLog & " > log-in"
+                Case 2 : strLog = strLog & " > logout"
+                Case 3 : strLog = strLog & " > login"
                 Case 4 : strLog = strLog & " > crs+:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
                 Case 5 : strLog = strLog & " > crs-:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
                 Case 6 : strLog = strLog & " > crs.trm?:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm

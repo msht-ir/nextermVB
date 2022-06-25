@@ -73,6 +73,7 @@
     End Sub
 
     Private Sub GridCourse_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellValueChanged
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridCourse.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridCourse.CurrentCell.RowIndex   'count from 0
         If r < 0 Then Exit Sub
@@ -134,6 +135,7 @@
     End Sub
 
     Private Sub MenuAddCourse_Click(sender As Object, e As EventArgs) Handles MenuAddCourse.Click
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ComboBioProg.SelectedIndex = -1 Then Exit Sub
         Dim myansw As DialogResult = MsgBox("درس جديد به اين دوره آموزشي افزوده شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
         If myansw = vbYes Then
@@ -187,7 +189,6 @@
         Dim c As Integer = GridCourse.SelectedCells(0).ColumnIndex 'count from 0
         If GridCourse.RowCount < 1 Then Exit Sub
         If r < 0 Or c < 0 Then Exit Sub
-
         If Userx = "USER Department" And c = 1 Then
             MenuOK_Click(sender, e) 'Return A COURSE
             Exit Sub
@@ -198,6 +199,7 @@
                 Select Case c
                     Case 1 'Course Name
                         If Trim(strValue) = "" Then Exit Sub
+                        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                         Dim myansw As DialogResult = MsgBox("نام درس را به " & vbCrLf & strValue & vbCrLf & "تغيير مي دهيد؟", vbYesNo + vbDefaultButton2, "نکسترم: توجه: در حال ويرايش نام درس هستيد")
                         If myansw = vbNo Then Exit Sub
                         GridCourse(c, r).Value = strValue

@@ -49,11 +49,8 @@
 
     End Sub
     Private Sub Grid1_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles Grid1.CellValueChanged
-        If Userx <> "USER Faculty" Then
-            MsgBox("Changes discarded", vbOK, "کاربر : گروه آموزشي")
-            Exit Sub
-        End If
-
+        If Userx <> "USER Faculty" Then MsgBox("قابليت (ويرايش) اين آيتم براي کاربر گروه ممکن نيست", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid1.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid1.CurrentCell.RowIndex
         If r < 0 Then Exit Sub
@@ -100,7 +97,7 @@
 
     Private Sub Menu_Add_Click(sender As Object, e As EventArgs) Handles Menu_Add.Click
         If Userx <> "USER Faculty" Then Exit Sub
-        If (Userx = "USER Faculty") And (AdminCanProg = False) Then MsgBox("مجوز افزودن ترم بطور دستي را نداريد", vbOKOnly, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
 
         Dim myansw As DialogResult = MsgBox("يک ترم جديد اضافه شود؟", vbQuestion + vbYesNo + vbDefaultButton2, "نکسترم" & strCaption)
         If myansw = vbNo Then
@@ -146,7 +143,7 @@
         Try
             Select Case c
                 Case 1 ' TERM
-                    If (Userx = "USER Faculty") And (AdminCanProg = False) Then MsgBox("مجوز تغيير نام ترم را نداريد", vbOKOnly, "تنظيمات نکسترم") : Exit Sub
+                    If (Userx = "USER Faculty") And (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("مجوز تغيير نام ترم را نداريد", vbOKOnly, "تنظيمات نکسترم") : Exit Sub
                     Dim strValue As String = Grid1(c, r).Value
                     strValue = InputBox("مقدار جديد را وارد کنيد", "نکسترم", strValue)
                     If Trim(strValue) = "" Then Exit Sub

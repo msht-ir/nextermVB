@@ -32,6 +32,7 @@ Partial Class frmLogIn
         Me.cboUser = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.lblBuildInfo = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'PasswordTextBox
@@ -50,7 +51,7 @@ Partial Class frmLogIn
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label1.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.Label1.Location = New System.Drawing.Point(192, 167)
+        Me.Label1.Location = New System.Drawing.Point(136, 165)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(89, 15)
         Me.Label1.TabIndex = 4
@@ -117,6 +118,19 @@ Partial Class frmLogIn
         Me.Label5.TabIndex = 8
         Me.Label5.Text = "نکسترم"
         '
+        'lblBuildInfo
+        '
+        Me.lblBuildInfo.AutoSize = True
+        Me.lblBuildInfo.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.lblBuildInfo.ForeColor = System.Drawing.SystemColors.WindowFrame
+        Me.lblBuildInfo.Location = New System.Drawing.Point(136, 355)
+        Me.lblBuildInfo.Name = "lblBuildInfo"
+        Me.lblBuildInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.lblBuildInfo.Size = New System.Drawing.Size(84, 13)
+        Me.lblBuildInfo.TabIndex = 9
+        Me.lblBuildInfo.Text = "Build 14010402"
+        Me.lblBuildInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'frmLogIn
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -124,6 +138,7 @@ Partial Class frmLogIn
         Me.BackColor = System.Drawing.Color.Navy
         Me.ClientSize = New System.Drawing.Size(350, 417)
         Me.ControlBox = False
+        Me.Controls.Add(Me.lblBuildInfo)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.cboUser)
@@ -150,4 +165,5 @@ Partial Class frmLogIn
     Friend WithEvents cboUser As ComboBox
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
+    Friend WithEvents lblBuildInfo As Label
 End Class

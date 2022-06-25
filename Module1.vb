@@ -285,7 +285,7 @@ lbl_SelectDB:
             If boolLog = True Then
                 Try ' WRITE-LOG
                     If Userx = "USER Faculty" Then intUser = 0
-                    Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nck:" & UserNickName & " -clnt:" & LCase(Environment.MachineName) & " > log-in fe:" & LCase(strBuildInfo)
+                    Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nck:" & UserNickName & " -clnt:" & LCase(Environment.MachineName) & " > login fe:" & LCase(strBuildInfo)
                     strSQL = "INSERT INTO xLog (LogText) VALUES (@logtext)"
                     Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                         Case "SqlServer"
