@@ -2164,48 +2164,7 @@ Public Class frmTermProgs
 
     'Menu 4 Report
     Private Sub Menu_UserActivityLogs_Click(sender As Object, e As EventArgs) Handles Menu_UserActivityLogs.Click
-        Try
-            DS.Tables("tblLogs").Clear()
-            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-                Case "SqlServer"
-                    DASS.SelectCommand.CommandText = "SELECT LogText From xLog ORDER BY LogText DESC"
-                    DASS.Fill(DS, "tblLogs") ' tbl Logs
-                Case "Access"
-                    DAAC.SelectCommand.CommandText = "SELECT LogText From xLog ORDER BY LogText DESC"
-                    DAAC.Fill(DS, "tblLogs") ' tbl Logs
-            End Select
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
-        FileOpen(1, Application.StartupPath & "Nexterm_log.html", OpenMode.Output)
-        PrintLine(1, "<html dir= ""ltr"">")
-        PrintLine(1, "<head><title>گزارش ورود کاربران</title><style>table, th, td {border: 1px solid;} </style></head>")
-        PrintLine(1, "<body>")
-        PrintLine(1, "<p style='color:blue; font-family:tahoma; font-size:12px; text-align: center'>دانشگاه شهرکرد، دانشکده علوم پايه</p>")
-        PrintLine(1, "<h4 style='color:red; font-family:tahoma; text-align: center'>Log for:  " & Server2Connect & "</h4>")
-
-
-        PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
-        PrintLine(1, "<tr><th>شناسه</th><th>نام گروه آموزشي</th></tr>")
-        For i As Integer = 0 To DS.Tables("tblDepartments").Rows.Count - 1
-            PrintLine(1, "<tr><td>", DS.Tables("tblDepartments").Rows(i).Item(0), "</td>")      ' 1 :id
-            PrintLine(1, "<td>", DS.Tables("tblDepartments").Rows(i).Item(1), "</td>")      ' 2 :DeptName
-        Next
-        PrintLine(1, "</table>")
-        PrintLine(1, "<hr>")
-
-        PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>فعاليت کاربران </p>")
-        PrintLine(1, "<p style='font-family:tahoma; font-size:16px'>")
-        For i As Integer = 0 To DS.Tables("tblLogs").Rows.Count - 1
-            PrintLine(1, DS.Tables("tblLogs").Rows(i).Item(0) & "<br>")
-        Next i
-        PrintLine(1, "</p><br>")
-        ' //footer
-        PrintLine(1, "<p style='font-family:tahoma; font-size:12px'><br></p><br><hr>")
-        PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>" & strReportsFooter & "</p>")
-        PrintLine(1, "</body></html>")
-        FileClose(1)
-        Shell("explorer.exe " & Application.StartupPath & "Nexterm_log.html")
+        UserActivityLog.ShowDialog()
 
     End Sub
     Private Sub Menu_UserActivityLog_CLEAR_Click(sender As Object, e As EventArgs) Handles Menu_UserActivityLog_CLEAR.Click
@@ -2725,6 +2684,12 @@ lblx2:
     Private Sub WriteLOG(intActivity As Integer)
         If boolLog = True Then
             'WRITE-LOG
+            Dim strDateTime As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss")
+            Dim strUserID As Integer = intUser.ToString
+            Dim strNickName As String = UserNickName
+            Dim strClientName As String = LCase(Environment.MachineName)
+            Dim strFrontEnd As String = LCase(strBuildInfo)
+            Dim strLog As String = ""
             Try
                 If Userx = "USER Faculty" Then intUser = 0
                 intEntry = ListBox1.SelectedValue
@@ -2735,38 +2700,47 @@ lblx2:
             Catch ex As Exception
                 'do nothing
             End Try
-            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nck:" & UserNickName & " -clnt:" & LCase(Environment.MachineName)
             Select Case intActivity
-                Case 2 : strLog = strLog & " > logout"
-                Case 3 : strLog = strLog & " > login"
-                Case 4 : strLog = strLog & " > crs+:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
-                Case 5 : strLog = strLog & " > crs-:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
-                Case 6 : strLog = strLog & " > crs.trm?:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
-                Case 7 : strLog = strLog & " > crs?:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
-                Case 8 : strLog = strLog & " > trmPrg.clr, ent:" & intEntry.ToString & ", trm:" & strTerm.ToString
-                Case 9 : strLog = strLog & " > entPrg-, ent:" & intEntry.ToString
-                Case 10 : strLog = strLog & " > settings"
-                Case 11 : strLog = strLog & " > pwd?" & strDepartmentPass
-                Case 12 : strLog = strLog & " > log clrd"
+                Case 2 : strLog = "logout"
+                Case 3 : strLog = "login"
+                Case 4 : strLog = "crs+:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
+                Case 5 : strLog = "crs-:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
+                Case 6 : strLog = "crs.trm?:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
+                Case 7 : strLog = "crs?:" & intCourseNumber.ToString & ", ent:" & intEntry.ToString & ", trm:" & strTerm
+                Case 8 : strLog = "trmPrg.clr, ent:" & intEntry.ToString & ", trm:" & strTerm.ToString
+                Case 9 : strLog = "entPrg-, ent:" & intEntry.ToString
+                Case 10 : strLog = "settings"
+                Case 11 : strLog = "pwd?" & strDepartmentPass
+                Case 12 : strLog = "log.clrd"
             End Select
 
             Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                 Case "SqlServer"
                     Try
-                        strSQL = "INSERT INTO xLog (LogText) VALUES (@logtext)"
+                        strSQL = "INSERT INTO xLog (DateTimex, UserID, NickName, ClientName, FrontEnd, strLog) VALUES (@datetime, @userid, @nickname, @clientname, @frontend, @strlog)"
                         Dim cmdx As New SqlClient.SqlCommand(strSQL, CnnSS)
                         cmdx.CommandType = CommandType.Text
-                        cmdx.Parameters.AddWithValue("@logtext", strLog)
+                        cmdx.Parameters.AddWithValue("@datetime", strDateTime)
+                        cmdx.Parameters.AddWithValue("@userid", strUserID)
+                        cmdx.Parameters.AddWithValue("@nickname", strNickName)
+                        cmdx.Parameters.AddWithValue("@clientname", strClientName)
+                        cmdx.Parameters.AddWithValue("@frontend", strFrontEnd)
+                        cmdx.Parameters.AddWithValue("@strlog", strLog)
                         Dim ix As Integer = cmdx.ExecuteNonQuery()
                     Catch ex As Exception
                         MsgBox(ex.ToString) 'Do Nothing!
                     End Try
                 Case "Access"
                     Try
-                        strSQL = "INSERT INTO xLog (LogText) VALUES (@logtext)"
+                        strSQL = "INSERT INTO xLog (DateTimex, UserID, NickName, ClientName, FrontEnd, strLog) VALUES (@datetime, @userid, @nickname, @clientname, @frontend, @strlog)"
                         Dim cmdx As New OleDb.OleDbCommand(strSQL, CnnAC)
                         cmdx.CommandType = CommandType.Text
-                        cmdx.Parameters.AddWithValue("@logtext", strLog)
+                        cmdx.Parameters.AddWithValue("@datetime", strDateTime.ToString)
+                        cmdx.Parameters.AddWithValue("@userid", strUserID)
+                        cmdx.Parameters.AddWithValue("@nickname", strNickName)
+                        cmdx.Parameters.AddWithValue("@clientname", strClientName)
+                        cmdx.Parameters.AddWithValue("@frontend", strFrontEnd)
+                        cmdx.Parameters.AddWithValue("@strlog", strLog)
                         Dim ix As Integer = cmdx.ExecuteNonQuery()
                     Catch ex As Exception
                         MsgBox(ex.ToString) 'Do Nothing!

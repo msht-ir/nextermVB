@@ -924,52 +924,67 @@
     Private Sub WriteLOG(intActivity As Integer)
         If boolLog = True Then
             'WRITE-LOG
-            Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nck:" & UserNickName & " -clnt:" & LCase(Environment.MachineName)
+            Dim strDateTime As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss")
+            Dim intUserID As Integer = intUser
+            Dim strNickName As String = UserNickName
+            Dim strClientName As String = LCase(Environment.MachineName)
+            Dim strFrontEnd As String = LCase(strBuildInfo)
+            Dim strLog As String = ""
             Select Case intActivity
-                Case 0 : strLog = strLog & " > resources"
-                Case 1 : strLog = strLog & " > dpt.name?; dpt:" & intDept.ToString
-                Case 2 : strLog = strLog & " > dpt.actv?; dpt:" & intDept.ToString
-                Case 3 : strLog = strLog & " > dpt.note?; dpt:" & intDept.ToString
-                Case 4 : strLog = strLog & " > dpt.pswd?; dpt:" & intDept.ToString
-                Case 5 : strLog = strLog & " > dpt.acc1?; dpt:" & intDept.ToString
-                Case 6 : strLog = strLog & " > dpt.acc2?; dpt:" & intDept.ToString
-                Case 7 : strLog = strLog & " > dpt.acc3?; dpt:" & intDept.ToString
-                Case 8 : strLog = strLog & " > dpt.acc4?; dpt:" & intDept.ToString
-                Case 9 : strLog = strLog & " > dpt.acc5?; dpt:" & intDept.ToString
+                Case 0 : strLog = "resources"
+                Case 1 : strLog = "dpt.name?; dpt:" & intDept.ToString
+                Case 2 : strLog = "dpt.actv?; dpt:" & intDept.ToString
+                Case 3 : strLog = "dpt.note?; dpt:" & intDept.ToString
+                Case 4 : strLog = "dpt.pswd?; dpt:" & intDept.ToString
+                Case 5 : strLog = "dpt.acc1?; dpt:" & intDept.ToString
+                Case 6 : strLog = "dpt.acc2?; dpt:" & intDept.ToString
+                Case 7 : strLog = "dpt.acc3?; dpt:" & intDept.ToString
+                Case 8 : strLog = "dpt.acc4?; dpt:" & intDept.ToString
+                Case 9 : strLog = "dpt.acc5?; dpt:" & intDept.ToString
 
-                Case 10 : strLog = strLog & " > staff+; dpt:" & intDept.ToString
-                Case 11 : strLog = strLog & " > staff?; dpt:" & intDept.ToString
+                Case 10 : strLog = "staff+; dpt:" & intDept.ToString
+                Case 11 : strLog = "staff?; dpt:" & intDept.ToString
 
-                Case 12 : strLog = strLog & " > prg+; prg:" & intBioProg.ToString
-                Case 13 : strLog = strLog & " > prg?; prg:" & intBioProg.ToString
+                Case 12 : strLog = "prg+; prg:" & intBioProg.ToString
+                Case 13 : strLog = "prg?; prg:" & intBioProg.ToString
 
-                Case 14 : strLog = strLog & " > ent?; ent:" & intEntry.ToString
-                Case 15 : strLog = strLog & " > ent.yr/cnt?; ent:" & intEntry.ToString
-                Case 16 : strLog = strLog & " > ent.actv?; ent:" & intEntry.ToString
-                Case 17 : strLog = strLog & " > ent.note?; ent:" & intEntry.ToString
+                Case 14 : strLog = "ent?; ent:" & intEntry.ToString
+                Case 15 : strLog = "ent.yr/cnt?; ent:" & intEntry.ToString
+                Case 16 : strLog = "ent.actv?; ent:" & intEntry.ToString
+                Case 17 : strLog = "ent.note?; ent:" & intEntry.ToString
 
-                Case 18 : strLog = strLog & " > crs?:" & strCourse
-                Case 19 : strLog = strLog & " > crs.nr?:" & intCourseNumber.ToString
-                Case 20 : strLog = strLog & " > crs.unt?:" & intCourseNumber.ToString
+                Case 18 : strLog = "crs?:" & strCourse
+                Case 19 : strLog = "crs.nr?:" & intCourseNumber.ToString
+                Case 20 : strLog = "crs.unt?:" & intCourseNumber.ToString
             End Select
 
             Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                 Case "SqlServer"
                     Try
-                        strSQL = "INSERT INTO xLog (LogText) VALUES (@logtext)"
+                        strSQL = "INSERT INTO xLog (DateTimex, UserID, NickName, ClientName, FrontEnd, strLog) VALUES (@datetime, @userid, @nickname, @clientname, @frontend, @strlog)"
                         Dim cmdx As New SqlClient.SqlCommand(strSQL, CnnSS)
                         cmdx.CommandType = CommandType.Text
-                        cmdx.Parameters.AddWithValue("@logtext", strLog)
+                        cmdx.Parameters.AddWithValue("@datetime", strDateTime)
+                        cmdx.Parameters.AddWithValue("@userid", intUserID.ToString)
+                        cmdx.Parameters.AddWithValue("@nickname", strNickName)
+                        cmdx.Parameters.AddWithValue("@clientname", strClientName)
+                        cmdx.Parameters.AddWithValue("@frontend", strFrontEnd)
+                        cmdx.Parameters.AddWithValue("@strlog", strLog)
                         Dim ix As Integer = cmdx.ExecuteNonQuery()
                     Catch ex As Exception
                         MsgBox(ex.ToString) 'Do Nothing!
                     End Try
                 Case "Access"
                     Try
-                        strSQL = "INSERT INTO xLog (LogText) VALUES (@logtext)"
+                        strSQL = "INSERT INTO xLog (DateTimex, UserID, NickName, ClientName, FrontEnd, strLog) VALUES (@datetime, @userid, @nickname, @clientname, @frontend, @strlog)"
                         Dim cmdx As New OleDb.OleDbCommand(strSQL, CnnAC)
                         cmdx.CommandType = CommandType.Text
-                        cmdx.Parameters.AddWithValue("@logtext", strLog)
+                        cmdx.Parameters.AddWithValue("@datetime", strDateTime)
+                        cmdx.Parameters.AddWithValue("@userid", intUserID.ToString)
+                        cmdx.Parameters.AddWithValue("@nickname", strNickName)
+                        cmdx.Parameters.AddWithValue("@clientname", strClientName)
+                        cmdx.Parameters.AddWithValue("@frontend", strFrontEnd)
+                        cmdx.Parameters.AddWithValue("@strlog", strLog)
                         Dim ix As Integer = cmdx.ExecuteNonQuery()
                     Catch ex As Exception
                         MsgBox(ex.ToString) 'Do Nothing!

@@ -191,7 +191,7 @@ lbl_SelectDB:
                 DASS.Fill(DS, "tblAllProgs") ' tbl 13: AllProgs
                 DASS.SelectCommand.CommandText = "SELECT ID From TermProgs"
                 DASS.Fill(DS, "tblTermExams") ' tbl 14: Exams
-                DASS.SelectCommand.CommandText = "SELECT LogText From xLog"
+                DASS.SelectCommand.CommandText = "SELECT DateTimex From xLog"
                 DASS.Fill(DS, "tblLogs") ' tbl Logs
                 DASS.SelectCommand.CommandText = "SELECT ID FROM msgs"
                 DASS.Fill(DS, "tblMsgs") ' tbl notes (messages)
@@ -265,7 +265,7 @@ lbl_SelectDB:
                 DAAC.Fill(DS, "tblAllProgs") ' tbl 13: AllProgs
                 DAAC.SelectCommand.CommandText = "SELECT ID From TermProgs"
                 DAAC.Fill(DS, "tblTermExams") ' tbl 14: Exams
-                DAAC.SelectCommand.CommandText = "SELECT LogText From xLog"
+                DAAC.SelectCommand.CommandText = "SELECT DateTimex From xLog"
                 DAAC.Fill(DS, "tblLogs") ' tbl Logs
                 DAAC.SelectCommand.CommandText = "SELECT ID FROM msgs"
                 DAAC.Fill(DS, "tblMsgs") ' tbl notes (messages)
@@ -285,18 +285,34 @@ lbl_SelectDB:
             If boolLog = True Then
                 Try ' WRITE-LOG
                     If Userx = "USER Faculty" Then intUser = 0
-                    Dim strLog As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss") & " -usr:" & intUser.ToString & " -nck:" & UserNickName & " -clnt:" & LCase(Environment.MachineName) & " > login fe:" & LCase(strBuildInfo)
-                    strSQL = "INSERT INTO xLog (LogText) VALUES (@logtext)"
+                    Dim strDateTime As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss")
+                    Dim intUserID As Integer = intUser
+                    Dim strNickName As String = UserNickName
+                    Dim strClientName As String = LCase(Environment.MachineName)
+                    Dim strFrontEnd As String = LCase(strBuildInfo)
+                    Dim strLog As String = "login"
                     Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                         Case "SqlServer"
+                            strSQL = "INSERT INTO xLog (DateTimex, UserID, NickName, ClientName, FrontEnd, strLog) VALUES (@datetime, @userid, @nickname, @clientname, @frontend, @strlog)"
                             Dim cmdx As New SqlClient.SqlCommand(strSQL, CnnSS)
                             cmdx.CommandType = CommandType.Text
-                            cmdx.Parameters.AddWithValue("@logtext", strLog)
+                            cmdx.Parameters.AddWithValue("@datetime", strDateTime)
+                            cmdx.Parameters.AddWithValue("@userid", intUserID.ToString)
+                            cmdx.Parameters.AddWithValue("@nickname", strNickName)
+                            cmdx.Parameters.AddWithValue("@clientname", strClientName)
+                            cmdx.Parameters.AddWithValue("@frontend", strFrontEnd)
+                            cmdx.Parameters.AddWithValue("@strlog", strLog)
                             Dim ix As Integer = cmdx.ExecuteNonQuery()
                         Case "Access"
+                            strSQL = "INSERT INTO xLog (DateTimex, UserID, NickName, ClientName, FrontEnd, strLog) VALUES (@datetime, @userid, @nickname, @clientname, @frontend, @strlog)"
                             Dim cmdx As New OleDb.OleDbCommand(strSQL, CnnAC)
                             cmdx.CommandType = CommandType.Text
-                            cmdx.Parameters.AddWithValue("@logtext", strLog)
+                            cmdx.Parameters.AddWithValue("@datetime", strDateTime)
+                            cmdx.Parameters.AddWithValue("@userid", intUserID.ToString)
+                            cmdx.Parameters.AddWithValue("@nickname", strNickName)
+                            cmdx.Parameters.AddWithValue("@clientname", strClientName)
+                            cmdx.Parameters.AddWithValue("@frontend", strFrontEnd)
+                            cmdx.Parameters.AddWithValue("@strlog", strLog)
                             Dim ix As Integer = cmdx.ExecuteNonQuery()
                     End Select
                 Catch ex As Exception
