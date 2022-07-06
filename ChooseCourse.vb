@@ -3,10 +3,10 @@
         GridCourse.EditMode = DataGridViewEditMode.EditProgrammatically '//DataGridViewEditMode.EditOnKeystrokeOrF2
         If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 0)) = 0) Then
             MenuAddCourse.Enabled = False
-            MenuEditCourseNumber.Enabled = False
+            Menu_Edit.Enabled = False
         Else
             MenuAddCourse.Enabled = True
-            MenuEditCourseNumber.Enabled = True
+            Menu_Edit.Enabled = True
         End If
 
         'Fill ComboBox (BioProgs)
@@ -73,7 +73,7 @@
     End Sub
 
     Private Sub GridCourse_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellValueChanged
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridCourse.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridCourse.CurrentCell.RowIndex   'count from 0
         If r < 0 Then Exit Sub
@@ -112,6 +112,11 @@
 
     End Sub
 
+    Private Sub GridCourse_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellDoubleClick
+        MenuOK_Click(sender, e) 'Return A COURSE
+
+    End Sub
+
     Private Sub MenuOK_Click(sender As Object, e As EventArgs) Handles MenuOK.Click
         If GridCourse.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridCourse.CurrentRow.Index
@@ -127,15 +132,8 @@
 
     End Sub
 
-    Private Sub MenuCancel_Click(sender As Object, e As EventArgs) Handles MenuCancel.Click
-        strCourse = ""
-        intCourse = 0
-        Me.Dispose()
-
-    End Sub
-
     Private Sub MenuAddCourse_Click(sender As Object, e As EventArgs) Handles MenuAddCourse.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ComboBioProg.SelectedIndex = -1 Then Exit Sub
         Dim myansw As DialogResult = MsgBox("درس جديد به اين دوره آموزشي افزوده شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
         If myansw = vbYes Then
@@ -184,53 +182,37 @@
 
     End Sub
 
-    Private Sub GridCourse_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellDoubleClick
+    Private Sub Menu_Edit_Click(sender As Object, e As EventArgs) Handles Menu_Edit.Click
         Dim r As Integer = GridCourse.SelectedCells(0).RowIndex    'count from 0
         Dim c As Integer = GridCourse.SelectedCells(0).ColumnIndex 'count from 0
         If GridCourse.RowCount < 1 Then Exit Sub
         If r < 0 Or c < 0 Then Exit Sub
-        If Userx = "USER Department" And c = 1 Then
-            MenuOK_Click(sender, e) 'Return A COURSE
-            Exit Sub
-        Else
-            Dim strValue As String = GridCourse(c, r).Value
-            strValue = InputBox("مقدار جديد را وارد کنيد", "نکسترم", strValue)
-            Try
-                Select Case c
-                    Case 1 'Course Name
-                        If Trim(strValue) = "" Then Exit Sub
-                        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
-                        Dim myansw As DialogResult = MsgBox("نام درس را به " & vbCrLf & strValue & vbCrLf & "تغيير مي دهيد؟", vbYesNo + vbDefaultButton2, "نکسترم: توجه: در حال ويرايش نام درس هستيد")
-                        If myansw = vbNo Then Exit Sub
-                        GridCourse(c, r).Value = strValue
-                        WriteLOG(31)
-                    Case 2, 3 ' Number, Unit
-                        If Val(strValue) = 0 Then Exit Sub
-                        GridCourse(c, r).Value = strValue
-                        WriteLOG(32)
-                End Select
+        Dim strValue As String = GridCourse(c, r).Value
+        Try
+            Select Case c
+                Case 1 'Course Name
+                    strValue = InputBox("نام جديد درس را وارد کنيد", "نکسترم", strValue)
+                    If Trim(strValue) = "" Then Exit Sub
+                    If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+                    Dim myansw As DialogResult = MsgBox("نام درس را به " & vbCrLf & strValue & vbCrLf & "تغيير مي دهيد؟", vbYesNo + vbDefaultButton2, "نکسترم: توجه: در حال ويرايش نام درس هستيد")
+                    If myansw = vbNo Then Exit Sub
+                    GridCourse(c, r).Value = strValue
+                    WriteLOG(31)
+                Case 2 ' Number
+                    strValue = InputBox("شماره جديد درس را وارد کنيد", "نکسترم", strValue)
+                    If Val(strValue) = 0 Then Exit Sub
+                    GridCourse(c, r).Value = strValue
+                    WriteLOG(32)
+                Case 3 ' Unit
+                    strValue = InputBox("تعداد واحد درس را وارد کنيد", "نکسترم", strValue)
+                    If Val(strValue) = 0 Then Exit Sub
+                    GridCourse(c, r).Value = strValue
+                    WriteLOG(32)
+            End Select
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
 
-            Catch ex As Exception
-                MsgBox(ex.ToString)
-            End Try
-        End If
-
-    End Sub
-
-    Private Sub MenuEditCourseNumber_Click(sender As Object, e As EventArgs) Handles MenuEditCourseNumber.Click
-        If ComboBioProg.SelectedIndex = -1 Then Exit Sub
-        If GridCourse.RowCount < 1 Then Exit Sub
-        Dim r As Integer = GridCourse.CurrentCell.RowIndex   'count from 0
-        If r < 0 Then Exit Sub
-        strCourse = ""
-        intCourseNumber = 0
-        intCourseNumber = Val(InputBox("شماره درس را تصحيح کنيد", "نکسترم", GridCourse(2, r).Value))
-        If intCourseNumber = 0 Then
-            Exit Sub
-        Else
-            GridCourse(2, r).Value = intCourseNumber
-            WriteLOG(32)
-        End If
     End Sub
 
     Private Sub WriteLOG(intActivity As Integer)
@@ -276,6 +258,13 @@
                 MsgBox(ex.ToString) 'Do Nothing!
             End Try
         End If
+
+    End Sub
+
+    Private Sub MenuCancel_Click(sender As Object, e As EventArgs) Handles MenuCancel.Click
+        strCourse = ""
+        intCourse = 0
+        Me.Dispose()
 
     End Sub
 

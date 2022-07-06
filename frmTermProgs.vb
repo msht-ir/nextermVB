@@ -55,6 +55,12 @@ Public Class frmTermProgs
                     Menu_Delete_Entry_TermProg.Enabled = boolENBL
                     Menu_UserActivityLog_CLEAR.Enabled = boolENBL
                     ContextMenuGrid4.Enabled = boolENBL
+                    'MenuAddGroup.Enabled = boolENBL
+                    'MenuAddCourse.Enabled = boolENBL
+                    'MenuReplaceCourse.Enabled = boolENBL
+                    'MenuDelCourse.Enabled = boolENBL
+                    'MenuDelClass1.Enabled = True 'usr0 can work on classes
+                    'MenuDelClass2.Enabled = True 'usr0 can work on classes
                     Menu_ReportTechPrograms.Visible = False 'under construction
                 Case "USER Department"
                     Menu_Settings.Enabled = False
@@ -581,7 +587,7 @@ Public Class frmTermProgs
 
         Select Case c'SELECT BASED ON GRID.COLUMN
             Case 3 'Course
-                If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+                If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                 intDept = ComboBox1.GetItemText(ComboBox1.SelectedValue)
                 intBioProg = DS.Tables("tblEntries").Rows(ListBox1.SelectedIndex).Item(2)
                 intCourse = DS.Tables("tblTermProgs").Rows(r).Item(1)
@@ -613,7 +619,7 @@ Public Class frmTermProgs
 
 
             Case 7 'Staff
-                If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+                If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                 intDept = ComboBox1.SelectedValue
                 ChooseStaff.ShowDialog()
                 Dim z As DialogResult
@@ -642,7 +648,7 @@ Public Class frmTermProgs
                 End Select
 
             Case 5 'Group
-                If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+                If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                 Dim grp As Integer = DS.Tables("tblTermProgs").Rows(r).Item(5)
                 grp = Val(InputBox("شماره گروه", "NexTerm", grp))
                 DS.Tables("tblTermProgs").Rows(r).Item(5) = grp
@@ -667,7 +673,7 @@ Public Class frmTermProgs
 
 
             Case 9 'Tech
-                If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+                If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                 ChooseTech.ShowDialog()
                 If strTech = "" Then
                     Dim z As DialogResult
@@ -723,10 +729,12 @@ Public Class frmTermProgs
                 End Select
 
             Case 17, 25 'Room1, Room2
-                If DS.Tables("tblDepartments").Rows(ComboBox1.SelectedIndex).Item(7) <> True Then
-                    If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
-                    Exit Sub
-                End If
+                If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+                '//if usr0 can access but usrDEPT not, use following remarked codes
+                'If DS.Tables("tblDepartments").Rows(ComboBox1.SelectedIndex).Item(7) <> True Then
+                'If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+                'Exit Sub
+                'End If
                 Try
                     intTerm = ListBox2.SelectedValue
                     intRoom = DS.Tables("tblTermProgs").Rows(r).Item(c - 1) 'IDs: 16=Room1, 24=Room2 
@@ -1440,7 +1448,7 @@ Public Class frmTermProgs
 
             Select Case strCaption
                 Case "Course" ' --------------- course --------------- course --------------- course --------------- course ---------------
-                    If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+                    If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                     If RadioBtn2.Checked = True Then strColor = "MistyRose"
                     If GridTime.Item(c, r).Value = "" Then
                         Select Case c
@@ -1524,7 +1532,7 @@ Public Class frmTermProgs
 
     'Popup Menus
     Private Sub PopMenu_AddGroup(sender As Object, e As EventArgs) Handles MenuAddGroup.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.SelectedCells(0).RowIndex 'count from 0
         Dim c As Integer = Grid4.SelectedCells(0).ColumnIndex 'count from 0
@@ -1566,7 +1574,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub PopMenu_AddCourse(sender As Object, e As EventArgs) Handles MenuAddCourse.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         intDept = ComboBox1.GetItemText(ComboBox1.SelectedValue)
         intBioProg = DS.Tables("tblEntries").Rows(ListBox1.SelectedIndex).Item(2)
@@ -1615,7 +1623,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub PopMenu_DelCourse(sender As Object, e As EventArgs) Handles MenuDelCourse.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.SelectedCells(0).RowIndex 'count from 0
         Dim c As Integer = Grid4.SelectedCells(0).ColumnIndex 'count from 0
@@ -1653,7 +1661,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_ReplaceCourse(sender As Object, e As EventArgs) Handles MenuReplaceCourse.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.SelectedCells(0).RowIndex 'count from 0
         Dim c As Integer = Grid4.SelectedCells(0).ColumnIndex 'count from 0
@@ -1707,7 +1715,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub MenuDelClass1_Click(sender As Object, e As EventArgs) Handles MenuDelClass1.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.CurrentCell.RowIndex 'count from 0
         Dim c As Integer = Grid4.CurrentCell.ColumnIndex 'count from 0
@@ -1734,7 +1742,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub MenuDelClass2_Click(sender As Object, e As EventArgs) Handles MenuDelClass2.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid4.CurrentCell.RowIndex 'count from 0
         Dim c As Integer = Grid4.CurrentCell.ColumnIndex 'count from 0
@@ -1872,7 +1880,7 @@ Public Class frmTermProgs
             Menu_Settings_Click(sender, e)
             Exit Sub
         End If
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (تغيير کلمه عبور) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (تغيير کلمه عبور) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim strOldPass As String = ""
         Dim strNewPass As String = ""
         Dim strcheckPass As String = ""
@@ -1967,14 +1975,14 @@ Public Class frmTermProgs
 
     'Menu 2 Resource
     Private Sub Menu_Departments_Click(sender As Object, e As EventArgs) Handles Menu_Departments.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         frmDepts.ShowDialog()
         ClrForm()
         EnableMenu()
 
     End Sub
     Private Sub Menu_Courses_Click(sender As Object, e As EventArgs) Handles Menu_Courses.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim i As String = ListBox1.GetItemText(ListBox1.SelectedValue)
         If Val(i) = 0 Then Exit Sub
         intBioProg = DS.Tables("tblEntries").Rows(ListBox1.SelectedIndex).Item(2)
@@ -1985,7 +1993,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_Classes_Click(sender As Object, e As EventArgs) Handles Menu_Classes.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         intTerm = ListBox2.SelectedValue
         For c As Integer = 0 To 7
             For r As Integer = 0 To 5
@@ -1998,14 +2006,14 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_Terms_Click(sender As Object, e As EventArgs) Handles Menu_Terms.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         strCaption = "Terms"
         ChooseTerm.ShowDialog()
         ClrForm()
 
     End Sub
     Private Sub Menu_Staff_Click(sender As Object, e As EventArgs) Handles Menu_Staff.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         intDept = ComboBox1.SelectedValue
         If ComboBox1.SelectedIndex = -1 Then intDept = 0
         ChooseStaff.ShowDialog()
@@ -2013,7 +2021,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_Tech_Click(sender As Object, e As EventArgs) Handles Menu_Tech.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("دسترسي به منابع اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         ChooseTech.ShowDialog()
         ClrForm()
 
@@ -2030,7 +2038,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_Delete_Entry_TermProg_Click(sender As Object, e As EventArgs) Handles Menu_Delete_Entry_TermProg.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ListBox1.SelectedIndex = -1 Then Exit Sub
         Dim myansw As Integer = MsgBox("برنامه آموزشي همه ترم هاي اين ورودي حذف شوند؟", vbYesNo + vbDefaultButton2, "تاييد کنيد")
         If myansw = vbNo Then Exit Sub
@@ -2070,7 +2078,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_ReProgram_ThisEnteryTerm_inclStaff_Click(sender As Object, e As EventArgs) Handles Menu_ReProgram_ThisEnteryTerm_inclStaff.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ListBox2.SelectedIndex = -1 Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
 
@@ -2116,7 +2124,7 @@ Public Class frmTermProgs
 
     End Sub
     Private Sub Menu_ReProgram_ThisEnteryTerm_Click(sender As Object, e As EventArgs) Handles Menu_ReProgram_ThisEnteryTerm.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ListBox2.SelectedIndex = -1 Then Exit Sub
         If Grid4.RowCount < 1 Then Exit Sub
 

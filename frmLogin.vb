@@ -29,16 +29,15 @@ Public Class frmLogIn
             End If
         ElseIf PasswordTextBox.Text = "mshtaccesson" Then
             Userx = "USER Faculty"
-            UserAccessConntrols = 31 'with acc1-5!
+            UserAccessConntrols = 31 '+all acc 1-5!
             Me.Dispose()
         ElseIf PasswordTextBox.Text = strFacultyPass Then
             Userx = "USER Faculty"
-            UserAccessConntrols = 0 'but get acc1-5 via settings 
 lbl_GetUserNickName1:
             If Trim(UserNickName) = "" Then UserNickName = Trim(InputBox("What's your NickName?", "NexTerm:", ""))
             If Trim(UserNickName) = "" Then GoTo lbl_GetUserNickName1
             SetBuildInfo()
-            UserAccessConntrols = 0
+            UserAccessConntrols = 0 'but get acc1-5 via settings 
             Me.Dispose()
         Else
             intUser = cboUser.SelectedValue ' ID of selected Department
@@ -52,11 +51,11 @@ lbl_GetUserNickName2:
                 strUser = cboUser.Text
                 UserAccessConntrols = 0 'SET UserAccessConntrols
                 For i As Integer = 0 To 4
-                        If DS.Tables("tblDepartments").Rows(cboUser.SelectedIndex).Item(i + 5) = True Then UserAccessConntrols = (UserAccessConntrols Or (2 ^ i))
-                    Next i
-                    Me.Dispose()
-                End If
+                    If DS.Tables("tblDepartments").Rows(cboUser.SelectedIndex).Item(i + 5) = True Then UserAccessConntrols = (UserAccessConntrols Or (2 ^ i))
+                Next i
+                Me.Dispose()
             End If
+        End If
 
     End Sub
     Private Sub SetBuildInfo()

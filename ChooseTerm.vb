@@ -50,7 +50,7 @@
     End Sub
     Private Sub Grid1_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles Grid1.CellValueChanged
         If Userx <> "USER Faculty" Then MsgBox("قابليت (ويرايش) اين آيتم براي کاربر گروه ممکن نيست", vbInformation, "تنظيمات نکسترم") : Exit Sub
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid1.RowCount < 1 Then Exit Sub
         Dim r As Integer = Grid1.CurrentCell.RowIndex
         If r < 0 Then Exit Sub
@@ -97,7 +97,7 @@
 
     Private Sub Menu_Add_Click(sender As Object, e As EventArgs) Handles Menu_Add.Click
         If Userx <> "USER Faculty" Then Exit Sub
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
 
         Dim myansw As DialogResult = MsgBox("يک ترم جديد اضافه شود؟", vbQuestion + vbYesNo + vbDefaultButton2, "نکسترم" & strCaption)
         If myansw = vbNo Then

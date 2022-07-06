@@ -95,7 +95,7 @@
 
     Private Sub GridEntries_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles GridEntries.CellValueChanged
         If Userx = "USER Department" Then Exit Sub
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridEntries.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridEntries.CurrentCell.RowIndex   'count from 0
         Dim c As Integer = GridEntries.CurrentCell.ColumnIndex 'count from 0
@@ -145,7 +145,7 @@
 
     Private Sub MenuAddNewEntry_Click(sender As Object, e As EventArgs) Handles MenuAddNewEntry.Click
         If Userx = "USER Department" Then Exit Sub
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ComboDepts.SelectedIndex = -1 Then Exit Sub
         If ListBioProgs.SelectedIndex = -1 Then Exit Sub
         intBioProg = Int(Val(ListBioProgs.SelectedValue))
@@ -205,13 +205,13 @@
                 Try
                     Select Case c
                         Case 3, 4 ' Yr, Cnt
-                            If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+                            If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                             Dim strValue As String = GridEntries(c, r).Value
                             strValue = InputBox("مقدار جديد را وارد کنيد", "نکسترم", strValue)
                             If Val(strValue) = 0 Then Exit Sub
                             GridEntries(c, r).Value = Trim(strValue)
                         Case 5 'ACTIVE
-                            If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+                            If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                             If GridEntries(c, r).Value = True Then
                                 GridEntries(c, r).Value = False
                             Else

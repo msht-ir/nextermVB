@@ -517,7 +517,7 @@
 
     End Sub
     Private Sub Menu_Apply_Click(sender As Object, e As EventArgs) Handles Menu_Apply.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (برنامه ريزي) اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If (Userx = "USER Faculty") And (AdminCanProg = False) Then Exit Sub
 
         If GridTemplateData.Rows.Count = 0 Then Exit Sub

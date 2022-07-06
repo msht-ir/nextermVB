@@ -90,7 +90,7 @@
     ' //GridRoom
     Private Sub GridRoom_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles GridRoom.CellValueChanged
         If Userx = "USER Department" Then Exit Sub
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridRoom.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridRoom.CurrentCell.RowIndex   'count from 0
         If r < 0 Then Exit Sub
@@ -218,7 +218,7 @@
     ' //Menu - GridRoom
     Private Sub MenuAddNewClass_Click(sender As Object, e As EventArgs) Handles MenuAddNewClass.Click
         If Userx = "USER Department" Then Exit Sub
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim strClassName As String = Trim(InputBox("نام کلاس/ ازمايشگاه را وارد کنيد", "NexTerm", " کلاس/آز جديد "))
         If strClassName = "" Then Exit Sub
         Dim intCapa As Integer = 0
@@ -255,7 +255,7 @@
 
     End Sub
     Private Sub Menu_Edit_Click(sender As Object, e As EventArgs) Handles Menu_Edit.Click
-        If (UserAccessConntrols And (2 ^ 4) = 0) Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridRoom.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridRoom.SelectedCells(0).RowIndex    'count from 0
         Dim c As Integer = GridRoom.SelectedCells(0).ColumnIndex 'count from 0

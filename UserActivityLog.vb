@@ -11,6 +11,7 @@
     End Sub
 
     Private Sub Menu_Report_Click(sender As Object, e As EventArgs) Handles Menu_Report.Click
+        If ((RadioButton3.Checked = True) And (ComboBox1.SelectedIndex < 0)) Then MsgBox("يک گروه از ليست انتخاب کنيد", vbOKOnly, "نکسترم") : Exit Sub
         Dim strFltr As String = ""
         DS.Tables("tblLogs").Clear()
         intDept = ComboBox1.SelectedValue

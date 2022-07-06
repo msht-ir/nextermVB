@@ -30,7 +30,7 @@ Partial Class ChooseCourse
         Me.MenuOK = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
         Me.MenuAddCourse = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MenuEditCourseNumber = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Menu_Edit = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.MenuCancel = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.GridCourse, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -71,43 +71,43 @@ Partial Class ChooseCourse
         '
         'ContextMenuCourses
         '
-        Me.ContextMenuCourses.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuOK, Me.ToolStripMenuItem2, Me.MenuAddCourse, Me.MenuEditCourseNumber, Me.ToolStripMenuItem1, Me.MenuCancel})
+        Me.ContextMenuCourses.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuOK, Me.ToolStripMenuItem2, Me.MenuAddCourse, Me.Menu_Edit, Me.ToolStripMenuItem1, Me.MenuCancel})
         Me.ContextMenuCourses.Name = "ContextMenuStrip1"
         Me.ContextMenuCourses.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuCourses.Size = New System.Drawing.Size(171, 104)
+        Me.ContextMenuCourses.Size = New System.Drawing.Size(148, 104)
         '
         'MenuOK
         '
         Me.MenuOK.Name = "MenuOK"
-        Me.MenuOK.Size = New System.Drawing.Size(170, 22)
+        Me.MenuOK.Size = New System.Drawing.Size(147, 22)
         Me.MenuOK.Text = "انتخاب / تاييد"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(167, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(144, 6)
         '
         'MenuAddCourse
         '
         Me.MenuAddCourse.Name = "MenuAddCourse"
-        Me.MenuAddCourse.Size = New System.Drawing.Size(170, 22)
-        Me.MenuAddCourse.Text = "افزودن درس جديد"
+        Me.MenuAddCourse.Size = New System.Drawing.Size(147, 22)
+        Me.MenuAddCourse.Text = "افزودن"
         '
-        'MenuEditCourseNumber
+        'Menu_Edit
         '
-        Me.MenuEditCourseNumber.Name = "MenuEditCourseNumber"
-        Me.MenuEditCourseNumber.Size = New System.Drawing.Size(170, 22)
-        Me.MenuEditCourseNumber.Text = "ويرايش شماره درس"
+        Me.Menu_Edit.Name = "Menu_Edit"
+        Me.Menu_Edit.Size = New System.Drawing.Size(147, 22)
+        Me.Menu_Edit.Text = "ويرايش"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(167, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(144, 6)
         '
         'MenuCancel
         '
         Me.MenuCancel.Name = "MenuCancel"
-        Me.MenuCancel.Size = New System.Drawing.Size(170, 22)
+        Me.MenuCancel.Size = New System.Drawing.Size(147, 22)
         Me.MenuCancel.Text = "خروج / انصراف"
         '
         'ChooseCourse
@@ -137,5 +137,5 @@ Partial Class ChooseCourse
     Friend WithEvents MenuAddCourse As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem2 As ToolStripSeparator
     Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
-    Friend WithEvents MenuEditCourseNumber As ToolStripMenuItem
+    Friend WithEvents Menu_Edit As ToolStripMenuItem
 End Class

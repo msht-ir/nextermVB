@@ -71,14 +71,12 @@ Partial Class UserActivityLog
         'RadioButton1
         '
         Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Checked = True
         Me.RadioButton1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioButton1.Location = New System.Drawing.Point(232, 19)
+        Me.RadioButton1.Location = New System.Drawing.Point(191, 19)
         Me.RadioButton1.Name = "RadioButton1"
         Me.RadioButton1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.RadioButton1.Size = New System.Drawing.Size(95, 23)
         Me.RadioButton1.TabIndex = 1
-        Me.RadioButton1.TabStop = True
         Me.RadioButton1.Text = "همه کاربران"
         Me.RadioButton1.UseVisualStyleBackColor = True
         '
@@ -86,7 +84,7 @@ Partial Class UserActivityLog
         '
         Me.RadioButton2.AutoSize = True
         Me.RadioButton2.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioButton2.Location = New System.Drawing.Point(219, 48)
+        Me.RadioButton2.Location = New System.Drawing.Point(178, 48)
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.RadioButton2.Size = New System.Drawing.Size(108, 23)
@@ -97,12 +95,14 @@ Partial Class UserActivityLog
         'RadioButton3
         '
         Me.RadioButton3.AutoSize = True
+        Me.RadioButton3.Checked = True
         Me.RadioButton3.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioButton3.Location = New System.Drawing.Point(182, 77)
+        Me.RadioButton3.Location = New System.Drawing.Point(141, 77)
         Me.RadioButton3.Name = "RadioButton3"
         Me.RadioButton3.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.RadioButton3.Size = New System.Drawing.Size(145, 23)
         Me.RadioButton3.TabIndex = 3
+        Me.RadioButton3.TabStop = True
         Me.RadioButton3.Text = "کاربر گروه (انتخاب...)"
         Me.RadioButton3.UseVisualStyleBackColor = True
         '
@@ -111,7 +111,7 @@ Partial Class UserActivityLog
         Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(76, 106)
+        Me.ComboBox1.Location = New System.Drawing.Point(35, 106)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ComboBox1.Size = New System.Drawing.Size(231, 25)
@@ -126,9 +126,9 @@ Partial Class UserActivityLog
         Me.Panel1.Controls.Add(Me.RadioButton3)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Panel1.Location = New System.Drawing.Point(305, 0)
+        Me.Panel1.Location = New System.Drawing.Point(186, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(405, 166)
+        Me.Panel1.Size = New System.Drawing.Size(320, 166)
         Me.Panel1.TabIndex = 5
         '
         'Panel2
@@ -141,14 +141,14 @@ Partial Class UserActivityLog
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(289, 166)
+        Me.Panel2.Size = New System.Drawing.Size(176, 166)
         Me.Panel2.TabIndex = 6
         '
         'RadioButton7
         '
         Me.RadioButton7.AutoSize = True
         Me.RadioButton7.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioButton7.Location = New System.Drawing.Point(97, 108)
+        Me.RadioButton7.Location = New System.Drawing.Point(40, 108)
         Me.RadioButton7.Name = "RadioButton7"
         Me.RadioButton7.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.RadioButton7.Size = New System.Drawing.Size(112, 23)
@@ -160,7 +160,7 @@ Partial Class UserActivityLog
         '
         Me.RadioButton6.AutoSize = True
         Me.RadioButton6.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioButton6.Location = New System.Drawing.Point(118, 79)
+        Me.RadioButton6.Location = New System.Drawing.Point(61, 79)
         Me.RadioButton6.Name = "RadioButton6"
         Me.RadioButton6.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.RadioButton6.Size = New System.Drawing.Size(91, 23)
@@ -172,7 +172,7 @@ Partial Class UserActivityLog
         '
         Me.RadioButton5.AutoSize = True
         Me.RadioButton5.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioButton5.Location = New System.Drawing.Point(136, 50)
+        Me.RadioButton5.Location = New System.Drawing.Point(79, 50)
         Me.RadioButton5.Name = "RadioButton5"
         Me.RadioButton5.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.RadioButton5.Size = New System.Drawing.Size(73, 23)
@@ -185,7 +185,7 @@ Partial Class UserActivityLog
         Me.RadioButton4.AutoSize = True
         Me.RadioButton4.Checked = True
         Me.RadioButton4.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioButton4.Location = New System.Drawing.Point(156, 21)
+        Me.RadioButton4.Location = New System.Drawing.Point(99, 21)
         Me.RadioButton4.Name = "RadioButton4"
         Me.RadioButton4.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.RadioButton4.Size = New System.Drawing.Size(53, 23)
@@ -202,7 +202,7 @@ Partial Class UserActivityLog
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(710, 166)
+        Me.Panel3.Size = New System.Drawing.Size(506, 166)
         Me.Panel3.TabIndex = 7
         '
         'UserActivityLog
@@ -210,7 +210,7 @@ Partial Class UserActivityLog
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.ClientSize = New System.Drawing.Size(710, 203)
+        Me.ClientSize = New System.Drawing.Size(506, 203)
         Me.ContextMenuStrip = Me.ContextMenuStrip1
         Me.ControlBox = False
         Me.Controls.Add(Me.Panel3)
