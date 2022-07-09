@@ -64,6 +64,7 @@ Partial Class frmDepts
         Me.GridCourse = New System.Windows.Forms.DataGridView()
         Me.ContextMenuCourses = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Menu_AddCourse = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Menu_AddCourseFromList = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_EditCourseNumber = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.Menu_OKCourse = New System.Windows.Forms.ToolStripMenuItem()
@@ -415,16 +416,23 @@ Partial Class frmDepts
         '
         'ContextMenuCourses
         '
-        Me.ContextMenuCourses.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_AddCourse, Me.Menu_EditCourseNumber, Me.ToolStripSeparator4, Me.Menu_OKCourse, Me.Menu_CancelCourse})
+        Me.ContextMenuCourses.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_AddCourse, Me.Menu_AddCourseFromList, Me.Menu_EditCourseNumber, Me.ToolStripSeparator4, Me.Menu_OKCourse, Me.Menu_CancelCourse})
         Me.ContextMenuCourses.Name = "ContextMenuStrip1"
         Me.ContextMenuCourses.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuCourses.Size = New System.Drawing.Size(171, 98)
+        Me.ContextMenuCourses.Size = New System.Drawing.Size(171, 120)
         '
         'Menu_AddCourse
         '
         Me.Menu_AddCourse.Name = "Menu_AddCourse"
         Me.Menu_AddCourse.Size = New System.Drawing.Size(170, 22)
         Me.Menu_AddCourse.Text = "+  درس جديد"
+        '
+        'Menu_AddCourseFromList
+        '
+        Me.Menu_AddCourseFromList.Enabled = False
+        Me.Menu_AddCourseFromList.Name = "Menu_AddCourseFromList"
+        Me.Menu_AddCourseFromList.Size = New System.Drawing.Size(170, 22)
+        Me.Menu_AddCourseFromList.Text = "افزودن از ليست ..."
         '
         'Menu_EditCourseNumber
         '
@@ -558,4 +566,5 @@ Partial Class frmDepts
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents Menu_CancelCourse As ToolStripMenuItem
     Friend WithEvents lblHelp As Label
+    Friend WithEvents Menu_AddCourseFromList As ToolStripMenuItem
 End Class

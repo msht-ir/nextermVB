@@ -25,18 +25,18 @@ Module Module1
 
     Public Retval1, Retval2, Retval3, Retval4 As Integer
     Public strFacultyPass, strDepartmentPass As String
-    Public Userx As String         'USERFaculty | USERDepartment 
-    Public intUser As Integer      'ID of Department   (as intUser)
-    Public strUser As String       'Name of Department (as strUser)
-    Public UserNickName As String  'Name of the User
-    Public strBuildInfo As String  'as Build 000.00.00
-    Public AdminCanProg As Boolean 'Admin Can Programme in Settings (YES/NO)
-    Public UserAccessConntrols As Integer  'acc1-acc5 (user access controls)
+    Public Userx As String          'USERFaculty | USERDepartment 
+    Public intUser As Integer       'ID of Department   (as intUser)
+    Public strUser As String        'Name of Department (as strUser)
+    Public UserNickName As String   'Name of the User
+    Public strBuildInfo As String   'as Build 000.00.00
+    Public UserAccessControls As Integer  'acc1-acc5 (user access controls)
     Public strCaption As String
     Public strSQL As String
 
     Public intDept, intBioProg, intEntry, intCourse, intTerm, intRoom, intStaff, intTech, intTemp As Long
     Public strDept, strBioProg, strEntry, strCourse, strTerm, strRoom, strStaff, strTech, strTemp As String
+    Public strExamDateTime As String
     Public intCourseNumber As Long
     Public intYearEntered As Integer
     Public intGridRow As Integer ' used in frm.Choose_Class, showing info of occupied class-times: need row-index of Grid4 
@@ -66,7 +66,7 @@ lbl_SelectDB:
             Select Case Server2Connect
                 Case "Faculty of Sci"
                     strCaption = "Connected to Sci SqlServer on host"
-                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NexTerm; User ID=mshtir_db; Password=nExTeRm_1401_uSr;")
+                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NexTerm; User ID=mshtir_db; Password=nExTeRm_1401_uSr6;")
                     CnnSS.Open()
                     DatabaseType = "SqlServer"
                 Case "SKU NAS Server-1" ' SKU.NAS (msht)
@@ -155,16 +155,6 @@ lbl_SelectDB:
                 Catch ex As Exception
                     boolLog = False
                 End Try
-
-                DS.Tables("tblSettings").Clear()
-                DASS.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE iHerbsConstant LIKE 'Admin can prog%' ORDER BY iHerbsConstant" ' search: (Log User Activity)
-                DASS.Fill(DS, "tblSettings") ' tbl 12: Settings
-                Try '//AdminCanProg
-                    If UCase(DS.Tables("tblSettings").Rows(0).Item(2)) = "YES" Then AdminCanProg = True Else AdminCanProg = False
-                Catch ex As Exception
-                    AdminCanProg = False
-                End Try
-
                 DS.Tables("tblSettings").Clear()
                 DASS.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE iHerbsConstant LIKE 'Report background%' ORDER BY iHerbsConstant" ' search: (bg)
                 DASS.Fill(DS, "tblSettings") ' tbl 12: Settings
@@ -173,7 +163,6 @@ lbl_SelectDB:
                 Catch ex As Exception
                     strReportBG = "bg1.png"
                 End Try
-
                 DS.Tables("tblSettings").Clear()
                 DASS.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE iHerbsConstant LIKE 'Admin Password%' ORDER BY iHerbsConstant" ' search: (Password for Admin)
                 DASS.Fill(DS, "tblSettings")
@@ -196,7 +185,7 @@ lbl_SelectDB:
                 DASS.SelectCommand.CommandText = "SELECT ID FROM msgs"
                 DASS.Fill(DS, "tblMsgs") ' tbl notes (messages)
 
-'--------- access --------- access --------- access --------- access --------- access --------- access --------- access --------- access ---------
+            '--------- access --------- access --------- access --------- access --------- access --------- access --------- access --------- access ---------
             Case "Access"
                 DAAC = New OleDb.OleDbDataAdapter("Select ID, DepartmentName As DEPT, DepartmentActive, Notes, DepartmentPass, acc1, acc2, acc3, acc4, acc5 FROM Departments ORDER BY DepartmentName", CnnAC)
                 DAAC.Fill(DS, "tblDepartments") ' tbl 1: Depts
@@ -228,16 +217,6 @@ lbl_SelectDB:
                 Catch ex As Exception
                     boolLog = False
                 End Try
-
-                DS.Tables("tblSettings").Clear()
-                DAAC.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE iHerbsConstant LIKE 'Admin can prog%' ORDER BY iHerbsConstant" ' search: (Log User Activity)
-                DAAC.Fill(DS, "tblSettings") ' tbl 12: Settings
-                Try
-                    If UCase(DS.Tables("tblSettings").Rows(0).Item(2)) = "YES" Then AdminCanProg = True Else AdminCanProg = False
-                Catch ex As Exception
-                    AdminCanProg = False
-                End Try
-
                 DS.Tables("tblSettings").Clear()
                 DAAC.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE iHerbsConstant LIKE 'Report background%' ORDER BY iHerbsConstant" ' search: (bg)
                 DAAC.Fill(DS, "tblSettings") ' tbl 12: Settings
@@ -246,7 +225,6 @@ lbl_SelectDB:
                 Catch ex As Exception
                     strReportBG = "bg1.png"
                 End Try
-
                 DS.Tables("tblSettings").Clear()
                 DAAC.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE iHerbsConstant LIKE 'Admin Password%' ORDER BY iHerbsConstant" ' search: (Password for Admin)
                 DAAC.Fill(DS, "tblSettings")
@@ -260,7 +238,6 @@ lbl_SelectDB:
                         MsgBox("Error in Exit module ....")
                     End Try
                 End Try
-
                 DAAC.SelectCommand.CommandText = "SELECT ID From TermProgs"
                 DAAC.Fill(DS, "tblAllProgs") ' tbl 13: AllProgs
                 DAAC.SelectCommand.CommandText = "SELECT ID From TermProgs"
@@ -270,7 +247,7 @@ lbl_SelectDB:
                 DAAC.SelectCommand.CommandText = "SELECT ID FROM msgs"
                 DAAC.Fill(DS, "tblMsgs") ' tbl notes (messages)
         End Select
-
+        '--------- end select --------- end select --------- end select --------- end select --------- end select --------- end select --------- end select
 
         ' // LOGIN:set Userx
         frmLogIn.ShowDialog()
@@ -283,7 +260,7 @@ lbl_SelectDB:
             End Try
         Else
             If boolLog = True Then
-                Try ' WRITE-LOG
+                Try ' -----------------------WRITE-LOG
                     If Userx = "USER Faculty" Then intUser = 0
                     Dim strDateTime As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss")
                     Dim intUserID As Integer = intUser

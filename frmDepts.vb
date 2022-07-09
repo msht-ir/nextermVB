@@ -27,7 +27,7 @@
 
         Grid1.DataSource = DS.Tables("tblDepartments")
         Grid1.Refresh()
-        If Userx = "USER Faculty" And UserAccessConntrols And (2 ^ 4) = (2 ^ 4) Then
+        If Userx = "USER Faculty" And UserAccessControls And (2 ^ 4) = (2 ^ 4) Then
             Grid1.Columns(0).Visible = False      'ID
             Grid1.Columns(4).Visible = True      'Pass
             Grid1.Columns(4).Width = 35          'Pass
@@ -57,7 +57,7 @@
             'A: strictly for each user
             Select Case Userx
                 Case "USER Faculty"
-                    If (UserAccessConntrols And (2 ^ 4)) = (2 ^ 4) Then boolENBL = True Else boolENBL = False
+                    If (UserAccessControls And (2 ^ 4)) = (2 ^ 4) Then boolENBL = True Else boolENBL = False
                     Menu_ChangePassDept.Enabled = boolENBL
                     Menu_AddStaff.Enabled = boolENBL
                     Menu_EditStaff.Enabled = boolENBL
@@ -68,23 +68,30 @@
                     Menu_EditBioProg.Enabled = boolENBL
                     Menu_AddCourse.Enabled = boolENBL
                     Menu_EditCourseNumber.Enabled = boolENBL
-                    If (UserAccessConntrols And (2 ^ 4)) = (2 ^ 4) Then Grid1.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2 Else Grid1.EditMode = DataGridViewEditMode.EditProgrammatically
+                    If (UserAccessControls And (2 ^ 4)) = (2 ^ 4) Then
+                        Grid1.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2
+                        Menu_AddCourseFromList.Enabled = True
+                    Else
+                        Grid1.EditMode = DataGridViewEditMode.EditProgrammatically
+                        Menu_AddCourseFromList.Enabled = False
+                    End If
                 Case "USER Department" ' Userx: Department | quit
                     Menu_AddDept.Enabled = False
                     Menu_AddBioProg.Enabled = False
                     Menu_EditBioProg.Enabled = False
                     Menu_EditCourseNumber.Enabled = True
                     Grid1.EditMode = DataGridViewEditMode.EditProgrammatically
-                    If (UserAccessConntrols And (2 ^ 4)) = (2 ^ 4) Then
+                    If (UserAccessControls And (2 ^ 4)) = (2 ^ 4) Then
                         ' acc1: Courses
-                        If (UserAccessConntrols And (2 ^ 0)) = 0 Then Menu_EditEntry.Enabled = False Else Menu_EditEntry.Enabled = True
-                        If (UserAccessConntrols And (2 ^ 0)) = 0 Then Menu_AddEntry.Enabled = False Else Menu_AddEntry.Enabled = True
-                        If (UserAccessConntrols And (2 ^ 0)) = 0 Then Menu_AddCourse.Enabled = False Else Menu_AddEntry.Enabled = True
+                        If (UserAccessControls And (2 ^ 0)) = 0 Then Menu_EditEntry.Enabled = False Else Menu_EditEntry.Enabled = True
+                        If (UserAccessControls And (2 ^ 0)) = 0 Then Menu_AddEntry.Enabled = False Else Menu_AddEntry.Enabled = True
+                        If (UserAccessControls And (2 ^ 0)) = 0 Then Menu_AddCourse.Enabled = False Else Menu_AddEntry.Enabled = True
                         ' acc2: staff
-                        If (UserAccessConntrols And (2 ^ 1)) = 0 Then Menu_EditStaff.Enabled = False Else Menu_EditStaff.Enabled = True
-                        If (UserAccessConntrols And (2 ^ 1)) = 0 Then Menu_AddStaff.Enabled = False Else Menu_AddStaff.Enabled = True
+                        If (UserAccessControls And (2 ^ 1)) = 0 Then Menu_EditStaff.Enabled = False Else Menu_EditStaff.Enabled = True
+                        If (UserAccessControls And (2 ^ 1)) = 0 Then Menu_AddStaff.Enabled = False Else Menu_AddStaff.Enabled = True
                         ' acc5: pass
-                        If (UserAccessConntrols And (2 ^ 4)) = 0 Then Menu_ChangePassDept.Enabled = False Else Menu_ChangePassDept.Enabled = True
+                        If (UserAccessControls And (2 ^ 4)) = 0 Then Menu_ChangePassDept.Enabled = False Else Menu_ChangePassDept.Enabled = True
+                        Menu_AddCourseFromList.Enabled = True
                     Else
                         ' acc1: Courses
                         Menu_EditEntry.Enabled = False
@@ -95,6 +102,7 @@
                         Menu_AddStaff.Enabled = False
                         ' acc5: pass
                         Menu_ChangePassDept.Enabled = False
+                        Menu_AddCourseFromList.Enabled = False
                     End If
             End Select
         Catch ex As Exception
@@ -152,8 +160,8 @@
 
     End Sub
     Private Sub Grid1_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles Grid1.CellValueChanged
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
-        If Userx <> "USER Faculty" Then 
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If Userx <> "USER Faculty" Then
             MsgBox("Changes discarded", vbOK, "کاربر : گروه آموزشي")
             Exit Sub
         Else
@@ -230,7 +238,7 @@
 
     End Sub
     Private Sub Menu_AddDept_Click(sender As Object, e As EventArgs) Handles Menu_AddDept.Click
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Userx <> "USER Faculty" Then MsgBox("Changes discarded", vbOK, "کاربر : گروه آموزشي") : Exit Sub
         Dim myansw As DialogResult = MsgBox("يک گروه آموزشي جديد افزوده شود؟", vbQuestion + vbYesNo + vbDefaultButton2, "NexTerm")
         If myansw = vbNo Then Exit Sub
@@ -253,7 +261,7 @@
 
     End Sub
     Private Sub Menu_ChangePassDept_Click(sender As Object, e As EventArgs) Handles Menu_ChangePassDept.Click
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Try
             Dim r As Integer = Grid1.CurrentCell.RowIndex
             If r < 0 Then MsgBox("select a row!", vbOKOnly, "NexTerm") : Exit Sub
@@ -320,7 +328,7 @@
         Menu_OKStaff_Click(sender, e)
     End Sub
     Private Sub Menu_AddStaff_Click(sender As Object, e As EventArgs) Handles Menu_AddStaff.Click
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid1.CurrentCell.RowIndex < 0 Then Exit Sub
         Dim myansw As DialogResult = MsgBox("استاد جديد به اين گروه افزوده شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
         If myansw = vbYes Then
@@ -328,34 +336,38 @@
             If Trim(strStaff) = "" Then
                 Exit Sub
             Else
-                Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-                    Case "SqlServer"
-                        strSQL = "INSERT INTO Staff (StaffName, StaffCode, Affiliation, Notes) VALUES (@staffname, 0, @affiliation, '-')"
-                        Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
-                        cmd.CommandType = CommandType.Text
-                        cmd.Parameters.AddWithValue("@staffname", strStaff)
-                        cmd.Parameters.AddWithValue("@affiliation", intDept)
-                        Dim i As Integer
-                        i = cmd.ExecuteNonQuery()
-                    Case "Access"
-                        strSQL = "INSERT INTO Staff (StaffName, StaffCode, Affiliation, Notes) VALUES (@staffname, 0, @affiliation, '-')"
-                        Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
-                        cmd.CommandType = CommandType.Text
-                        cmd.Parameters.AddWithValue("@staffname", strStaff)
-                        cmd.Parameters.AddWithValue("@affiliation", intDept)
-                        Dim i As Integer
-                        i = cmd.ExecuteNonQuery()
-                End Select
-                ListStaff.Refresh()
-                Grid1_CellClick()
-                WriteLOG(10)
+                Try
+                    Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                        Case "SqlServer"
+                            strSQL = "INSERT INTO Staff (StaffName, StaffCode, Affiliation, Notes) VALUES (@staffname, 0, @affiliation, '-')"
+                            Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
+                            cmd.CommandType = CommandType.Text
+                            cmd.Parameters.AddWithValue("@staffname", strStaff).ToString()
+                            cmd.Parameters.AddWithValue("@affiliation", intDept).ToString()
+                            Dim i As Integer
+                            i = cmd.ExecuteNonQuery()
+                        Case "Access"
+                            strSQL = "INSERT INTO Staff (StaffName, StaffCode, Affiliation, Notes) VALUES (@staffname, 0, @affiliation, '-')"
+                            Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
+                            cmd.CommandType = CommandType.Text
+                            cmd.Parameters.AddWithValue("@staffname", strStaff.ToString)
+                            cmd.Parameters.AddWithValue("@affiliation", intDept.ToString)
+                            Dim i As Integer
+                            i = cmd.ExecuteNonQuery()
+                    End Select
+                    ListStaff.Refresh()
+                    Grid1_CellClick()
+                    WriteLOG(10)
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                End Try
             End If
         End If
 
     End Sub
     Private Sub Menu_EditStaff_Click(sender As Object, e As EventArgs) Handles Menu_EditStaff.Click
         'Edit
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim myansw As DialogResult = MsgBox("نام استاد ويرايش شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
         strStaff = ListStaff.Text
         Dim r As Integer = ListStaff.SelectedValue
@@ -364,24 +376,29 @@
             If strStaff = "" Then
                 Exit Sub
             Else
-                DS.Tables("tblStaff").Rows(ListStaff.SelectedIndex).Item(1) = strStaff
-                Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-                    Case "SqlServer"
-                        strSQL = "UPDATE Staff SET StaffName = @staffname WHERE ID = @id"
-                        Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
-                        cmd.CommandType = CommandType.Text
-                        cmd.Parameters.AddWithValue("@staffname", strStaff)
-                        cmd.Parameters.AddWithValue("@id", r.ToString)
-                        Dim i As Integer = cmd.ExecuteNonQuery()
-                    Case "Access"
-                        strSQL = "UPDATE Staff SET StaffName = @staffname WHERE ID = @id"
-                        Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
-                        cmd.CommandType = CommandType.Text
-                        cmd.Parameters.AddWithValue("@staffname", strStaff)
-                        cmd.Parameters.AddWithValue("@id", r.ToString)
-                        Dim i As Integer = cmd.ExecuteNonQuery()
-                End Select
-                Grid1_CellClick()
+                Try
+                    DS.Tables("tblStaff").Rows(ListStaff.SelectedIndex).Item(1) = strStaff
+                    Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                        Case "SqlServer"
+                            strSQL = "UPDATE Staff SET StaffName = @staffname WHERE ID = @id"
+                            Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
+                            cmd.CommandType = CommandType.Text
+                            cmd.Parameters.AddWithValue("@staffname", strStaff.ToString)
+                            cmd.Parameters.AddWithValue("@id", r.ToString)
+                            Dim i As Integer = cmd.ExecuteNonQuery()
+                        Case "Access"
+                            strSQL = "UPDATE Staff SET StaffName = @staffname WHERE ID = @id"
+                            Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
+                            cmd.CommandType = CommandType.Text
+                            cmd.Parameters.AddWithValue("@staffname", strStaff.ToString)
+                            cmd.Parameters.AddWithValue("@id", r.ToString)
+                            Dim i As Integer = cmd.ExecuteNonQuery()
+                    End Select
+                    Grid1_CellClick()
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                End Try
+
             End If
             WriteLOG(11)
         End If
@@ -410,7 +427,7 @@
         Menu_OKBioProg_Click(sender, e)
     End Sub
     Private Sub Menu_AddBioProg_Click(sender As Object, e As EventArgs) Handles Menu_AddBioProg.Click
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid1.CurrentCell.RowIndex < 0 Then Exit Sub
         Dim myansw As DialogResult = MsgBox("دوره آموزشي جديد به اين گروه افزوده شود؟", vbYesNo + vbDefaultButton2, "نکسترم")
         If myansw = vbYes Then
@@ -423,15 +440,15 @@
                         strSQL = "INSERT INTO BioProgs (ProgramName, Department_ID) VALUES (@programname, @departmentid)"
                         Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
                         cmd.CommandType = CommandType.Text
-                        cmd.Parameters.AddWithValue("@programname", strBioProg)
-                        cmd.Parameters.AddWithValue("@departmentid", intDept)
+                        cmd.Parameters.AddWithValue("@programname", strBioProg.ToString)
+                        cmd.Parameters.AddWithValue("@departmentid", intDept.ToString)
                         Dim i As Integer = cmd.ExecuteNonQuery()
                     Case "Access"
                         strSQL = "INSERT INTO BioProgs (ProgramName, Department_ID) VALUES (@programname, @departmentid)"
                         Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
                         cmd.CommandType = CommandType.Text
-                        cmd.Parameters.AddWithValue("@programname", strBioProg)
-                        cmd.Parameters.AddWithValue("@departmentid", intDept)
+                        cmd.Parameters.AddWithValue("@programname", strBioProg.ToString)
+                        cmd.Parameters.AddWithValue("@departmentid", intDept.ToString)
                         Dim i As Integer = cmd.ExecuteNonQuery()
                 End Select
                 ListBioProg.Refresh()
@@ -442,7 +459,7 @@
 
     End Sub
     Private Sub Menu_EditBioProg_Click(sender As Object, e As EventArgs) Handles Menu_EditBioProg.Click
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim r As Integer = ListBioProg.SelectedIndex
         If r = -1 Then Exit Sub
         intBioProg = ListBioProg.SelectedValue
@@ -458,14 +475,14 @@
                     strSQL = "UPDATE BioProgs SET ProgramName = @programname WHERE ID = @id"
                     Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
                     cmd.CommandType = CommandType.Text
-                    cmd.Parameters.AddWithValue("@programname", strBioProg)
+                    cmd.Parameters.AddWithValue("@programname", strBioProg.ToString)
                     cmd.Parameters.AddWithValue("@id", DS.Tables("tblBioProgs").Rows(r).Item(0))
                     Dim i As Integer = cmd.ExecuteNonQuery
                 Case "Access"
                     strSQL = "UPDATE BioProgs SET ProgramName = @programname WHERE ID = @id"
                     Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
                     cmd.CommandType = CommandType.Text
-                    cmd.Parameters.AddWithValue("@programname", strBioProg)
+                    cmd.Parameters.AddWithValue("@programname", strBioProg.ToString)
                     cmd.Parameters.AddWithValue("@id", DS.Tables("tblBioProgs").Rows(r).Item(0))
                     Dim i As Integer = cmd.ExecuteNonQuery
             End Select
@@ -584,7 +601,7 @@
     'GRID ENTRY
     Private Sub GridEntries_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles GridEntries.CellValueChanged
         If Userx = "USER Department" Then Exit Sub
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridEntries.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridEntries.CurrentCell.RowIndex   'count from 0
         Dim c As Integer = GridEntries.CurrentCell.ColumnIndex 'count from 0
@@ -633,7 +650,7 @@
     End Sub
     Private Sub Menu_AddEntry_Click(sender As Object, e As EventArgs) Handles Menu_AddEntry.Click
         If Userx = "USER Department" Then Exit Sub
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Grid1.CurrentCell.RowIndex < 0 Then Exit Sub
         If ListBioProg.SelectedIndex = -1 Then Exit Sub
         intBioProg = Int(Val(ListBioProg.SelectedValue))
@@ -685,13 +702,13 @@
                 Menu_OKEntry_Click(sender, e)
                 Exit Sub
             Case "USER Faculty"
-                If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+                If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                 Menu_EditEntry_Click(sender, e)
         End Select
 
     End Sub
     Private Sub Menu_EditEntry_Click(sender As Object, e As EventArgs) Handles Menu_EditEntry.Click
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridEntries.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridEntries.SelectedCells(0).RowIndex    'count from 0
         Dim c As Integer = GridEntries.SelectedCells(0).ColumnIndex 'count from 0
@@ -758,7 +775,7 @@
 
     'GRID COURSE
     Private Sub GridCourse_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellDoubleClick
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim r As Integer = GridCourse.SelectedCells(0).RowIndex    'count from 0
         Dim c As Integer = GridCourse.SelectedCells(0).ColumnIndex 'count from 0
         If GridCourse.RowCount < 1 Then Exit Sub
@@ -795,7 +812,7 @@
 
     End Sub
     Private Sub GridCourse_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellValueChanged
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridCourse.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridCourse.CurrentCell.RowIndex   'count from 0
         If r < 0 Then Exit Sub
@@ -833,52 +850,91 @@
 
     End Sub
     Private Sub Menu_AddCourse_Click(sender As Object, e As EventArgs) Handles Menu_AddCourse.Click
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ListBioProg.SelectedIndex = -1 Then Exit Sub
         Dim myansw As DialogResult = MsgBox("درس جديد به اين دوره آموزشي افزوده شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
         If myansw = vbYes Then
+            intCourseNumber = Val(InputBox("شماره درس", "NexTerm", "123456789"))
             strCourse = InputBox("نام درس را وارد کنيد", "NexTerm", " درس جديد " & ListBioProg.Text)
             If strCourse = "" Then
                 Exit Sub
             Else
-                intCourseNumber = Val(InputBox("شماره درس", "NexTerm", "123456789"))
-                Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-                    Case "SqlServer"
-                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
-                        Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
-                        cmd.CommandType = CommandType.Text
-                        cmd.Parameters.AddWithValue("@bioprogid", ListBioProg.SelectedValue)
-                        cmd.Parameters.AddWithValue("@coursename", strCourse)
-                        cmd.Parameters.AddWithValue("@coursenumber", Str(intCourseNumber))
-                        Dim i As Integer
-                        Try
-                            i = cmd.ExecuteNonQuery()
-                            MsgBox(" درس " & strCourse & " افزوده شد ", vbOKOnly, "نکسترم")
-                            ListBioProg_Click(sender, e)
-                            GridCourse.Refresh()
-                        Catch ex As Exception
-                            MsgBox("error: " & ex.ToString)
-                        End Try
-                    Case "Access"
-                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
-                        Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
-                        cmd.CommandType = CommandType.Text
-                        cmd.Parameters.AddWithValue("@bioprogid", ListBioProg.SelectedValue)
-                        cmd.Parameters.AddWithValue("@coursename", strCourse)
-                        cmd.Parameters.AddWithValue("@coursenumber", Str(intCourseNumber))
-                        Dim i As Integer
-                        Try
-                            i = cmd.ExecuteNonQuery()
-                            MsgBox(" درس " & strCourse & " افزوده شد ", vbOKOnly, "نکسترم")
-                            ListBioProg_Click(sender, e)
-                            GridCourse.Refresh()
-                        Catch ex As Exception
-                            MsgBox("error: " & ex.ToString)
-                        End Try
-                End Select
-
+                AddACourseToList()
             End If
+            ListBioProg_Click(sender, e)
+            GridCourse.Refresh()
         End If
+
+    End Sub
+    Private Sub Menu_AddCourseFromList_Click(sender As Object, e As EventArgs) Handles Menu_AddCourseFromList.Click
+        'Add List of Courses from textfile to a BioProg
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If ListBioProg.SelectedIndex = -1 Then Exit Sub
+        strBioProg = ListBioProg.SelectedValue
+
+        '---------------------------------------- notice
+        Dim tmpNOTICE As DialogResult = MsgBox("توجه: افزودن ليست دروس ممکن است منجر به ايجاد موارد تکراري شود" & vbCrLf & "ليست افزوده شود؟   مطمئن هستيد؟", vbOKCancel + vbDefaultButton2, "نکسترم")
+        If tmpNOTICE = vbCancel Then Exit Sub
+        '---------------------------------------- /notice
+
+        Dim strIdentifier As String
+        Try
+            strFilename = Application.StartupPath & "Courses.txt"
+            If IO.File.Exists(strFilename) = True Then
+                FileOpen(1, strFilename, OpenMode.Input)
+                strIdentifier = LineInput(1)
+                If strIdentifier = "NexTerm Courses" Then
+lbl_Read:
+                    strCourse = LineInput(1)
+                    intCourseNumber = LineInput(1)
+                    AddACourseToList()
+                End If
+                GoTo lbl_Read
+
+                If Not EOF(1) Then GoTo lbl_Read
+                FileClose(1)
+            Else
+                MsgBox("فايل ليست درس ها در فولدر برنامه پيدا نشد", vbOKOnly, "نکسترم")
+            End If
+            FileClose(1) 'Confirm file is closed
+        Catch ex As Exception
+            'MsgBox(ex.ToString) 'MsgBox("خطا در فايل ليست دروس ", vbOKOnly, "نکسترم") ' MsgBox(ex.ToString)
+        End Try
+        ListBioProg_Click(sender, e)
+        GridCourse.Refresh()
+
+    End Sub
+    Private Sub AddACourseToList()
+        Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+            Case "SqlServer"
+                strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
+                Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
+                cmd.CommandType = CommandType.Text
+                cmd.Parameters.AddWithValue("@bioprogid", ListBioProg.SelectedValue)
+                cmd.Parameters.AddWithValue("@coursename", strCourse)
+                cmd.Parameters.AddWithValue("@coursenumber", Str(intCourseNumber))
+                Dim i As Integer
+                Try
+                    i = cmd.ExecuteNonQuery()
+                    'MsgBox(" درس " & strCourse & " افزوده شد ", vbOKOnly, "نکسترم")
+                Catch ex As Exception
+                    MsgBox("error: " & ex.ToString)
+                End Try
+            Case "Access"
+                strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
+                Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
+                cmd.CommandType = CommandType.Text
+                cmd.Parameters.AddWithValue("@bioprogid", ListBioProg.SelectedValue)
+                cmd.Parameters.AddWithValue("@coursename", strCourse)
+                cmd.Parameters.AddWithValue("@coursenumber", Str(intCourseNumber))
+                Dim i As Integer
+                Try
+                    i = cmd.ExecuteNonQuery()
+                    'MsgBox(" درس " & strCourse & " افزوده شد ", vbOKOnly, "نکسترم")
+                Catch ex As Exception
+                    MsgBox("error: " & ex.ToString)
+                End Try
+        End Select
 
     End Sub
     Private Sub Menu_EditCourseNumber_Click(sender As Object, e As EventArgs) Handles Menu_EditCourseNumber.Click

@@ -5,9 +5,16 @@
         ComboBox1.ValueMember = "ID"
         ComboBox1.SelectedValue = intUser
 
+        cboSort.Items.Add("تاريخ / زمان")
+        cboSort.Items.Add("گروه آموزشي")
+        cboSort.Items.Add("نام کاربر")
+        cboSort.Items.Add("سرويس گيرنده")
+        cboSort.SelectedIndex = 0
+
     End Sub
     Private Sub ComboBox1_Click(sender As Object, e As EventArgs) Handles ComboBox1.Click
         intDept = ComboBox1.SelectedValue
+        RadioButton3.Checked = True
     End Sub
 
     Private Sub Menu_Report_Click(sender As Object, e As EventArgs) Handles Menu_Report.Click
@@ -21,10 +28,12 @@
         If RadioButton2.Checked = True Then strSQL = strSQL & " WHERE UserID=0" : strFltr = "شامل: کاربر دانشکده" & vbCrLf                         'usr faculty
         If RadioButton3.Checked = True Then strSQL = strSQL & " WHERE userID=" & intDept.ToString : strFltr = "شامل: يک گروه" & vbCrLf          'usr dept
 
-        If RadioButton4.Checked = True Then strSQL = strSQL & " ORDER BY DateTimex DESC" : strFltr = strFltr & "ترتيب: تاريخ و زمان"                'Date/Time
-        If RadioButton5.Checked = True Then strSQL = strSQL & " ORDER BY UserID, DateTimex DESC" : strFltr = strFltr & "ترتيب: کد کاربر"            'usr ID
-        If RadioButton6.Checked = True Then strSQL = strSQL & " ORDER BY NickName, DateTimex DESC" : strFltr = strFltr & "ترتيب: نام مستعار"        'nick name
-        If RadioButton7.Checked = True Then strSQL = strSQL & " ORDER BY ClientName, DateTimex DESC" : strFltr = strFltr & "ترتيب: سرويس گيرنده"    'client name
+        Select Case cboSort.SelectedIndex
+            Case 0 : strSQL = strSQL & " ORDER BY DateTimex DESC" : strFltr = strFltr & " - " & "ترتيب: تاريخ و زمان"
+            Case 1 : strSQL = strSQL & " ORDER BY UserID, DateTimex DESC" : strFltr = strFltr & " - " & "ترتيب: کد کاربر"
+            Case 2 : strSQL = strSQL & " ORDER BY NickName, DateTimex DESC" : strFltr = strFltr & " - " & "ترتيب: نام مستعار"
+            Case 3 : strSQL = strSQL & " ORDER BY ClientName, DateTimex DESC" : strFltr = strFltr & " - " & "ترتيب: سرويس گيرنده"
+        End Select
 
         Try
             Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
@@ -83,4 +92,5 @@
         Me.Dispose()
 
     End Sub
+
 End Class

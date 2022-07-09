@@ -59,10 +59,10 @@ Partial Class frmTermProgs
         Me.ToolStripMenuItem10 = New System.Windows.Forms.ToolStripSeparator()
         Me.Menu_ReportStaffProgsInTerms = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripSeparator()
-        Me.Menu_ReportStaffPrograms = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Menu_ReportTechPrograms = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_ReportClassPrograms = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_ReportEntriesPrograms = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Menu_ReportStaffPrograms = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Menu_ReportTechPrograms = New System.Windows.Forms.ToolStripMenuItem()
         Me.Grid4 = New System.Windows.Forms.DataGridView()
         Me.ContextMenuGrid4 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.MenuAddGroup = New System.Windows.Forms.ToolStripMenuItem()
@@ -114,6 +114,9 @@ Partial Class frmTermProgs
         Me.lblCourse = New System.Windows.Forms.Label()
         Me.RadioBtn1 = New System.Windows.Forms.RadioButton()
         Me.RadioBtn2 = New System.Windows.Forms.RadioButton()
+        Me.lbl_UserInactiveProg = New System.Windows.Forms.Label()
+        Me.lbl_UserInactiveClass = New System.Windows.Forms.Label()
+        Me.lbl_UserType = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.Grid4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuGrid4.SuspendLayout()
@@ -284,56 +287,56 @@ Partial Class frmTermProgs
         'Menu_UserActivityLogs
         '
         Me.Menu_UserActivityLogs.Name = "Menu_UserActivityLogs"
-        Me.Menu_UserActivityLogs.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_UserActivityLogs.Size = New System.Drawing.Size(160, 22)
         Me.Menu_UserActivityLogs.Text = "فعاليت کاربران"
         '
         'Menu_UserActivityLog_CLEAR
         '
         Me.Menu_UserActivityLog_CLEAR.Enabled = False
         Me.Menu_UserActivityLog_CLEAR.Name = "Menu_UserActivityLog_CLEAR"
-        Me.Menu_UserActivityLog_CLEAR.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_UserActivityLog_CLEAR.Size = New System.Drawing.Size(160, 22)
         Me.Menu_UserActivityLog_CLEAR.Text = "پاک شود"
         '
         'ToolStripMenuItem10
         '
         Me.ToolStripMenuItem10.Name = "ToolStripMenuItem10"
-        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(157, 6)
         '
         'Menu_ReportStaffProgsInTerms
         '
         Me.Menu_ReportStaffProgsInTerms.Name = "Menu_ReportStaffProgsInTerms"
-        Me.Menu_ReportStaffProgsInTerms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportStaffProgsInTerms.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ReportStaffProgsInTerms.Text = "مرور برنامه اساتيد"
         '
         'ToolStripMenuItem5
         '
         Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(157, 6)
+        '
+        'Menu_ReportClassPrograms
+        '
+        Me.Menu_ReportClassPrograms.Name = "Menu_ReportClassPrograms"
+        Me.Menu_ReportClassPrograms.Size = New System.Drawing.Size(160, 22)
+        Me.Menu_ReportClassPrograms.Text = "برنامه کلاس ها"
+        '
+        'Menu_ReportEntriesPrograms
+        '
+        Me.Menu_ReportEntriesPrograms.Name = "Menu_ReportEntriesPrograms"
+        Me.Menu_ReportEntriesPrograms.Size = New System.Drawing.Size(160, 22)
+        Me.Menu_ReportEntriesPrograms.Text = "برنامه ورودي ها"
         '
         'Menu_ReportStaffPrograms
         '
         Me.Menu_ReportStaffPrograms.Name = "Menu_ReportStaffPrograms"
-        Me.Menu_ReportStaffPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportStaffPrograms.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ReportStaffPrograms.Text = "برنامه اساتيد"
         '
         'Menu_ReportTechPrograms
         '
         Me.Menu_ReportTechPrograms.Enabled = False
         Me.Menu_ReportTechPrograms.Name = "Menu_ReportTechPrograms"
-        Me.Menu_ReportTechPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportTechPrograms.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ReportTechPrograms.Text = "برنامه کارشناسان"
-        '
-        'Menu_ReportClassPrograms
-        '
-        Me.Menu_ReportClassPrograms.Name = "Menu_ReportClassPrograms"
-        Me.Menu_ReportClassPrograms.Size = New System.Drawing.Size(180, 22)
-        Me.Menu_ReportClassPrograms.Text = "برنامه کلاس ها"
-        '
-        'Menu_ReportEntriesPrograms
-        '
-        Me.Menu_ReportEntriesPrograms.Name = "Menu_ReportEntriesPrograms"
-        Me.Menu_ReportEntriesPrograms.Size = New System.Drawing.Size(180, 22)
-        Me.Menu_ReportEntriesPrograms.Text = "برنامه ورودي ها"
         '
         'Grid4
         '
@@ -524,11 +527,11 @@ Partial Class frmTermProgs
         Me.txtExamDate.ContextMenuStrip = Me.ContextMenuGridTime
         Me.txtExamDate.Font = New System.Drawing.Font("Courier New", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
         Me.txtExamDate.ForeColor = System.Drawing.Color.ForestGreen
-        Me.txtExamDate.Location = New System.Drawing.Point(31, 524)
+        Me.txtExamDate.Location = New System.Drawing.Point(43, 510)
         Me.txtExamDate.Mask = "0000.00.00 (00:00)"
         Me.txtExamDate.Name = "txtExamDate"
         Me.txtExamDate.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtExamDate.Size = New System.Drawing.Size(199, 23)
+        Me.txtExamDate.Size = New System.Drawing.Size(173, 23)
         Me.txtExamDate.TabIndex = 27
         Me.txtExamDate.Tag = ""
         Me.txtExamDate.Text = "130000000830"
@@ -640,7 +643,7 @@ Partial Class frmTermProgs
         Me.lblExamDate.AutoSize = True
         Me.lblExamDate.BackColor = System.Drawing.Color.Transparent
         Me.lblExamDate.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.lblExamDate.Location = New System.Drawing.Point(88, 503)
+        Me.lblExamDate.Location = New System.Drawing.Point(87, 487)
         Me.lblExamDate.Name = "lblExamDate"
         Me.lblExamDate.Size = New System.Drawing.Size(98, 15)
         Me.lblExamDate.TabIndex = 33
@@ -754,9 +757,9 @@ Partial Class frmTermProgs
         Me.lblCourse.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCourse.BackColor = System.Drawing.Color.Transparent
         Me.lblCourse.ForeColor = System.Drawing.Color.DarkRed
-        Me.lblCourse.Location = New System.Drawing.Point(434, 440)
+        Me.lblCourse.Location = New System.Drawing.Point(386, 440)
         Me.lblCourse.Name = "lblCourse"
-        Me.lblCourse.Size = New System.Drawing.Size(488, 18)
+        Me.lblCourse.Size = New System.Drawing.Size(536, 18)
         Me.lblCourse.TabIndex = 38
         Me.lblCourse.Text = "برنامه هفتگي اين درس"
         Me.lblCourse.Visible = False
@@ -767,7 +770,7 @@ Partial Class frmTermProgs
         Me.RadioBtn1.BackColor = System.Drawing.Color.LightCyan
         Me.RadioBtn1.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
         Me.RadioBtn1.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.RadioBtn1.Location = New System.Drawing.Point(153, 576)
+        Me.RadioBtn1.Location = New System.Drawing.Point(161, 597)
         Me.RadioBtn1.Name = "RadioBtn1"
         Me.RadioBtn1.Size = New System.Drawing.Size(70, 17)
         Me.RadioBtn1.TabIndex = 39
@@ -782,7 +785,7 @@ Partial Class frmTermProgs
         Me.RadioBtn2.BackColor = System.Drawing.Color.MistyRose
         Me.RadioBtn2.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
         Me.RadioBtn2.ForeColor = System.Drawing.Color.Red
-        Me.RadioBtn2.Location = New System.Drawing.Point(151, 607)
+        Me.RadioBtn2.Location = New System.Drawing.Point(159, 623)
         Me.RadioBtn2.Name = "RadioBtn2"
         Me.RadioBtn2.Size = New System.Drawing.Size(72, 17)
         Me.RadioBtn2.TabIndex = 40
@@ -791,6 +794,45 @@ Partial Class frmTermProgs
         Me.RadioBtn2.UseVisualStyleBackColor = False
         Me.RadioBtn2.Visible = False
         '
+        'lbl_UserInactiveProg
+        '
+        Me.lbl_UserInactiveProg.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbl_UserInactiveProg.BackColor = System.Drawing.Color.Transparent
+        Me.lbl_UserInactiveProg.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.lbl_UserInactiveProg.ForeColor = System.Drawing.Color.Crimson
+        Me.lbl_UserInactiveProg.Location = New System.Drawing.Point(957, 643)
+        Me.lbl_UserInactiveProg.Name = "lbl_UserInactiveProg"
+        Me.lbl_UserInactiveProg.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.lbl_UserInactiveProg.Size = New System.Drawing.Size(115, 18)
+        Me.lbl_UserInactiveProg.TabIndex = 41
+        Me.lbl_UserInactiveProg.Text = "برنامه ريزي : (غيرفعال)"
+        '
+        'lbl_UserInactiveClass
+        '
+        Me.lbl_UserInactiveClass.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbl_UserInactiveClass.BackColor = System.Drawing.Color.Transparent
+        Me.lbl_UserInactiveClass.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.lbl_UserInactiveClass.ForeColor = System.Drawing.Color.Crimson
+        Me.lbl_UserInactiveClass.Location = New System.Drawing.Point(1080, 643)
+        Me.lbl_UserInactiveClass.Name = "lbl_UserInactiveClass"
+        Me.lbl_UserInactiveClass.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.lbl_UserInactiveClass.Size = New System.Drawing.Size(115, 18)
+        Me.lbl_UserInactiveClass.TabIndex = 42
+        Me.lbl_UserInactiveClass.Text = "کلاس بندي : (غيرفعال)"
+        '
+        'lbl_UserType
+        '
+        Me.lbl_UserType.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbl_UserType.BackColor = System.Drawing.Color.Transparent
+        Me.lbl_UserType.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.lbl_UserType.ForeColor = System.Drawing.Color.Black
+        Me.lbl_UserType.Location = New System.Drawing.Point(1195, 643)
+        Me.lbl_UserType.Name = "lbl_UserType"
+        Me.lbl_UserType.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.lbl_UserType.Size = New System.Drawing.Size(89, 18)
+        Me.lbl_UserType.TabIndex = 43
+        Me.lbl_UserType.Text = "کاربر: دانشکده"
+        '
         'frmTermProgs
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -798,6 +840,9 @@ Partial Class frmTermProgs
         Me.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ClientSize = New System.Drawing.Size(1315, 661)
         Me.ControlBox = False
+        Me.Controls.Add(Me.lbl_UserType)
+        Me.Controls.Add(Me.lbl_UserInactiveClass)
+        Me.Controls.Add(Me.lbl_UserInactiveProg)
         Me.Controls.Add(Me.RadioBtn2)
         Me.Controls.Add(Me.RadioBtn1)
         Me.Controls.Add(Me.lblCourse)
@@ -904,10 +949,10 @@ Partial Class frmTermProgs
     Friend WithEvents Menu_ExitNexTerm As ToolStripMenuItem
     Friend WithEvents Menu_EntryProg_AllTerms As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem7 As ToolStripSeparator
-    Friend WithEvents MonthCalendar1 As MonthCalendar
+    Friend WithEvents Calendar1 As MonthCalendar
     Friend WithEvents RadioBtn1 As RadioButton
     Friend WithEvents RadioBtn2 As RadioButton
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lbl_UserInactiveClass As Label
     Friend WithEvents ToolStripMenuItem9 As ToolStripSeparator
     Friend WithEvents MenuDelClass1 As ToolStripMenuItem
     Friend WithEvents MenuDelClass2 As ToolStripMenuItem
@@ -924,4 +969,6 @@ Partial Class frmTermProgs
     Friend WithEvents Menu_Notes As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem5 As ToolStripSeparator
     Friend WithEvents Menu_ReportEntriesPrograms As ToolStripMenuItem
+    Friend WithEvents lbl_UserInactiveProg As Label
+    Friend WithEvents lbl_UserType As Label
 End Class

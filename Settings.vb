@@ -33,58 +33,65 @@
         Dim r As Integer = e.RowIndex 'count from 0
         Dim c As Integer = e.ColumnIndex 'count from 0
         If r < 0 Or c < 0 Then Exit Sub
+        If c <> 2 Then Exit Sub
 
-        If c = 2 And r = 0 Then 'AdminCanProg
-            If DS.Tables("tblSettings").Rows(0).Item(2) = "NO" Then
-                DS.Tables("tblSettings").Rows(0).Item(2) = "YES"
-                UserAccessConntrols = (UserAccessConntrols Or (2 ^ 4))
-            Else 'AdminCanProg Already YES
-                DS.Tables("tblSettings").Rows(0).Item(2) = "NO"
-                UserAccessConntrols = 0
-            End If
-            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-                    Case "SqlServer"
-                        strSQL = "UPDATE Settings SET iHerbsValue = 'YES' WHERE ID = @ID"
-                        Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
-                        cmd.CommandType = CommandType.Text
-                        cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(r).Item(0).ToString)
-                        Dim i As Integer = cmd.ExecuteNonQuery()
-                        Exit Sub
-                    Case "Access"
-                        strSQL = "UPDATE Settings SET iHerbsValue = 'YES' WHERE ID = @ID"
-                        Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
-                        cmd.CommandType = CommandType.Text
-                        cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(r).Item(0).ToString)
-                        Dim i As Integer = cmd.ExecuteNonQuery()
-                        Exit Sub
-                End Select
-            Else ' now, other Settings
-                Select Case c 'SELECT BASED ON GRID.COLUMN
-                Case 2 'iHerbsValue
-                    Dim sttng As String = DS.Tables("tblsettings").Rows(r).Item(2)
-                    sttng = Trim(InputBox("تغيير داده شود به", "تنظيمات نکسترم", sttng))
-                    If sttng = "" Then Exit Sub
-                    DS.Tables("tblSettings").Rows(r).Item(2) = sttng
-                    Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-                        Case "SqlServer"
-                            strSQL = "UPDATE Settings SET iHerbsValue = @sttng WHERE ID = @ID"
-                            Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
-                            cmd.CommandType = CommandType.Text
-                            cmd.Parameters.AddWithValue("@sttng", sttng)
-                            cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(r).Item(0).ToString)
-                            Dim i As Integer = cmd.ExecuteNonQuery()
-                            Exit Sub
-                        Case "Access"
-                            strSQL = "UPDATE Settings SET iHerbsValue = @sttng WHERE ID = @ID"
-                            Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
-                            cmd.CommandType = CommandType.Text
-                            cmd.Parameters.AddWithValue("@sttng", sttng)
-                            cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(r).Item(0).ToString)
-                            Dim i As Integer = cmd.ExecuteNonQuery()
-                            Exit Sub
-                    End Select
-            End Select
-        End If
+        Dim sttng As String = DS.Tables("tblsettings").Rows(r).Item(2)
+        Select Case r
+            Case 0 '--------------------------------------------------  Admin Can Class
+                If DS.Tables("tblSettings").Rows(0).Item(2) = "NO" Then
+                    sttng = "YES"
+                    DS.Tables("tblSettings").Rows(0).Item(2) = sttng
+                    UserAccessControls = (UserAccessControls Or (2 ^ 2))
+                Else 'Admin Can Class Already YES
+                    sttng = "NO"
+                    DS.Tables("tblSettings").Rows(0).Item(2) = sttng
+                    UserAccessControls = (UserAccessControls And 251) ' (251 = 1111 1011 : 2^2 is off)
+                End If
+            Case 1 '--------------------------------------------------  Admin Can Prog
+                If DS.Tables("tblSettings").Rows(1).Item(2) = "NO" Then
+                    sttng = "YES"
+                    DS.Tables("tblSettings").Rows(1).Item(2) = sttng
+                    UserAccessControls = (UserAccessControls Or (2 ^ 4))
+                Else 'Admin Can Prog Already YES
+                    sttng = "NO"
+                    DS.Tables("tblSettings").Rows(1).Item(2) = sttng
+                    UserAccessControls = (UserAccessControls And 239) ' (239 = 1110 1111 : 2^4 is off)
+                End If
+            Case 3 '--------------------------------------------------  Write Logs?
+                If DS.Tables("tblSettings").Rows(3).Item(2) = "NO" Then
+                    sttng = "YES"
+                    DS.Tables("tblSettings").Rows(3).Item(2) = sttng
+                    boolLog = True
+                Else 'Admin Can Prog Already YES
+                    sttng = "NO"
+                    DS.Tables("tblSettings").Rows(3).Item(2) = sttng
+                    boolLog = False
+                End If
+            Case Else '-------------------------------------------------- Other settings
+                sttng = Trim(InputBox("تغيير داده شود به", "تنظيمات نکسترم", sttng))
+                If sttng = "" Then Exit Sub
+                DS.Tables("tblSettings").Rows(r).Item(2) = sttng
+        End Select
+
+        Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+            Case "SqlServer"
+                strSQL = "UPDATE Settings SET iHerbsValue = @sttng WHERE ID = @ID"
+                Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
+                cmd.CommandType = CommandType.Text
+                cmd.Parameters.AddWithValue("@sttng", sttng)
+                cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(r).Item(0).ToString)
+                Dim i As Integer = cmd.ExecuteNonQuery()
+                Exit Sub
+            Case "Access"
+                strSQL = "UPDATE Settings SET iHerbsValue = @sttng WHERE ID = @ID"
+                Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
+                cmd.CommandType = CommandType.Text
+                cmd.Parameters.AddWithValue("@sttng", sttng)
+                cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(r).Item(0).ToString)
+                Dim i As Integer = cmd.ExecuteNonQuery()
+                Exit Sub
+        End Select
+
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
@@ -99,17 +106,22 @@
                     DAAC.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE Header = 'Pref' ORDER BY iHerbsConstant"
                     DAAC.Fill(DS, "tblSettings")
             End Select
-            ' Rows 0 Admin Can Progremme
-            ' Rows 1 Admin Password
-            ' Rows 2 Log User Activity
-            ' Rows 3 Owner info
-            ' Rows 4 Report background
+            ' Row 0 Admin Can Class    ----  2^2
+            ' Row 1 Admin Can Prog     ----  2^4
+            ' Row 2 Admin Password
+            ' Row 3 Log User Activity
+            ' Row 4 Owner info
+            ' Row 5 Report background
 
-            If UCase(DS.Tables("tblSettings").Rows(0).Item(2)) = "YES" Then AdminCanProg = True Else AdminCanProg = False
-            strFacultyPass = DS.Tables("tblSettings").Rows(1).Item(2)
-            If UCase(DS.Tables("tblSettings").Rows(2).Item(2)) = "YES" Then boolLog = True Else boolLog = False
-            strReportBG = DS.Tables("tblSettings").Rows(4).Item(2)
-        Catch ex As Exception
+            ' Admin Can Class
+            If UCase(DS.Tables("tblSettings").Rows(0).Item(2)) = "YES" Then UserAccessControls = UserAccessControls Or 4 Else UserAccessControls = UserAccessControls And 251  ' (4: 0000 0100)  (251: 1111 1011)
+            ' Admin Can Prog
+            If UCase(DS.Tables("tblSettings").Rows(1).Item(2)) = "YES" Then UserAccessControls = UserAccessControls Or 4 Else UserAccessControls = UserAccessControls And 239  ' (16: 0001 0000) (239: 1110 1111)
+
+            strFacultyPass = DS.Tables("tblSettings").Rows(2).Item(2)
+            If UCase(DS.Tables("tblSettings").Rows(3).Item(2)) = "YES" Then boolLog = True Else boolLog = False
+            strReportBG = DS.Tables("tblSettings").Rows(5).Item(2)
+            Catch ex As Exception
             MsgBox("خطا در بخش تنظيمات نکسترم", vbOKOnly, "نکسترم") 'MsgBox(ex.ToString)
             boolLog = False
 

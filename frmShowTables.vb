@@ -2,7 +2,7 @@
 
     Private Sub frmShowTables_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Show_Table()
-        If ((UserAccessConntrols And (2 ^ 0) = 0) And Userx = "USER Department") Then
+        If ((UserAccessControls And (2 ^ 0) = 0) And Userx = "USER Department") Then
             Menu_AddNew.Enabled = False
         Else
             Menu_AddNew.Enabled = True
@@ -35,10 +35,10 @@
 
     End Sub
     Private Sub Grid1_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles Grid1.CellValueChanged
-        If (Userx = "USER Department") And (UserAccessConntrols And (2 ^ 4) = 0) Then ' 2^0 (1-1) is for Courses: acc1
+        If (Userx = "USER Department") And (UserAccessControls And (2 ^ 4) = 0) Then ' 2^0 (1-1) is for Courses: acc1
             MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         End If
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
 
         SvaeChanges_Courses()
 
@@ -87,7 +87,7 @@
     End Sub
 
     Private Sub Menu_AddNewItem(sender As Object, e As EventArgs) Handles Menu_AddNew.Click
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
 
         Dim myansw As DialogResult = MsgBox("درس جديد اضافه شود؟", vbQuestion + vbYesNo + vbDefaultButton2, "NexTerm :  " & strCaption)
         If myansw = vbNo Then Exit Sub

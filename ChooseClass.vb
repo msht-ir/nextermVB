@@ -90,7 +90,7 @@
     ' //GridRoom
     Private Sub GridRoom_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles GridRoom.CellValueChanged
         If Userx = "USER Department" Then Exit Sub
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridRoom.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridRoom.CurrentCell.RowIndex   'count from 0
         If r < 0 Then Exit Sub
@@ -218,7 +218,7 @@
     ' //Menu - GridRoom
     Private Sub MenuAddNewClass_Click(sender As Object, e As EventArgs) Handles MenuAddNewClass.Click
         If Userx = "USER Department" Then Exit Sub
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim strClassName As String = Trim(InputBox("نام کلاس/ ازمايشگاه را وارد کنيد", "NexTerm", " کلاس/آز جديد "))
         If strClassName = "" Then Exit Sub
         Dim intCapa As Integer = 0
@@ -255,7 +255,7 @@
 
     End Sub
     Private Sub Menu_Edit_Click(sender As Object, e As EventArgs) Handles Menu_Edit.Click
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridRoom.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridRoom.SelectedCells(0).RowIndex    'count from 0
         Dim c As Integer = GridRoom.SelectedCells(0).ColumnIndex 'count from 0
@@ -302,7 +302,7 @@
             If r < 0 Or c < 1 Then Exit Sub
 
 
-            ' // Show conflicts
+            ' // Show conflicts info
             Dim strTadakholMessage As String = ""
             For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
                 If ((DS.Tables("tblAllProgs").Rows(i).Item(r + 10) And (2 ^ (c - 1))) = (2 ^ (c - 1))) And (DS.Tables("tblAllProgs").Rows(i).Item(16) = intRoom) Then
@@ -312,18 +312,20 @@
                     strTadakholMessage = strTadakholMessage & " درس " & DS.Tables("tblAllProgs").Rows(i).Item(3) & "    استاد: " & DS.Tables("tblAllProgs").Rows(i).Item(7) & vbCrLf & " ورودي " & DS.Tables("tblAllProgs").Rows(i).Item(29) & vbCrLf & vbCrLf
                 End If
             Next
-
             lblInfo.Text = strTadakholMessage
             Grid5.Item(0, r).Selected = True
 
 
             ' // hilight
-            If Grid5(c, r).Value.ToString <> "" Then Exit Sub
-            If (Userx = "USER Faculty") And (AdminCanProg = False) Then MsgBox("تغيير زمان کلاس توسط (کاربر گروه) انجام شود", vbOKOnly, "تنظيمات نکسترم") : Exit Sub
-            With Grid5.Item(c, r).Style
-                If .BackColor = Color.Khaki Then .BackColor = Color.White Else .BackColor = Color.Khaki
-            End With
-            Grid5.Item(0, r).Selected = True
+            If Grid5(c, r).Value.ToString <> "" Then
+                Exit Sub
+            Else
+                If (UserAccessControls And (2 ^ 4)) = 0 Then Exit Sub
+                With Grid5.Item(c, r).Style
+                    If .BackColor = Color.Khaki Then .BackColor = Color.White Else .BackColor = Color.Khaki
+                End With
+                Grid5.Item(0, r).Selected = True
+            End If
 
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -338,7 +340,7 @@
         If r < 0 Or c < 1 Then Exit Sub
 
         ' // hilight
-        If (Userx = "USER Faculty") And (AdminCanProg = False) Then MsgBox("تغيير زمان کلاس توسط (کاربر گروه) انجام شود", vbOKOnly, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then Exit Sub
         With Grid5.Item(c, r).Style
             If .BackColor = Color.Khaki Then .BackColor = Color.White Else .BackColor = Color.Khaki
         End With

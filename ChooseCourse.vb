@@ -1,7 +1,7 @@
 ﻿Public Class ChooseCourse
     Private Sub ChooseCourse_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         GridCourse.EditMode = DataGridViewEditMode.EditProgrammatically '//DataGridViewEditMode.EditOnKeystrokeOrF2
-        If (Userx = "USER Department" And (UserAccessConntrols And (2 ^ 0)) = 0) Then
+        If (Userx = "USER Department" And (UserAccessControls And (2 ^ 0)) = 0) Then
             MenuAddCourse.Enabled = False
             Menu_Edit.Enabled = False
         Else
@@ -73,7 +73,7 @@
     End Sub
 
     Private Sub GridCourse_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellValueChanged
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridCourse.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridCourse.CurrentCell.RowIndex   'count from 0
         If r < 0 Then Exit Sub
@@ -133,7 +133,7 @@
     End Sub
 
     Private Sub MenuAddCourse_Click(sender As Object, e As EventArgs) Handles MenuAddCourse.Click
-        If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ComboBioProg.SelectedIndex = -1 Then Exit Sub
         Dim myansw As DialogResult = MsgBox("درس جديد به اين دوره آموزشي افزوده شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
         If myansw = vbYes Then
@@ -193,7 +193,7 @@
                 Case 1 'Course Name
                     strValue = InputBox("نام جديد درس را وارد کنيد", "نکسترم", strValue)
                     If Trim(strValue) = "" Then Exit Sub
-                    If (UserAccessConntrols And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+                    If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
                     Dim myansw As DialogResult = MsgBox("نام درس را به " & vbCrLf & strValue & vbCrLf & "تغيير مي دهيد؟", vbYesNo + vbDefaultButton2, "نکسترم: توجه: در حال ويرايش نام درس هستيد")
                     If myansw = vbNo Then Exit Sub
                     GridCourse(c, r).Value = strValue
