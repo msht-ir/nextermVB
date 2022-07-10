@@ -44,7 +44,6 @@ Public Class frmTermProgs
                 Case "USER Faculty"
                     Menu_Settings.Enabled = True
                     If (UserAccessControls And (2 ^ 4)) = 0 Then boolENBL = False Else boolENBL = True 'Viewer mode for Faculty
-                    'MsgBox(boolENBL.ToString & "  /  " & UserAccessControls.ToString)
                     Menu_Courses.Enabled = boolENBL
                     Menu_Staff.Enabled = boolENBL
                     Menu_Tech.Enabled = boolENBL
@@ -1884,6 +1883,9 @@ Public Class frmTermProgs
         End Select
 
     End Sub
+    Private Sub Menu_ExitNexTerm_Click(sender As Object, e As EventArgs) Handles Menu_ExitNexTerm.Click
+        DoExitNexTerm()
+    End Sub
 
     'Menu 1 User (kaarbar)
     Private Sub Menu_Userx_Click(sender As Object, e As EventArgs) Handles Menu_Userx.Click
@@ -2793,9 +2795,6 @@ lblx2:
         End If
     End Sub
 
-    Private Sub Menu_ExitNexTerm_Click(sender As Object, e As EventArgs) Handles Menu_ExitNexTerm.Click
-        DoExitNexTerm()
-    End Sub
     Private Sub DoExitNexTerm()
         Dim i As DialogResult = MsgBox("خارج مي شويد؟", vbYesNo + vbDefaultButton1, "NexTerm")
         If i = vbYes Then
@@ -2809,26 +2808,23 @@ lblx2:
                         strSQL = "UPDATE Settings SET iHerbsValue = 'NO' WHERE ID = @id"
                         Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
                         cmd.CommandType = CommandType.Text
-                        'MsgBox("id1 : " & DS.Tables("tblSettings").Rows(0).Item(0).ToString)
                         cmd.Parameters.AddWithValue("@id", DS.Tables("tblSettings").Rows(0).Item(0).ToString)
                         Dim k As Integer = cmd.ExecuteNonQuery()
-                        CnnSS.Close() : CnnSS.Dispose() : CnnSS = Nothing : frmLogIn.Dispose() : ChooseStaff.Dispose() : ChooseTech.Dispose() : Me.Dispose() : Application.Exit() : End
+                        frmLogIn.Dispose() : ChooseStaff.Dispose() : ChooseTech.Dispose() : Me.Dispose() : CnnSS.Close() : CnnSS.Dispose() : CnnSS = Nothing : Application.Exit() : End
                     Case "Access"
                         DAAC.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE iHerbsConstant LIKE 'Admin Can Prog%' ORDER BY iHerbsConstant"
                         DAAC.Fill(DS, "tblSettings")
                         strSQL = "UPDATE Settings SET iHerbsValue = 'NO' WHERE ID = @id"
                         Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
                         cmd.CommandType = CommandType.Text
-                        'MsgBox("id2 : " & DS.Tables("tblSettings").Rows(0).Item(0).ToString)
                         cmd.Parameters.AddWithValue("@id", DS.Tables("tblSettings").Rows(0).Item(0).ToString)
                         Dim k As Integer = cmd.ExecuteNonQuery()
-                        CnnAC.Close() : CnnAC.Dispose() : CnnAC = Nothing : frmLogIn.Dispose() : ChooseStaff.Dispose() : ChooseTech.Dispose() : Me.Dispose() : Application.Exit() : End
+                        frmLogIn.Dispose() : ChooseStaff.Dispose() : ChooseTech.Dispose() : Me.Dispose() : CnnAC.Close() : CnnAC.Dispose() : CnnAC = Nothing : Application.Exit() : End
                 End Select
             Catch ex As Exception
                 MsgBox("Error in Exit module ...." & vbCrLf & ex.ToString)
             End Try
         End If
-
     End Sub
 
 End Class

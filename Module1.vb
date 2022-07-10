@@ -249,8 +249,8 @@ lbl_SelectDB:
         End Select
         '--------- end select --------- end select --------- end select --------- end select --------- end select --------- end select --------- end select
 
-        ' // LOGIN:set Userx
-        frmLogIn.ShowDialog()
+
+        frmLogIn.ShowDialog() ' // LOGIN:set Userx
         If Userx = "quit" Then
             Try
                 CnnSS.Close() : CnnSS.Dispose() : CnnSS = Nothing : frmLogIn.Dispose() : ChooseStaff.Dispose() : ChooseTech.Dispose() : Application.Exit() : End
@@ -259,8 +259,8 @@ lbl_SelectDB:
                 End
             End Try
         Else
-            If boolLog = True Then
-                Try ' -----------------------WRITE-LOG
+            If boolLog = True Then ' -----------------------WRITE-LOG
+                Try
                     If Userx = "USER Faculty" Then intUser = 0
                     Dim strDateTime As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss")
                     Dim intUserID As Integer = intUser

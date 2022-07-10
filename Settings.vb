@@ -67,11 +67,24 @@
                     DS.Tables("tblSettings").Rows(3).Item(2) = sttng
                     boolLog = False
                 End If
+            Case 5 '--------------------------------------------------  bg for reports
+                Using dialog As New OpenFileDialog With {.InitialDirectory = Application.StartupPath, .Filter = "Image files (PNG format)|*.png"}
+                    If dialog.ShowDialog = DialogResult.OK Then
+                        sttng = dialog.FileName
+                    Else
+                        Me.Dispose()
+                        Exit Sub
+                    End If
+                End Using
+                sttng = sttng.Replace("\", "/")
+                DS.Tables("tblSettings").Rows(r).Item(2) = sttng
             Case Else '-------------------------------------------------- Other settings
                 sttng = Trim(InputBox("تغيير داده شود به", "تنظيمات نکسترم", sttng))
                 If sttng = "" Then Exit Sub
                 DS.Tables("tblSettings").Rows(r).Item(2) = sttng
         End Select
+
+        '//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
             Case "SqlServer"
@@ -114,9 +127,9 @@
             ' Row 5 Report background
 
             ' Admin Can Class
-            If UCase(DS.Tables("tblSettings").Rows(0).Item(2)) = "YES" Then UserAccessControls = UserAccessControls Or 4 Else UserAccessControls = UserAccessControls And 251  ' (4: 0000 0100)  (251: 1111 1011)
+            If UCase(DS.Tables("tblSettings").Rows(0).Item(2)) = "YES" Then UserAccessControls = (UserAccessControls Or 4) Else UserAccessControls = (UserAccessControls And 251)  ' (4: 0000 0100)  (251: 1111 1011)
             ' Admin Can Prog
-            If UCase(DS.Tables("tblSettings").Rows(1).Item(2)) = "YES" Then UserAccessControls = UserAccessControls Or 4 Else UserAccessControls = UserAccessControls And 239  ' (16: 0001 0000) (239: 1110 1111)
+            If UCase(DS.Tables("tblSettings").Rows(1).Item(2)) = "YES" Then UserAccessControls = (UserAccessControls Or 16) Else UserAccessControls = (UserAccessControls And 239)  ' (16: 0001 0000) (239: 1110 1111)
 
             strFacultyPass = DS.Tables("tblSettings").Rows(2).Item(2)
             If UCase(DS.Tables("tblSettings").Rows(3).Item(2)) = "YES" Then boolLog = True Else boolLog = False

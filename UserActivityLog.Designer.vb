@@ -65,12 +65,14 @@ Partial Class UserActivityLog
         'RadioButton1
         '
         Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Checked = True
         Me.RadioButton1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.RadioButton1.Location = New System.Drawing.Point(226, 12)
         Me.RadioButton1.Name = "RadioButton1"
         Me.RadioButton1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.RadioButton1.Size = New System.Drawing.Size(95, 23)
         Me.RadioButton1.TabIndex = 1
+        Me.RadioButton1.TabStop = True
         Me.RadioButton1.Text = "همه کاربران"
         Me.RadioButton1.UseVisualStyleBackColor = True
         '
@@ -89,14 +91,12 @@ Partial Class UserActivityLog
         'RadioButton3
         '
         Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Checked = True
         Me.RadioButton3.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.RadioButton3.Location = New System.Drawing.Point(208, 70)
         Me.RadioButton3.Name = "RadioButton3"
         Me.RadioButton3.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.RadioButton3.Size = New System.Drawing.Size(113, 23)
         Me.RadioButton3.TabIndex = 3
-        Me.RadioButton3.TabStop = True
         Me.RadioButton3.Text = "گروه (انتخاب...)"
         Me.RadioButton3.UseVisualStyleBackColor = True
         '

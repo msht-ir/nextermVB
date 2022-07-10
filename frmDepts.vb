@@ -68,6 +68,7 @@
                     Menu_EditBioProg.Enabled = boolENBL
                     Menu_AddCourse.Enabled = boolENBL
                     Menu_EditCourseNumber.Enabled = boolENBL
+                    Menu_ExportCourseList.Enabled = boolENBL
                     If (UserAccessControls And (2 ^ 4)) = (2 ^ 4) Then
                         Grid1.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2
                         Menu_AddCourseFromList.Enabled = True
@@ -85,24 +86,26 @@
                         ' acc1: Courses
                         If (UserAccessControls And (2 ^ 0)) = 0 Then Menu_EditEntry.Enabled = False Else Menu_EditEntry.Enabled = True
                         If (UserAccessControls And (2 ^ 0)) = 0 Then Menu_AddEntry.Enabled = False Else Menu_AddEntry.Enabled = True
-                        If (UserAccessControls And (2 ^ 0)) = 0 Then Menu_AddCourse.Enabled = False Else Menu_AddEntry.Enabled = True
+                        If (UserAccessControls And (2 ^ 0)) = 0 Then Menu_AddCourse.Enabled = False Else Menu_AddCourse.Enabled = True
+                        If (UserAccessControls And (2 ^ 0)) = 0 Then Menu_AddCourseFromList.Enabled = False Else Menu_AddCourseFromList.Enabled = True
                         ' acc2: staff
                         If (UserAccessControls And (2 ^ 1)) = 0 Then Menu_EditStaff.Enabled = False Else Menu_EditStaff.Enabled = True
                         If (UserAccessControls And (2 ^ 1)) = 0 Then Menu_AddStaff.Enabled = False Else Menu_AddStaff.Enabled = True
                         ' acc5: pass
                         If (UserAccessControls And (2 ^ 4)) = 0 Then Menu_ChangePassDept.Enabled = False Else Menu_ChangePassDept.Enabled = True
-                        Menu_AddCourseFromList.Enabled = True
+                        Menu_ExportCourseList.Enabled = True
                     Else
                         ' acc1: Courses
                         Menu_EditEntry.Enabled = False
                         Menu_AddEntry.Enabled = False
                         Menu_AddCourse.Enabled = False
+                        Menu_ExportCourseList.Enabled = False
+                        Menu_AddCourseFromList.Enabled = False
                         ' acc2: staff
                         Menu_EditStaff.Enabled = False
                         Menu_AddStaff.Enabled = False
                         ' acc5: pass
                         Menu_ChangePassDept.Enabled = False
-                        Menu_AddCourseFromList.Enabled = False
                     End If
             End Select
         Catch ex As Exception
@@ -321,8 +324,6 @@
 
     End Sub
 
-
-
     'LIST STAFF
     Private Sub ListStaff_DoubleClick(sender As Object, e As EventArgs) Handles ListStaff.DoubleClick
         Menu_OKStaff_Click(sender, e)
@@ -513,6 +514,7 @@
 
     Private Sub ListBioProg_Click(sender As Object, e As EventArgs) Handles ListBioProg.Click
         ' populate Grid_Entry
+        If ListBioProg.SelectedIndex < 0 Then Exit Sub
         ShowEntries()
         ShowCourses()
     End Sub
@@ -768,10 +770,7 @@
         strEntry = ""
         Me.Close()
         Me.Dispose()
-
     End Sub
-
-
 
     'GRID COURSE
     Private Sub GridCourse_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellDoubleClick
@@ -859,7 +858,36 @@
             If strCourse = "" Then
                 Exit Sub
             Else
-                AddACourseToList()
+                Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                    Case "SqlServer"
+                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
+                        Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
+                        cmd.CommandType = CommandType.Text
+                        cmd.Parameters.AddWithValue("@bioprogid", ListBioProg.SelectedValue)
+                        cmd.Parameters.AddWithValue("@coursename", strCourse)
+                        cmd.Parameters.AddWithValue("@coursenumber", Str(intCourseNumber))
+                        Dim i As Integer
+                        Try
+                            i = cmd.ExecuteNonQuery()
+                            'MsgBox(" درس " & strCourse & " افزوده شد ", vbOKOnly, "نکسترم")
+                        Catch ex As Exception
+                            MsgBox("error: " & ex.ToString)
+                        End Try
+                    Case "Access"
+                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
+                        Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
+                        cmd.CommandType = CommandType.Text
+                        cmd.Parameters.AddWithValue("@bioprogid", ListBioProg.SelectedValue)
+                        cmd.Parameters.AddWithValue("@coursename", strCourse)
+                        cmd.Parameters.AddWithValue("@coursenumber", Str(intCourseNumber))
+                        Dim i As Integer
+                        Try
+                            i = cmd.ExecuteNonQuery()
+                            'MsgBox(" درس " & strCourse & " افزوده شد ", vbOKOnly, "نکسترم")
+                        Catch ex As Exception
+                            MsgBox("error: " & ex.ToString)
+                        End Try
+                End Select
             End If
             ListBioProg_Click(sender, e)
             GridCourse.Refresh()
@@ -870,71 +898,12 @@
         'Add List of Courses from textfile to a BioProg
         If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ListBioProg.SelectedIndex = -1 Then Exit Sub
-        strBioProg = ListBioProg.SelectedValue
+        intBioProg = ListBioProg.SelectedValue
 
-        '---------------------------------------- notice
-        Dim tmpNOTICE As DialogResult = MsgBox("توجه: افزودن ليست دروس ممکن است منجر به ايجاد موارد تکراري شود" & vbCrLf & "ليست افزوده شود؟   مطمئن هستيد؟", vbOKCancel + vbDefaultButton2, "نکسترم")
-        If tmpNOTICE = vbCancel Then Exit Sub
-        '---------------------------------------- /notice
+        TempList.ShowDialog()
 
-        Dim strIdentifier As String
-        Try
-            strFilename = Application.StartupPath & "Courses.txt"
-            If IO.File.Exists(strFilename) = True Then
-                FileOpen(1, strFilename, OpenMode.Input)
-                strIdentifier = LineInput(1)
-                If strIdentifier = "NexTerm Courses" Then
-lbl_Read:
-                    strCourse = LineInput(1)
-                    intCourseNumber = LineInput(1)
-                    AddACourseToList()
-                End If
-                GoTo lbl_Read
-
-                If Not EOF(1) Then GoTo lbl_Read
-                FileClose(1)
-            Else
-                MsgBox("فايل ليست درس ها در فولدر برنامه پيدا نشد", vbOKOnly, "نکسترم")
-            End If
-            FileClose(1) 'Confirm file is closed
-        Catch ex As Exception
-            'MsgBox(ex.ToString) 'MsgBox("خطا در فايل ليست دروس ", vbOKOnly, "نکسترم") ' MsgBox(ex.ToString)
-        End Try
         ListBioProg_Click(sender, e)
         GridCourse.Refresh()
-
-    End Sub
-    Private Sub AddACourseToList()
-        Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-            Case "SqlServer"
-                strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
-                Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
-                cmd.CommandType = CommandType.Text
-                cmd.Parameters.AddWithValue("@bioprogid", ListBioProg.SelectedValue)
-                cmd.Parameters.AddWithValue("@coursename", strCourse)
-                cmd.Parameters.AddWithValue("@coursenumber", Str(intCourseNumber))
-                Dim i As Integer
-                Try
-                    i = cmd.ExecuteNonQuery()
-                    'MsgBox(" درس " & strCourse & " افزوده شد ", vbOKOnly, "نکسترم")
-                Catch ex As Exception
-                    MsgBox("error: " & ex.ToString)
-                End Try
-            Case "Access"
-                strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
-                Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
-                cmd.CommandType = CommandType.Text
-                cmd.Parameters.AddWithValue("@bioprogid", ListBioProg.SelectedValue)
-                cmd.Parameters.AddWithValue("@coursename", strCourse)
-                cmd.Parameters.AddWithValue("@coursenumber", Str(intCourseNumber))
-                Dim i As Integer
-                Try
-                    i = cmd.ExecuteNonQuery()
-                    'MsgBox(" درس " & strCourse & " افزوده شد ", vbOKOnly, "نکسترم")
-                Catch ex As Exception
-                    MsgBox("error: " & ex.ToString)
-                End Try
-        End Select
 
     End Sub
     Private Sub Menu_EditCourseNumber_Click(sender As Object, e As EventArgs) Handles Menu_EditCourseNumber.Click
@@ -951,6 +920,28 @@ lbl_Read:
             GridCourse(2, r).Value = intCourseNumber
             WriteLOG(19)
         End If
+
+    End Sub
+    Private Sub Menu_ExportCourseList_Click(sender As Object, e As EventArgs) Handles Menu_ExportCourseList.Click
+        'Export
+        FileClose(1)
+        Using dialog As New SaveFileDialog With {.InitialDirectory = Application.StartupPath, .Filter = "Nexterm Course List|*.txt"}
+            If dialog.ShowDialog = DialogResult.OK Then
+                strFilename = dialog.FileName
+            Else
+                Me.Dispose()
+                Exit Sub
+            End If
+        End Using
+        FileOpen(1, strFilename, OpenMode.Output)
+        PrintLine(1, "NexTerm Courses")
+        For i As Integer = 0 To GridCourse.Rows.Count - 1
+            PrintLine(1, GridCourse.Item(1, i).Value)
+            PrintLine(1, GridCourse.Item(2, i).Value)
+            PrintLine(1, GridCourse.Item(3, i).Value)
+        Next i
+        FileClose(1)
+        MsgBox("ليست درس ذخيره شد" & vbCrLf & strFilename, vbOKOnly, "نکسترم")
 
     End Sub
     Private Sub Menu_OKCourse_Click(sender As Object, e As EventArgs) Handles Menu_OKCourse.Click
@@ -974,7 +965,6 @@ lbl_Read:
         Me.Dispose()
 
     End Sub
-
 
     'remember: ADD trigger to subs
     Private Sub WriteLOG(intActivity As Integer)
