@@ -103,6 +103,8 @@ Public Class frmTermProgs
             Case "USER Department" : lbl_UserType.Text = "کاربر گروه"
         End Select
 
+        intDefaultTermID = 0 'a reset
+
     End Sub
     Private Sub CheckMessages()
         DS.Tables("tblMSgs").Clear()
@@ -237,6 +239,11 @@ Public Class frmTermProgs
         Grid4.DataSource = ""
         txtExamDate.Text = ""
         GridTime_Hide()
+        If ((ListBox2.Items.Count > 0) And (intDefaultTermID > 0)) Then
+            ListBox2.SelectedValue = intDefaultTermID
+            ListBox2_Terms(sender, e)
+        End If
+
     End Sub
     Private Sub ListBox2_Terms(sender As Object, e As EventArgs) Handles ListBox2.Click
         Dim Ent As String = ListBox1.GetItemText(ListBox1.SelectedValue)
@@ -1886,6 +1893,16 @@ Public Class frmTermProgs
     Private Sub Menu_ExitNexTerm_Click(sender As Object, e As EventArgs) Handles Menu_ExitNexTerm.Click
         DoExitNexTerm()
     End Sub
+    'poup menu TERMS
+    Private Sub Menu_TermsDefault_Set_Click(sender As Object, e As EventArgs) Handles Menu_TermsDefault_Set.Click
+        If ListBox2.Items.Count > 0 Then
+            intDefaultTermID = ListBox2.SelectedValue
+        End If
+    End Sub
+
+    Private Sub Menu_TermsDefault_Clear_Click(sender As Object, e As EventArgs) Handles Menu_TermsDefault_Clear.Click
+        intDefaultTermID = 0
+    End Sub
 
     'Menu 1 User (kaarbar)
     Private Sub Menu_Userx_Click(sender As Object, e As EventArgs) Handles Menu_Userx.Click
@@ -2826,5 +2843,4 @@ lblx2:
             End Try
         End If
     End Sub
-
 End Class

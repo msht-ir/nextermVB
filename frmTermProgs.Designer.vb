@@ -117,6 +117,9 @@ Partial Class frmTermProgs
         Me.lbl_UserInactiveProg = New System.Windows.Forms.Label()
         Me.lbl_UserInactiveClass = New System.Windows.Forms.Label()
         Me.lbl_UserType = New System.Windows.Forms.Label()
+        Me.ContextMenuTerms = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.Menu_TermsDefault_Set = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Menu_TermsDefault_Clear = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.Grid4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuGrid4.SuspendLayout()
@@ -125,6 +128,7 @@ Partial Class frmTermProgs
         CType(Me.GridTime, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridWeek, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuGridWeek.SuspendLayout()
+        Me.ContextMenuTerms.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -488,6 +492,7 @@ Partial Class frmTermProgs
         '
         Me.ListBox2.BackColor = System.Drawing.SystemColors.Control
         Me.ListBox2.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.ListBox2.ContextMenuStrip = Me.ContextMenuTerms
         Me.ListBox2.Font = New System.Drawing.Font("Segoe UI", 10.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ListBox2.FormattingEnabled = True
         Me.ListBox2.ItemHeight = 19
@@ -833,6 +838,25 @@ Partial Class frmTermProgs
         Me.lbl_UserType.TabIndex = 43
         Me.lbl_UserType.Text = "کاربر: دانشکده"
         '
+        'ContextMenuTerms
+        '
+        Me.ContextMenuTerms.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_TermsDefault_Set, Me.Menu_TermsDefault_Clear})
+        Me.ContextMenuTerms.Name = "ContextMenuTerms"
+        Me.ContextMenuTerms.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ContextMenuTerms.Size = New System.Drawing.Size(181, 70)
+        '
+        'Menu_TermsDefault_Set
+        '
+        Me.Menu_TermsDefault_Set.Name = "Menu_TermsDefault_Set"
+        Me.Menu_TermsDefault_Set.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_TermsDefault_Set.Text = "پيش فرض"
+        '
+        'Menu_TermsDefault_Clear
+        '
+        Me.Menu_TermsDefault_Clear.Name = "Menu_TermsDefault_Clear"
+        Me.Menu_TermsDefault_Clear.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_TermsDefault_Clear.Text = "بدون پيش فرض"
+        '
         'frmTermProgs
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -876,6 +900,7 @@ Partial Class frmTermProgs
         CType(Me.GridTime, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridWeek, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuGridWeek.ResumeLayout(False)
+        Me.ContextMenuTerms.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -971,4 +996,7 @@ Partial Class frmTermProgs
     Friend WithEvents Menu_ReportEntriesPrograms As ToolStripMenuItem
     Friend WithEvents lbl_UserInactiveProg As Label
     Friend WithEvents lbl_UserType As Label
+    Friend WithEvents ContextMenuTerms As ContextMenuStrip
+    Friend WithEvents Menu_TermsDefault_Set As ToolStripMenuItem
+    Friend WithEvents Menu_TermsDefault_Clear As ToolStripMenuItem
 End Class

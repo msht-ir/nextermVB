@@ -65,47 +65,53 @@ Partial Class UserActivityLog
         'RadioButton1
         '
         Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.BackColor = System.Drawing.Color.Transparent
         Me.RadioButton1.Checked = True
-        Me.RadioButton1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioButton1.Location = New System.Drawing.Point(226, 12)
+        Me.RadioButton1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.RadioButton1.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.RadioButton1.Location = New System.Drawing.Point(272, 18)
         Me.RadioButton1.Name = "RadioButton1"
         Me.RadioButton1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RadioButton1.Size = New System.Drawing.Size(95, 23)
+        Me.RadioButton1.Size = New System.Drawing.Size(82, 19)
         Me.RadioButton1.TabIndex = 1
         Me.RadioButton1.TabStop = True
         Me.RadioButton1.Text = "همه کاربران"
-        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.RadioButton1.UseVisualStyleBackColor = False
         '
         'RadioButton2
         '
         Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioButton2.Location = New System.Drawing.Point(245, 41)
+        Me.RadioButton2.BackColor = System.Drawing.Color.Transparent
+        Me.RadioButton2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.RadioButton2.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.RadioButton2.Location = New System.Drawing.Point(262, 47)
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RadioButton2.Size = New System.Drawing.Size(76, 23)
+        Me.RadioButton2.Size = New System.Drawing.Size(92, 19)
         Me.RadioButton2.TabIndex = 2
-        Me.RadioButton2.Text = "دانشکده"
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.RadioButton2.Text = "کاربر دانشکده"
+        Me.RadioButton2.UseVisualStyleBackColor = False
         '
         'RadioButton3
         '
         Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioButton3.Location = New System.Drawing.Point(208, 70)
+        Me.RadioButton3.BackColor = System.Drawing.Color.Transparent
+        Me.RadioButton3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.RadioButton3.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.RadioButton3.Location = New System.Drawing.Point(229, 76)
         Me.RadioButton3.Name = "RadioButton3"
         Me.RadioButton3.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RadioButton3.Size = New System.Drawing.Size(113, 23)
+        Me.RadioButton3.Size = New System.Drawing.Size(125, 19)
         Me.RadioButton3.TabIndex = 3
-        Me.RadioButton3.Text = "گروه (انتخاب...)"
-        Me.RadioButton3.UseVisualStyleBackColor = True
+        Me.RadioButton3.Text = "کاربر گروه (انتخاب...)"
+        Me.RadioButton3.UseVisualStyleBackColor = False
         '
         'ComboBox1
         '
         Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(70, 99)
+        Me.ComboBox1.Location = New System.Drawing.Point(100, 105)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ComboBox1.Size = New System.Drawing.Size(231, 25)
@@ -113,7 +119,8 @@ Partial Class UserActivityLog
         '
         'Panel3
         '
-        Me.Panel3.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.Panel3.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Panel3.Controls.Add(Me.Label1)
         Me.Panel3.Controls.Add(Me.cboSort)
         Me.Panel3.Controls.Add(Me.ComboBox1)
@@ -123,24 +130,25 @@ Partial Class UserActivityLog
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(359, 205)
+        Me.Panel3.Size = New System.Drawing.Size(417, 205)
         Me.Panel3.TabIndex = 7
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(307, 158)
+        Me.Label1.ForeColor = System.Drawing.SystemColors.Highlight
+        Me.Label1.Location = New System.Drawing.Point(299, 169)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(47, 15)
+        Me.Label1.Size = New System.Drawing.Size(34, 15)
         Me.Label1.TabIndex = 6
-        Me.Label1.Text = "به ترتيب"
+        Me.Label1.Text = "ترتيب"
         '
         'cboSort
         '
         Me.cboSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSort.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.cboSort.FormattingEnabled = True
-        Me.cboSort.Location = New System.Drawing.Point(70, 156)
+        Me.cboSort.Location = New System.Drawing.Point(100, 141)
         Me.cboSort.Name = "cboSort"
         Me.cboSort.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.cboSort.Size = New System.Drawing.Size(231, 25)
@@ -150,8 +158,8 @@ Partial Class UserActivityLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.DarkCyan
-        Me.ClientSize = New System.Drawing.Size(359, 238)
+        Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.ClientSize = New System.Drawing.Size(417, 228)
         Me.ContextMenuStrip = Me.ContextMenuStrip1
         Me.ControlBox = False
         Me.Controls.Add(Me.Panel3)

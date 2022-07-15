@@ -41,6 +41,7 @@ Module Module1
     Public intYearEntered As Integer
     Public intGridRow As Integer ' used in frm.Choose_Class, showing info of occupied class-times: need row-index of Grid4 
     Public Roomx As Integer ' used in frm.Choose_Class: prog is for Room1 or Room2?
+    Public intDefaultTermID As Integer 'a default term id : to show an entry's prog for this term by default (if not zero)
 
     Public strFilename As String        ' // path of text file for backend.path, user.id, pass strings
     Public strDbBackEnd As String = ""  ' // (read from cnn file) Path of Backend file on local or server 
@@ -64,35 +65,53 @@ lbl_SelectDB:
         frmCNN.ShowDialog()
         Try
             Select Case Server2Connect
-                Case "Faculty of Sci"
-                    strCaption = "Connected to Sci SqlServer on host"
+                '--------------------------------------------------------- Server on Host
+                Case "NexTerm DB-1"
                     CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NexTerm; User ID=mshtir_db; Password=nExTeRm_1401_uSr6;")
                     CnnSS.Open()
                     DatabaseType = "SqlServer"
-                Case "SKU NAS Server-1" ' SKU.NAS (msht)
+                Case "NexTerm DB-2"
+                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NX2; User ID=mshtir_nx2user; Password=SiliconPower_740;")
+                    CnnSS.Open()
+                    DatabaseType = "SqlServer"
+                Case "NexTerm DB-3"
+                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NX3; User ID=mshtir_nx3user; Password=nExTeRm_1401_uSr3;")
+                    CnnSS.Open()
+                    DatabaseType = "SqlServer"
+                    '--------------------------------------------------------- LOCAL Server
+                Case "Local Server 1" ' sql server on ThisPC NX1
+                    CnnSS = New SqlClient.SqlConnection(strDbBackEnd)
+                    CnnSS.Open()
+                    DatabaseType = "SqlServer"
+                Case "Local Server 2" ' sql server on ThisPC NX2
+                    CnnSS = New SqlClient.SqlConnection(strDbBackEnd)
+                    CnnSS.Open()
+                    DatabaseType = "SqlServer"
+                Case "Local Server 3" ' sql server on ThisPC NX3
+                    CnnSS = New SqlClient.SqlConnection(strDbBackEnd)
+                    CnnSS.Open()
+                    DatabaseType = "SqlServer"
+                    '--------------------------------------------------------- NAS
+                Case "SKU.NAS Server DB-1:msht" ' SKU.NAS (msht)
                     NexTerm.connectnetworkdrive.ConnectToNetwork.PinvokeWindowsNetworking.connectToRemote("\\185.105.121.99", $"sharifi-m@sku.ac.ir", "1289463557")
-                    strCaption = "Connected to AccDB on SKU.NAS Storage"
                     strDbBackEnd = "\\185.105.121.99\sharifi-m@sku.ac.ir\NexTerm.accdb"
                     CnnAC = New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & strDbBackEnd & ";Jet OLEDB:Database Password=" & BackEndPass & ";")
                     CnnAC.Open()
                     DatabaseType = "Access"
-                Case "SKU NAS Server-2" ' SKU.NAS +uid/pwd
+                Case "SKU.NAS Server DB-2" ' SKU.NAS +uid/pwd
                     NexTerm.connectnetworkdrive.ConnectToNetwork.PinvokeWindowsNetworking.connectToRemote("\\185.105.121.99", strserveruid, strserverpwd)
-                    strCaption = "Connected to AccDB on SKU.NAS"
                     CnnAC = New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & strDbBackEnd & ";Jet OLEDB:Database Password=" & BackEndPass & ";")
                     CnnAC.Open()
                     DatabaseType = "Access"
-                Case "Local Server" ' sql server on my PC
-                    strCaption = "Connected to Local Sql Server"
-                    CnnSS = New SqlClient.SqlConnection(strDbBackEnd)
-                    CnnSS.Open()
-                    DatabaseType = "SqlServer"
-                Case Else ' ACCDB on my PC
+                    '--------------------------------------------------------- ACCDB
+                Case Else ' Local DB
                     strCaption = "Connected to Local ACCDB ; " & strDbBackEnd
                     CnnAC = New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & strDbBackEnd & ";Jet OLEDB:Database Password=" & BackEndPass & ";")
                     CnnAC.Open()
                     DatabaseType = "Access"
             End Select
+            strCaption = "Connected to " & Server2Connect
+
         Catch ex As Exception
             Dim myansw As DialogResult = MsgBox("خطا: نکسترم به ديتابيس زير متصل نشد" & vbCrLf & strDbBackEnd & vbCrLf & vbCrLf & "جزييات خطا نشان داده شود؟", vbYesNo + vbDefaultButton2, "خطا در اتصال به ديتابيس")
             If myansw = vbYes Then MsgBox(ex.ToString)
