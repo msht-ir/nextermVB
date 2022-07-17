@@ -66,8 +66,10 @@
                     Menu_AddDept.Enabled = boolENBL
                     Menu_AddBioProg.Enabled = boolENBL
                     Menu_EditBioProg.Enabled = boolENBL
+                    Menu_ProgramSpecs.Enabled = boolENBL
                     Menu_AddCourse.Enabled = boolENBL
                     Menu_EditCourseNumber.Enabled = boolENBL
+                    Menu_EditCourseSpecs.Enabled = boolENBL
                     Menu_ExportCourseList.Enabled = boolENBL
                     If (UserAccessControls And (2 ^ 4)) = (2 ^ 4) Then
                         Grid1.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2
@@ -80,7 +82,9 @@
                     Menu_AddDept.Enabled = False
                     Menu_AddBioProg.Enabled = False
                     Menu_EditBioProg.Enabled = False
+                    Menu_ProgramSpecs.Enabled = boolENBL
                     Menu_EditCourseNumber.Enabled = True
+                    Menu_EditCourseSpecs.Enabled = boolENBL
                     Grid1.EditMode = DataGridViewEditMode.EditProgrammatically
                     If (UserAccessControls And (2 ^ 4)) = (2 ^ 4) Then
                         ' acc1: Courses
@@ -130,10 +134,10 @@
         ' READ FROM DATABASE
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
             Case "SqlServer"
-                DASS.SelectCommand.CommandText = "SELECT BioProgs.ID, ProgramName, Department_ID FROM BioProgs INNER JOIN Departments ON BioProgs.Department_ID = Departments.ID WHERE Department_ID =" & intDept.ToString & " ORDER BY ProgramName"
+                DASS.SelectCommand.CommandText = "SELECT BioProgs.ID, ProgramName, ProgramSpecs, Department_ID FROM BioProgs INNER JOIN Departments ON BioProgs.Department_ID = Departments.ID WHERE Department_ID =" & intDept.ToString & " ORDER BY ProgramName"
                 DASS.Fill(DS, "tblBioProgs")
             Case "Access"
-                DAAC.SelectCommand.CommandText = "SELECT BioProgs.ID, ProgramName, Department_ID FROM BioProgs INNER JOIN Departments ON BioProgs.Department_ID = Departments.ID WHERE Department_ID =" & intDept.ToString & " ORDER BY ProgramName"
+                DAAC.SelectCommand.CommandText = "SELECT BioProgs.ID, ProgramName, ProgramSpecs, Department_ID FROM BioProgs INNER JOIN Departments ON BioProgs.Department_ID = Departments.ID WHERE Department_ID =" & intDept.ToString & " ORDER BY ProgramName"
                 DAAC.Fill(DS, "tblBioProgs")
         End Select
         ListBioProg.DataSource = DS.Tables("tblBioProgs")
@@ -324,7 +328,7 @@
 
     End Sub
 
-    'LIST STAFF
+    ' STAFF
     Private Sub ListStaff_DoubleClick(sender As Object, e As EventArgs) Handles ListStaff.DoubleClick
         Menu_OKStaff_Click(sender, e)
     End Sub
@@ -422,8 +426,7 @@
     End Sub
 
 
-
-    'LIST BIOPROG
+    ' BIOPROG 
     Private Sub ListBioProg_DoubleClick(sender As Object, e As EventArgs) Handles ListBioProg.DoubleClick
         Menu_OKBioProg_Click(sender, e)
     End Sub
@@ -494,6 +497,46 @@
         Grid1_CellClick()
 
     End Sub
+    Private Sub Menu_ProgramSpecs_Click(sender As Object, e As EventArgs) Handles Menu_ProgramSpecs.Click
+        If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
+        Dim r As Integer = ListBioProg.SelectedIndex
+        If r = -1 Then Exit Sub
+
+        Retval1 = 1                                          '{1:BioProgs | 2:Courses}
+        Retval2 = DS.Tables("tblBioProgs").Rows(r).Item(2)   '{data : in bits}
+
+        frmSpecs.ShowDialog()
+
+        If Retval1 = 1 Then 'retval1 {0:Cancelled , 1:OK}
+            DS.Tables("tblBioProgs").Rows(r).Item(2) = Retval2
+            Try
+                DS.Tables("tblBioProgs").Rows(r).Item(1) = strBioProg
+                Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                    Case "SqlServer"
+                        strSQL = "UPDATE BioProgs SET ProgramSpecs = @programspecs WHERE ID = @id"
+                        Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
+                        cmd.CommandType = CommandType.Text
+                        cmd.Parameters.AddWithValue("@programspecs", Retval2.ToString)
+                        cmd.Parameters.AddWithValue("@id", DS.Tables("tblBioProgs").Rows(r).Item(0))
+                        Dim i As Integer = cmd.ExecuteNonQuery
+                    Case "Access"
+                        strSQL = "UPDATE BioProgs SET ProgramSpecs = @programspecs WHERE ID = @id"
+                        Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
+                        cmd.CommandType = CommandType.Text
+                        cmd.Parameters.AddWithValue("@programspecs", Retval2.ToString)
+                        cmd.Parameters.AddWithValue("@id", DS.Tables("tblBioProgs").Rows(r).Item(0))
+                        Dim i As Integer = cmd.ExecuteNonQuery
+                End Select
+                WriteLOG(13)
+            Catch ex As Exception
+                MsgBox(ex.ToString)
+            End Try
+            Grid1_CellClick()
+        Else
+            Exit Sub
+        End If
+
+    End Sub
     Private Sub Menu_OKBioProg_Click(sender As Object, e As EventArgs) Handles Menu_OKBioProg.Click
         'BioProg
         If ListBioProg.SelectedIndex = -1 Then Exit Sub
@@ -512,7 +555,7 @@
 
     End Sub
 
-    Private Sub ListBioProg_Click(sender As Object, e As EventArgs) Handles ListBioProg.Click
+    Private Sub ListBioProg_Click() Handles ListBioProg.Click
         ' populate Grid_Entry
         If ListBioProg.SelectedIndex < 0 Then Exit Sub
         ShowEntries()
@@ -573,10 +616,10 @@
         DS.Tables("tblCourses").Clear()
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
             Case "SqlServer"
-                DASS.SelectCommand.CommandText = "SELECT Courses.ID, CourseName, CourseNumber, Units, [Units_equivalent] As Eq FROM (Courses INNER JOIN BioProgs ON Courses.BioProg_ID = BioProgs.ID) WHERE BioProg_ID =" & intBioProg.ToString & " ORDER BY CourseName"
+                DASS.SelectCommand.CommandText = "SELECT Courses.ID, CourseName, CourseNumber, CourseSpecs, Units FROM (Courses INNER JOIN BioProgs ON Courses.BioProg_ID = BioProgs.ID) WHERE BioProg_ID =" & intBioProg.ToString & " ORDER BY CourseName"
                 DASS.Fill(DS, "tblCourses")
             Case "Access"
-                DAAC.SelectCommand.CommandText = "SELECT Courses.ID, CourseName, CourseNumber, Units, [Units_equivalent] As Eq FROM (Courses INNER JOIN BioProgs ON Courses.BioProg_ID = BioProgs.ID) WHERE BioProg_ID =" & intBioProg.ToString & " ORDER BY CourseName"
+                DAAC.SelectCommand.CommandText = "SELECT Courses.ID, CourseName, CourseNumber, CourseSpecs, Units FROM (Courses INNER JOIN BioProgs ON Courses.BioProg_ID = BioProgs.ID) WHERE BioProg_ID =" & intBioProg.ToString & " ORDER BY CourseName"
                 DAAC.Fill(DS, "tblCourses")
         End Select
 
@@ -587,11 +630,11 @@
         GridCourse.Columns(0).Width = 0    'ID
         GridCourse.Columns(1).Width = 220  'Course
         GridCourse.Columns(2).Width = 80   'Number
-        GridCourse.Columns(3).Width = 40   'Units
-        GridCourse.Columns(4).Width = 0    'Units-eq
+        GridCourse.Columns(3).Width = 0    'Specs
+        GridCourse.Columns(4).Width = 40   'Units
 
         GridCourse.Columns(0).Visible = False
-        GridCourse.Columns(4).Visible = False
+        GridCourse.Columns(3).Visible = False
 
         For k = 0 To GridCourse.Columns.Count - 1
             GridCourse.Columns.Item(k).SortMode = DataGridViewColumnSortMode.Programmatic
@@ -600,7 +643,7 @@
     End Sub
 
 
-    'GRID ENTRY
+    ' ENTRY
     Private Sub GridEntries_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles GridEntries.CellValueChanged
         If Userx = "USER Department" Then Exit Sub
         If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
@@ -772,7 +815,7 @@
         Me.Dispose()
     End Sub
 
-    'GRID COURSE
+    ' COURSE
     Private Sub GridCourse_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellDoubleClick
         If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim r As Integer = GridCourse.SelectedCells(0).RowIndex    'count from 0
@@ -810,7 +853,7 @@
         End If
 
     End Sub
-    Private Sub GridCourse_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellValueChanged
+    Private Sub GridCourse_CellValueChanged() Handles GridCourse.CellValueChanged
         If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridCourse.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridCourse.CurrentCell.RowIndex   'count from 0
@@ -824,15 +867,19 @@
         Dim intCourseNumber As Integer = GridCourse.Rows(r).Cells(2).Value
         DS.Tables("tblCourses").Rows(r).Item(2) = intCourseNumber
 
-        Dim intCourseUnits As Integer = GridCourse.Rows(r).Cells(3).Value
+        Dim intCourseSpecs As Integer = GridCourse.Rows(r).Cells(3).Value
+        DS.Tables("tblCourses").Rows(r).Item(3) = intCourseSpecs
+
+        Dim intCourseUnits As Integer = GridCourse.Rows(r).Cells(4).Value
         DS.Tables("tblCourses").Rows(r).Item(3) = intCourseUnits
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
             Case "SqlServer"
-                strSQL = "UPDATE Courses SET CourseName = @coursename, CourseNumber = @coursenumber, Units = @units WHERE ID = @ID"
+                strSQL = "UPDATE Courses SET CourseName = @coursename, CourseNumber = @coursenumber, Coursespecs = @coursespecs, Units = @units WHERE ID = @ID"
                 Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
                 cmd.CommandType = CommandType.Text
                 cmd.Parameters.AddWithValue("@coursename", strCourseName)
                 cmd.Parameters.AddWithValue("@coursenumber", intCourseNumber)
+                cmd.Parameters.AddWithValue("@coursespecs", intCourseSpecs)
                 cmd.Parameters.AddWithValue("@units", intCourseUnits)
                 cmd.Parameters.AddWithValue("@ID", DS.Tables("tblCourses").Rows(r).Item(0).ToString)
                 Dim i As Integer = cmd.ExecuteNonQuery()
@@ -842,6 +889,7 @@
                 cmd.CommandType = CommandType.Text
                 cmd.Parameters.AddWithValue("@coursename", strCourseName)
                 cmd.Parameters.AddWithValue("@coursenumber", intCourseNumber)
+                cmd.Parameters.AddWithValue("@coursespecs", intCourseSpecs)
                 cmd.Parameters.AddWithValue("@units", intCourseUnits)
                 cmd.Parameters.AddWithValue("@ID", DS.Tables("tblCourses").Rows(r).Item(0).ToString)
                 Dim i As Integer = cmd.ExecuteNonQuery()
@@ -860,7 +908,7 @@
             Else
                 Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                     Case "SqlServer"
-                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
+                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
                         Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
                         cmd.CommandType = CommandType.Text
                         cmd.Parameters.AddWithValue("@bioprogid", ListBioProg.SelectedValue)
@@ -874,7 +922,7 @@
                             MsgBox("error: " & ex.ToString)
                         End Try
                     Case "Access"
-                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
+                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
                         Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
                         cmd.CommandType = CommandType.Text
                         cmd.Parameters.AddWithValue("@bioprogid", ListBioProg.SelectedValue)
@@ -889,7 +937,7 @@
                         End Try
                 End Select
             End If
-            ListBioProg_Click(sender, e)
+            ListBioProg_Click()
             GridCourse.Refresh()
         End If
 
@@ -902,7 +950,7 @@
 
         TempList.ShowDialog()
 
-        ListBioProg_Click(sender, e)
+        ListBioProg_Click()
         GridCourse.Refresh()
 
     End Sub
@@ -919,6 +967,26 @@
         Else
             GridCourse(2, r).Value = intCourseNumber
             WriteLOG(19)
+        End If
+
+    End Sub
+    Private Sub Menu_EditCourseSpecs_Click(sender As Object, e As EventArgs) Handles Menu_EditCourseSpecs.Click
+        If ListBioProg.SelectedIndex = -1 Then Exit Sub
+        If GridCourse.RowCount < 1 Then Exit Sub
+        Dim r As Integer = GridCourse.CurrentCell.RowIndex   'count from 0
+        If r < 0 Then Exit Sub
+        Retval1 = 2                                          '{1:BioProgs | 2:Courses}
+        Retval2 = DS.Tables("tblCourses").Rows(r).Item(3)    '{data : in bits}
+        'MsgBox(Retval1.ToString & "  <r1 | r2>" & Retval2.ToString)
+        frmSpecs.ShowDialog()
+        If Retval1 = 1 Then                                  'retval1 {0:Cancelled , 1:OK}
+            GridCourse(3, r).Value = Retval2
+            DS.Tables("tblCourses").Rows(r).Item(3) = Retval2
+            'MsgBox(DS.Tables("tblCourses").Rows(r).Item(3).ToString & " :table | retval2: " & Retval2.ToString)
+            GridCourse_CellValueChanged()
+            ListBioProg_Click()
+        Else
+            Exit Sub
         End If
 
     End Sub

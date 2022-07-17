@@ -38,7 +38,7 @@ Partial Class frmLogIn
         '
         Me.PasswordTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PasswordTextBox.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.PasswordTextBox.Location = New System.Drawing.Point(138, 273)
+        Me.PasswordTextBox.Location = New System.Drawing.Point(55, 212)
         Me.PasswordTextBox.Name = "PasswordTextBox"
         Me.PasswordTextBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(45)
         Me.PasswordTextBox.Size = New System.Drawing.Size(231, 25)
@@ -51,12 +51,12 @@ Partial Class frmLogIn
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label3.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.Label3.Location = New System.Drawing.Point(97, 316)
+        Me.Label3.Location = New System.Drawing.Point(9, 377)
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label3.Size = New System.Drawing.Size(341, 13)
+        Me.Label3.Size = New System.Drawing.Size(329, 13)
         Me.Label3.TabIndex = 6
-        Me.Label3.Text = "www.msht.ir     |     msht.ir@outlook.com    |    msht.ir@gmail.com"
+        Me.Label3.Text = "www.msht.ir    |    msht.ir@outlook.com   |   msht.ir@gmail.com"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label2
@@ -65,7 +65,7 @@ Partial Class frmLogIn
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Copperplate Gothic Light", 48.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label2.ForeColor = System.Drawing.Color.Gold
-        Me.Label2.Location = New System.Drawing.Point(86, 6)
+        Me.Label2.Location = New System.Drawing.Point(8, 33)
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label2.Size = New System.Drawing.Size(328, 69)
@@ -78,7 +78,7 @@ Partial Class frmLogIn
         Me.cboUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboUser.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.cboUser.FormattingEnabled = True
-        Me.cboUser.Location = New System.Drawing.Point(138, 239)
+        Me.cboUser.Location = New System.Drawing.Point(55, 164)
         Me.cboUser.Name = "cboUser"
         Me.cboUser.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.cboUser.Size = New System.Drawing.Size(231, 25)
@@ -90,7 +90,7 @@ Partial Class frmLogIn
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
         Me.Label4.ForeColor = System.Drawing.Color.Goldenrod
-        Me.Label4.Location = New System.Drawing.Point(239, 333)
+        Me.Label4.Location = New System.Drawing.Point(154, 398)
         Me.Label4.Name = "Label4"
         Me.Label4.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label4.Size = New System.Drawing.Size(32, 15)
@@ -104,7 +104,7 @@ Partial Class frmLogIn
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label5.ForeColor = System.Drawing.SystemColors.Window
-        Me.Label5.Location = New System.Drawing.Point(347, 3)
+        Me.Label5.Location = New System.Drawing.Point(269, 17)
         Me.Label5.Name = "Label5"
         Me.Label5.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label5.Size = New System.Drawing.Size(53, 17)
@@ -117,7 +117,7 @@ Partial Class frmLogIn
         Me.lblBuildInfo.BackColor = System.Drawing.Color.Transparent
         Me.lblBuildInfo.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.lblBuildInfo.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.lblBuildInfo.Location = New System.Drawing.Point(215, 302)
+        Me.lblBuildInfo.Location = New System.Drawing.Point(121, 352)
         Me.lblBuildInfo.Name = "lblBuildInfo"
         Me.lblBuildInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lblBuildInfo.Size = New System.Drawing.Size(84, 13)
@@ -130,9 +130,8 @@ Partial Class frmLogIn
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Navy
-        Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(507, 352)
+        Me.ClientSize = New System.Drawing.Size(344, 433)
         Me.ControlBox = False
         Me.Controls.Add(Me.lblBuildInfo)
         Me.Controls.Add(Me.Label5)

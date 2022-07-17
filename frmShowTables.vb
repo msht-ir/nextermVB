@@ -12,10 +12,10 @@
         DS.Tables("tblCourses").Clear()
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
             Case "SqlServer"
-                DASS.SelectCommand.CommandText = "SELECT Courses.ID, CourseName, CourseNumber, Units, [Units_equivalent] As Eq FROM (Courses INNER JOIN BioProgs ON Courses.BioProg_ID = BioProgs.ID) WHERE BioProg_ID =" & intBioProg.ToString & " ORDER BY CourseName"
+                DASS.SelectCommand.CommandText = "SELECT Courses.ID, CourseName, CourseNumber, Units FROM (Courses INNER JOIN BioProgs ON Courses.BioProg_ID = BioProgs.ID) WHERE BioProg_ID =" & intBioProg.ToString & " ORDER BY CourseName"
                 DASS.Fill(DS, "tblCourses")
             Case "Access"
-                DAAC.SelectCommand.CommandText = "SELECT Courses.ID, CourseName, CourseNumber, Units, [Units_equivalent] As Eq FROM (Courses INNER JOIN BioProgs ON Courses.BioProg_ID = BioProgs.ID) WHERE BioProg_ID =" & intBioProg.ToString & " ORDER BY CourseName"
+                DAAC.SelectCommand.CommandText = "SELECT Courses.ID, CourseName, CourseNumber, Units FROM (Courses INNER JOIN BioProgs ON Courses.BioProg_ID = BioProgs.ID) WHERE BioProg_ID =" & intBioProg.ToString & " ORDER BY CourseName"
                 DAAC.Fill(DS, "tblCourses")
         End Select
 
@@ -59,27 +59,23 @@
         Dim intCourseUnit As Integer = Grid1.Rows(r).Cells(3).Value
         DS.Tables("tblCourses").Rows(r).Item(3) = intCourseUnit
 
-        Dim intCourseUnitEq As Integer = Grid1.Rows(r).Cells(4).Value
-        DS.Tables("tblCourses").Rows(r).Item(4) = intCourseUnitEq
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
             Case "SqlServer"
-                strSQL = "UPDATE Courses SET CourseName = @coursename, CourseNumber = @coursenumber, Units = @units, Units_equivalent = @unitsequivalent WHERE ID = @ID"
+                strSQL = "UPDATE Courses SET CourseName = @coursename, CourseNumber = @coursenumber, Units = @units WHERE ID = @ID"
                 Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
                 cmd.CommandType = CommandType.Text
                 cmd.Parameters.AddWithValue("@coursename", strCourseName)
                 cmd.Parameters.AddWithValue("@coursenumber", intCourseNumber)
                 cmd.Parameters.AddWithValue("@units", intCourseUnit)
-                cmd.Parameters.AddWithValue("@unitsequivalent", intCourseUnitEq)
                 cmd.Parameters.AddWithValue("@ID", DS.Tables("tblCourses").Rows(r).Item(0).ToString)
                 Dim i As Integer = cmd.ExecuteNonQuery()
             Case "Access"
-                strSQL = "UPDATE Courses SET CourseName = @coursename, CourseNumber = @coursenumber, Units = @units, Units_equivalent = @unitsequivalent WHERE ID = @ID"
+                strSQL = "UPDATE Courses SET CourseName = @coursename, CourseNumber = @coursenumber, Units = @units WHERE ID = @ID"
                 Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
                 cmd.CommandType = CommandType.Text
                 cmd.Parameters.AddWithValue("@coursename", strCourseName)
                 cmd.Parameters.AddWithValue("@coursenumber", intCourseNumber)
                 cmd.Parameters.AddWithValue("@units", intCourseUnit)
-                cmd.Parameters.AddWithValue("@unitsequivalent", intCourseUnitEq)
                 cmd.Parameters.AddWithValue("@ID", DS.Tables("tblCourses").Rows(r).Item(0).ToString)
                 Dim i As Integer = cmd.ExecuteNonQuery()
         End Select
@@ -98,7 +94,7 @@
 
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
             Case "SqlServer"
-                strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @newcourse, @coursenumber, 2, 2)"
+                strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @newcourse, @coursenumber, 2)"
                 Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
                 cmd.CommandType = CommandType.Text
                 cmd.Parameters.AddWithValue("@bioprogid", intBioProg.ToString)
@@ -106,7 +102,7 @@
                 cmd.Parameters.AddWithValue("@newcourse", intNewCourse.ToString)
                 cmd.ExecuteNonQuery()
             Case "Access"
-                strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @newcourse, @coursenumber, 2, 2)"
+                strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @newcourse, @coursenumber, 2)"
                 Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
                 cmd.CommandType = CommandType.Text
                 cmd.Parameters.AddWithValue("@bioprogid", intBioProg.ToString)

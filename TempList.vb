@@ -114,7 +114,7 @@ lbl_Read:
                     intCourseUnits = GridCourse.Item(3, k).Value
                     Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                         Case "SqlServer"
-                            strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, @units, @units)"
+                            strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, @units)"
                             Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
                             cmd.CommandType = CommandType.Text
                             cmd.Parameters.AddWithValue("@bioprogid", intBioProg.ToString)
@@ -123,7 +123,7 @@ lbl_Read:
                             cmd.Parameters.AddWithValue("@units", intCourseUnits.ToString)
                             Dim i As Integer = cmd.ExecuteNonQuery()
                         Case "Access"
-                            strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, @units, @units)"
+                            strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, @units)"
                             Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
                             cmd.CommandType = CommandType.Text
                             cmd.Parameters.AddWithValue("@bioprogid", intBioProg.ToString)

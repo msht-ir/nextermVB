@@ -36,7 +36,9 @@ Partial Class frmDepts
         Me.ListBioProg = New System.Windows.Forms.ListBox()
         Me.ContextMenu_BioProg = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Menu_AddBioProg = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator()
         Me.Menu_EditBioProg = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Menu_ProgramSpecs = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.Menu_OKBioProg = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_CancelBioProg = New System.Windows.Forms.ToolStripMenuItem()
@@ -66,6 +68,7 @@ Partial Class frmDepts
         Me.Menu_AddCourseFromList = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_AddCourse = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_EditCourseNumber = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Menu_EditCourseSpecs = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.Menu_ExportCourseList = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
@@ -175,10 +178,10 @@ Partial Class frmDepts
         '
         'ContextMenu_BioProg
         '
-        Me.ContextMenu_BioProg.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_AddBioProg, Me.Menu_EditBioProg, Me.ToolStripSeparator1, Me.Menu_OKBioProg, Me.Menu_CancelBioProg})
+        Me.ContextMenu_BioProg.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_AddBioProg, Me.ToolStripMenuItem3, Me.Menu_EditBioProg, Me.Menu_ProgramSpecs, Me.ToolStripSeparator1, Me.Menu_OKBioProg, Me.Menu_CancelBioProg})
         Me.ContextMenu_BioProg.Name = "ContextMenuStrip1"
         Me.ContextMenu_BioProg.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenu_BioProg.Size = New System.Drawing.Size(148, 98)
+        Me.ContextMenu_BioProg.Size = New System.Drawing.Size(148, 126)
         '
         'Menu_AddBioProg
         '
@@ -186,11 +189,22 @@ Partial Class frmDepts
         Me.Menu_AddBioProg.Size = New System.Drawing.Size(147, 22)
         Me.Menu_AddBioProg.Text = "+  دوره جديد"
         '
+        'ToolStripMenuItem3
+        '
+        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(144, 6)
+        '
         'Menu_EditBioProg
         '
         Me.Menu_EditBioProg.Name = "Menu_EditBioProg"
         Me.Menu_EditBioProg.Size = New System.Drawing.Size(147, 22)
         Me.Menu_EditBioProg.Text = "ويرايش"
+        '
+        'Menu_ProgramSpecs
+        '
+        Me.Menu_ProgramSpecs.Name = "Menu_ProgramSpecs"
+        Me.Menu_ProgramSpecs.Size = New System.Drawing.Size(147, 22)
+        Me.Menu_ProgramSpecs.Text = "مشخصات"
         '
         'ToolStripSeparator1
         '
@@ -418,10 +432,10 @@ Partial Class frmDepts
         '
         'ContextMenuCourses
         '
-        Me.ContextMenuCourses.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_AddCourseFromList, Me.Menu_AddCourse, Me.Menu_EditCourseNumber, Me.ToolStripSeparator4, Me.Menu_ExportCourseList, Me.ToolStripMenuItem2, Me.Menu_OKCourse, Me.Menu_CancelCourse})
+        Me.ContextMenuCourses.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_AddCourseFromList, Me.Menu_AddCourse, Me.Menu_EditCourseNumber, Me.Menu_EditCourseSpecs, Me.ToolStripSeparator4, Me.Menu_ExportCourseList, Me.ToolStripMenuItem2, Me.Menu_OKCourse, Me.Menu_CancelCourse})
         Me.ContextMenuCourses.Name = "ContextMenuStrip1"
         Me.ContextMenuCourses.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuCourses.Size = New System.Drawing.Size(152, 148)
+        Me.ContextMenuCourses.Size = New System.Drawing.Size(152, 170)
         '
         'Menu_AddCourseFromList
         '
@@ -441,6 +455,12 @@ Partial Class frmDepts
         Me.Menu_EditCourseNumber.Name = "Menu_EditCourseNumber"
         Me.Menu_EditCourseNumber.Size = New System.Drawing.Size(151, 22)
         Me.Menu_EditCourseNumber.Text = "ويرايش شماره"
+        '
+        'Menu_EditCourseSpecs
+        '
+        Me.Menu_EditCourseSpecs.Name = "Menu_EditCourseSpecs"
+        Me.Menu_EditCourseSpecs.Size = New System.Drawing.Size(151, 22)
+        Me.Menu_EditCourseSpecs.Text = "مشخصات"
         '
         'ToolStripSeparator4
         '
@@ -582,4 +602,7 @@ Partial Class frmDepts
     Friend WithEvents Menu_AddCourseFromList As ToolStripMenuItem
     Friend WithEvents Menu_ExportCourseList As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem2 As ToolStripSeparator
+    Friend WithEvents ToolStripMenuItem3 As ToolStripSeparator
+    Friend WithEvents Menu_ProgramSpecs As ToolStripMenuItem
+    Friend WithEvents Menu_EditCourseSpecs As ToolStripMenuItem
 End Class

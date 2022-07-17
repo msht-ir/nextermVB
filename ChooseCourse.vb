@@ -46,10 +46,10 @@
         DS.Tables("tblCourses").Clear()
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
             Case "SqlServer"
-                DASS.SelectCommand.CommandText = "SELECT Courses.ID, CourseName, CourseNumber, Units, [Units_equivalent] As Eq FROM (Courses INNER JOIN BioProgs ON Courses.BioProg_ID = BioProgs.ID) WHERE BioProg_ID =" & intBioProg.ToString & " ORDER BY CourseName"
+                DASS.SelectCommand.CommandText = "SELECT Courses.ID, CourseName, CourseNumber, Units FROM (Courses INNER JOIN BioProgs ON Courses.BioProg_ID = BioProgs.ID) WHERE BioProg_ID =" & intBioProg.ToString & " ORDER BY CourseName"
                 DASS.Fill(DS, "tblCourses")
             Case "Access"
-                DAAC.SelectCommand.CommandText = "SELECT Courses.ID, CourseName, CourseNumber, Units, [Units_equivalent] As Eq FROM (Courses INNER JOIN BioProgs ON Courses.BioProg_ID = BioProgs.ID) WHERE BioProg_ID =" & intBioProg.ToString & " ORDER BY CourseName"
+                DAAC.SelectCommand.CommandText = "SELECT Courses.ID, CourseName, CourseNumber, Units FROM (Courses INNER JOIN BioProgs ON Courses.BioProg_ID = BioProgs.ID) WHERE BioProg_ID =" & intBioProg.ToString & " ORDER BY CourseName"
                 DAAC.Fill(DS, "tblCourses")
         End Select
 
@@ -144,7 +144,7 @@
                 intCourseNumber = Val(InputBox("شماره درس", "NexTerm", "123456789"))
                 Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                     Case "SqlServer"
-                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
+                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
                         Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
                         cmd.CommandType = CommandType.Text
                         cmd.Parameters.AddWithValue("@bioprogid", ComboBioProg.SelectedValue)
@@ -160,7 +160,7 @@
                             MsgBox("error: " & ex.ToString)
                         End Try
                     Case "Access"
-                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units, Units_equivalent) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
+                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
                         Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
                         cmd.CommandType = CommandType.Text
                         cmd.Parameters.AddWithValue("@bioprogid", ComboBioProg.SelectedValue)

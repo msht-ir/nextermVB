@@ -46,7 +46,7 @@ Partial Class frmAbout
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Copperplate Gothic Light", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point)
-        Me.Label3.ForeColor = System.Drawing.Color.LightBlue
+        Me.Label3.ForeColor = System.Drawing.Color.DarkSlateBlue
         Me.Label3.Location = New System.Drawing.Point(23, 127)
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -75,7 +75,7 @@ Partial Class frmAbout
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label4.ForeColor = System.Drawing.Color.LightBlue
+        Me.Label4.ForeColor = System.Drawing.Color.DarkSlateBlue
         Me.Label4.Location = New System.Drawing.Point(359, 97)
         Me.Label4.Name = "Label4"
         Me.Label4.RightToLeft = System.Windows.Forms.RightToLeft.No
