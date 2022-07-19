@@ -82,16 +82,25 @@
                     Menu_AddDept.Enabled = False
                     Menu_AddBioProg.Enabled = False
                     Menu_EditBioProg.Enabled = False
-                    Menu_ProgramSpecs.Enabled = boolENBL
                     Menu_EditCourseNumber.Enabled = True
-                    Menu_EditCourseSpecs.Enabled = boolENBL
                     Grid1.EditMode = DataGridViewEditMode.EditProgrammatically
                     If (UserAccessControls And (2 ^ 4)) = (2 ^ 4) Then
                         ' acc1: Courses
-                        If (UserAccessControls And (2 ^ 0)) = 0 Then Menu_EditEntry.Enabled = False Else Menu_EditEntry.Enabled = True
-                        If (UserAccessControls And (2 ^ 0)) = 0 Then Menu_AddEntry.Enabled = False Else Menu_AddEntry.Enabled = True
-                        If (UserAccessControls And (2 ^ 0)) = 0 Then Menu_AddCourse.Enabled = False Else Menu_AddCourse.Enabled = True
-                        If (UserAccessControls And (2 ^ 0)) = 0 Then Menu_AddCourseFromList.Enabled = False Else Menu_AddCourseFromList.Enabled = True
+                        If (UserAccessControls And (2 ^ 0)) = 0 Then
+                            Menu_AddEntry.Enabled = False
+                            Menu_AddCourse.Enabled = False
+                            Menu_EditEntry.Enabled = False
+                            Menu_AddCourseFromList.Enabled = False
+                            Menu_ProgramSpecs.Enabled = False
+                            Menu_EditCourseSpecs.Enabled = False
+                        Else
+                            Menu_AddEntry.Enabled = True
+                            Menu_AddCourse.Enabled = True
+                            Menu_EditEntry.Enabled = True
+                            Menu_AddCourseFromList.Enabled = True
+                            Menu_ProgramSpecs.Enabled = True
+                            Menu_EditCourseSpecs.Enabled = True
+                        End If
                         ' acc2: staff
                         If (UserAccessControls And (2 ^ 1)) = 0 Then Menu_EditStaff.Enabled = False Else Menu_EditStaff.Enabled = True
                         If (UserAccessControls And (2 ^ 1)) = 0 Then Menu_AddStaff.Enabled = False Else Menu_AddStaff.Enabled = True
@@ -1004,9 +1013,10 @@
         FileOpen(1, strFilename, OpenMode.Output)
         PrintLine(1, "NexTerm Courses")
         For i As Integer = 0 To GridCourse.Rows.Count - 1
-            PrintLine(1, GridCourse.Item(1, i).Value)
-            PrintLine(1, GridCourse.Item(2, i).Value)
-            PrintLine(1, GridCourse.Item(3, i).Value)
+            PrintLine(1, GridCourse.Item(1, i).Value) 'CourseName
+            PrintLine(1, GridCourse.Item(2, i).Value) 'CourseNumber
+            PrintLine(1, GridCourse.Item(3, i).Value) 'CourseSpecs
+            PrintLine(1, GridCourse.Item(4, i).Value) 'CourseUnits
         Next i
         FileClose(1)
         MsgBox("ليست درس ذخيره شد" & vbCrLf & strFilename, vbOKOnly, "نکسترم")

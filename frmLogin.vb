@@ -94,13 +94,14 @@ lbl_GetUserNickName2:
 
     End Sub
 
-    Private Sub Label3_Click() Handles Label3.Click
-        MsgBox(strCaption, vbOKOnly, "NexTerm")
-    End Sub
     'Exit
     Private Sub Label4_Click() Handles Label4.Click
         Userx = "quit"
         Me.Dispose()
     End Sub
 
+    Private Sub lblBuildInfo_Click(sender As Object, e As EventArgs) Handles lblBuildInfo.Click
+        MsgBox(strCaption, vbOKOnly, "NexTerm")
+
+    End Sub
 End Class

@@ -57,15 +57,17 @@
             End Using
 
             Dim intCourseUnits As Integer = 0
+            Dim intCourseSpecs As Integer = 0
             If IO.File.Exists(strFilename) = True Then
                 FileOpen(1, strFilename, OpenMode.Input)
                 strIdentifier = LineInput(1)
-                If strIdentifier = "NexTerm Courses" Then
+                If Mid(strIdentifier, 1, 15) = "NexTerm Courses" Then
 lbl_Read:
                     strCourse = LineInput(1)
                     intCourseNumber = LineInput(1)
+                    intCourseSpecs = LineInput(1)
                     intCourseUnits = LineInput(1)
-                    GridCourse.Rows.Add("+", intCourseNumber, strCourse, intCourseUnits)
+                    GridCourse.Rows.Add("+", intCourseNumber, strCourse, intCourseSpecs, intCourseUnits)
                 End If
                 GoTo lbl_Read
 

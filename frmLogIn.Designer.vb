@@ -26,7 +26,6 @@ Partial Class frmLogIn
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmLogIn))
         Me.PasswordTextBox = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cboUser = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -44,20 +43,6 @@ Partial Class frmLogIn
         Me.PasswordTextBox.Size = New System.Drawing.Size(231, 25)
         Me.PasswordTextBox.TabIndex = 0
         Me.PasswordTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label3.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.Label3.Location = New System.Drawing.Point(9, 377)
-        Me.Label3.Name = "Label3"
-        Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label3.Size = New System.Drawing.Size(329, 13)
-        Me.Label3.TabIndex = 6
-        Me.Label3.Text = "www.msht.ir    |    msht.ir@outlook.com   |   msht.ir@gmail.com"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label2
         '
@@ -88,12 +73,12 @@ Partial Class frmLogIn
         '
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.Label4.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label4.ForeColor = System.Drawing.Color.Goldenrod
         Me.Label4.Location = New System.Drawing.Point(154, 398)
         Me.Label4.Name = "Label4"
         Me.Label4.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label4.Size = New System.Drawing.Size(32, 15)
+        Me.Label4.Size = New System.Drawing.Size(32, 14)
         Me.Label4.TabIndex = 7
         Me.Label4.Text = "خروج"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -103,8 +88,8 @@ Partial Class frmLogIn
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.Label5.ForeColor = System.Drawing.SystemColors.Window
-        Me.Label5.Location = New System.Drawing.Point(269, 17)
+        Me.Label5.ForeColor = System.Drawing.SystemColors.AppWorkspace
+        Me.Label5.Location = New System.Drawing.Point(146, 108)
         Me.Label5.Name = "Label5"
         Me.Label5.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label5.Size = New System.Drawing.Size(53, 17)
@@ -116,8 +101,8 @@ Partial Class frmLogIn
         Me.lblBuildInfo.AutoSize = True
         Me.lblBuildInfo.BackColor = System.Drawing.Color.Transparent
         Me.lblBuildInfo.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.lblBuildInfo.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.lblBuildInfo.Location = New System.Drawing.Point(121, 352)
+        Me.lblBuildInfo.ForeColor = System.Drawing.SystemColors.AppWorkspace
+        Me.lblBuildInfo.Location = New System.Drawing.Point(130, 355)
         Me.lblBuildInfo.Name = "lblBuildInfo"
         Me.lblBuildInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lblBuildInfo.Size = New System.Drawing.Size(84, 13)
@@ -138,7 +123,6 @@ Partial Class frmLogIn
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.cboUser)
         Me.Controls.Add(Me.PasswordTextBox)
-        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.DoubleBuffered = True
         Me.ForeColor = System.Drawing.SystemColors.Control
@@ -154,7 +138,6 @@ Partial Class frmLogIn
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents cboUser As ComboBox
     Friend WithEvents Label4 As Label

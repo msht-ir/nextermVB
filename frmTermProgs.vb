@@ -53,7 +53,6 @@ Public Class frmTermProgs
                     Menu_Classes.Enabled = boolENBL
                     Menu_Terms.Enabled = boolENBL
                     Menu_Delete_Entry_TermProg.Enabled = boolENBL
-                    Menu_UserActivityLog_CLEAR.Enabled = boolENBL
                     ContextMenuGrid4.Enabled = boolENBL
                     'MenuAddGroup.Enabled = boolENBL
                     'MenuAddCourse.Enabled = boolENBL
@@ -74,7 +73,6 @@ Public Class frmTermProgs
                     Menu_Classes.Enabled = False
                     Menu_Terms.Enabled = False
                     Menu_Delete_Entry_TermProg.Enabled = False
-                    Menu_UserActivityLog_CLEAR.Enabled = False
                     Menu_ReportTechPrograms.Visible = False 'under construction
             End Select
             CheckMessages()
@@ -189,7 +187,7 @@ Public Class frmTermProgs
         End Try
 
     End Sub
-    Private Sub ListBox1_Entries(sender As Object, e As EventArgs) Handles ListBox1.Click
+    Private Sub ListBox1_Entries() Handles ListBox1.Click
         Dim i As String = ListBox1.GetItemText(ListBox1.SelectedValue)
         If Val(i) = 0 Then Exit Sub
         Menu_EntryProg_AllTerms.Enabled = True
@@ -241,11 +239,11 @@ Public Class frmTermProgs
         GridTime_Hide()
         If ((ListBox2.Items.Count > 0) And (intDefaultTermID > 0)) Then
             ListBox2.SelectedValue = intDefaultTermID
-            ListBox2_Terms(sender, e)
+            ListBox2_Terms()
         End If
 
     End Sub
-    Private Sub ListBox2_Terms(sender As Object, e As EventArgs) Handles ListBox2.Click
+    Private Sub ListBox2_Terms() Handles ListBox2.Click
         Dim Ent As String = ListBox1.GetItemText(ListBox1.SelectedValue)
         Dim Trm As String = ListBox2.GetItemText(ListBox2.SelectedValue)
         If Val(Ent) = 0 Then Exit Sub
@@ -445,7 +443,7 @@ Public Class frmTermProgs
         End Try
     End Sub
     Private Sub MenuGreedWeekReport_Click(sender As Object, e As EventArgs) Handles MenuGreedWeekReport.Click
-        ListBox2_Terms(sender, e) ' //enforce  GridWeek_Show() in ListBox2:Terms
+        ListBox2_Terms() ' //enforce  GridWeek_Show() in ListBox2:Terms
         Shell("explorer.exe " & Application.StartupPath & "Nexterm_EntryTerm.html")
     End Sub
     Private Sub GridWeek_Show()
@@ -866,7 +864,7 @@ Public Class frmTermProgs
                 End Select
 
         End Select
-        ListBox2_Terms(sender, e)
+        ListBox2_Terms()
 
     End Sub
     Private Sub Grid4_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles Grid4.CellClick
@@ -1610,7 +1608,7 @@ Public Class frmTermProgs
             End Select
 
             WriteLOG(4)
-            ListBox2_Terms(sender, e)
+            ListBox2_Terms()
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
@@ -1643,7 +1641,7 @@ Public Class frmTermProgs
                     cmd.Parameters.AddWithValue("@courseid", Val(intCourse))
                     cmd.ExecuteNonQuery()
                     WriteLOG(4)
-                    ListBox2_Terms(sender, e)
+                    ListBox2_Terms()
                 Catch ex As Exception
                     MsgBox(ex.ToString)
                 End Try
@@ -1657,7 +1655,7 @@ Public Class frmTermProgs
                     cmd.Parameters.AddWithValue("@courseid", Val(intCourse))
                     cmd.ExecuteNonQuery()
                     WriteLOG(4)
-                    ListBox2_Terms(sender, e)
+                    ListBox2_Terms()
                 Catch ex As Exception
                     MsgBox(ex.ToString)
                 End Try
@@ -1684,7 +1682,7 @@ Public Class frmTermProgs
                     cmd.Parameters.AddWithValue("@id", Grid4.Rows(r).Cells(0).Value)
                     cmd.ExecuteNonQuery()
                     WriteLOG(5)
-                    ListBox2_Terms(sender, e)
+                    ListBox2_Terms()
                 Catch ex As Exception
                     MsgBox(ex.ToString)
                 End Try
@@ -1696,7 +1694,7 @@ Public Class frmTermProgs
                     cmd.Parameters.AddWithValue("@id", Grid4.Rows(r).Cells(0).Value)
                     cmd.ExecuteNonQuery()
                     WriteLOG(5)
-                    ListBox2_Terms(sender, e)
+                    ListBox2_Terms()
                 Catch ex As Exception
                     MsgBox(ex.ToString)
                 End Try
@@ -1752,9 +1750,9 @@ Public Class frmTermProgs
         End If
 
         ' Refresh
-        ListBox1_Entries(sender, e)
+        ListBox1_Entries()
         ListBox2.SelectedIndex = 0
-        ListBox2_Terms(sender, e)
+        ListBox2_Terms()
 
     End Sub
     Private Sub MenuDelClass1_Click(sender As Object, e As EventArgs) Handles MenuDelClass1.Click
@@ -1781,7 +1779,7 @@ Public Class frmTermProgs
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
-        ListBox2_Terms(sender, e)
+        ListBox2_Terms()
 
     End Sub
     Private Sub MenuDelClass2_Click(sender As Object, e As EventArgs) Handles MenuDelClass2.Click
@@ -1808,7 +1806,7 @@ Public Class frmTermProgs
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
-        ListBox2_Terms(sender, e)
+        ListBox2_Terms()
 
     End Sub
     Private Sub PopMenu_SaveWeekGrid(sender As Object, e As EventArgs) Handles PopMenu_SaveWeek.Click
@@ -2113,7 +2111,7 @@ Public Class frmTermProgs
                     Dim i As Integer = cmd.ExecuteNonQuery()
                     MsgBox("برنامه تمامي ترم هاي ورودي" & vbCrLf & vbCrLf & strEntry & vbCrLf & vbCrLf & "حذف شدند" & vbCrLf & vbCrLf & "بااستفاده از برنامه هاي ترميک مي توانيد اين ورودي را مجددا برنامه ريز کنيد", vbOKOnly, "NexTerm")
                     WriteLOG(9)
-                    ListBox1_Entries(sender, e)
+                    ListBox1_Entries()
                 Catch ex As Exception
                     MsgBox(ex.ToString)
                 End Try
@@ -2126,7 +2124,7 @@ Public Class frmTermProgs
                     Dim i As Integer = cmd.ExecuteNonQuery()
                     MsgBox("برنامه تمامي ترم هاي ورودي" & vbCrLf & vbCrLf & strEntry & vbCrLf & vbCrLf & "حذف شدند" & vbCrLf & vbCrLf & "بااستفاده از برنامه هاي ترميک مي توانيد اين ورودي را مجددا برنامه ريز کنيد", vbOKOnly, "NexTerm")
                     WriteLOG(9)
-                    ListBox1_Entries(sender, e)
+                    ListBox1_Entries()
                 Catch ex As Exception
                     MsgBox(ex.ToString)
                 End Try
@@ -2158,7 +2156,7 @@ Public Class frmTermProgs
                 Try
                     i = cmd.ExecuteNonQuery()
                     WriteLOG(8)
-                    ListBox2_Terms(sender, e) 'REFRESH GRID4
+                    ListBox2_Terms() 'REFRESH GRID4
                 Catch ex As Exception
                     MsgBox(ex.ToString)
                 End Try
@@ -2172,7 +2170,7 @@ Public Class frmTermProgs
                 Try
                     i = cmd.ExecuteNonQuery()
                     WriteLOG(8)
-                    ListBox2_Terms(sender, e) 'REFRESH GRID4
+                    ListBox2_Terms() 'REFRESH GRID4
                 Catch ex As Exception
                     MsgBox(ex.ToString)
                 End Try
@@ -2204,7 +2202,7 @@ Public Class frmTermProgs
                 Try
                     i = cmd.ExecuteNonQuery()
                     WriteLOG(8)
-                    ListBox2_Terms(sender, e) 'REFRESH GRID4
+                    ListBox2_Terms() 'REFRESH GRID4
                 Catch ex As Exception
                     MsgBox(ex.ToString)
                 End Try
@@ -2218,7 +2216,7 @@ Public Class frmTermProgs
                 Try
                     i = cmd.ExecuteNonQuery()
                     WriteLOG(8)
-                    ListBox2_Terms(sender, e) 'REFRESH GRID4
+                    ListBox2_Terms() 'REFRESH GRID4
                 Catch ex As Exception
                     MsgBox(ex.ToString)
                 End Try
@@ -2229,29 +2227,7 @@ Public Class frmTermProgs
     'Menu 4 Report
     Private Sub Menu_UserActivityLogs_Click(sender As Object, e As EventArgs) Handles Menu_UserActivityLogs.Click
         UserActivityLog.ShowDialog()
-
-    End Sub
-    Private Sub Menu_UserActivityLog_CLEAR_Click(sender As Object, e As EventArgs) Handles Menu_UserActivityLog_CLEAR.Click
-        Dim myansw As DialogResult = MsgBox("سوابق فعاليت کاربران پاک شود؟", vbYesNo, "نکسترم")
-        If myansw = vbNo Then
-            Exit Sub
-        Else
-            Try
-                Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-                    Case "SqlServer"
-                        DASS.SelectCommand.CommandText = "Delete From xLog"
-                        DASS.Fill(DS, "tblLogs") ' tbl Logs
-                    Case "Access"
-                        DAAC.SelectCommand.CommandText = "delete * From xLog"
-                        DAAC.Fill(DS, "tblLogs") ' tbl Logs
-                End Select
-            Catch ex As Exception
-                MsgBox(ex.ToString)
-            End Try
-            WriteLOG(12)
-            'MsgBox("پاک شد", vbInformation, "Notice:")
-            Menu_UserActivityLogs_Click(sender, e)
-        End If
+        ListBox1_Entries()
 
     End Sub
     Private Sub Menu_ReportStaffProgsInTerms_Click(sender As Object, e As EventArgs) Handles Menu_ReportStaffProgsInTerms.Click

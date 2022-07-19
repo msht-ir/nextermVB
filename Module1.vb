@@ -141,6 +141,7 @@ lbl_SelectDB:
         DS.Tables.Add("tblAllProgs")
         DS.Tables.Add("tblTermExams")
         DS.Tables.Add("tblMsgs")
+        DS.Tables.Add("tblReportProgData")
 
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
             Case "SqlServer"
