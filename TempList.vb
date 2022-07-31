@@ -107,16 +107,18 @@ lbl_Read:
     End Sub
 
     Private Sub Menu_Add_Click(sender As Object, e As EventArgs) Handles Menu_Add.Click
+        Dim intCourseSpecs As Integer = 0
         Dim intCourseUnits As Integer = 0
         Try
             For k As Integer = 0 To GridCourse.Rows.Count - 1
                 If GridCourse.Item(0, k).Value = "+" Then
                     intCourseNumber = GridCourse.Item(1, k).Value
                     strCourse = GridCourse.Item(2, k).Value
-                    intCourseUnits = GridCourse.Item(3, k).Value
+                    intCourseSpecs = GridCourse.Item(3, k).Value
+                    intCourseUnits = GridCourse.Item(4, k).Value
                     Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                         Case "SqlServer"
-                            strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, @units)"
+                            strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Coursespecs, Units) VALUES (@bioprogid, @coursename, @coursenumber, @coursespecs, @units)"
                             Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
                             cmd.CommandType = CommandType.Text
                             cmd.Parameters.AddWithValue("@bioprogid", intBioProg.ToString)
@@ -125,12 +127,13 @@ lbl_Read:
                             cmd.Parameters.AddWithValue("@units", intCourseUnits.ToString)
                             Dim i As Integer = cmd.ExecuteNonQuery()
                         Case "Access"
-                            strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, @units)"
+                            strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Coursespecs, Units) VALUES (@bioprogid, @coursename, @coursenumber, @coursespecs, @units)"
                             Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
                             cmd.CommandType = CommandType.Text
                             cmd.Parameters.AddWithValue("@bioprogid", intBioProg.ToString)
                             cmd.Parameters.AddWithValue("@coursename", strCourse)
                             cmd.Parameters.AddWithValue("@coursenumber", intCourseNumber.ToString)
+                            cmd.Parameters.AddWithValue("@coursespecs", intCourseSpecs.ToString)
                             cmd.Parameters.AddWithValue("@units", intCourseUnits.ToString)
                             Dim i As Integer = cmd.ExecuteNonQuery()
                     End Select

@@ -1,8 +1,7 @@
 ﻿Public Class frmSpecs
-    Private Sub frmSpecs_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmSpecs_Load() Handles MyBase.Load
         'Retval1 {1:BioProgsSpecs  | 2:CourseSpecs}
         'Retval2 : result are stored in Retval2 when menu_OK is clicked
-
         Select Case Retval1
             Case 1 'BioProgs
                 Chk1.Text = "فوق ديپلم"

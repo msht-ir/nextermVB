@@ -1,7 +1,7 @@
 ﻿Public Class UserActivityLog
 
     'FormLoad
-    Private Sub UserActivityLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub UserActivityLog_Load() Handles MyBase.Load
         ComboBox1.DataSource = DS.Tables("tblDepartments")
         ComboBox1.DisplayMember = "DEPT"
         ComboBox1.ValueMember = "ID"
@@ -33,19 +33,22 @@
                 Case "USER Department"
                     Menu_ClearUserActivity.Enabled = False
             End Select
+            Menu_cboSort.SelectedIndex = 0
+            Menu_ReportUserActivity.ForeColor = Color.Blue
+            Menu_ReportCourses.ForeColor = Color.Blue
         Catch ex As Exception
             MsgBox(ex.ToString, vbOKOnly, "گزارش خطا در اجراي نکسترم")
         End Try
 
     End Sub
-    Private Sub ComboBox1_Click(sender As Object, e As EventArgs) Handles ComboBox1.Click
+    Private Sub ComboBox1_Click() Handles ComboBox1.Click
         intDept = ComboBox1.SelectedValue
         RadioButton3.Checked = True
     End Sub
 
 
     ' User Activity
-    Private Sub Menu_ReportUserActivity_Click(sender As Object, e As EventArgs) Handles Menu_ReportUserActivity.Click
+    Private Sub Menu_ReportUserActivity_Click() Handles Menu_ReportUserActivity.Click
         If Menu_cboSort.SelectedIndex = -1 Then MsgBox("نوع مرتب سازي را مشخص کنيد", vbOKOnly, "نکسترم") : Exit Sub
         ReportUserActivity(Menu_cboSort.SelectedIndex + 1)
     End Sub
@@ -113,7 +116,7 @@
         Shell("explorer.exe " & Application.StartupPath & "Nexterm_log.html")
 
     End Sub
-    Private Sub Menu_ClearUserActivity_Click(sender As Object, e As EventArgs) Handles Menu_ClearUserActivity.Click
+    Private Sub Menu_ClearUserActivity_Click() Handles Menu_ClearUserActivity.Click
         Dim myansw As DialogResult = MsgBox("سوابق فعاليت کاربران پاک شود؟", vbYesNo, "نکسترم")
         If myansw = vbNo Then
             Exit Sub
@@ -139,8 +142,8 @@
 
 
     ' Report Courses
-    Private Sub Menu_ReportCourses_Click(sender As Object, e As EventArgs) Handles Menu_ReportCourses.Click
-        strDept = ComboBox1.Text
+    Private Sub Menu_ReportCourses_Click() Handles Menu_ReportCourses.Click
+        If RadioButton3.Checked = True Then strDept = ComboBox1.Text Else strDept = ""
         strTerm = Menu_cboTerm.Text
         Dim intProgLevel As Integer = Menu_cboLevel.SelectedIndex       '{Dop, Bsc, Msc, Md, Phd}
         Dim strProgLevel As String = Menu_cboLevel.Text
@@ -173,66 +176,96 @@
         '0 Term, 1 DepartmentName, 2 ProgramName, 3 EntYear, 4 CourseName, 5 CourseNumber, 6 Units, 7 Group, 8 Note
         FileOpen(1, Application.StartupPath & "\Nexterm_ReportCourses.html", OpenMode.Output)
         PrintLine(1, "<html dir= ""rtl"">")
-        PrintLine(1, "<head><title>گزارش درس هاي ارايه شده</title>")
+        PrintLine(1, "<head><title>گزارش درس ها</title>")
         PrintLine(1, "<style>table, th, td {border: 1px solid;} body {background-image:url('" & strReportBG & "');}</style></head>")
         PrintLine(1, "<body>")
         PrintLine(1, "<p style='color:blue; font-family:tahoma; font-size:12px; text-align:center'>دانشگاه شهرکرد، دانشکده علوم پايه</p>")
-        PrintLine(1, "<p style='color:green; font-family:tahoma; font-size:12px; text-align:center'>گزارش درس هاي ارايه شده</p><hr>")
+        PrintLine(1, "<p style='color:green; font-family:tahoma; font-size:12px; text-align:center'>گزارش درس هاي برنامه ريزي شده</p><hr>")
 
-        If strDept <> "" Then PrintLine(1, "<p style='color:steelblue; font-family:tahoma; font-size:12px'>فيلتر:</p>")
+        PrintLine(1, "<p style='color:steelblue; font-family:tahoma; font-size:12px'>فيلتر:</p>")
         If strDept <> "" Then PrintLine(1, "<p style='color:royalblue; font-family:tahoma; font-size:12px'> گروه آموزشي: ", strDept, "</p>")
         If strTerm <> "" Then PrintLine(1, "<p style='color:darkgray; font-family:tahoma; font-size:12px'>", strTerm, "</p>")
         If strProgLevel <> "" Then PrintLine(1, "<p style='color:MediumPurple; font-family:tahoma; font-size:12px'> مقطع ", strProgLevel, "</p>")
-        If strCourseType <> "" Then PrintLine(1, "<p style='color:royalblue; font-family:tahoma; font-size:12px'>", strCourseType, "</p><hr>")
-        PrintLine(1, "<p style='font-family:tahoma; font-size:12px'></p>")
+        If strCourseType <> "" Then PrintLine(1, "<p style='color:royalblue; font-family:tahoma; font-size:12px'>", strCourseType, "</p>")
+        PrintLine(1, "<p style='font-family:tahoma; font-size:12px'></p><hr>")
         '//draw table
-        PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>درس هاي ارايه شده به تفکيک دروه ها آموزشي در هريک از گروه ها</p>")
+        PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>درس هاي برنامه ريزي شده به تفکيک دروه آموزشي در هر گروه</p>")
         PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
         PrintLine(1, "<tr><th>گروه آموزشي</th><th>ترم</th><th>دوره آموزشي</th><th>ورودي</th><th>نام درس</th><th>شماره درس</th><th>واحد</th><th>گروه</th><th>يادداشت</th></tr>")
 
-        Dim strTermName As String = ""
-        Dim strEntryName As String = ""
+        Try
+            Dim strTermName As String = DS.Tables("tblreportProgData").Rows(0).Item(0)
+            Dim strEntryName As String = DS.Tables("tblreportProgData").Rows(0).Item(2)
+            Dim intCounter4Term As Integer = 0
+            Dim intUnits4Term As Integer = 0
+            Dim intCounter4Entry As Integer = 0
+            Dim intUnits4Entry As Integer = 0
 
-        For i As Integer = 0 To DS.Tables("tblreportProgData").Rows.Count - 1
-            If strTermName <> DS.Tables("tblreportProgData").Rows(i).Item(0) Then 'reached Next Term
-                strTermName = DS.Tables("tblreportProgData").Rows(i).Item(0)
-                PrintLine(1, "<tr><td>^</td></tr>")
-                PrintLine(1, "<tr><th>گروه آموزشي</th><th>ترم</th><th>دوره آموزشي</th><th>ورودي</th><th>نام درس</th><th>شماره درس</th><th>واحد</th><th>گروه</th><th>يادداشت</th></tr>")
-            End If
-            If strEntryName <> DS.Tables("tblreportProgData").Rows(i).Item(2) Then 'reached Next Entry
-                strEntryName = DS.Tables("tblreportProgData").Rows(i).Item(2)
-                PrintLine(1, "<tr><td>^</td></tr>")
-                PrintLine(1, "<tr><th>گروه آموزشي</th><th>ترم</th><th>دوره آموزشي</th><th>ورودي</th><th>نام درس</th><th>شماره درس</th><th>واحد</th><th>گروه</th><th>يادداشت</th></tr>")
-            End If
-            PrintLine(1, "<tr>")
-            PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(0), "</td>")   ' 0 term
-            PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(1), "</td>")   ' 1
-            PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(2), "</td>")   ' 2
-            PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(3), "</td>")   ' 3
-            PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(4), "</td>")   ' 4
-            PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(5), "</td>")   ' 5
-            PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(6), "</td>")   ' 6
-            PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(7), "</td>")   ' 7
-            PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(8), "</td>")   ' 8 notes
-            PrintLine(1, "</tr>")
-        Next i
-        PrintLine(1, "</table><br>")
-        ' //FOOTER
-        PrintLine(1, "<br><hr>")
-        PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>" & strReportsFooter & "</p>")
-        PrintLine(1, "</body></html>")
-        FileClose(1)
-        Shell("explorer.exe " & Application.StartupPath & "Nexterm_ReportCourses.html")
+            For i As Integer = 0 To DS.Tables("tblreportProgData").Rows.Count - 1
+                If strEntryName <> DS.Tables("tblreportProgData").Rows(i).Item(2) Then 'reached Next Entry
+                    strEntryName = DS.Tables("tblreportProgData").Rows(i).Item(2)      'change  Next Entry
+                    PrintLine(1, "<tr><td>^</td><td>" & intCounter4Entry & ":" & intUnits4Entry & "</td></tr>")
+                    intCounter4Entry = 0 : intUnits4Entry = 0
+                End If
+                If strTermName <> DS.Tables("tblreportProgData").Rows(i).Item(0) Then 'reached Next Term
+                    strTermName = DS.Tables("tblreportProgData").Rows(i).Item(0)      'change  Next Term
+                    PrintLine(1, "<tr><td>^</td><td>" & intCounter4Term & ":" & intUnits4Term & "</td></tr>")
+                    PrintLine(1, "<tr><th>گروه آموزشي</th><th>ترم</th><th>دوره آموزشي</th><th>ورودي</th><th>نام درس</th><th>شماره درس</th><th>واحد</th><th>گروه</th><th>يادداشت</th></tr>")
+                    intCounter4Term = 0 : intUnits4Term = 0
+                End If
+lbl_continue:
+                PrintLine(1, "<tr>")
+                PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(0), "</td>")   ' 0 term
+                PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(1), "</td>")   ' 1
+                PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(2), "</td>")   ' 2
+                PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(3), "</td>")   ' 3
+                PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(4), "</td>")   ' 4
+                PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(5), "</td>")   ' 5
+                PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(6), "</td>")   ' 6
+                PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(7), "</td>")   ' 7
+                PrintLine(1, "<td>", DS.Tables("tblReportProgData").Rows(i).Item(8), "</td>")   ' 8 notes
+                PrintLine(1, "</tr>")
+                intCounter4Entry = intCounter4Entry + 1 : intUnits4Entry = intUnits4Entry + DS.Tables("tblReportProgData").Rows(i).Item(6)
+                intCounter4Term = intCounter4Term + 1 : intUnits4Term = intUnits4Term + DS.Tables("tblReportProgData").Rows(i).Item(6)
+            Next i
+
+            PrintLine(1, "<tr><td>^</td><td>" & intCounter4Entry & ":" & intUnits4Entry & "</td></tr>")
+            PrintLine(1, "<tr><td>^</td><td>" & intCounter4Term & ":" & intUnits4Term & "</td></tr>")
+            PrintLine(1, "</table><br>")
+            'Filter reprint
+            PrintLine(1, "<p style='color:steelblue; font-family:tahoma; font-size:12px'>فيلتر - يادآوري:</p>")
+            If strDept <> "" Then PrintLine(1, "<p style='color:royalblue; font-family:tahoma; font-size:12px'> گروه آموزشي: ", strDept, "</p>")
+            If strTerm <> "" Then PrintLine(1, "<p style='color:darkgray; font-family:tahoma; font-size:12px'>", strTerm, "</p>")
+            If strProgLevel <> "" Then PrintLine(1, "<p style='color:MediumPurple; font-family:tahoma; font-size:12px'> مقطع ", strProgLevel, "</p>")
+            If strCourseType <> "" Then PrintLine(1, "<p style='color:royalblue; font-family:tahoma; font-size:12px'>", strCourseType, "</p>")
+
+            ' //FOOTER
+            PrintLine(1, "<br><hr>")
+            PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>" & strReportsFooter & "</p>")
+            PrintLine(1, "</body></html>")
+            FileClose(1)
+            Shell("explorer.exe " & Application.StartupPath & "Nexterm_ReportCourses.html")
+        Catch ex As Exception
+            FileClose(1)
+            Exit Sub
+        End Try
 
     End Sub
 
 
 
     ' EXIT
-    Private Sub Menu_Exit_Click(sender As Object, e As EventArgs) Handles Menu_Exit.Click
+    Private Sub Menu_Exit_Click() Handles Menu_Exit.Click
         DS.Tables("tblTerms").Clear()
         Me.Dispose()
 
     End Sub
 
+    Private Sub RadioButton2_Click(sender As Object, e As EventArgs) Handles RadioButton2.Click
+        ComboBox1.SelectedIndex = -1
+    End Sub
+
+    Private Sub RadioButton1_Click(sender As Object, e As EventArgs) Handles RadioButton1.Click
+        ComboBox1.SelectedIndex = -1
+    End Sub
 End Class
