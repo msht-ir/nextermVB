@@ -175,7 +175,7 @@
         ListStaff.SelectedValue = 0
 
     End Sub
-    Private Sub Grid1_CellValueChanged() Handles Grid1.CellValueChanged
+    Private Sub Grid1_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles Grid1.CellValueChanged
         If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If Userx <> "USER Faculty" Then
             MsgBox("Changes discarded", vbOK, "کاربر : گروه آموزشي")
@@ -642,8 +642,8 @@
         GridCourse.Columns(3).Width = 0    'Specs
         GridCourse.Columns(4).Width = 40   'Units
 
-        GridCourse.Columns(0).Visible = False 'ID
-        GridCourse.Columns(3).Visible = False 'Specs
+        GridCourse.Columns(0).Visible = False
+        GridCourse.Columns(3).Visible = False
 
         For k = 0 To GridCourse.Columns.Count - 1
             GridCourse.Columns.Item(k).SortMode = DataGridViewColumnSortMode.Programmatic
@@ -753,8 +753,7 @@
     Private Sub GridEntries_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridEntries.CellDoubleClick
         Select Case Userx
             Case "USER Department"
-                Menu_EditEntry_Click(sender, e)
-                '//Menu_OKEntry_Click(sender, e)
+                Menu_OKEntry_Click(sender, e)
                 Exit Sub
             Case "USER Faculty"
                 If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
@@ -826,7 +825,7 @@
     End Sub
 
     ' COURSE
-    Private Sub GridCourse_CellDoubleClick() Handles GridCourse.CellDoubleClick
+    Private Sub GridCourse_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellDoubleClick
         If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         Dim r As Integer = GridCourse.SelectedCells(0).RowIndex    'count from 0
         Dim c As Integer = GridCourse.SelectedCells(0).ColumnIndex 'count from 0
@@ -834,7 +833,7 @@
         If r < 0 Or c < 0 Then Exit Sub
 
         If Userx = "USER Department" And c = 1 Then
-            Menu_OKCourse_Click() 'Return A COURSE
+            Menu_OKCourse_Click(sender, e) 'Return A COURSE
             Exit Sub
         Else
             Dim strValue As String = GridCourse(c, r).Value
@@ -847,27 +846,28 @@
                         If myansw = vbNo Then Exit Sub
                         GridCourse(c, r).Value = strValue
                         WriteLOG(18)
-                    Case 2, 4 ' Number, Unit
+                    Case 2, 3 ' Number, Unit
                         If Val(strValue) = 0 Then Exit Sub
                         GridCourse(c, r).Value = strValue
                         If c = 2 Then
                             WriteLOG(19)
-                        ElseIf c = 4 Then
+                        ElseIf c = 3 Then
                             WriteLOG(20)
                         End If
                 End Select
-                GridCourse_CellValueChanged()
+
             Catch ex As Exception
                 MsgBox(ex.ToString)
             End Try
         End If
 
     End Sub
-    Private Sub GridCourse_CellValueChanged()
+    Private Sub GridCourse_CellValueChanged() Handles GridCourse.CellValueChanged
         If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If GridCourse.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridCourse.CurrentCell.RowIndex   'count from 0
         If r < 0 Then Exit Sub
+
         GridCourse.CurrentCell = GridCourse(1, r)
 
         Dim strCourseName As String = GridCourse.Rows(r).Cells(1).Value
@@ -880,7 +880,7 @@
         DS.Tables("tblCourses").Rows(r).Item(3) = intCourseSpecs
 
         Dim intCourseUnits As Integer = GridCourse.Rows(r).Cells(4).Value
-        DS.Tables("tblCourses").Rows(r).Item(4) = intCourseUnits
+        DS.Tables("tblCourses").Rows(r).Item(3) = intCourseUnits
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
             Case "SqlServer"
                 strSQL = "UPDATE Courses SET CourseName = @coursename, CourseNumber = @coursenumber, Coursespecs = @coursespecs, Units = @units WHERE ID = @ID"
@@ -893,7 +893,7 @@
                 cmd.Parameters.AddWithValue("@ID", DS.Tables("tblCourses").Rows(r).Item(0).ToString)
                 Dim i As Integer = cmd.ExecuteNonQuery()
             Case "Access"
-                strSQL = "UPDATE Courses SET CourseName = @coursename, CourseNumber = @coursenumber, Coursespecs = @coursespecs, Units = @units WHERE ID = @ID"
+                strSQL = "UPDATE Courses SET CourseName = @coursename, CourseNumber = @coursenumber, Units = @units WHERE ID = @ID"
                 Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
                 cmd.CommandType = CommandType.Text
                 cmd.Parameters.AddWithValue("@coursename", strCourseName)
@@ -905,7 +905,7 @@
         End Select
 
     End Sub
-    Private Sub Menu_AddCourse_Click() Handles Menu_AddCourse.Click
+    Private Sub Menu_AddCourse_Click(sender As Object, e As EventArgs) Handles Menu_AddCourse.Click
         If (UserAccessControls And (2 ^ 4)) = 0 Then MsgBox("قابليت (افزودن/ويرايش) اين آيتم اکنون براي شما غير فعال است", vbInformation, "تنظيمات نکسترم") : Exit Sub
         If ListBioProg.SelectedIndex = -1 Then Exit Sub
         Dim myansw As DialogResult = MsgBox("درس جديد به اين دوره آموزشي افزوده شود؟", vbYesNo + vbDefaultButton2, "NexTerm")
@@ -917,7 +917,7 @@
             Else
                 Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                     Case "SqlServer"
-                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, CourseSpecs, Units) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
+                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
                         Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
                         cmd.CommandType = CommandType.Text
                         cmd.Parameters.AddWithValue("@bioprogid", ListBioProg.SelectedValue)
@@ -926,11 +926,12 @@
                         Dim i As Integer
                         Try
                             i = cmd.ExecuteNonQuery()
+                            'MsgBox(" درس " & strCourse & " افزوده شد ", vbOKOnly, "نکسترم")
                         Catch ex As Exception
                             MsgBox("error: " & ex.ToString)
                         End Try
                     Case "Access"
-                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, CourseSpecs, Units) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
+                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
                         Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
                         cmd.CommandType = CommandType.Text
                         cmd.Parameters.AddWithValue("@bioprogid", ListBioProg.SelectedValue)
@@ -939,13 +940,14 @@
                         Dim i As Integer
                         Try
                             i = cmd.ExecuteNonQuery()
+                            'MsgBox(" درس " & strCourse & " افزوده شد ", vbOKOnly, "نکسترم")
                         Catch ex As Exception
                             MsgBox("error: " & ex.ToString)
                         End Try
                 End Select
             End If
             ListBioProg_Click()
-            '//GridCourse.Refresh()
+            GridCourse.Refresh()
         End If
 
     End Sub
@@ -973,7 +975,6 @@
             Exit Sub
         Else
             GridCourse(2, r).Value = intCourseNumber
-            GridCourse_CellValueChanged()
             WriteLOG(19)
         End If
 
@@ -983,13 +984,14 @@
         If GridCourse.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridCourse.CurrentCell.RowIndex   'count from 0
         If r < 0 Then Exit Sub
-        Retval1 = 2 '{1:BioProgs | 2:Courses}
+        Retval1 = 2                                          '{1:BioProgs | 2:Courses}
         Retval2 = DS.Tables("tblCourses").Rows(r).Item(3)    '{data : in bits}
+        'MsgBox(Retval1.ToString & "  <r1 | r2>" & Retval2.ToString)
         frmSpecs.ShowDialog()
-        'Retval2: data , Retval1:{OK|Cancel}
-        If Retval1 = 1 Then
-            GridCourse(3, r).Value = Retval2.ToString
+        If Retval1 = 1 Then                                  'retval1 {0:Cancelled , 1:OK}
+            GridCourse(3, r).Value = Retval2
             DS.Tables("tblCourses").Rows(r).Item(3) = Retval2
+            'MsgBox(DS.Tables("tblCourses").Rows(r).Item(3).ToString & " :table | retval2: " & Retval2.ToString)
             GridCourse_CellValueChanged()
             ListBioProg_Click()
         Else
@@ -1020,7 +1022,7 @@
         MsgBox("ليست درس ذخيره شد" & vbCrLf & strFilename, vbOKOnly, "نکسترم")
 
     End Sub
-    Private Sub Menu_OKCourse_Click() Handles Menu_OKCourse.Click
+    Private Sub Menu_OKCourse_Click(sender As Object, e As EventArgs) Handles Menu_OKCourse.Click
         If GridCourse.RowCount < 1 Then Exit Sub
         Dim r As Integer = GridCourse.CurrentRow.Index
         Try

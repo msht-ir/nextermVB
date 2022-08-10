@@ -435,59 +435,59 @@ Partial Class frmDepts
         Me.ContextMenuCourses.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_AddCourseFromList, Me.Menu_AddCourse, Me.Menu_EditCourseNumber, Me.Menu_EditCourseSpecs, Me.ToolStripSeparator4, Me.Menu_ExportCourseList, Me.ToolStripMenuItem2, Me.Menu_OKCourse, Me.Menu_CancelCourse})
         Me.ContextMenuCourses.Name = "ContextMenuStrip1"
         Me.ContextMenuCourses.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuCourses.Size = New System.Drawing.Size(152, 170)
+        Me.ContextMenuCourses.Size = New System.Drawing.Size(181, 192)
         '
         'Menu_AddCourseFromList
         '
         Me.Menu_AddCourseFromList.Enabled = False
         Me.Menu_AddCourseFromList.Name = "Menu_AddCourseFromList"
-        Me.Menu_AddCourseFromList.Size = New System.Drawing.Size(151, 22)
+        Me.Menu_AddCourseFromList.Size = New System.Drawing.Size(180, 22)
         Me.Menu_AddCourseFromList.Text = "+  از ليست ..."
         '
         'Menu_AddCourse
         '
         Me.Menu_AddCourse.Name = "Menu_AddCourse"
-        Me.Menu_AddCourse.Size = New System.Drawing.Size(151, 22)
+        Me.Menu_AddCourse.Size = New System.Drawing.Size(180, 22)
         Me.Menu_AddCourse.Text = "+  درس جديد"
         '
         'Menu_EditCourseNumber
         '
         Me.Menu_EditCourseNumber.Name = "Menu_EditCourseNumber"
-        Me.Menu_EditCourseNumber.Size = New System.Drawing.Size(151, 22)
+        Me.Menu_EditCourseNumber.Size = New System.Drawing.Size(180, 22)
         Me.Menu_EditCourseNumber.Text = "ويرايش شماره"
         '
         'Menu_EditCourseSpecs
         '
         Me.Menu_EditCourseSpecs.Name = "Menu_EditCourseSpecs"
-        Me.Menu_EditCourseSpecs.Size = New System.Drawing.Size(151, 22)
+        Me.Menu_EditCourseSpecs.Size = New System.Drawing.Size(180, 22)
         Me.Menu_EditCourseSpecs.Text = "مشخصات"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(148, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(177, 6)
         '
         'Menu_ExportCourseList
         '
         Me.Menu_ExportCourseList.Name = "Menu_ExportCourseList"
-        Me.Menu_ExportCourseList.Size = New System.Drawing.Size(151, 22)
+        Me.Menu_ExportCourseList.Size = New System.Drawing.Size(180, 22)
         Me.Menu_ExportCourseList.Text = "ذخيره در فايل ..."
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(148, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
         '
         'Menu_OKCourse
         '
         Me.Menu_OKCourse.Name = "Menu_OKCourse"
-        Me.Menu_OKCourse.Size = New System.Drawing.Size(151, 22)
+        Me.Menu_OKCourse.Size = New System.Drawing.Size(180, 22)
         Me.Menu_OKCourse.Text = " تاييد / انتخاب"
         '
         'Menu_CancelCourse
         '
         Me.Menu_CancelCourse.Name = "Menu_CancelCourse"
-        Me.Menu_CancelCourse.Size = New System.Drawing.Size(151, 22)
+        Me.Menu_CancelCourse.Size = New System.Drawing.Size(180, 22)
         Me.Menu_CancelCourse.Text = "خروج / انصراف"
         '
         'Panel4

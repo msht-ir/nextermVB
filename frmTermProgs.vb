@@ -1888,7 +1888,7 @@ Public Class frmTermProgs
         End Select
 
     End Sub
-    Private Sub Menu_ExitNexTerm_Click() Handles Menu_ExitNexTerm.Click
+    Private Sub Menu_ExitNexTerm_Click(sender As Object, e As EventArgs) Handles Menu_ExitNexTerm.Click
         DoExitNexTerm()
     End Sub
     'poup menu TERMS
@@ -2023,7 +2023,7 @@ Public Class frmTermProgs
         frmShowNotes.ShowDialog()
 
     End Sub
-    Private Sub Menu_Quit_Click() Handles Menu_Quit.Click
+    Private Sub Menu_Quit_Click(sender As Object, e As EventArgs) Handles Menu_Quit.Click
         DoExitNexTerm()
     End Sub
 
