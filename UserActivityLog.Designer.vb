@@ -49,16 +49,17 @@ Partial Class UserActivityLog
         '
         'ContextMenuStrip1
         '
+        Me.ContextMenuStrip1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_B, Me.ToolStripMenuItem2, Me.Menu_A, Me.ToolStripMenuItem1, Me.Menu_Exit})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(170, 82)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 104)
         '
         'Menu_B
         '
         Me.Menu_B.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_cboSort, Me.ToolStripMenuItem4, Me.Menu_ReportUserActivity, Me.Menu_ClearUserActivity})
         Me.Menu_B.Name = "Menu_B"
-        Me.Menu_B.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_B.Size = New System.Drawing.Size(169, 22)
         Me.Menu_B.Text = "فعاليت کاربران"
         '
         'Menu_cboSort
@@ -83,18 +84,18 @@ Partial Class UserActivityLog
         '
         Me.Menu_ClearUserActivity.Name = "Menu_ClearUserActivity"
         Me.Menu_ClearUserActivity.Size = New System.Drawing.Size(220, 22)
-        Me.Menu_ClearUserActivity.Text = "پاک کردن سوابق"
+        Me.Menu_ClearUserActivity.Text = "پاک شود"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(166, 6)
         '
         'Menu_A
         '
         Me.Menu_A.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_cboTerm, Me.Menu_cboLevel, Me.Menu_cboCourseType, Me.ToolStripMenuItem3, Me.Menu_ReportCourses})
         Me.Menu_A.Name = "Menu_A"
-        Me.Menu_A.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_A.Size = New System.Drawing.Size(169, 22)
         Me.Menu_A.Text = "گزارش ارايه درس ها"
         '
         'Menu_cboTerm
@@ -121,23 +122,23 @@ Partial Class UserActivityLog
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(217, 6)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(234, 6)
         '
         'Menu_ReportCourses
         '
         Me.Menu_ReportCourses.Name = "Menu_ReportCourses"
-        Me.Menu_ReportCourses.Size = New System.Drawing.Size(220, 22)
-        Me.Menu_ReportCourses.Text = "گزارش درس هاي ارايه شده"
+        Me.Menu_ReportCourses.Size = New System.Drawing.Size(237, 22)
+        Me.Menu_ReportCourses.Text = "گزارش درس هاي برنامه ريزي شده"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(166, 6)
         '
         'Menu_Exit
         '
         Me.Menu_Exit.Name = "Menu_Exit"
-        Me.Menu_Exit.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Exit.Size = New System.Drawing.Size(169, 22)
         Me.Menu_Exit.Text = "خروج"
         '
         'RadioButton1
@@ -146,8 +147,8 @@ Partial Class UserActivityLog
         Me.RadioButton1.BackColor = System.Drawing.Color.Transparent
         Me.RadioButton1.Checked = True
         Me.RadioButton1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioButton1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.RadioButton1.Location = New System.Drawing.Point(65, 43)
+        Me.RadioButton1.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.RadioButton1.Location = New System.Drawing.Point(39, 43)
         Me.RadioButton1.Name = "RadioButton1"
         Me.RadioButton1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.RadioButton1.Size = New System.Drawing.Size(49, 19)
@@ -161,8 +162,8 @@ Partial Class UserActivityLog
         Me.RadioButton2.AutoSize = True
         Me.RadioButton2.BackColor = System.Drawing.Color.Transparent
         Me.RadioButton2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioButton2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.RadioButton2.Location = New System.Drawing.Point(157, 43)
+        Me.RadioButton2.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.RadioButton2.Location = New System.Drawing.Point(107, 43)
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.RadioButton2.Size = New System.Drawing.Size(66, 19)
@@ -175,8 +176,8 @@ Partial Class UserActivityLog
         Me.RadioButton3.AutoSize = True
         Me.RadioButton3.BackColor = System.Drawing.Color.Transparent
         Me.RadioButton3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioButton3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.RadioButton3.Location = New System.Drawing.Point(520, 43)
+        Me.RadioButton3.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.RadioButton3.Location = New System.Drawing.Point(495, 43)
         Me.RadioButton3.Name = "RadioButton3"
         Me.RadioButton3.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.RadioButton3.Size = New System.Drawing.Size(47, 19)
@@ -189,15 +190,15 @@ Partial Class UserActivityLog
         Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(278, 40)
+        Me.ComboBox1.Location = New System.Drawing.Point(199, 40)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ComboBox1.Size = New System.Drawing.Size(231, 25)
+        Me.ComboBox1.Size = New System.Drawing.Size(240, 25)
         Me.ComboBox1.TabIndex = 4
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.Color.PaleGoldenrod
+        Me.Panel1.BackColor = System.Drawing.Color.Navy
         Me.Panel1.ContextMenuStrip = Me.ContextMenuStrip1
         Me.Panel1.Controls.Add(Me.ComboBox1)
         Me.Panel1.Controls.Add(Me.RadioButton3)
@@ -206,7 +207,7 @@ Partial Class UserActivityLog
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(597, 117)
+        Me.Panel1.Size = New System.Drawing.Size(629, 124)
         Me.Panel1.TabIndex = 7
         '
         'UserActivityLog
@@ -214,7 +215,7 @@ Partial Class UserActivityLog
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(597, 149)
+        Me.ClientSize = New System.Drawing.Size(629, 144)
         Me.ControlBox = False
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
