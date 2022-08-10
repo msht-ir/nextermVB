@@ -43,6 +43,7 @@ Partial Class UserActivityLog
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -202,6 +203,7 @@ Partial Class UserActivityLog
         '
         Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Panel1.ContextMenuStrip = Me.ContextMenuStrip1
+        Me.Panel1.Controls.Add(Me.CheckBox1)
         Me.Panel1.Controls.Add(Me.ComboBox1)
         Me.Panel1.Controls.Add(Me.RadioButton3)
         Me.Panel1.Controls.Add(Me.RadioButton1)
@@ -211,6 +213,16 @@ Partial Class UserActivityLog
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(470, 134)
         Me.Panel1.TabIndex = 7
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(63, 91)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(85, 19)
+        Me.CheckBox1.TabIndex = 5
+        Me.CheckBox1.Text = "CheckBox1"
+        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'UserActivityLog
         '
@@ -277,4 +289,5 @@ Partial Class UserActivityLog
     Friend WithEvents ToolStripMenuItem4 As ToolStripSeparator
     Friend WithEvents Menu_ClearUserActivity As ToolStripMenuItem
     Friend WithEvents Menu_cboSort As ToolStripComboBox
+    Friend WithEvents CheckBox1 As CheckBox
 End Class
