@@ -3,6 +3,11 @@ Public Class frmLogIn
         SetFacultyUserRhites() ' Set acc for Faculty
         Try
             lblBuildInfo.Text = strBuildInfo ' & " | " & Server2Connect
+            If strCurrentVersion <> strBuildInfo Then
+                lblNewVersion.Visible = True
+            Else
+                lblNewVersion.Visible = False
+            End If
             cboUser.DataSource = DS.Tables("tblDepartments")
             cboUser.DisplayMember = "DEPT"
             cboUser.ValueMember = "ID"
@@ -103,5 +108,9 @@ lbl_GetUserNickName2:
     Private Sub lblBuildInfo_Click(sender As Object, e As EventArgs) Handles lblBuildInfo.Click
         MsgBox(strCaption, vbOKOnly, "NexTerm")
 
+    End Sub
+
+    Private Sub lblNewVersion_Click(sender As Object, e As EventArgs) Handles lblNewVersion.Click
+        MsgBox("Notice: Newer version is available!" & vbCrLf & vbCrLf & strCurrentVersion, vbOKOnly, "NexTerm")
     End Sub
 End Class

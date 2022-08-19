@@ -74,40 +74,41 @@ Partial Class ChooseCourse
         Me.ContextMenuCourses.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuOK, Me.ToolStripMenuItem2, Me.MenuAddCourse, Me.Menu_Edit, Me.ToolStripMenuItem1, Me.MenuCancel})
         Me.ContextMenuCourses.Name = "ContextMenuStrip1"
         Me.ContextMenuCourses.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuCourses.Size = New System.Drawing.Size(148, 104)
+        Me.ContextMenuCourses.Size = New System.Drawing.Size(181, 126)
         '
         'MenuOK
         '
         Me.MenuOK.Name = "MenuOK"
-        Me.MenuOK.Size = New System.Drawing.Size(147, 22)
+        Me.MenuOK.Size = New System.Drawing.Size(180, 22)
         Me.MenuOK.Text = "انتخاب / تاييد"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(144, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
         '
         'MenuAddCourse
         '
         Me.MenuAddCourse.Name = "MenuAddCourse"
-        Me.MenuAddCourse.Size = New System.Drawing.Size(147, 22)
+        Me.MenuAddCourse.Size = New System.Drawing.Size(180, 22)
         Me.MenuAddCourse.Text = "افزودن"
         '
         'Menu_Edit
         '
         Me.Menu_Edit.Name = "Menu_Edit"
-        Me.Menu_Edit.Size = New System.Drawing.Size(147, 22)
+        Me.Menu_Edit.Size = New System.Drawing.Size(180, 22)
         Me.Menu_Edit.Text = "ويرايش"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(144, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
         '
         'MenuCancel
         '
+        Me.MenuCancel.ForeColor = System.Drawing.Color.IndianRed
         Me.MenuCancel.Name = "MenuCancel"
-        Me.MenuCancel.Size = New System.Drawing.Size(147, 22)
+        Me.MenuCancel.Size = New System.Drawing.Size(180, 22)
         Me.MenuCancel.Text = "خروج / انصراف"
         '
         'ChooseCourse

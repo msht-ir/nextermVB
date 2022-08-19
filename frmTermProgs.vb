@@ -2552,7 +2552,11 @@ lblx:
         If intUser = 0 Then intDept = ComboBox1.SelectedValue
         If intDept = 0 Then
             ChooseDept.ShowDialog()
-            If intDept = 0 Then Exit Sub
+            If intDept = 0 Then
+                Exit Sub
+            Else
+                ComboBox1.SelectedValue = intDept
+            End If
         End If
 
         intTerm = ListBox2.SelectedValue
@@ -2819,4 +2823,5 @@ lblx2:
             End Try
         End If
     End Sub
+
 End Class

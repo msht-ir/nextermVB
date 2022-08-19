@@ -31,6 +31,7 @@ Partial Class frmLogIn
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.lblBuildInfo = New System.Windows.Forms.Label()
+        Me.lblNewVersion = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'PasswordTextBox
@@ -110,6 +111,20 @@ Partial Class frmLogIn
         Me.lblBuildInfo.Text = "Build 14010402"
         Me.lblBuildInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'lblNewVersion
+        '
+        Me.lblNewVersion.AutoSize = True
+        Me.lblNewVersion.BackColor = System.Drawing.Color.Transparent
+        Me.lblNewVersion.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.lblNewVersion.ForeColor = System.Drawing.Color.IndianRed
+        Me.lblNewVersion.Location = New System.Drawing.Point(90, 370)
+        Me.lblNewVersion.Name = "lblNewVersion"
+        Me.lblNewVersion.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.lblNewVersion.Size = New System.Drawing.Size(163, 19)
+        Me.lblNewVersion.TabIndex = 10
+        Me.lblNewVersion.Text = "newer version is available"
+        Me.lblNewVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'frmLogIn
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -118,6 +133,7 @@ Partial Class frmLogIn
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(344, 433)
         Me.ControlBox = False
+        Me.Controls.Add(Me.lblNewVersion)
         Me.Controls.Add(Me.lblBuildInfo)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
@@ -143,4 +159,5 @@ Partial Class frmLogIn
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents lblBuildInfo As Label
+    Friend WithEvents lblNewVersion As Label
 End Class

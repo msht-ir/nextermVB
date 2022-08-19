@@ -61,10 +61,8 @@
         GridCourse.Columns(1).Width = 220  'Course
         GridCourse.Columns(2).Width = 80   'Number
         GridCourse.Columns(3).Width = 40   'Units
-        GridCourse.Columns(4).Width = 0    'Units-eq
 
         GridCourse.Columns(0).Visible = False
-        GridCourse.Columns(4).Visible = False
 
         For k = 0 To GridCourse.Columns.Count - 1
             GridCourse.Columns.Item(k).SortMode = DataGridViewColumnSortMode.Programmatic
@@ -144,7 +142,7 @@
                 intCourseNumber = Val(InputBox("شماره درس", "NexTerm", "123456789"))
                 Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                     Case "SqlServer"
-                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
+                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, 2)"
                         Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
                         cmd.CommandType = CommandType.Text
                         cmd.Parameters.AddWithValue("@bioprogid", ComboBioProg.SelectedValue)
@@ -160,7 +158,7 @@
                             MsgBox("error: " & ex.ToString)
                         End Try
                     Case "Access"
-                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, 2, 2)"
+                        strSQL = "INSERT INTO Courses (BioProg_ID, CourseName, CourseNumber, Units) VALUES (@bioprogid, @coursename, @coursenumber, 2)"
                         Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
                         cmd.CommandType = CommandType.Text
                         cmd.Parameters.AddWithValue("@bioprogid", ComboBioProg.SelectedValue)

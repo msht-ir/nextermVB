@@ -134,7 +134,7 @@
             strFacultyPass = DS.Tables("tblSettings").Rows(2).Item(2)
             If UCase(DS.Tables("tblSettings").Rows(3).Item(2)) = "YES" Then boolLog = True Else boolLog = False
             strReportBG = DS.Tables("tblSettings").Rows(5).Item(2)
-            Catch ex As Exception
+        Catch ex As Exception
             MsgBox("خطا در بخش تنظيمات نکسترم", vbOKOnly, "نکسترم") 'MsgBox(ex.ToString)
             boolLog = False
 

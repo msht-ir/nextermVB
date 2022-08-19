@@ -57,7 +57,7 @@ Module Module1
     Public intTimeFlag(5, 7) As Integer ' (r:6days, c:8times //begins from 0)
     Public boolLog As Boolean 'Log User Activity (YES/NO) in Setting
     Public strReportsFooter As String = "NexTerm Desktop App [ www.msht.ir ], Faculty of Science, SKU. Developer: Dr. Majid Sharifi-Tehrani (1400-1401)"
-
+    Public strCurrentVersion As String = ""
 
     Sub Main()
         frmAbout.ShowDialog()
@@ -67,7 +67,7 @@ lbl_SelectDB:
             Select Case Server2Connect
                 '--------------------------------------------------------- Server on Host
                 Case "NexTerm DB-1"
-                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NexTerm; User ID=mshtir_db; Password=nExTeRm_1401_uSr1;")
+                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NexTerm; User ID=mshtir_db; Password=nExTeRm_1401_uSr1abcd;")
                     CnnSS.Open()
                     DatabaseType = "SqlServer"
                 Case "NexTerm DB-2"
@@ -196,6 +196,14 @@ lbl_SelectDB:
                         MsgBox("Error in Exit module ....")
                     End Try
                 End Try
+                DS.Tables("tblSettings").Clear()
+                DASS.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE iHerbsConstant='Current Version'" ' search: (version)
+                DASS.Fill(DS, "tblSettings") ' tbl 12: Settings
+                Try '//strReportBG
+                    strCurrentVersion = DS.Tables("tblSettings").Rows(0).Item(2)
+                Catch ex As Exception
+                    strCurrentVersion = "Error in Table Settings"
+                End Try
                 DASS.SelectCommand.CommandText = "SELECT ID From TermProgs"
                 DASS.Fill(DS, "tblAllProgs") ' tbl 13: AllProgs
                 DASS.SelectCommand.CommandText = "SELECT ID From TermProgs"
@@ -257,6 +265,14 @@ lbl_SelectDB:
                     Catch
                         MsgBox("Error in Exit module ....")
                     End Try
+                End Try
+                DS.Tables("tblSettings").Clear()
+                DAAC.SelectCommand.CommandText = "SELECT ID, iHerbsConstant, iHerbsvalue From Settings WHERE iHerbsConstant='Current Version'" ' search: (version)
+                DAAC.Fill(DS, "tblSettings") ' tbl 12: Settings
+                Try
+                    strCurrentVersion = DS.Tables("tblSettings").Rows(0).Item(2)
+                Catch ex As Exception
+                    strCurrentVersion = "Setting Table Error!"
                 End Try
                 DAAC.SelectCommand.CommandText = "SELECT ID From TermProgs"
                 DAAC.Fill(DS, "tblAllProgs") ' tbl 13: AllProgs

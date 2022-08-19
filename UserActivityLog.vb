@@ -1,11 +1,11 @@
 ﻿Public Class UserActivityLog
-
     'FormLoad
-    Private Sub UserActivityLog_Load() Handles MyBase.Load
-        ComboBox1.DataSource = DS.Tables("tblDepartments")
-        ComboBox1.DisplayMember = "DEPT"
-        ComboBox1.ValueMember = "ID"
-        ComboBox1.SelectedValue = intUser
+    Private Sub UserActivityLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cboDepts.DataSource = DS.Tables("tblDepartments")
+        cboDepts.DisplayMember = "DEPT"
+        cboDepts.ValueMember = "ID"
+        cboDepts.SelectedValue = intUser
+        If intUser = 0 Then CheckBoxDepts.Checked = False
 
         Try
             DS.Tables("tblTerms").Clear()
@@ -20,50 +20,77 @@
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
-        For i As Integer = 0 To DS.Tables("tblTerms").Rows.Count - 1
-            Menu_cboTerm.Items.Add(DS.Tables("tblTerms").Rows(i).Item(1))
-        Next
+        cboTerms.DataSource = DS.Tables("tblterms")
+        cboTerms.DisplayMember = "Term"
+        cboTerms.ValueMember = "ID"
 
         Dim boolENBL As Boolean = True
         Try
             Select Case Userx
                 Case "USER Faculty"
                     If (UserAccessControls And (2 ^ 4)) = 0 Then boolENBL = False Else boolENBL = True 'Viewer mode for Faculty
-                    Menu_ClearUserActivity.Enabled = boolENBL
+                    Radio5.Enabled = boolENBL
                 Case "USER Department"
-                    Menu_ClearUserActivity.Enabled = False
+                    Radio5.Enabled = False
             End Select
-            Menu_cboSort.SelectedIndex = 0
-            Menu_ReportUserActivity.ForeColor = Color.Blue
-            Menu_ReportCourses.ForeColor = Color.Blue
-            Menu_Exit.ForeColor = Color.IndianRed
         Catch ex As Exception
             MsgBox(ex.ToString, vbOKOnly, "گزارش خطا در اجراي نکسترم")
         End Try
 
-    End Sub
-    Private Sub ComboBox1_Click() Handles ComboBox1.Click
-        intDept = ComboBox1.SelectedValue
-        RadioButton3.Checked = True
+        Radio1.Focus()
+
     End Sub
 
+    Private Sub CheckBoxDepts_CheckedChanged() Handles CheckBoxDepts.CheckedChanged
+        If CheckBoxDepts.Checked = False Then
+            intUser = cboDepts.SelectedValue
+            cboDepts.SelectedValue = -1
+        Else
+            cboDepts.SelectedValue = intUser
+        End If
+
+    End Sub
+
+    Private Sub cboDepts_Click(sender As Object, e As EventArgs) Handles cboDepts.Click
+        Try
+            CheckBoxDepts.Checked = True
+            intUser = cboDepts.SelectedValue
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
 
     ' User Activity
     Private Sub Menu_ReportUserActivity_Click() Handles Menu_ReportUserActivity.Click
-        If Menu_cboSort.SelectedIndex = -1 Then MsgBox("نوع مرتب سازي را مشخص کنيد", vbOKOnly, "نکسترم") : Exit Sub
-        ReportUserActivity(Menu_cboSort.SelectedIndex + 1)
-    End Sub
-    Private Sub ReportUserActivity(intSortType As Integer)
-        If ((RadioButton3.Checked = True) And (ComboBox1.SelectedIndex < 0)) Then MsgBox("يک گروه از ليست انتخاب کنيد", vbOKOnly, "نکسترم") : Exit Sub
+        If ((CheckBoxDepts.Checked = True) And (cboDepts.SelectedIndex < 0)) Then MsgBox("يک گروه از ليست انتخاب کنيد", vbOKOnly, "نکسترم") : Exit Sub
+        Dim intSortType As Integer = 0
         Dim strFltr As String = ""
+        Dim x As Integer = 0
+
+        If Radio5.Checked = True Then ClearUserActivity() : Exit Sub
+
+        If Radio1.Checked = True Then intSortType = 1
+        If Radio2.Checked = True Then intSortType = 2
+        If Radio3.Checked = True Then intSortType = 3
+        If Radio4.Checked = True Then intSortType = 4
+        If intSortType = 0 Then Exit Sub
+
         DS.Tables("tblLogs").Clear()
-        intDept = ComboBox1.SelectedValue
+        intDept = cboDepts.SelectedValue
+        strDept = cboDepts.Text
 
         strSQL = "SELECT DateTimex, UserID, NickName, ClientName, FrontEnd, strLog From xLog"
-        If RadioButton1.Checked = True Then strFltr = "شامل: همه کاربران" & vbCrLf                                                                 'all users
-        If RadioButton2.Checked = True Then strSQL = strSQL & " WHERE UserID=0" : strFltr = "شامل: کاربر دانشکده" & vbCrLf                         'usr faculty
-        If RadioButton3.Checked = True Then strSQL = strSQL & " WHERE userID=" & intDept.ToString : strFltr = "شامل: يک گروه" & vbCrLf          'usr dept
-
+        '//Add filter
+        If CheckBoxDepts.Checked = True Then x = 1
+        If CheckBoxFaculty.Checked = True Then x = x + 2
+        Select Case x
+            Case 3 : strFltr = "شامل: همه کاربران" & vbCrLf
+            Case 2 : strSQL = strSQL & " WHERE UserID=0" : strFltr = "شامل: فقط کاربر دانشکده" & vbCrLf
+            Case 1 : strSQL = strSQL & " WHERE userID=" & intDept.ToString : strFltr = "شامل: فقط يک گروه :" & strDept & " " & vbCrLf
+            Case 0 : Exit Sub
+        End Select
+        '//Add order
         Select Case intSortType
             Case 1 : strSQL = strSQL & " ORDER BY DateTimex DESC" : strFltr = strFltr & " - " & "ترتيب: تاريخ و زمان"
             Case 2 : strSQL = strSQL & " ORDER BY UserID, DateTimex DESC" : strFltr = strFltr & " - " & "ترتيب: شناسه گروه"
@@ -117,41 +144,69 @@
         Shell("explorer.exe " & Application.StartupPath & "Nexterm_log.html")
 
     End Sub
-    Private Sub Menu_ClearUserActivity_Click() Handles Menu_ClearUserActivity.Click
-        Dim myansw As DialogResult = MsgBox("سوابق فعاليت کاربران پاک شود؟", vbYesNo, "نکسترم")
+
+    Private Sub ClearUserActivity()
+        Dim x As Integer = 0
+        Dim strFltr As String = ""
+        Dim strMsg As String = ""
+        If CheckBoxDepts.Checked = True Then
+            strDept = cboDepts.Text
+            intDept = cboDepts.SelectedValue
+        Else
+            strDept = ""
+            intDept = 0
+        End If
+
+        If CheckBoxDepts.Checked = True Then x = 1
+        If CheckBoxFaculty.Checked = True Then x = x + 2
+        Select Case x
+            Case 3 : strFltr = "" : strMsg = "سوابق فعاليت همه کاربران پاک شود؟"
+            Case 2 : strFltr = " WHERE userID=0" : strMsg = "سوابق فعاليت کاربر دانشکده پاک شود؟"
+            Case 1 : strFltr = " WHERE UserID=" & intDept.ToString : strMsg = "سوابق فعاليت کاربر گروه  " & strDept & "  پاک شود؟  "
+            Case 0 : Exit Sub
+        End Select
+
+        Dim myansw As DialogResult = MsgBox(strMsg, vbYesNo, "نکسترم")
         If myansw = vbNo Then
             Exit Sub
         Else
             Try
                 Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
                     Case "SqlServer"
-                        DASS.SelectCommand.CommandText = "Delete From xLog"
+                        DASS.SelectCommand.CommandText = "Delete From xLog" & strFltr
                         DASS.Fill(DS, "tblLogs") ' tbl Logs
                     Case "Access"
-                        DAAC.SelectCommand.CommandText = "delete * From xLog"
+                        DAAC.SelectCommand.CommandText = "delete * From xLog" & strFltr
                         DAAC.Fill(DS, "tblLogs") ' tbl Logs
                 End Select
             Catch ex As Exception
                 MsgBox(ex.ToString)
             End Try
             'WriteLOG(12)
-            'Menu_UserActivityLogs_Click(sender, e)
         End If
 
+        MsgBox("انجام شد", vbOKOnly, "نکسترم")
+        Radio1.Checked = True
+        'Menu_ReportUserActivity_Click()
 
     End Sub
 
-
     ' Report Courses
     Private Sub Menu_ReportCourses_Click() Handles Menu_ReportCourses.Click
-        If RadioButton3.Checked = True Then strDept = ComboBox1.Text Else strDept = ""
-        strTerm = Menu_cboTerm.Text
-        Dim intProgLevel As Integer = Menu_cboLevel.SelectedIndex       '{Dop, Bsc, Msc, Md, Phd}
-        Dim strProgLevel As String = Menu_cboLevel.Text
-        Dim intCourseType As Integer = Menu_cboCourseType.SelectedIndex '{theor, exper}
-        Dim strCourseType As String = Menu_cboCourseType.Text
-        If Menu_cboTerm.SelectedIndex = -1 Then strTerm = "" Else strTerm = Menu_cboTerm.Text
-        If RadioButton3.Checked = True Then intDept = ComboBox1.SelectedValue Else intDept = 0
+        '//Report Courses
+        If CheckBoxDepts.Checked = True Then
+            strDept = cboDepts.Text
+            intDept = cboDepts.SelectedValue
+        Else
+            strDept = ""
+            intDept = 0
+        End If
+        strTerm = cboTerms.Text
+        Dim intProgLevel As Integer = cboProglevel.SelectedIndex       '{Dop, Bsc, Msc, Md, Phd}
+        Dim strProgLevel As String = cboProglevel.Text
+        Dim intCourseType As Integer = cboCoursetype.SelectedIndex '{theor, exper}
+        Dim strCourseType As String = cboCoursetype.Text
+        If cboTerms.SelectedIndex = -1 Then strTerm = "" Else strTerm = cboTerms.Text
 
         Dim strFilter As String = ""
         If intDept > 0 Then strFilter = strFilter & " AND (Departments.ID = " & intDept.ToString & ")"
@@ -253,8 +308,6 @@ lbl_continue:
 
     End Sub
 
-
-
     ' EXIT
     Private Sub Menu_Exit_Click() Handles Menu_Exit.Click
         DS.Tables("tblTerms").Clear()
@@ -262,11 +315,5 @@ lbl_continue:
 
     End Sub
 
-    Private Sub RadioButton2_Click(sender As Object, e As EventArgs) Handles RadioButton2.Click
-        ComboBox1.SelectedIndex = -1
-    End Sub
 
-    Private Sub RadioButton1_Click(sender As Object, e As EventArgs) Handles RadioButton1.Click
-        ComboBox1.SelectedIndex = -1
-    End Sub
 End Class
