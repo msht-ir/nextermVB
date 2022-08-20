@@ -294,10 +294,10 @@ Partial Class UserActivityLog
         Me.Panel4.Controls.Add(Me.Panel1)
         Me.Panel4.Controls.Add(Me.Panel3)
         Me.Panel4.Controls.Add(Me.Panel2)
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(539, 280)
+        Me.Panel4.Size = New System.Drawing.Size(539, 287)
         Me.Panel4.TabIndex = 8
         '
         'UserActivityLog
@@ -305,7 +305,7 @@ Partial Class UserActivityLog
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Goldenrod
-        Me.ClientSize = New System.Drawing.Size(539, 303)
+        Me.ClientSize = New System.Drawing.Size(539, 287)
         Me.ControlBox = False
         Me.Controls.Add(Me.Panel4)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog

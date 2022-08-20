@@ -142,49 +142,49 @@ Partial Class Templates
         Me.ContextMenuTemp.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_AddNew, Me.Menu_Del, Me.ToolStripMenuItem2, Me.Menu_Apply, Me.Menu_ReportMe, Me.ToolStripMenuItem1, Me.Menu_ExitBack})
         Me.ContextMenuTemp.Name = "ContextMenuStrip3"
         Me.ContextMenuTemp.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuTemp.Size = New System.Drawing.Size(181, 148)
+        Me.ContextMenuTemp.Size = New System.Drawing.Size(129, 126)
         '
         'Menu_AddNew
         '
         Me.Menu_AddNew.Name = "Menu_AddNew"
-        Me.Menu_AddNew.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_AddNew.Size = New System.Drawing.Size(128, 22)
         Me.Menu_AddNew.Text = "الگوي جديد"
         '
         'Menu_Del
         '
         Me.Menu_Del.Name = "Menu_Del"
-        Me.Menu_Del.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Del.Size = New System.Drawing.Size(128, 22)
         Me.Menu_Del.Text = "حذف الگو"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(125, 6)
         '
         'Menu_Apply
         '
         Me.Menu_Apply.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_Apply.Name = "Menu_Apply"
-        Me.Menu_Apply.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Apply.Size = New System.Drawing.Size(128, 22)
         Me.Menu_Apply.Text = "بکارگيري"
         '
         'Menu_ReportMe
         '
         Me.Menu_ReportMe.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_ReportMe.Name = "Menu_ReportMe"
-        Me.Menu_ReportMe.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportMe.Size = New System.Drawing.Size(128, 22)
         Me.Menu_ReportMe.Text = "گزارش"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(125, 6)
         '
         'Menu_ExitBack
         '
         Me.Menu_ExitBack.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_ExitBack.Name = "Menu_ExitBack"
-        Me.Menu_ExitBack.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ExitBack.Size = New System.Drawing.Size(128, 22)
         Me.Menu_ExitBack.Text = "خروج"
         '
         'ExitToolStripMenuItem
@@ -277,10 +277,10 @@ Partial Class Templates
         Me.Panel2.Controls.Add(Me.Panel1)
         Me.Panel2.Controls.Add(Me.GridTemplates)
         Me.Panel2.Controls.Add(Me.GridTemplateData)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1104, 626)
+        Me.Panel2.Size = New System.Drawing.Size(1104, 648)
         Me.Panel2.TabIndex = 13
         '
         'Templates
@@ -288,7 +288,7 @@ Partial Class Templates
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Goldenrod
-        Me.ClientSize = New System.Drawing.Size(1104, 651)
+        Me.ClientSize = New System.Drawing.Size(1104, 648)
         Me.ControlBox = False
         Me.Controls.Add(Me.Panel2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
