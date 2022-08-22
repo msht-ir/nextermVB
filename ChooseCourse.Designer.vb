@@ -58,7 +58,7 @@ Partial Class ChooseCourse
         Me.GridCourse.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GridCourse.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.GridCourse.ContextMenuStrip = Me.ContextMenuCourses
-        Me.GridCourse.Dock = System.Windows.Forms.DockStyle.Top
+        Me.GridCourse.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GridCourse.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.GridCourse.GridColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.GridCourse.Location = New System.Drawing.Point(0, 23)
@@ -66,7 +66,7 @@ Partial Class ChooseCourse
         Me.GridCourse.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.GridCourse.RowHeadersVisible = False
         Me.GridCourse.RowTemplate.Height = 25
-        Me.GridCourse.Size = New System.Drawing.Size(392, 520)
+        Me.GridCourse.Size = New System.Drawing.Size(392, 533)
         Me.GridCourse.TabIndex = 8
         '
         'ContextMenuCourses
@@ -74,41 +74,41 @@ Partial Class ChooseCourse
         Me.ContextMenuCourses.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuOK, Me.ToolStripMenuItem2, Me.MenuAddCourse, Me.Menu_Edit, Me.ToolStripMenuItem1, Me.MenuCancel})
         Me.ContextMenuCourses.Name = "ContextMenuStrip1"
         Me.ContextMenuCourses.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuCourses.Size = New System.Drawing.Size(181, 126)
+        Me.ContextMenuCourses.Size = New System.Drawing.Size(148, 104)
         '
         'MenuOK
         '
         Me.MenuOK.Name = "MenuOK"
-        Me.MenuOK.Size = New System.Drawing.Size(180, 22)
+        Me.MenuOK.Size = New System.Drawing.Size(147, 22)
         Me.MenuOK.Text = "انتخاب / تاييد"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(144, 6)
         '
         'MenuAddCourse
         '
         Me.MenuAddCourse.Name = "MenuAddCourse"
-        Me.MenuAddCourse.Size = New System.Drawing.Size(180, 22)
+        Me.MenuAddCourse.Size = New System.Drawing.Size(147, 22)
         Me.MenuAddCourse.Text = "افزودن"
         '
         'Menu_Edit
         '
         Me.Menu_Edit.Name = "Menu_Edit"
-        Me.Menu_Edit.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Edit.Size = New System.Drawing.Size(147, 22)
         Me.Menu_Edit.Text = "ويرايش"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(144, 6)
         '
         'MenuCancel
         '
         Me.MenuCancel.ForeColor = System.Drawing.Color.IndianRed
         Me.MenuCancel.Name = "MenuCancel"
-        Me.MenuCancel.Size = New System.Drawing.Size(180, 22)
+        Me.MenuCancel.Size = New System.Drawing.Size(147, 22)
         Me.MenuCancel.Text = "خروج / انصراف"
         '
         'ChooseCourse
@@ -116,7 +116,7 @@ Partial Class ChooseCourse
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DarkGoldenrod
-        Me.ClientSize = New System.Drawing.Size(392, 579)
+        Me.ClientSize = New System.Drawing.Size(392, 556)
         Me.ControlBox = False
         Me.Controls.Add(Me.GridCourse)
         Me.Controls.Add(Me.ComboBioProg)

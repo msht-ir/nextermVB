@@ -151,7 +151,7 @@ Partial Class frmTermProgs
         '
         'Menu_Userx
         '
-        Me.Menu_Userx.ForeColor = System.Drawing.Color.RoyalBlue
+        Me.Menu_Userx.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_Userx.Name = "Menu_Userx"
         Me.Menu_Userx.Size = New System.Drawing.Size(180, 22)
         Me.Menu_Userx.Text = "کاربر ..."
@@ -300,44 +300,44 @@ Partial Class frmTermProgs
         '
         Me.Menu_UserActivityLogs.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_UserActivityLogs.Name = "Menu_UserActivityLogs"
-        Me.Menu_UserActivityLogs.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_UserActivityLogs.Size = New System.Drawing.Size(160, 22)
         Me.Menu_UserActivityLogs.Text = "گزارش فعاليت ها"
         '
         'Menu_ReportStaffProgsInTerms
         '
         Me.Menu_ReportStaffProgsInTerms.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_ReportStaffProgsInTerms.Name = "Menu_ReportStaffProgsInTerms"
-        Me.Menu_ReportStaffProgsInTerms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportStaffProgsInTerms.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ReportStaffProgsInTerms.Text = "مرور برنامه اساتيد"
         '
         'ToolStripMenuItem5
         '
         Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(157, 6)
         '
         'Menu_ReportEntriesPrograms
         '
         Me.Menu_ReportEntriesPrograms.Name = "Menu_ReportEntriesPrograms"
-        Me.Menu_ReportEntriesPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportEntriesPrograms.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ReportEntriesPrograms.Text = "برنامه ورودي ها"
         '
         'Menu_ReportClassPrograms
         '
         Me.Menu_ReportClassPrograms.Name = "Menu_ReportClassPrograms"
-        Me.Menu_ReportClassPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportClassPrograms.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ReportClassPrograms.Text = "برنامه کلاس ها"
         '
         'Menu_ReportStaffPrograms
         '
         Me.Menu_ReportStaffPrograms.Name = "Menu_ReportStaffPrograms"
-        Me.Menu_ReportStaffPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportStaffPrograms.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ReportStaffPrograms.Text = "برنامه اساتيد"
         '
         'Menu_ReportTechPrograms
         '
         Me.Menu_ReportTechPrograms.Enabled = False
         Me.Menu_ReportTechPrograms.Name = "Menu_ReportTechPrograms"
-        Me.Menu_ReportTechPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportTechPrograms.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ReportTechPrograms.Text = "برنامه کارشناسان"
         '
         'Grid4

@@ -37,15 +37,16 @@ Partial Class ChooseTech
         '
         'ListTechs
         '
+        Me.ListTechs.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ListTechs.ContextMenuStrip = Me.ContextMenuStrip1
-        Me.ListTechs.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ListTechs.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ListTechs.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ListTechs.FormattingEnabled = True
         Me.ListTechs.ItemHeight = 17
         Me.ListTechs.Location = New System.Drawing.Point(0, 0)
         Me.ListTechs.Name = "ListTechs"
         Me.ListTechs.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ListTechs.Size = New System.Drawing.Size(283, 361)
+        Me.ListTechs.Size = New System.Drawing.Size(283, 376)
         Me.ListTechs.TabIndex = 8
         '
         'ContextMenuStrip1
@@ -94,7 +95,7 @@ Partial Class ChooseTech
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(283, 394)
+        Me.ClientSize = New System.Drawing.Size(283, 376)
         Me.ControlBox = False
         Me.Controls.Add(Me.ListTechs)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog

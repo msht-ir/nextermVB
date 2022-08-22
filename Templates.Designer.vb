@@ -77,7 +77,7 @@ Partial Class Templates
         Me.GridTemplateData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.GridTemplateData.ContextMenuStrip = Me.ContextMenuTempData
         Me.GridTemplateData.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.GridTemplateData.Location = New System.Drawing.Point(14, 52)
+        Me.GridTemplateData.Location = New System.Drawing.Point(14, 45)
         Me.GridTemplateData.Name = "GridTemplateData"
         Me.GridTemplateData.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.GridTemplateData.RowTemplate.Height = 25
@@ -130,7 +130,7 @@ Partial Class Templates
         Me.GridTemplates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.GridTemplates.ContextMenuStrip = Me.ContextMenuTemp
         Me.GridTemplates.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.GridTemplates.Location = New System.Drawing.Point(551, 52)
+        Me.GridTemplates.Location = New System.Drawing.Point(549, 45)
         Me.GridTemplates.Name = "GridTemplates"
         Me.GridTemplates.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.GridTemplates.RowTemplate.Height = 25
@@ -197,7 +197,7 @@ Partial Class Templates
         '
         Me.ComboDepts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboDepts.FormattingEnabled = True
-        Me.ComboDepts.Location = New System.Drawing.Point(798, 9)
+        Me.ComboDepts.Location = New System.Drawing.Point(798, 6)
         Me.ComboDepts.Name = "ComboDepts"
         Me.ComboDepts.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ComboDepts.Size = New System.Drawing.Size(296, 23)
@@ -207,7 +207,7 @@ Partial Class Templates
         '
         Me.Label2.AutoSize = True
         Me.Label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label2.Location = New System.Drawing.Point(558, 20)
+        Me.Label2.Location = New System.Drawing.Point(558, 17)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(37, 15)
         Me.Label2.TabIndex = 7
@@ -217,7 +217,7 @@ Partial Class Templates
         '
         Me.Label3.AutoSize = True
         Me.Label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label3.Location = New System.Drawing.Point(483, 17)
+        Me.Label3.Location = New System.Drawing.Point(483, 14)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(37, 15)
         Me.Label3.TabIndex = 8
@@ -226,7 +226,7 @@ Partial Class Templates
         'txtTerm
         '
         Me.txtTerm.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.txtTerm.Location = New System.Drawing.Point(117, 13)
+        Me.txtTerm.Location = New System.Drawing.Point(117, 10)
         Me.txtTerm.Name = "txtTerm"
         Me.txtTerm.Size = New System.Drawing.Size(47, 22)
         Me.txtTerm.TabIndex = 9
@@ -237,7 +237,7 @@ Partial Class Templates
         '
         Me.Label4.AutoSize = True
         Me.Label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label4.Location = New System.Drawing.Point(169, 14)
+        Me.Label4.Location = New System.Drawing.Point(169, 11)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(99, 15)
         Me.Label4.TabIndex = 10
@@ -247,7 +247,7 @@ Partial Class Templates
         '
         Me.chkAsk.AutoSize = True
         Me.chkAsk.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.chkAsk.Location = New System.Drawing.Point(31, 13)
+        Me.chkAsk.Location = New System.Drawing.Point(31, 10)
         Me.chkAsk.Name = "chkAsk"
         Me.chkAsk.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chkAsk.Size = New System.Drawing.Size(52, 19)
@@ -268,7 +268,7 @@ Partial Class Templates
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1104, 41)
+        Me.Panel1.Size = New System.Drawing.Size(1104, 37)
         Me.Panel1.TabIndex = 12
         '
         'Panel2
@@ -280,7 +280,7 @@ Partial Class Templates
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1104, 648)
+        Me.Panel2.Size = New System.Drawing.Size(1104, 635)
         Me.Panel2.TabIndex = 13
         '
         'Templates
@@ -288,7 +288,7 @@ Partial Class Templates
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Goldenrod
-        Me.ClientSize = New System.Drawing.Size(1104, 648)
+        Me.ClientSize = New System.Drawing.Size(1104, 635)
         Me.ControlBox = False
         Me.Controls.Add(Me.Panel2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog

@@ -25,6 +25,11 @@ Partial Class TempList
         Me.components = New System.ComponentModel.Container()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.GridCourse = New System.Windows.Forms.DataGridView()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Menu_ReadFromFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
@@ -34,11 +39,6 @@ Partial Class TempList
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.Menu_Add = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_Cancel = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel1.SuspendLayout()
         CType(Me.GridCourse, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -48,10 +48,10 @@ Partial Class TempList
         '
         Me.Panel1.BackColor = System.Drawing.SystemColors.AppWorkspace
         Me.Panel1.Controls.Add(Me.GridCourse)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(441, 481)
+        Me.Panel1.Size = New System.Drawing.Size(441, 513)
         Me.Panel1.TabIndex = 0
         '
         'GridCourse
@@ -70,8 +70,38 @@ Partial Class TempList
         Me.GridCourse.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.GridCourse.RowHeadersVisible = False
         Me.GridCourse.RowTemplate.Height = 25
-        Me.GridCourse.Size = New System.Drawing.Size(441, 481)
+        Me.GridCourse.Size = New System.Drawing.Size(441, 513)
         Me.GridCourse.TabIndex = 0
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = ""
+        Me.Column1.Name = "Column1"
+        Me.Column1.Width = 18
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "شماره"
+        Me.Column2.Name = "Column2"
+        Me.Column2.Width = 90
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "نام درس"
+        Me.Column3.Name = "Column3"
+        Me.Column3.Width = 210
+        '
+        'Column5
+        '
+        Me.Column5.HeaderText = "مشخصات"
+        Me.Column5.Name = "Column5"
+        Me.Column5.Width = 60
+        '
+        'Column4
+        '
+        Me.Column4.HeaderText = "واحد"
+        Me.Column4.Name = "Column4"
+        Me.Column4.Width = 35
         '
         'ContextMenuStrip1
         '
@@ -125,36 +155,6 @@ Partial Class TempList
         Me.Menu_Cancel.Name = "Menu_Cancel"
         Me.Menu_Cancel.Size = New System.Drawing.Size(155, 22)
         Me.Menu_Cancel.Text = "انصراف / خروج"
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = ""
-        Me.Column1.Name = "Column1"
-        Me.Column1.Width = 18
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "شماره"
-        Me.Column2.Name = "Column2"
-        Me.Column2.Width = 90
-        '
-        'Column3
-        '
-        Me.Column3.HeaderText = "نام درس"
-        Me.Column3.Name = "Column3"
-        Me.Column3.Width = 210
-        '
-        'Column5
-        '
-        Me.Column5.HeaderText = "مشخصات"
-        Me.Column5.Name = "Column5"
-        Me.Column5.Width = 60
-        '
-        'Column4
-        '
-        Me.Column4.HeaderText = "واحد"
-        Me.Column4.Name = "Column4"
-        Me.Column4.Width = 35
         '
         'TempList
         '

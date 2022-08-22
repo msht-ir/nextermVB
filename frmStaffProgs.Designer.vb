@@ -59,10 +59,10 @@ Partial Class frmStaffProgs
         Me.ListBox2.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ListBox2.FormattingEnabled = True
         Me.ListBox2.ItemHeight = 20
-        Me.ListBox2.Location = New System.Drawing.Point(937, 30)
+        Me.ListBox2.Location = New System.Drawing.Point(937, 11)
         Me.ListBox2.Name = "ListBox2"
         Me.ListBox2.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.ListBox2.Size = New System.Drawing.Size(88, 320)
+        Me.ListBox2.Size = New System.Drawing.Size(88, 340)
         Me.ListBox2.TabIndex = 33
         '
         'ContextMenu_frmStaff
@@ -147,7 +147,7 @@ Partial Class frmStaffProgs
         Me.Grid4.DefaultCellStyle = DataGridViewCellStyle2
         Me.Grid4.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.Grid4.GridColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Grid4.Location = New System.Drawing.Point(12, 13)
+        Me.Grid4.Location = New System.Drawing.Point(12, 12)
         Me.Grid4.MultiSelect = False
         Me.Grid4.Name = "Grid4"
         Me.Grid4.RightToLeft = System.Windows.Forms.RightToLeft.Yes

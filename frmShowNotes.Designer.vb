@@ -31,6 +31,7 @@ Partial Class frmShowNotes
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
         Me.Menu_Exit = New System.Windows.Forms.ToolStripMenuItem()
         Me.ChkMyNotes = New System.Windows.Forms.CheckBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         CType(Me.GridNotes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuNotes.SuspendLayout()
         Me.SuspendLayout()
@@ -87,6 +88,7 @@ Partial Class frmShowNotes
         '
         'Menu_Exit
         '
+        Me.Menu_Exit.ForeColor = System.Drawing.Color.IndianRed
         Me.Menu_Exit.Name = "Menu_Exit"
         Me.Menu_Exit.Size = New System.Drawing.Size(191, 22)
         Me.Menu_Exit.Text = "خروج"
@@ -96,8 +98,8 @@ Partial Class frmShowNotes
         Me.ChkMyNotes.AutoSize = True
         Me.ChkMyNotes.Checked = True
         Me.ChkMyNotes.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChkMyNotes.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.ChkMyNotes.Location = New System.Drawing.Point(563, 412)
+        Me.ChkMyNotes.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.ChkMyNotes.Location = New System.Drawing.Point(563, 408)
         Me.ChkMyNotes.Name = "ChkMyNotes"
         Me.ChkMyNotes.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ChkMyNotes.Size = New System.Drawing.Size(110, 19)
@@ -105,13 +107,24 @@ Partial Class frmShowNotes
         Me.ChkMyNotes.Text = "يادداشت هاي من"
         Me.ChkMyNotes.UseVisualStyleBackColor = True
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.ForeColor = System.Drawing.Color.IndianRed
+        Me.Label1.Location = New System.Drawing.Point(1165, 409)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(36, 15)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "راهنما"
+        '
         'frmShowNotes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Silver
-        Me.ClientSize = New System.Drawing.Size(1237, 441)
+        Me.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.ClientSize = New System.Drawing.Size(1237, 428)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ChkMyNotes)
         Me.Controls.Add(Me.GridNotes)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -137,4 +150,5 @@ Partial Class frmShowNotes
     Friend WithEvents ToolStripMenuItem2 As ToolStripSeparator
     Friend WithEvents ChkMyNotes As CheckBox
     Friend WithEvents Menu_Note2Faculty As ToolStripMenuItem
+    Friend WithEvents Label1 As Label
 End Class

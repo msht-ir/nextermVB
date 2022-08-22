@@ -1557,14 +1557,18 @@ Public Class frmTermProgs
         Dim c As Integer = Grid4.SelectedCells(0).ColumnIndex 'count from 0
         If r < 0 Then Exit Sub
         If Grid4.Item(c, r).Value Is Nothing OrElse IsDBNull(Grid4.Item(c, r).Value) Then Exit Sub
-
-        intEntry = ListBox1.SelectedValue
-        strEntry = ListBox1.Text
-        intTerm = ListBox2.SelectedValue
-        intStaff = DS.Tables("tblTermProgs").Rows(r).Item(6)
-        strStaff = Grid4.Item(7, r).Value
-        strExamDateTime = Trim(txtExamDate.Text)
-        strCourse = DS.Tables("tblTermProgs").Rows(r).Item(3)
+        Try
+            intEntry = ListBox1.SelectedValue
+            strEntry = ListBox1.Text
+            intTerm = ListBox2.SelectedValue
+            intStaff = DS.Tables("tblTermProgs").Rows(r).Item(6)
+            strStaff = Grid4.Item(7, r).Value
+            strExamDateTime = Trim(txtExamDate.Text)
+            strCourse = DS.Tables("tblTermProgs").Rows(r).Item(3)
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+            Exit Sub
+        End Try
 
         frmDateTime.ShowDialog()
         If strExamDateTime <> "" Then txtExamDate.Text = strExamDateTime

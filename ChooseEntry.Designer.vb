@@ -41,6 +41,7 @@ Partial Class ChooseEntry
         '
         'ComboDepts
         '
+        Me.ComboDepts.BackColor = System.Drawing.SystemColors.Control
         Me.ComboDepts.Dock = System.Windows.Forms.DockStyle.Top
         Me.ComboDepts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboDepts.FormattingEnabled = True
@@ -109,6 +110,7 @@ Partial Class ChooseEntry
         '
         'ListBioProgs
         '
+        Me.ListBioProgs.BackColor = System.Drawing.SystemColors.Control
         Me.ListBioProgs.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ListBioProgs.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ListBioProgs.FormattingEnabled = True
@@ -121,10 +123,11 @@ Partial Class ChooseEntry
         '
         'Panel1
         '
+        Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Panel1.Controls.Add(Me.ComboDepts)
         Me.Panel1.Controls.Add(Me.ListBioProgs)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel1.Location = New System.Drawing.Point(434, 0)
+        Me.Panel1.Location = New System.Drawing.Point(441, 0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(247, 332)
         Me.Panel1.TabIndex = 17
@@ -133,8 +136,8 @@ Partial Class ChooseEntry
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(681, 332)
+        Me.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.ClientSize = New System.Drawing.Size(688, 332)
         Me.ControlBox = False
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.GridEntries)

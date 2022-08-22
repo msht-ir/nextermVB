@@ -51,7 +51,7 @@ Partial Class ChooseStaff
         Me.ListStaff.Location = New System.Drawing.Point(0, 0)
         Me.ListStaff.Name = "ListStaff"
         Me.ListStaff.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ListStaff.Size = New System.Drawing.Size(252, 377)
+        Me.ListStaff.Size = New System.Drawing.Size(252, 396)
         Me.ListStaff.TabIndex = 4
         '
         'ContextMenu_Staff
@@ -111,20 +111,21 @@ Partial Class ChooseStaff
         Me.ListDepts.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ListDepts.FormattingEnabled = True
         Me.ListDepts.ItemHeight = 17
-        Me.ListDepts.Location = New System.Drawing.Point(258, 0)
+        Me.ListDepts.Location = New System.Drawing.Point(264, 0)
         Me.ListDepts.Name = "ListDepts"
         Me.ListDepts.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ListDepts.Size = New System.Drawing.Size(255, 377)
+        Me.ListDepts.Size = New System.Drawing.Size(255, 396)
         Me.ListDepts.TabIndex = 5
         '
         'Panel1
         '
+        Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Panel1.Controls.Add(Me.ListStaff)
         Me.Panel1.Controls.Add(Me.ListDepts)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(513, 377)
+        Me.Panel1.Size = New System.Drawing.Size(519, 396)
         Me.Panel1.TabIndex = 6
         '
         'ChooseStaff
@@ -132,7 +133,7 @@ Partial Class ChooseStaff
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(513, 421)
+        Me.ClientSize = New System.Drawing.Size(519, 396)
         Me.ControlBox = False
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog

@@ -40,6 +40,7 @@ Partial Class ChooseBioProg
         '
         'ListBioProg
         '
+        Me.ListBioProg.BackColor = System.Drawing.SystemColors.Control
         Me.ListBioProg.ContextMenuStrip = Me.ContextMenuStrip1
         Me.ListBioProg.Dock = System.Windows.Forms.DockStyle.Left
         Me.ListBioProg.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
@@ -89,12 +90,14 @@ Partial Class ChooseBioProg
         '
         'MenuCancel
         '
+        Me.MenuCancel.ForeColor = System.Drawing.Color.IndianRed
         Me.MenuCancel.Name = "MenuCancel"
         Me.MenuCancel.Size = New System.Drawing.Size(158, 22)
         Me.MenuCancel.Text = "انصراف / خروج"
         '
         'ListDepts
         '
+        Me.ListDepts.BackColor = System.Drawing.SystemColors.Control
         Me.ListDepts.ContextMenuStrip = Me.ContextMenuStrip1
         Me.ListDepts.Dock = System.Windows.Forms.DockStyle.Right
         Me.ListDepts.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
@@ -121,8 +124,8 @@ Partial Class ChooseBioProg
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(531, 346)
+        Me.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.ClientSize = New System.Drawing.Size(531, 331)
         Me.ControlBox = False
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog

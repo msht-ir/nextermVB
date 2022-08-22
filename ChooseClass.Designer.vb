@@ -44,9 +44,19 @@ Partial Class ChooseClass
         Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lblInfo = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.Panel2 = New System.Windows.Forms.Panel()
         CType(Me.GridRoom, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.Grid5, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
+        Me.Panel5.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        Me.Panel3.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'GridRoom
@@ -59,13 +69,14 @@ Partial Class ChooseClass
         Me.GridRoom.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.GridRoom.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.GridRoom.ContextMenuStrip = Me.ContextMenuStrip1
+        Me.GridRoom.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GridRoom.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.GridRoom.Location = New System.Drawing.Point(392, 5)
+        Me.GridRoom.Location = New System.Drawing.Point(0, 0)
         Me.GridRoom.Name = "GridRoom"
         Me.GridRoom.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.GridRoom.RowHeadersVisible = False
         Me.GridRoom.RowTemplate.Height = 25
-        Me.GridRoom.Size = New System.Drawing.Size(311, 496)
+        Me.GridRoom.Size = New System.Drawing.Size(315, 459)
         Me.GridRoom.TabIndex = 11
         Me.GridRoom.Tag = "کلاس يا آزمايشگاه را انتخاب و تاييد کنيد"
         '
@@ -106,6 +117,7 @@ Partial Class ChooseClass
         '
         'MenuCancel
         '
+        Me.MenuCancel.ForeColor = System.Drawing.Color.IndianRed
         Me.MenuCancel.Name = "MenuCancel"
         Me.MenuCancel.Size = New System.Drawing.Size(163, 22)
         Me.MenuCancel.Text = "انصراف / خروج"
@@ -130,15 +142,16 @@ Partial Class ChooseClass
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Grid5.DefaultCellStyle = DataGridViewCellStyle1
+        Me.Grid5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Grid5.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.Grid5.Location = New System.Drawing.Point(7, 5)
+        Me.Grid5.Location = New System.Drawing.Point(0, 0)
         Me.Grid5.MultiSelect = False
         Me.Grid5.Name = "Grid5"
         Me.Grid5.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Grid5.RowHeadersVisible = False
         Me.Grid5.RowTemplate.Height = 25
         Me.Grid5.ShowCellToolTips = False
-        Me.Grid5.Size = New System.Drawing.Size(380, 202)
+        Me.Grid5.Size = New System.Drawing.Size(390, 191)
         Me.Grid5.TabIndex = 36
         Me.Grid5.Tag = "نمايش برنامه کلاس يا آزمايشگاه در ترم انتخاب شده"
         '
@@ -189,27 +202,77 @@ Partial Class ChooseClass
         '
         'lblInfo
         '
-        Me.lblInfo.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblInfo.BackColor = System.Drawing.SystemColors.Control
         Me.lblInfo.ContextMenuStrip = Me.ContextMenuStrip1
-        Me.lblInfo.ForeColor = System.Drawing.Color.IndianRed
-        Me.lblInfo.Location = New System.Drawing.Point(7, 226)
+        Me.lblInfo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblInfo.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.lblInfo.Location = New System.Drawing.Point(0, 0)
         Me.lblInfo.Name = "lblInfo"
         Me.lblInfo.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.lblInfo.Size = New System.Drawing.Size(379, 275)
+        Me.lblInfo.Size = New System.Drawing.Size(390, 261)
         Me.lblInfo.TabIndex = 39
         Me.lblInfo.Text = "info"
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.Panel1.Controls.Add(Me.Panel5)
+        Me.Panel1.Controls.Add(Me.Panel2)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(711, 459)
+        Me.Panel1.TabIndex = 40
+        '
+        'Panel5
+        '
+        Me.Panel5.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.Panel5.Controls.Add(Me.Panel4)
+        Me.Panel5.Controls.Add(Me.Panel3)
+        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel5.Location = New System.Drawing.Point(0, 0)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(390, 459)
+        Me.Panel5.TabIndex = 42
+        '
+        'Panel4
+        '
+        Me.Panel4.BackColor = System.Drawing.SystemColors.AppWorkspace
+        Me.Panel4.Controls.Add(Me.lblInfo)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel4.Location = New System.Drawing.Point(0, 198)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(390, 261)
+        Me.Panel4.TabIndex = 43
+        '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.Panel3.Controls.Add(Me.Grid5)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel3.Location = New System.Drawing.Point(0, 0)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(390, 191)
+        Me.Panel3.TabIndex = 42
+        '
+        'Panel2
+        '
+        Me.Panel2.BackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.Panel2.Controls.Add(Me.GridRoom)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Panel2.Location = New System.Drawing.Point(396, 0)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(315, 459)
+        Me.Panel2.TabIndex = 41
         '
         'ChooseClass
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(709, 542)
+        Me.BackColor = System.Drawing.Color.Goldenrod
+        Me.ClientSize = New System.Drawing.Size(711, 506)
         Me.ControlBox = False
-        Me.Controls.Add(Me.lblInfo)
-        Me.Controls.Add(Me.Grid5)
-        Me.Controls.Add(Me.GridRoom)
+        Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ChooseClass"
@@ -218,6 +281,11 @@ Partial Class ChooseClass
         CType(Me.GridRoom, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
         CType(Me.Grid5, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -241,4 +309,9 @@ Partial Class ChooseClass
     Friend WithEvents Grid5 As DataGridView
     Friend WithEvents Menu_Edit As ToolStripMenuItem
     Friend WithEvents lblInfo As Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Panel3 As Panel
 End Class

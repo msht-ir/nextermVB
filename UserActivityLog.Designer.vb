@@ -58,7 +58,7 @@ Partial Class UserActivityLog
         Me.ContextMenuStripA.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_ReportUserActivity, Me.Menu_ReportCourses, Me.ToolStripMenuItem1, Me.Menu_Exit})
         Me.ContextMenuStripA.Name = "ContextMenuStrip1"
         Me.ContextMenuStripA.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuStripA.Size = New System.Drawing.Size(238, 76)
+        Me.ContextMenuStripA.Size = New System.Drawing.Size(238, 98)
         '
         'Menu_ReportUserActivity
         '
@@ -79,7 +79,7 @@ Partial Class UserActivityLog
         '
         'Menu_Exit
         '
-        Me.Menu_Exit.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Menu_Exit.ForeColor = System.Drawing.Color.IndianRed
         Me.Menu_Exit.Name = "Menu_Exit"
         Me.Menu_Exit.Size = New System.Drawing.Size(237, 22)
         Me.Menu_Exit.Text = "خروج"
@@ -139,7 +139,7 @@ Partial Class UserActivityLog
         Me.Panel2.Controls.Add(Me.cboCoursetype)
         Me.Panel2.Controls.Add(Me.cboProglevel)
         Me.Panel2.Controls.Add(Me.cboTerms)
-        Me.Panel2.Location = New System.Drawing.Point(3, 79)
+        Me.Panel2.Location = New System.Drawing.Point(3, 83)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(320, 185)
         Me.Panel2.TabIndex = 8
@@ -200,7 +200,7 @@ Partial Class UserActivityLog
         Me.Panel3.Controls.Add(Me.Radio1)
         Me.Panel3.Controls.Add(Me.Radio3)
         Me.Panel3.Controls.Add(Me.Radio2)
-        Me.Panel3.Location = New System.Drawing.Point(329, 79)
+        Me.Panel3.Location = New System.Drawing.Point(329, 83)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Panel3.Size = New System.Drawing.Size(205, 185)

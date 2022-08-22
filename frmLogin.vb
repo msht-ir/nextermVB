@@ -53,11 +53,11 @@ Public Class frmLogIn
         Dim usr As Integer = 0
         If IsDBNull(cboUser.SelectedValue) Then usr = 0 Else usr = cboUser.SelectedValue
         If PasswordTextBox.Text = "quit" Then '---------------------------------------------------------------- (quit)
-            Dim i As DialogResult = MsgBox("ÎÇÑÌ ãí ÔæíÏ¿", vbYesNo + vbDefaultButton2, "NexTerm")
-            If i = vbYes Then
-                Userx = "quit"
-                Me.Dispose()
-            End If
+            'Dim i As DialogResult = MsgBox("ÎÇÑÌ ãí ÔæíÏ¿", vbYesNo + vbDefaultButton2, "NexTerm")
+            'If i = vbYes Then
+            Userx = "quit"
+            Me.Dispose()
+            'End If
         ElseIf PasswordTextBox.Text = "mshtaccesson" Then '---------------------------------------------------- usr = msht
             Userx = "USER Faculty"
             UserAccessControls = 31 ' +all acc 1-5!

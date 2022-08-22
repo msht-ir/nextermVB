@@ -71,4 +71,38 @@
         Me.Dispose()
 
     End Sub
+
+    Private Sub Menu_Guide_Click(sender As Object, e As EventArgs) Handles Menu_Guide.Click
+        Dim myansw As DialogResult = MsgBox("ار تاريخ هاي جداول فوق براي تعيين تاريخ اين درس کمک بگيريد" & vbCrLf & "پس از تاييد، در پنجره اصلي برنامه ها، تغييرات را ذخيره کنيد" & vbCrLf & "کمک بيشتري لازم است؟", vbYesNo, "نکسترم")
+        If myansw = vbYes Then
+            FileOpen(1, Application.StartupPath & "\NexTerm_Guide.html", OpenMode.Output)
+            PrintLine(1, "<html dir=""rtl"">")
+            PrintLine(1, "<head><title>راهنما</title><style>table, th,td {border: 1px solid;} body {background-image:url('" & strReportBG & "');} </style></head>")
+            PrintLine(1, "<body>")
+            PrintLine(1, "<p style= 'color:blue; font-family:Tahoma; font-size:12px; Text-Align:Center'>دانشکده علوم پايه دانشگاه شهرکرد</p>")
+            PrintLine(1, "<p style= 'color:blue; font-family:Tahoma; font-size:12px; Text-Align:Center'>راهنماي نرم افزار نکسترم</p>")
+            PrintLine(1, "<hr>")
+            PrintLine(1, "<p style='color:red;font-family:tahoma; font-size:12px'> راهنماي تعيين تاريخ امتحانات <br></p>")
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>")
+            PrintLine(1, "تاريخ ساير امتحانات دانشجويان در پانل سمت راست ديده مي شود <br>")
+            PrintLine(1, "تاريخ ساير امتحانات استاد در پانل سمت چپ ديده مي شود <br>")
+            PrintLine(1, "تاريخ امتحان اين درس را در کادر پايين صفحه وارد کنيد  <br>")
+            PrintLine(1, "اگر اين درس همزمان با درس ديگري امتحان گرفته مي شود، روي آن تاريخ موجود کليک کنيد <br>")
+            PrintLine(1, "تاريخ امتحانات درس هاي ديگر فقط براي مشاهده هستند <br>")
+            PrintLine(1, "پس از درج تاريخ امتحان درس آن را تاييد و در پنجره اصلي آن را ذخيره کنيد<br>")
+            PrintLine(1, "توجه: حتما تاريخ امتحان درس را در پنجره اصلي برنامه ريزي، ذخيره کنيد<br>")
+            PrintLine(1, "<br>")
+            PrintLine(1, "موفق باشيد<br>")
+            PrintLine(1, "<br></p>")
+            PrintLine(1, "<br>")
+            PrintLine(1, "<hr>")
+            PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>" & strReportsFooter & "</p>")
+            PrintLine(1, "</body>")
+            PrintLine(1, "</html>")
+            FileClose(1)
+            Shell("explorer.exe " & Application.StartupPath & "NexTerm_Guide.html")
+
+
+        End If
+    End Sub
 End Class

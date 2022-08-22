@@ -196,13 +196,18 @@
 
     End Sub
 
-    Private Sub Menu_Exit_Click(sender As Object, e As EventArgs) Handles Menu_Exit.Click
+    Private Sub Menu_Exit_Click() Handles Menu_Exit.Click
         Me.Dispose()
 
     End Sub
 
-    Private Sub ChkMyNotes_Click(sender As Object, e As EventArgs) Handles ChkMyNotes.Click
+    Private Sub ChkMyNotes_Click() Handles ChkMyNotes.Click
         ShowNotes()
+
+    End Sub
+
+    Private Sub Label1_Click() Handles Label1.Click
+        MsgBox("پس از مطالعه يادداشت آن را حذف کنيد" & vbCrLf & "يادداشت هاي داراي تيک (جديد) يادآوري مي شوند", vbOKOnly, "نکسترم")
 
     End Sub
 End Class

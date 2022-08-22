@@ -31,7 +31,7 @@ Partial Class Settings
         'btnCancel
         '
         Me.btnCancel.BackColor = System.Drawing.SystemColors.Control
-        Me.btnCancel.Location = New System.Drawing.Point(201, 187)
+        Me.btnCancel.Location = New System.Drawing.Point(182, 184)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(162, 25)
         Me.btnCancel.TabIndex = 10
@@ -55,15 +55,15 @@ Partial Class Settings
         Me.GridSettings.RowHeadersVisible = False
         Me.GridSettings.RowTemplate.Height = 25
         Me.GridSettings.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.GridSettings.Size = New System.Drawing.Size(560, 175)
+        Me.GridSettings.Size = New System.Drawing.Size(532, 175)
         Me.GridSettings.TabIndex = 12
         '
         'Settings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Goldenrod
-        Me.ClientSize = New System.Drawing.Size(560, 220)
+        Me.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.ClientSize = New System.Drawing.Size(532, 214)
         Me.ControlBox = False
         Me.Controls.Add(Me.GridSettings)
         Me.Controls.Add(Me.btnCancel)

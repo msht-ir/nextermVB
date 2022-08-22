@@ -90,9 +90,9 @@ Partial Class frmShowTables
         'btnOkExit
         '
         Me.btnOkExit.BackColor = System.Drawing.SystemColors.Control
-        Me.btnOkExit.Location = New System.Drawing.Point(192, 550)
+        Me.btnOkExit.Location = New System.Drawing.Point(192, 544)
         Me.btnOkExit.Name = "btnOkExit"
-        Me.btnOkExit.Size = New System.Drawing.Size(143, 23)
+        Me.btnOkExit.Size = New System.Drawing.Size(143, 25)
         Me.btnOkExit.TabIndex = 9
         Me.btnOkExit.Text = "انتخاب / تاييد"
         Me.btnOkExit.UseVisualStyleBackColor = False
@@ -101,8 +101,8 @@ Partial Class frmShowTables
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(529, 589)
+        Me.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.ClientSize = New System.Drawing.Size(529, 579)
         Me.ControlBox = False
         Me.Controls.Add(Me.btnOkExit)
         Me.Controls.Add(Me.Grid1)

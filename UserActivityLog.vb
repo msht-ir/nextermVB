@@ -63,7 +63,7 @@
 
     ' User Activity
     Private Sub Menu_ReportUserActivity_Click() Handles Menu_ReportUserActivity.Click
-        If ((CheckBoxDepts.Checked = True) And (cboDepts.SelectedIndex < 0)) Then MsgBox("يک گروه از ليست انتخاب کنيد", vbOKOnly, "نکسترم") : Exit Sub
+        If ((CheckBoxDepts.Checked = True) And (cboDepts.SelectedIndex < 0) And (CheckBoxFaculty.Checked = False)) Then MsgBox("يک گروه از ليست انتخاب کنيد", vbOKOnly, "نکسترم") : Exit Sub
         Dim intSortType As Integer = 0
         Dim strFltr As String = ""
         Dim x As Integer = 0
