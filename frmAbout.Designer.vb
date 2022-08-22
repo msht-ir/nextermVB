@@ -57,7 +57,7 @@ Partial Class frmAbout
         'Timer1
         '
         Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 3500
+        Me.Timer1.Interval = 4000
         '
         'Label1
         '

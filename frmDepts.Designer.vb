@@ -120,44 +120,44 @@ Partial Class frmDepts
         Me.ContextMenu_Depts.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_AddDept, Me.Menu_ChangePassDept, Me.Menu_GuideDept, Me.ToolStripMenuItem1, Me.Menu_OKDept, Me.Menu_CancelDept})
         Me.ContextMenu_Depts.Name = "ContextMenuStripDepts"
         Me.ContextMenu_Depts.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenu_Depts.Size = New System.Drawing.Size(181, 142)
+        Me.ContextMenu_Depts.Size = New System.Drawing.Size(148, 120)
         '
         'Menu_AddDept
         '
         Me.Menu_AddDept.Name = "Menu_AddDept"
-        Me.Menu_AddDept.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_AddDept.Size = New System.Drawing.Size(147, 22)
         Me.Menu_AddDept.Text = "+  گروه جديد"
         '
         'Menu_ChangePassDept
         '
         Me.Menu_ChangePassDept.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_ChangePassDept.Name = "Menu_ChangePassDept"
-        Me.Menu_ChangePassDept.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ChangePassDept.Size = New System.Drawing.Size(147, 22)
         Me.Menu_ChangePassDept.Text = "کلمه عبور ..."
         '
         'Menu_GuideDept
         '
         Me.Menu_GuideDept.Name = "Menu_GuideDept"
-        Me.Menu_GuideDept.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_GuideDept.Size = New System.Drawing.Size(147, 22)
         Me.Menu_GuideDept.Text = "راهنما"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(144, 6)
         '
         'Menu_OKDept
         '
         Me.Menu_OKDept.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_OKDept.Name = "Menu_OKDept"
-        Me.Menu_OKDept.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_OKDept.Size = New System.Drawing.Size(147, 22)
         Me.Menu_OKDept.Text = "تاييد / انتخاب"
         '
         'Menu_CancelDept
         '
         Me.Menu_CancelDept.ForeColor = System.Drawing.Color.IndianRed
         Me.Menu_CancelDept.Name = "Menu_CancelDept"
-        Me.Menu_CancelDept.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_CancelDept.Size = New System.Drawing.Size(147, 22)
         Me.Menu_CancelDept.Text = "انصراف / خروج"
         '
         'ListBioProg

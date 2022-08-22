@@ -91,8 +91,6 @@ lbl_Read:
         Dim c As Integer = GridCNN.SelectedCells(0).ColumnIndex 'count from 0
         If r < 0 Or c < 0 Then Exit Sub
 
-        btn1.Focus()
-
         Server2Connect = Trim(GridCNN(0, r).Value)
         strDbBackEnd = Trim(GridCNN(1, r).Value)
         strserveruid = Trim(GridCNN(2, r).Value)
@@ -153,8 +151,6 @@ lbl_Read:
     Private Sub SaveChanges()
         Try
             FileOpen(1, Application.StartupPath & "cnn", OpenMode.Output)
-            btn1.Focus()
-
             For r As Integer = 0 To GridCNN.Rows.Count - 1
                 If IsDBNull(GridCNN(0, r).Value) Then
                     GridCNN(0, r).Value = "untitled Connection"
@@ -197,10 +193,6 @@ lbl_Read:
     Private Sub Menu_Exit_Click(sender As Object, e As EventArgs) Handles Menu_Exit.Click
         Application.Exit() : End
 
-    End Sub
-
-    Private Sub btn1_Click(sender As Object, e As EventArgs) Handles btn1.Click
-        Menu_Exit_Click(sender, e)
     End Sub
 
 

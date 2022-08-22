@@ -61,9 +61,8 @@ Partial Class ChooseEntry
         Me.GridEntries.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.GridEntries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.GridEntries.ContextMenuStrip = Me.ContextMenuStripEntries
-        Me.GridEntries.Dock = System.Windows.Forms.DockStyle.Left
         Me.GridEntries.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.GridEntries.Location = New System.Drawing.Point(0, 0)
+        Me.GridEntries.Location = New System.Drawing.Point(12, 12)
         Me.GridEntries.Name = "GridEntries"
         Me.GridEntries.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.GridEntries.RowHeadersVisible = False
@@ -126,8 +125,7 @@ Partial Class ChooseEntry
         Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Panel1.Controls.Add(Me.ComboDepts)
         Me.Panel1.Controls.Add(Me.ListBioProgs)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel1.Location = New System.Drawing.Point(441, 0)
+        Me.Panel1.Location = New System.Drawing.Point(448, 12)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(247, 332)
         Me.Panel1.TabIndex = 17
@@ -137,10 +135,10 @@ Partial Class ChooseEntry
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.ClientSize = New System.Drawing.Size(688, 332)
+        Me.ClientSize = New System.Drawing.Size(707, 360)
         Me.ControlBox = False
-        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.GridEntries)
+        Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ChooseEntry"

@@ -107,7 +107,7 @@
 
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub Menu_ExitSetup_Click(sender As Object, e As EventArgs) Handles Menu_ExitSetup.Click
         DS.Tables("tblSettings").Clear()
         Try
             ' //Get all prefs//
@@ -148,4 +148,6 @@
         Me.Dispose()
 
     End Sub
+
+
 End Class

@@ -2240,6 +2240,9 @@ Public Class frmTermProgs
     End Sub
     Private Sub Menu_ReportStaffPrograms_Click(sender As Object, e As EventArgs) Handles Menu_ReportStaffPrograms.Click
         'Report STAFFs
+        Dim ReportSettings As Integer = 0
+        If Menu_ReportSettings_WeeksInRows.Checked = True Then ReportSettings = 1 '//see Reports Menu in frm.TermProgs
+        If Menu_ReportSettings_ConDetails.Checked = True Then ReportSettings = ReportSettings + 2
         intDept = intUser
         If intUser = 0 Then intDept = ComboBox1.SelectedValue
         If intDept = 0 Then
@@ -2251,9 +2254,6 @@ Public Class frmTermProgs
             ChooseTerm.ShowDialog()
             If intTerm < 1 Then Exit Sub
         End If
-
-        Dim myansw As DialogResult = MsgBox("جزئيات ارايه شود؟", vbYesNoCancel, "نکسترم")
-        If myansw = vbCancel Then Exit Sub
 
         'READ STAFF TABLE
         DS.Tables("tblStaff").Clear()
@@ -2286,7 +2286,7 @@ Public Class frmTermProgs
             End Select
 
             strStaff = DS.Tables("tblStaff").Rows(stf).Item(1)
-            PrintLine(1, "<h1 style='color:red; text-align: center'>", strStaff, "</h1>")
+            PrintLine(1, "<h4 style='color:red'>", strStaff, "</h4>")
 
             Array.Clear(intTimeFlag, 0, intTimeFlag.Length) ' clear data in intTimeFlag (r:6days, c:8times //begins from 0)
             Dim strTadakhol As String = ""
@@ -2310,7 +2310,7 @@ Public Class frmTermProgs
             Next intTime
             strTadakhol = strTadakhol & "</table>"
 
-            If myansw = vbNo Then GoTo lblx
+            If ReportSettings < 2 Then GoTo lblx
             If TadakholExists = True Then
                 PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>")
                 PrintLine(1, "براي رفع تداخل، زمان بندي دروس زير را تغيير دهيد", "<br></p>")
@@ -2318,62 +2318,79 @@ Public Class frmTermProgs
                 PrintLine(1, "<br>")
             End If
 
-            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه استاد</p>")
+            '//Main Table (Style A / B)
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه ورودي</p>")
             PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
-            PrintLine(1, "<tr><th>شماره</th>")
-            PrintLine(1, "<th>گ</th>")
-            PrintLine(1, "<th>نام درس</th>")
-            PrintLine(1, "<th>واحد</th>")
-            PrintLine(1, "<th>نام مدرس</th>")
-            PrintLine(1, "<th>کارشناس</th>")
-            PrintLine(1, "<th>ش</th>")
-            PrintLine(1, "<th>ي</th>")
-            PrintLine(1, "<th>د</th>")
-            PrintLine(1, "<th>س</th>")
-            PrintLine(1, "<th>چ</th>")
-            PrintLine(1, "<th>پ</th>")
-            PrintLine(1, "<th>امتحان</th>")
-            PrintLine(1, "<th>کلاس1</th>")
-            PrintLine(1, "<th>کلاس2</th>")
-            PrintLine(1, "<th>ظرفيت</th>")
-            PrintLine(1, "<th>يادداشت</th>")
-            PrintLine(1, "<th>ورودي</th></tr>")
-
-            For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
-                PrintLine(1, "<tr>")
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(2), "</td>")   ' 2 :CourseNumber
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(5), "</td>")   ' 5 :Group
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(3), "</td>")   ' 3 :CourseName
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(4), "</td>")   ' 4 :Unit
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(7), "</td>")   ' 7 :Staff
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(9), "</td>")   ' 9 :Tech
-
+            If (ReportSettings And 1) = 1 Then '//Days of Week in ROWS (for Dr. RoshanZamir)
+                PrintLine(1, "<tr><th>روز</th><th>8:30</th><th>9:30</th><th>10:30</th><th>11:30</th><th>13:30</th><th>14:30</th><th>15:30</th><th>16:30</th></tr>")
                 For intday As Integer = 0 To 5
-                    Dim x As String = ""
+                    PrintLine(1, "<tr><td>", strDay(intday), "</td>")                                 ' Day of Week
                     For intTime As Integer = 0 To 7
-                        If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Or ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
-                            x = x & strTime(intTime) & "<br>" ' Time
-                        End If
+                        PrintLine(1, "<td>")
+                        For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
+                            If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Then
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(3), "<br")             ' 3 :CourseName
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(2), "<br>")            ' 2 :CourseNumber
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(29), "<br>")           ' 29 :Entry
+                                PrintLine(1, " گروه ", DS.Tables("tblAllProgs").Rows(i).Item(5), "<br>")  ' 5 :Group
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(17), "<br>")           ' 17 :Class1
+                            End If
+                            If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(3), "<br")             ' 3 :CourseName
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(2), "<br>")            ' 2 :CourseNumber
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(29), "<br>")           ' 29 :Entry
+                                PrintLine(1, " گروه ", DS.Tables("tblAllProgs").Rows(i).Item(5), "<br>")  ' 5 :Group
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(25), "<br>")           ' 25 :Class2
+                            End If
+                        Next i
+                        PrintLine(1, "</td>")
                     Next intTime
-                    PrintLine(1, "<td>", x, "</td>") ' Time
+                    PrintLine(1, "</tr>")
                 Next intday
+                PrintLine(1, "</table><br>")
 
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(27), "</td>") ' 27:Exam
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(17), "</td>") ' 17:Class1
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(25), "</td>") ' 25:Class2
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(26), "</td>") ' 26:Capacity
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(28), "</td>") ' 28:Notes
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(29), "</td>") ' 29:Ent
-                PrintLine(1, "</tr>")
-            Next i
-            PrintLine(1, "</table><br>")
+            Else '//Days of Week in ROWS (for Mrs. Valipour)
+                PrintLine(1, "<tr><th>شماره</th><th>گ</th><th>نام درس</th><th>واحد</th><th>نام مدرس</th><th>کارشناس</th>")
+                PrintLine(1, "<th>ش</th><th>ي</th><th>د</th><th>س</th><th>چ</th><th>پ</th>")
+                PrintLine(1, "<th>امتحان</th><th>کلاس1</th><th>کلاس2</th><th>ظرفيت</th><th>يادداشت</th><th>ورودي</th></tr>")
+
+                For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
+                    PrintLine(1, "<tr>")
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(2), "</td>")   ' 2 :CourseNumber
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(5), "</td>")   ' 5 :Group
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(3), "</td>")   ' 3 :CourseName
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(4), "</td>")   ' 4 :Unit
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(7), "</td>")   ' 7 :Staff
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(9), "</td>")   ' 9 :Tech
+
+                    For intday As Integer = 0 To 5
+                        Dim x As String = ""
+                        For intTime As Integer = 0 To 7
+                            If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Or ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
+                                x = x & strTime(intTime) & "<br>" ' Time
+                            End If
+                        Next intTime
+                        PrintLine(1, "<td>", x, "</td>") ' Time
+                    Next intday
+
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(27), "</td>") ' 27:Exam
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(17), "</td>") ' 17:Class1
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(25), "</td>") ' 25:Class2
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(26), "</td>") ' 26:Capacity
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(28), "</td>") ' 28:Notes
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(29), "</td>") ' 29:Ent
+                    PrintLine(1, "</tr>")
+                Next i
+                PrintLine(1, "</table><br>")
+
+            End If
 lblx:
             ' // table: free times
             PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>ساعت هاي آزاد</p>")
             DrawFreeTimeTable()
             PrintLine(1, "<p style='font-family:tahoma; font-size:12px'></p>")
 
-            If myansw = vbNo Then GoTo lblx2
+            If ReportSettings < 2 Then GoTo lblx2
 
             ' // table: Exams dates for Staff
             DS.Tables("tblTermExams").Clear()
@@ -2412,14 +2429,14 @@ lblx2:
     End Sub
     Private Sub Menu_ReportClassPrograms_Click(sender As Object, e As EventArgs) Handles Menu_ReportClassPrograms.Click
         'REPORT all CLASSES (in a term)
+        Dim ReportSettings As Integer = 0
+        If Menu_ReportSettings_WeeksInRows.Checked = True Then ReportSettings = 1 '//see Reports Menu in frm.TermProgs
+        If Menu_ReportSettings_ConDetails.Checked = True Then ReportSettings = ReportSettings + 2
         intTerm = ListBox2.SelectedValue
         If intTerm < 1 Then
             ChooseTerm.ShowDialog()
             If intTerm < 1 Then Exit Sub
         End If
-
-        Dim myansw As DialogResult = MsgBox("جزئيات ارايه شود؟", vbYesNoCancel, "نکسترم")
-        If myansw = vbCancel Then Exit Sub
 
         'READ ROOM TABLE
         DS.Tables("tblRooms").Clear()
@@ -2452,7 +2469,7 @@ lblx2:
             End Select
 
             strRoom = DS.Tables("tblRooms").Rows(rm).Item(1)
-            PrintLine(1, "<h1 style='color:red; text-align: center'>", strRoom, "</h1>")
+            PrintLine(1, "<h4 style='color:red'>", strRoom, "</h4>")
 
             Array.Clear(intTimeFlag, 0, intTimeFlag.Length) ' clear data in intTimeFlag (r:6days, c:8times //begins from 0)
             Dim strTadakhol As String = ""
@@ -2479,7 +2496,7 @@ lblx2:
             End Try
             strTadakhol = strTadakhol & "</table>"
 
-            If myansw = vbNo Then GoTo lblx
+            If ReportSettings < 2 Then GoTo lblx
             If TadakholExists = True Then
                 PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>")
                 PrintLine(1, "براي رفع تداخل، زمان بندي دروس زير را تغيير دهيد", "<br></p>")
@@ -2487,53 +2504,62 @@ lblx2:
                 PrintLine(1, "<br>")
             End If
 
-            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه کلاس</p>")
+            '//Main Table (Style A / B)
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه ورودي</p>")
             PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
-            PrintLine(1, "<tr><th>شماره</th>")
-            PrintLine(1, "<th>گ</th>")
-            PrintLine(1, "<th>نام درس</th>")
-            PrintLine(1, "<th>واحد</th>")
-            PrintLine(1, "<th>نام مدرس</th>")
-            PrintLine(1, "<th>کارشناس</th>")
-            PrintLine(1, "<th>ش</th>")
-            PrintLine(1, "<th>ي</th>")
-            PrintLine(1, "<th>د</th>")
-            PrintLine(1, "<th>س</th>")
-            PrintLine(1, "<th>چ</th>")
-            PrintLine(1, "<th>پ</th>")
-            PrintLine(1, "<th>امتحان</th>")
-            PrintLine(1, "<th>کلاس1</th>")
-            PrintLine(1, "<th>کلاس2</th>")
-            PrintLine(1, "<th>ظرفيت</th>")
-            PrintLine(1, "<th>يادداشت</th>")
-            PrintLine(1, "<th>ورودي</th></tr>")
-
-            For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
-                PrintLine(1, "<tr>")
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(2), "</td>")   ' 2 :CourseNumber
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(5), "</td>")   ' 5 :Group
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(3), "</td>")   ' 3 :CourseName
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(4), "</td>")   ' 4 :Unit
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(7), "</td>")   ' 7 :Staff
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(9), "</td>")   ' 9 :Tech
+            If (ReportSettings And 1) = 1 Then '//Days of Week in ROWS (for Dr. RoshanZamir)
+                PrintLine(1, "<tr><th>روز</th><th>8:30</th><th>9:30</th><th>10:30</th><th>11:30</th><th>13:30</th><th>14:30</th><th>15:30</th><th>16:30</th></tr>")
                 For intday As Integer = 0 To 5
-                    Dim x As String = ""
+                    PrintLine(1, "<tr><td>", strDay(intday), "</td>")                                 ' Day of Week
                     For intTime As Integer = 0 To 7
-                        If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Or ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
-                            x = x & strTime(intTime) & "<br>" ' Time
-                        End If
+                        PrintLine(1, "<td>")
+                        For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
+                            If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Or ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(3), "<br")             ' 3 :CourseName
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(7), "<br>")            ' 7 :Staff
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(2), "<br>")            ' 2 :CourseNumber
+                                PrintLine(1, " گروه ", DS.Tables("tblAllProgs").Rows(i).Item(5), "<br>")  ' 5 :Group
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(27), "<br>")           ' 27:Exam
+                            End If
+                        Next i
+                        PrintLine(1, "</td>")
                     Next intTime
-                    PrintLine(1, "<td>", x, "</td>") ' Time
+                    PrintLine(1, "</tr>")
                 Next intday
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(27), "</td>") ' 25:Exam
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(17), "</td>") ' 17:Class1
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(25), "</td>") ' 25:Class2
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(26), "</td>") ' 26:Capacity
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(28), "</td>") ' 28:Notes
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(29), "</td>") ' 29:Ent
-                PrintLine(1, "</tr>")
-            Next i
-            PrintLine(1, "</table><br>")
+                PrintLine(1, "</table><br>")
+
+            Else '//Days of Week in ROWS (for Mrs. Valipour)
+                PrintLine(1, "<tr><th>شماره</th><th>گ</th><th>نام درس</th><th>واحد</th><th>نام مدرس</th><th>کارشناس</th>")
+                PrintLine(1, "<th>ش</th><th>ي</th><th>د</th><th>س</th><th>چ</th><th>پ</th>")
+                PrintLine(1, "<th>امتحان</th><th>کلاس1</th><th>کلاس2</th><th>ظرفيت</th><th>يادداشت</th><th>ورودي</th></tr>")
+
+                For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
+                    PrintLine(1, "<tr>")
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(2), "</td>")   ' 2 :CourseNumber
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(5), "</td>")   ' 5 :Group
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(3), "</td>")   ' 3 :CourseName
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(4), "</td>")   ' 4 :Unit
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(7), "</td>")   ' 7 :Staff
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(9), "</td>")   ' 9 :Tech
+                    For intday As Integer = 0 To 5
+                        Dim x As String = ""
+                        For intTime As Integer = 0 To 7
+                            If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Or ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
+                                x = x & strTime(intTime) & "<br>" ' Time
+                            End If
+                        Next intTime
+                        PrintLine(1, "<td>", x, "</td>") ' Time
+                    Next intday
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(27), "</td>") ' 25:Exam
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(17), "</td>") ' 17:Class1
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(25), "</td>") ' 25:Class2
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(26), "</td>") ' 26:Capacity
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(28), "</td>") ' 28:Notes
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(29), "</td>") ' 29:Ent
+                    PrintLine(1, "</tr>")
+                Next i
+                PrintLine(1, "</table><br>")
+            End If
 lblx:
             ' // table: free times
             PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>ساعت هاي آزاد</p>")
@@ -2552,6 +2578,9 @@ lblx:
     End Sub
     Private Sub Menu_ReportEntriesPrograms_Click(sender As Object, e As EventArgs) Handles Menu_ReportEntriesPrograms.Click
         'Report all Entries (in a Dept)
+        Dim ReportSettings As Integer = 0
+        If Menu_ReportSettings_WeeksInRows.Checked = True Then ReportSettings = 1 '//see Reports Menu in frm.TermProgs
+        If Menu_ReportSettings_ConDetails.Checked = True Then ReportSettings = ReportSettings + 2
         intDept = intUser
         If intUser = 0 Then intDept = ComboBox1.SelectedValue
         If intDept = 0 Then
@@ -2569,10 +2598,7 @@ lblx:
             If intTerm < 1 Then Exit Sub
         End If
 
-        Dim myansw As DialogResult = MsgBox("جزئيات ارايه شود؟", vbYesNoCancel, "نکسترم")
-        If myansw = vbCancel Then Exit Sub
-
-        'READ STAFF TABLE
+        'READ TABLE
         DS.Tables("tblEntries").Clear()
         'READ (from DB) the Entries of the selected Department
         Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
@@ -2583,7 +2609,6 @@ lblx:
                 DAAC.SelectCommand.CommandText = "SELECT Entries.ID AS EntID, EntYear & ' - ' & ProgramName As Prog, BioProg_ID FROM ((BioProgs INNER JOIN Departments ON BioProgs.Department_ID = Departments.ID) INNER JOIN Entries ON BioProgs.ID = Entries.BioProg_ID) WHERE Department_ID =" & intDept.ToString & " AND Active = True ORDER BY EntYear, ProgramName"
                 DAAC.Fill(DS, "tblEntries")
         End Select
-
 
         FileOpen(1, Application.StartupPath & "Nexterm_entries_All.html", OpenMode.Output)
         PrintLine(1, "<html dir= ""rtl"">")
@@ -2605,7 +2630,7 @@ lblx:
             End Select
 
             strEntry = DS.Tables("tblEntries").Rows(ent).Item(1)
-            PrintLine(1, "<h1 style='color:red; text-align: center'>", strEntry, "</h1>")
+            PrintLine(1, "<h4 style='color:red'>", strEntry, "</h4>")
 
             Array.Clear(intTimeFlag, 0, intTimeFlag.Length) ' clear data in intTimeFlag (r:6days, c:8times //begins from 0)
             Dim strTadakhol As String = ""
@@ -2629,7 +2654,7 @@ lblx:
             Next intTime
             strTadakhol = strTadakhol & "</table>"
 
-            If myansw = vbNo Then GoTo lblx
+            If ReportSettings < 2 Then GoTo lblx
             If TadakholExists = True Then
                 PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>")
                 PrintLine(1, "براي رفع تداخل، زمان بندي دروس زير را تغيير دهيد", "<br></p>")
@@ -2637,60 +2662,71 @@ lblx:
                 PrintLine(1, "<br>")
             End If
 
+            '//Main Table (Style A / B)
             PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه ورودي</p>")
             PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
-            PrintLine(1, "<tr><th>شماره</th>")
-            PrintLine(1, "<th>گ</th>")
-            PrintLine(1, "<th>نام درس</th>")
-            PrintLine(1, "<th>واحد</th>")
-            PrintLine(1, "<th>نام مدرس</th>")
-            PrintLine(1, "<th>کارشناس</th>")
-            PrintLine(1, "<th>ش</th>")
-            PrintLine(1, "<th>ي</th>")
-            PrintLine(1, "<th>د</th>")
-            PrintLine(1, "<th>س</th>")
-            PrintLine(1, "<th>چ</th>")
-            PrintLine(1, "<th>پ</th>")
-            PrintLine(1, "<th>امتحان</th>")
-            PrintLine(1, "<th>کلاس1</th>")
-            PrintLine(1, "<th>کلاس2</th>")
-            PrintLine(1, "<th>ظرفيت</th>")
-            PrintLine(1, "<th>يادداشت</th></tr>")
-
-            For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
-                PrintLine(1, "<tr>")
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(2), "</td>")   ' 2 :CourseNumber
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(5), "</td>")   ' 5 :Group
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(3), "</td>")   ' 3 :CourseName
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(4), "</td>")   ' 4 :Unit
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(7), "</td>")   ' 7 :Staff
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(9), "</td>")   ' 9 :Tech
-
+            If (ReportSettings And 1) = 1 Then '//Days of Week in ROWS (for Dr. RoshanZamir)
+                PrintLine(1, "<tr><th>روز</th><th>8:30</th><th>9:30</th><th>10:30</th><th>11:30</th><th>13:30</th><th>14:30</th><th>15:30</th><th>16:30</th></tr>")
                 For intday As Integer = 0 To 5
-                    Dim x As String = ""
+                    PrintLine(1, "<tr><td>", strDay(intday), "</td>")                                 ' Day of Week
                     For intTime As Integer = 0 To 7
-                        If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Or ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
-                            x = x & strTime(intTime) & "<br>" ' Time
-                        End If
+                        PrintLine(1, "<td>")
+                        For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
+                            If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Or ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(3), "<br")             ' 3 :CourseName
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(7), "<br>")            ' 7 :Staff
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(2), "<br>")            ' 2 :CourseNumber
+                                PrintLine(1, " گروه ", DS.Tables("tblAllProgs").Rows(i).Item(5), "<br>")  ' 5 :Group
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(27), "<br>")           ' 27:Exam
+                            End If
+                        Next i
+                        PrintLine(1, "</td>")
                     Next intTime
-                    PrintLine(1, "<td>", x, "</td>") ' Time
+                    PrintLine(1, "</tr>")
                 Next intday
+                PrintLine(1, "</table><br>")
 
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(27), "</td>") ' 27:Exam
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(17), "</td>") ' 17:Class1
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(25), "</td>") ' 25:Class2
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(26), "</td>") ' 26:Capacity
-                PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(28), "</td>") ' 28:Notes
-                PrintLine(1, "</tr>")
-            Next i
-            PrintLine(1, "</table><br>")
+            Else '//Days of Week in ROWS (for Mrs. Valipour)
+                PrintLine(1, "<tr><th>شماره</th><th>گ</th><th>نام درس</th><th>واحد</th><th>نام مدرس</th><th>کارشناس</th>")
+                PrintLine(1, "<th>ش</th><th>ي</th><th>د</th><th>س</th><th>چ</th><th>پ</th>")
+                PrintLine(1, "<th>امتحان</th><th>کلاس1</th><th>کلاس2</th><th>ظرفيت</th><th>يادداشت</th></tr>")
+
+                For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
+                    PrintLine(1, "<tr>")
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(2), "</td>")   ' 2 :CourseNumber
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(5), "</td>")   ' 5 :Group
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(3), "</td>")   ' 3 :CourseName
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(4), "</td>")   ' 4 :Unit
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(7), "</td>")   ' 7 :Staff
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(9), "</td>")   ' 9 :Tech
+
+                    For intday As Integer = 0 To 5
+                        Dim x As String = ""
+                        For intTime As Integer = 0 To 7
+                            If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Or ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
+                                x = x & strTime(intTime) & "<br>" ' Time
+                            End If
+                        Next intTime
+                        PrintLine(1, "<td>", x, "</td>") ' Time
+                    Next intday
+
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(27), "</td>") ' 27:Exam
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(17), "</td>") ' 17:Class1
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(25), "</td>") ' 25:Class2
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(26), "</td>") ' 26:Capacity
+                    PrintLine(1, "<td>", DS.Tables("tblAllProgs").Rows(i).Item(28), "</td>") ' 28:Notes
+                    PrintLine(1, "</tr>")
+                Next i
+                PrintLine(1, "</table><br>")
+
+            End If
 lblx:
             ' // table: free times
             PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>ساعت هاي آزاد</p>")
             DrawFreeTimeTable()
             PrintLine(1, "<p style='font-family:tahoma; font-size:12px'></p>")
 
-            If myansw = vbNo Then GoTo lblx2
+            If ReportSettings < 2 Then GoTo lblx2
 
             ' // table: Exams dates for Staff
             DS.Tables("tblTermExams").Clear()
@@ -2716,7 +2752,6 @@ lblx:
             PrintLine(1, "<hr>")
 lblx2:
         Next ent
-
 
         ' //footer
         PrintLine(1, "<p style='font-family:tahoma; font-size:12px'><br></p><br>")
@@ -2828,4 +2863,20 @@ lblx2:
         End If
     End Sub
 
+    Private Sub Menu_ReportSettings_WeeksInRows_Click() Handles Menu_ReportSettings_WeeksInRows.Click
+        If Menu_ReportSettings_WeeksInRows.Checked = True Then
+            Menu_ReportSettings_WeeksInRows.Checked = False
+        Else
+            Menu_ReportSettings_WeeksInRows.Checked = True
+        End If
+    End Sub
+
+    Private Sub Menu_ReportSettings_ConDetails_Click() Handles Menu_ReportSettings_ConDetails.Click
+        If Menu_ReportSettings_ConDetails.Checked = True Then
+            Menu_ReportSettings_ConDetails.Checked = False
+        Else
+            Menu_ReportSettings_ConDetails.Checked = True
+        End If
+
+    End Sub
 End Class

@@ -35,14 +35,13 @@ Partial Class ChooseDept
         '
         Me.ListDepts.BackColor = System.Drawing.SystemColors.Control
         Me.ListDepts.ContextMenuStrip = Me.ContextMenu_Depts
-        Me.ListDepts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ListDepts.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ListDepts.FormattingEnabled = True
         Me.ListDepts.ItemHeight = 17
-        Me.ListDepts.Location = New System.Drawing.Point(0, 0)
+        Me.ListDepts.Location = New System.Drawing.Point(12, 12)
         Me.ListDepts.Name = "ListDepts"
         Me.ListDepts.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ListDepts.Size = New System.Drawing.Size(309, 390)
+        Me.ListDepts.Size = New System.Drawing.Size(305, 395)
         Me.ListDepts.TabIndex = 9
         '
         'ContextMenu_Depts
@@ -73,8 +72,8 @@ Partial Class ChooseDept
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(309, 390)
+        Me.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.ClientSize = New System.Drawing.Size(326, 435)
         Me.ControlBox = False
         Me.Controls.Add(Me.ListDepts)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D

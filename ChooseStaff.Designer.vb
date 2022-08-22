@@ -34,9 +34,7 @@ Partial Class ChooseStaff
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.MenuCancel = New System.Windows.Forms.ToolStripMenuItem()
         Me.ListDepts = New System.Windows.Forms.ListBox()
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ContextMenu_Staff.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ListStaff
@@ -44,14 +42,13 @@ Partial Class ChooseStaff
         Me.ListStaff.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ListStaff.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ListStaff.ContextMenuStrip = Me.ContextMenu_Staff
-        Me.ListStaff.Dock = System.Windows.Forms.DockStyle.Left
         Me.ListStaff.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ListStaff.FormattingEnabled = True
         Me.ListStaff.ItemHeight = 17
-        Me.ListStaff.Location = New System.Drawing.Point(0, 0)
+        Me.ListStaff.Location = New System.Drawing.Point(12, 12)
         Me.ListStaff.Name = "ListStaff"
         Me.ListStaff.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ListStaff.Size = New System.Drawing.Size(252, 396)
+        Me.ListStaff.Size = New System.Drawing.Size(252, 391)
         Me.ListStaff.TabIndex = 4
         '
         'ContextMenu_Staff
@@ -107,42 +104,30 @@ Partial Class ChooseStaff
         Me.ListDepts.BackColor = System.Drawing.SystemColors.Control
         Me.ListDepts.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ListDepts.ContextMenuStrip = Me.ContextMenu_Staff
-        Me.ListDepts.Dock = System.Windows.Forms.DockStyle.Right
         Me.ListDepts.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ListDepts.FormattingEnabled = True
         Me.ListDepts.ItemHeight = 17
-        Me.ListDepts.Location = New System.Drawing.Point(264, 0)
+        Me.ListDepts.Location = New System.Drawing.Point(270, 12)
         Me.ListDepts.Name = "ListDepts"
         Me.ListDepts.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ListDepts.Size = New System.Drawing.Size(255, 396)
+        Me.ListDepts.Size = New System.Drawing.Size(255, 391)
         Me.ListDepts.TabIndex = 5
-        '
-        'Panel1
-        '
-        Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.Panel1.Controls.Add(Me.ListStaff)
-        Me.Panel1.Controls.Add(Me.ListDepts)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(519, 396)
-        Me.Panel1.TabIndex = 6
         '
         'ChooseStaff
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Navy
-        Me.ClientSize = New System.Drawing.Size(519, 396)
+        Me.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.ClientSize = New System.Drawing.Size(539, 430)
         Me.ControlBox = False
-        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.ListStaff)
+        Me.Controls.Add(Me.ListDepts)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ChooseStaff"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "اساتيد"
         Me.ContextMenu_Staff.ResumeLayout(False)
-        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -156,5 +141,4 @@ Partial Class ChooseStaff
     Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
     Friend WithEvents Menu_DelStaff As ToolStripMenuItem
     Friend WithEvents ListDepts As ListBox
-    Friend WithEvents Panel1 As Panel
 End Class

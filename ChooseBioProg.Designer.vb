@@ -33,23 +33,20 @@ Partial Class ChooseBioProg
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
         Me.MenuCancel = New System.Windows.Forms.ToolStripMenuItem()
         Me.ListDepts = New System.Windows.Forms.ListBox()
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ContextMenuStrip1.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ListBioProg
         '
         Me.ListBioProg.BackColor = System.Drawing.SystemColors.Control
         Me.ListBioProg.ContextMenuStrip = Me.ContextMenuStrip1
-        Me.ListBioProg.Dock = System.Windows.Forms.DockStyle.Left
         Me.ListBioProg.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ListBioProg.FormattingEnabled = True
         Me.ListBioProg.ItemHeight = 17
-        Me.ListBioProg.Location = New System.Drawing.Point(0, 0)
+        Me.ListBioProg.Location = New System.Drawing.Point(12, 12)
         Me.ListBioProg.Name = "ListBioProg"
         Me.ListBioProg.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ListBioProg.Size = New System.Drawing.Size(267, 312)
+        Me.ListBioProg.Size = New System.Drawing.Size(267, 310)
         Me.ListBioProg.TabIndex = 8
         Me.ListBioProg.Tag = "انتخاب دوره آموزشي"
         '
@@ -99,42 +96,31 @@ Partial Class ChooseBioProg
         '
         Me.ListDepts.BackColor = System.Drawing.SystemColors.Control
         Me.ListDepts.ContextMenuStrip = Me.ContextMenuStrip1
-        Me.ListDepts.Dock = System.Windows.Forms.DockStyle.Right
         Me.ListDepts.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.ListDepts.FormattingEnabled = True
         Me.ListDepts.ItemHeight = 17
-        Me.ListDepts.Location = New System.Drawing.Point(273, 0)
+        Me.ListDepts.Location = New System.Drawing.Point(285, 12)
         Me.ListDepts.Name = "ListDepts"
         Me.ListDepts.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ListDepts.Size = New System.Drawing.Size(258, 312)
+        Me.ListDepts.Size = New System.Drawing.Size(258, 310)
         Me.ListDepts.TabIndex = 9
         Me.ListDepts.Tag = "انتخاب گروه آموزشي"
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.ListBioProg)
-        Me.Panel1.Controls.Add(Me.ListDepts)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(531, 312)
-        Me.Panel1.TabIndex = 10
         '
         'ChooseBioProg
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.ClientSize = New System.Drawing.Size(531, 331)
+        Me.ClientSize = New System.Drawing.Size(559, 345)
         Me.ControlBox = False
-        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.ListDepts)
+        Me.Controls.Add(Me.ListBioProg)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ChooseBioProg"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "دوره آموزشي"
         Me.ContextMenuStrip1.ResumeLayout(False)
-        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -148,5 +134,4 @@ Partial Class ChooseBioProg
     Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
     Friend WithEvents ToolStripMenuItem2 As ToolStripSeparator
     Friend WithEvents ListDepts As ListBox
-    Friend WithEvents Panel1 As Panel
 End Class

@@ -34,9 +34,8 @@ Partial Class frmCNN
         Me.Menu_FindDB = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.Menu_Guide = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Menu_Exit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btn1 = New System.Windows.Forms.Button()
         Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Menu_Exit = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.GridCNN, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStripCNN.SuspendLayout()
         Me.SuspendLayout()
@@ -64,7 +63,7 @@ Partial Class frmCNN
         Me.GridCNN.RowHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.GridCNN.RowHeadersWidth = 20
         Me.GridCNN.RowTemplate.Height = 25
-        Me.GridCNN.Size = New System.Drawing.Size(864, 177)
+        Me.GridCNN.Size = New System.Drawing.Size(890, 199)
         Me.GridCNN.TabIndex = 3
         '
         'MenuStripCNN
@@ -72,71 +71,59 @@ Partial Class frmCNN
         Me.MenuStripCNN.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_SelectBE, Me.ToolStripMenuItem2, Me.Menu_AddCNN, Me.Menu_Edit, Me.Menu_FindDB, Me.ToolStripMenuItem1, Me.Menu_Guide, Me.ToolStripMenuItem3, Me.Menu_Exit})
         Me.MenuStripCNN.Name = "MenuStripCNN"
         Me.MenuStripCNN.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.MenuStripCNN.Size = New System.Drawing.Size(181, 176)
+        Me.MenuStripCNN.Size = New System.Drawing.Size(149, 154)
         '
         'Menu_SelectBE
         '
         Me.Menu_SelectBE.Name = "Menu_SelectBE"
-        Me.Menu_SelectBE.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_SelectBE.Size = New System.Drawing.Size(148, 22)
         Me.Menu_SelectBE.Text = "تاييد / ادامه ..."
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(145, 6)
         '
         'Menu_AddCNN
         '
         Me.Menu_AddCNN.Name = "Menu_AddCNN"
-        Me.Menu_AddCNN.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_AddCNN.Size = New System.Drawing.Size(148, 22)
         Me.Menu_AddCNN.Text = "افزودن"
         '
         'Menu_Edit
         '
         Me.Menu_Edit.Name = "Menu_Edit"
-        Me.Menu_Edit.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Edit.Size = New System.Drawing.Size(148, 22)
         Me.Menu_Edit.Text = "ويرايش"
         '
         'Menu_FindDB
         '
         Me.Menu_FindDB.Name = "Menu_FindDB"
-        Me.Menu_FindDB.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_FindDB.Size = New System.Drawing.Size(148, 22)
         Me.Menu_FindDB.Text = "جستجو ..."
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(145, 6)
         '
         'Menu_Guide
         '
         Me.Menu_Guide.Name = "Menu_Guide"
-        Me.Menu_Guide.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Guide.Size = New System.Drawing.Size(148, 22)
         Me.Menu_Guide.Text = "راهنما"
+        '
+        'ToolStripMenuItem3
+        '
+        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(145, 6)
         '
         'Menu_Exit
         '
         Me.Menu_Exit.ForeColor = System.Drawing.Color.IndianRed
         Me.Menu_Exit.Name = "Menu_Exit"
-        Me.Menu_Exit.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Exit.Size = New System.Drawing.Size(148, 22)
         Me.Menu_Exit.Text = "خروج از نکسترم"
-        '
-        'btn1
-        '
-        Me.btn1.BackColor = System.Drawing.SystemColors.Control
-        Me.btn1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.btn1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.btn1.Location = New System.Drawing.Point(364, 183)
-        Me.btn1.Name = "btn1"
-        Me.btn1.Size = New System.Drawing.Size(137, 23)
-        Me.btn1.TabIndex = 41
-        Me.btn1.Text = "خروج"
-        Me.btn1.UseVisualStyleBackColor = False
-        '
-        'ToolStripMenuItem3
-        '
-        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(177, 6)
         '
         'frmCNN
         '
@@ -144,10 +131,9 @@ Partial Class frmCNN
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Goldenrod
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(864, 211)
+        Me.ClientSize = New System.Drawing.Size(890, 229)
         Me.ContextMenuStrip = Me.MenuStripCNN
         Me.ControlBox = False
-        Me.Controls.Add(Me.btn1)
         Me.Controls.Add(Me.GridCNN)
         Me.ForeColor = System.Drawing.Color.DarkSlateGray
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -170,7 +156,6 @@ Partial Class frmCNN
     Friend WithEvents ToolStripMenuItem2 As ToolStripSeparator
     Friend WithEvents Menu_FindDB As ToolStripMenuItem
     Friend WithEvents Menu_AddCNN As ToolStripMenuItem
-    Friend WithEvents btn1 As Button
     Friend WithEvents Menu_Edit As ToolStripMenuItem
     Friend WithEvents راهنماToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Menu_Guide As ToolStripMenuItem
