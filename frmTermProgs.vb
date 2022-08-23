@@ -2240,9 +2240,8 @@ Public Class frmTermProgs
     End Sub
     Private Sub Menu_ReportStaffPrograms_Click(sender As Object, e As EventArgs) Handles Menu_ReportStaffPrograms.Click
         'Report STAFFs
-        Dim ReportSettings As Integer = 0
-        If Menu_ReportSettings_WeeksInRows.Checked = True Then ReportSettings = 1 '//see Reports Menu in frm.TermProgs
-        If Menu_ReportSettings_ConDetails.Checked = True Then ReportSettings = ReportSettings + 2
+        frmReportSettings.ShowDialog()
+        If Retval1 = 0 Then Exit Sub
         intDept = intUser
         If intUser = 0 Then intDept = ComboBox1.SelectedValue
         If intDept = 0 Then
@@ -2310,7 +2309,7 @@ Public Class frmTermProgs
             Next intTime
             strTadakhol = strTadakhol & "</table>"
 
-            If ReportSettings < 2 Then GoTo lblx
+            If ReportSettings < 4 Then GoTo lblx
             If TadakholExists = True Then
                 PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>")
                 PrintLine(1, "براي رفع تداخل، زمان بندي دروس زير را تغيير دهيد", "<br></p>")
@@ -2321,7 +2320,7 @@ Public Class frmTermProgs
             '//Main Table (Style A / B)
             PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه ورودي</p>")
             PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
-            If (ReportSettings And 1) = 1 Then '//Days of Week in ROWS (for Dr. RoshanZamir)
+            If (ReportSettings And 2) = 2 Then '//Days of Week in ROWS (for Dr. RoshanZamir)
                 PrintLine(1, "<tr><th>روز</th><th>8:30</th><th>9:30</th><th>10:30</th><th>11:30</th><th>13:30</th><th>14:30</th><th>15:30</th><th>16:30</th></tr>")
                 For intday As Integer = 0 To 5
                     PrintLine(1, "<tr><td>", strDay(intday), "</td>")                                 ' Day of Week
@@ -2329,14 +2328,14 @@ Public Class frmTermProgs
                         PrintLine(1, "<td>")
                         For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
                             If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Then
-                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(3), "<br")             ' 3 :CourseName
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(3), "<br>")             ' 3 :CourseName
                                 PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(2), "<br>")            ' 2 :CourseNumber
                                 PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(29), "<br>")           ' 29 :Entry
                                 PrintLine(1, " گروه ", DS.Tables("tblAllProgs").Rows(i).Item(5), "<br>")  ' 5 :Group
                                 PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(17), "<br>")           ' 17 :Class1
                             End If
                             If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
-                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(3), "<br")             ' 3 :CourseName
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(3), "<br>")             ' 3 :CourseName
                                 PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(2), "<br>")            ' 2 :CourseNumber
                                 PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(29), "<br>")           ' 29 :Entry
                                 PrintLine(1, " گروه ", DS.Tables("tblAllProgs").Rows(i).Item(5), "<br>")  ' 5 :Group
@@ -2390,7 +2389,7 @@ lblx:
             DrawFreeTimeTable()
             PrintLine(1, "<p style='font-family:tahoma; font-size:12px'></p>")
 
-            If ReportSettings < 2 Then GoTo lblx2
+            If ReportSettings < 4 Then GoTo lblx2
 
             ' // table: Exams dates for Staff
             DS.Tables("tblTermExams").Clear()
@@ -2429,9 +2428,8 @@ lblx2:
     End Sub
     Private Sub Menu_ReportClassPrograms_Click(sender As Object, e As EventArgs) Handles Menu_ReportClassPrograms.Click
         'REPORT all CLASSES (in a term)
-        Dim ReportSettings As Integer = 0
-        If Menu_ReportSettings_WeeksInRows.Checked = True Then ReportSettings = 1 '//see Reports Menu in frm.TermProgs
-        If Menu_ReportSettings_ConDetails.Checked = True Then ReportSettings = ReportSettings + 2
+        frmReportSettings.ShowDialog()
+        If ReportSettings = 0 Then Exit Sub
         intTerm = ListBox2.SelectedValue
         If intTerm < 1 Then
             ChooseTerm.ShowDialog()
@@ -2496,7 +2494,7 @@ lblx2:
             End Try
             strTadakhol = strTadakhol & "</table>"
 
-            If ReportSettings < 2 Then GoTo lblx
+            If ReportSettings < 4 Then GoTo lblx
             If TadakholExists = True Then
                 PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>")
                 PrintLine(1, "براي رفع تداخل، زمان بندي دروس زير را تغيير دهيد", "<br></p>")
@@ -2507,17 +2505,26 @@ lblx2:
             '//Main Table (Style A / B)
             PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه ورودي</p>")
             PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
-            If (ReportSettings And 1) = 1 Then '//Days of Week in ROWS (for Dr. RoshanZamir)
+            If (ReportSettings And 2) = 2 Then '//Days of Week in ROWS (for Dr. RoshanZamir)
                 PrintLine(1, "<tr><th>روز</th><th>8:30</th><th>9:30</th><th>10:30</th><th>11:30</th><th>13:30</th><th>14:30</th><th>15:30</th><th>16:30</th></tr>")
                 For intday As Integer = 0 To 5
                     PrintLine(1, "<tr><td>", strDay(intday), "</td>")                                 ' Day of Week
                     For intTime As Integer = 0 To 7
                         PrintLine(1, "<td>")
                         For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
-                            If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Or ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
-                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(3), "<br")             ' 3 :CourseName
+                            If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) And ((DS.Tables("tblAllProgs").Rows(i).Item(16) = intRoom)) Then
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(3), "<br>")            ' 3 :CourseName
                                 PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(7), "<br>")            ' 7 :Staff
                                 PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(2), "<br>")            ' 2 :CourseNumber
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(29), "<br>")           ' 29 :Entry
+                                PrintLine(1, " گروه ", DS.Tables("tblAllProgs").Rows(i).Item(5), "<br>")  ' 5 :Group
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(27), "<br>")           ' 27:Exam
+                            End If
+                            If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) And ((DS.Tables("tblAllProgs").Rows(i).Item(24) = intRoom)) Then
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(3), "<br>")            ' 3 :CourseName
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(7), "<br>")            ' 7 :Staff
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(2), "<br>")            ' 2 :CourseNumber
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(29), "<br>")           ' 29 :Entry
                                 PrintLine(1, " گروه ", DS.Tables("tblAllProgs").Rows(i).Item(5), "<br>")  ' 5 :Group
                                 PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(27), "<br>")           ' 27:Exam
                             End If
@@ -2564,7 +2571,7 @@ lblx:
             ' // table: free times
             PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>ساعت هاي آزاد</p>")
             DrawFreeTimeTable()
-            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'></p>")
+            PrintLine(1, "<p style='font-family:tahoma; font-size:12px'></p><hr>")
         Next rm
 
 
@@ -2578,9 +2585,8 @@ lblx:
     End Sub
     Private Sub Menu_ReportEntriesPrograms_Click(sender As Object, e As EventArgs) Handles Menu_ReportEntriesPrograms.Click
         'Report all Entries (in a Dept)
-        Dim ReportSettings As Integer = 0
-        If Menu_ReportSettings_WeeksInRows.Checked = True Then ReportSettings = 1 '//see Reports Menu in frm.TermProgs
-        If Menu_ReportSettings_ConDetails.Checked = True Then ReportSettings = ReportSettings + 2
+        frmReportSettings.ShowDialog()
+        If ReportSettings = 0 Then Exit Sub
         intDept = intUser
         If intUser = 0 Then intDept = ComboBox1.SelectedValue
         If intDept = 0 Then
@@ -2654,7 +2660,7 @@ lblx:
             Next intTime
             strTadakhol = strTadakhol & "</table>"
 
-            If ReportSettings < 2 Then GoTo lblx
+            If ReportSettings < 4 Then GoTo lblx
             If TadakholExists = True Then
                 PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>")
                 PrintLine(1, "براي رفع تداخل، زمان بندي دروس زير را تغيير دهيد", "<br></p>")
@@ -2665,7 +2671,7 @@ lblx:
             '//Main Table (Style A / B)
             PrintLine(1, "<p style='font-family:tahoma; font-size:12px'>برنامه ورودي</p>")
             PrintLine(1, "<table style='font-family:tahoma; font-size:12px; border-collapse:collapse'>")
-            If (ReportSettings And 1) = 1 Then '//Days of Week in ROWS (for Dr. RoshanZamir)
+            If (ReportSettings And 2) = 2 Then '//Days of Week in ROWS (for Dr. RoshanZamir)
                 PrintLine(1, "<tr><th>روز</th><th>8:30</th><th>9:30</th><th>10:30</th><th>11:30</th><th>13:30</th><th>14:30</th><th>15:30</th><th>16:30</th></tr>")
                 For intday As Integer = 0 To 5
                     PrintLine(1, "<tr><td>", strDay(intday), "</td>")                                 ' Day of Week
@@ -2673,7 +2679,7 @@ lblx:
                         PrintLine(1, "<td>")
                         For i As Integer = 0 To DS.Tables("tblAllProgs").Rows.Count - 1
                             If ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 10) And (2 ^ intTime)) = (2 ^ intTime)) Or ((DS.Tables("tblAllProgs").Rows(i).Item(intday + 18) And (2 ^ intTime)) = (2 ^ intTime)) Then
-                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(3), "<br")             ' 3 :CourseName
+                                PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(3), "<br>")            ' 3 :CourseName
                                 PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(7), "<br>")            ' 7 :Staff
                                 PrintLine(1, DS.Tables("tblAllProgs").Rows(i).Item(2), "<br>")            ' 2 :CourseNumber
                                 PrintLine(1, " گروه ", DS.Tables("tblAllProgs").Rows(i).Item(5), "<br>")  ' 5 :Group
@@ -2726,7 +2732,7 @@ lblx:
             DrawFreeTimeTable()
             PrintLine(1, "<p style='font-family:tahoma; font-size:12px'></p>")
 
-            If ReportSettings < 2 Then GoTo lblx2
+            If ReportSettings < 4 Then GoTo lblx2
 
             ' // table: Exams dates for Staff
             DS.Tables("tblTermExams").Clear()
@@ -2863,20 +2869,5 @@ lblx2:
         End If
     End Sub
 
-    Private Sub Menu_ReportSettings_WeeksInRows_Click() Handles Menu_ReportSettings_WeeksInRows.Click
-        If Menu_ReportSettings_WeeksInRows.Checked = True Then
-            Menu_ReportSettings_WeeksInRows.Checked = False
-        Else
-            Menu_ReportSettings_WeeksInRows.Checked = True
-        End If
-    End Sub
 
-    Private Sub Menu_ReportSettings_ConDetails_Click() Handles Menu_ReportSettings_ConDetails.Click
-        If Menu_ReportSettings_ConDetails.Checked = True Then
-            Menu_ReportSettings_ConDetails.Checked = False
-        Else
-            Menu_ReportSettings_ConDetails.Checked = True
-        End If
-
-    End Sub
 End Class

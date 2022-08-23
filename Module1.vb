@@ -58,6 +58,7 @@ Module Module1
     Public boolLog As Boolean 'Log User Activity (YES/NO) in Setting
     Public strReportsFooter As String = "NexTerm Desktop App [ www.msht.ir ], Faculty of Science, SKU. Developer: Dr. Majid Sharifi-Tehrani (1400-1401)"
     Public strCurrentVersion As String = ""
+    Public ReportSettings As Integer = 0
 
     Sub Main()
         frmAbout.ShowDialog()

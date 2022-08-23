@@ -58,9 +58,6 @@ Partial Class frmTermProgs
         Me.Menu_UserActivityLogs = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_ReportStaffProgsInTerms = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripSeparator()
-        Me.نمايشروزهايهفتهدرسطرهاToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Menu_ReportSettings_WeeksInRows = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Menu_ReportSettings_ConDetails = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_ReportEntriesPrograms = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_ReportClassPrograms = New System.Windows.Forms.ToolStripMenuItem()
         Me.Menu_ReportStaffPrograms = New System.Windows.Forms.ToolStripMenuItem()
@@ -297,7 +294,7 @@ Partial Class frmTermProgs
         '
         'Menu_Report
         '
-        Me.Menu_Report.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_UserActivityLogs, Me.Menu_ReportStaffProgsInTerms, Me.ToolStripMenuItem5, Me.نمايشروزهايهفتهدرسطرهاToolStripMenuItem, Me.Menu_ReportEntriesPrograms, Me.Menu_ReportClassPrograms, Me.Menu_ReportStaffPrograms, Me.Menu_ReportTechPrograms})
+        Me.Menu_Report.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_UserActivityLogs, Me.Menu_ReportStaffProgsInTerms, Me.ToolStripMenuItem5, Me.Menu_ReportEntriesPrograms, Me.Menu_ReportClassPrograms, Me.Menu_ReportStaffPrograms, Me.Menu_ReportTechPrograms})
         Me.Menu_Report.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Menu_Report.Name = "Menu_Report"
         Me.Menu_Report.Size = New System.Drawing.Size(50, 20)
@@ -307,66 +304,44 @@ Partial Class frmTermProgs
         '
         Me.Menu_UserActivityLogs.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_UserActivityLogs.Name = "Menu_UserActivityLogs"
-        Me.Menu_UserActivityLogs.Size = New System.Drawing.Size(160, 22)
+        Me.Menu_UserActivityLogs.Size = New System.Drawing.Size(180, 22)
         Me.Menu_UserActivityLogs.Text = "گزارش فعاليت ها"
         '
         'Menu_ReportStaffProgsInTerms
         '
         Me.Menu_ReportStaffProgsInTerms.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_ReportStaffProgsInTerms.Name = "Menu_ReportStaffProgsInTerms"
-        Me.Menu_ReportStaffProgsInTerms.Size = New System.Drawing.Size(160, 22)
+        Me.Menu_ReportStaffProgsInTerms.Size = New System.Drawing.Size(180, 22)
         Me.Menu_ReportStaffProgsInTerms.Text = "مرور برنامه اساتيد"
         '
         'ToolStripMenuItem5
         '
         Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(157, 6)
-        '
-        'نمايشروزهايهفتهدرسطرهاToolStripMenuItem
-        '
-        Me.نمايشروزهايهفتهدرسطرهاToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_ReportSettings_WeeksInRows, Me.Menu_ReportSettings_ConDetails})
-        Me.نمايشروزهايهفتهدرسطرهاToolStripMenuItem.ForeColor = System.Drawing.Color.IndianRed
-        Me.نمايشروزهايهفتهدرسطرهاToolStripMenuItem.Name = "نمايشروزهايهفتهدرسطرهاToolStripMenuItem"
-        Me.نمايشروزهايهفتهدرسطرهاToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
-        Me.نمايشروزهايهفتهدرسطرهاToolStripMenuItem.Text = "تنظيمات گزارش"
-        '
-        'Menu_ReportSettings_WeeksInRows
-        '
-        Me.Menu_ReportSettings_WeeksInRows.Name = "Menu_ReportSettings_WeeksInRows"
-        Me.Menu_ReportSettings_WeeksInRows.Size = New System.Drawing.Size(180, 22)
-        Me.Menu_ReportSettings_WeeksInRows.Text = "روزهاي هفته در سطر"
-        '
-        'Menu_ReportSettings_ConDetails
-        '
-        Me.Menu_ReportSettings_ConDetails.Checked = True
-        Me.Menu_ReportSettings_ConDetails.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.Menu_ReportSettings_ConDetails.Name = "Menu_ReportSettings_ConDetails"
-        Me.Menu_ReportSettings_ConDetails.Size = New System.Drawing.Size(180, 22)
-        Me.Menu_ReportSettings_ConDetails.Text = "گزارش با جزئيات"
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(177, 6)
         '
         'Menu_ReportEntriesPrograms
         '
         Me.Menu_ReportEntriesPrograms.Name = "Menu_ReportEntriesPrograms"
-        Me.Menu_ReportEntriesPrograms.Size = New System.Drawing.Size(160, 22)
+        Me.Menu_ReportEntriesPrograms.Size = New System.Drawing.Size(180, 22)
         Me.Menu_ReportEntriesPrograms.Text = "برنامه ورودي ها"
         '
         'Menu_ReportClassPrograms
         '
         Me.Menu_ReportClassPrograms.Name = "Menu_ReportClassPrograms"
-        Me.Menu_ReportClassPrograms.Size = New System.Drawing.Size(160, 22)
+        Me.Menu_ReportClassPrograms.Size = New System.Drawing.Size(180, 22)
         Me.Menu_ReportClassPrograms.Text = "برنامه کلاس ها"
         '
         'Menu_ReportStaffPrograms
         '
         Me.Menu_ReportStaffPrograms.Name = "Menu_ReportStaffPrograms"
-        Me.Menu_ReportStaffPrograms.Size = New System.Drawing.Size(160, 22)
+        Me.Menu_ReportStaffPrograms.Size = New System.Drawing.Size(180, 22)
         Me.Menu_ReportStaffPrograms.Text = "برنامه اساتيد"
         '
         'Menu_ReportTechPrograms
         '
         Me.Menu_ReportTechPrograms.Enabled = False
         Me.Menu_ReportTechPrograms.Name = "Menu_ReportTechPrograms"
-        Me.Menu_ReportTechPrograms.Size = New System.Drawing.Size(160, 22)
+        Me.Menu_ReportTechPrograms.Size = New System.Drawing.Size(180, 22)
         Me.Menu_ReportTechPrograms.Text = "برنامه کارشناسان"
         '
         'Grid4
@@ -1026,7 +1001,4 @@ Partial Class frmTermProgs
     Friend WithEvents Menu_TermsDefault_Set As ToolStripMenuItem
     Friend WithEvents Menu_TermsDefault_Clear As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem8 As ToolStripSeparator
-    Friend WithEvents نمايشروزهايهفتهدرسطرهاToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents Menu_ReportSettings_WeeksInRows As ToolStripMenuItem
-    Friend WithEvents Menu_ReportSettings_ConDetails As ToolStripMenuItem
 End Class
