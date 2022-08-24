@@ -40,7 +40,8 @@
         Grid1.Columns(3).Width = 0   'Notes
 
         Grid1.Columns(0).Visible = False
-        If Userx = "USER Department" Then Grid1.Columns(2).Visible = False Else Grid1.Columns(2).Visible = True
+        'If Userx = "USER Department" Then Grid1.Columns(2).Visible = False Else Grid1.Columns(2).Visible = True
+        If ((Userx = "USER Faculty") And (UserAccessControls And (2 ^ 4))) = 4 Then Grid1.Columns(2).Visible = True Else Grid1.Columns(2).Visible = False
         Grid1.Columns(3).Visible = False
 
         For i = 0 To Grid1.Columns.Count - 1
@@ -86,6 +87,7 @@
 
     End Sub
 
+    'PopMENU
     Private Sub Menu_OK_Click(sender As Object, e As EventArgs) Handles Menu_OK.Click
         Dim r As Integer = Grid1.SelectedCells(0).RowIndex
         intTerm = Val(Grid1(0, r).Value)

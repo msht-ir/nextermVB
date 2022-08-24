@@ -217,7 +217,10 @@
         If boolLog = True Then
             'WRITE-LOG 'There is a similar SUB() in TermProgs_Form
             If Userx = "USER Faculty" Then intUser = 0
-            Dim strDateTime As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss")
+            'Dim strDateTime As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss")
+            Dim timeZoneInfo As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time")
+            Dim strDateTime As String = TimeZoneInfo.ConvertTime(DateTime.Now, timeZoneInfo).ToString("yyyy.MM.dd - HH:mm:ss")
+
             Dim strUserID As Integer = intUser.ToString
             Dim strNickName As String = UserNickName
             Dim strClientName As String = LCase(Environment.MachineName)

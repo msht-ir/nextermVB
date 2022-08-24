@@ -31,6 +31,10 @@ Partial Class frmReportSettings
         Me.RadioDaysInRows = New System.Windows.Forms.RadioButton()
         Me.CheckBoxDetails = New System.Windows.Forms.CheckBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.CheckBoxExamDate = New System.Windows.Forms.CheckBox()
+        Me.CheckBoxCourseGroup = New System.Windows.Forms.CheckBox()
+        Me.CheckBoxCourseNumber = New System.Windows.Forms.CheckBox()
+        Me.CheckBoxCourseName = New System.Windows.Forms.CheckBox()
         Me.CheckBoxRememberSettings = New System.Windows.Forms.CheckBox()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -64,13 +68,11 @@ Partial Class frmReportSettings
         'RadioDaysInCols
         '
         Me.RadioDaysInCols.AutoSize = True
-        Me.RadioDaysInCols.Checked = True
         Me.RadioDaysInCols.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioDaysInCols.Location = New System.Drawing.Point(244, 23)
+        Me.RadioDaysInCols.Location = New System.Drawing.Point(92, 92)
         Me.RadioDaysInCols.Name = "RadioDaysInCols"
         Me.RadioDaysInCols.Size = New System.Drawing.Size(131, 19)
         Me.RadioDaysInCols.TabIndex = 1
-        Me.RadioDaysInCols.TabStop = True
         Me.RadioDaysInCols.Text = "روزهاي هفته در ستون"
         Me.RadioDaysInCols.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.RadioDaysInCols.UseVisualStyleBackColor = True
@@ -78,11 +80,13 @@ Partial Class frmReportSettings
         'RadioDaysInRows
         '
         Me.RadioDaysInRows.AutoSize = True
+        Me.RadioDaysInRows.Checked = True
         Me.RadioDaysInRows.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioDaysInRows.Location = New System.Drawing.Point(247, 48)
+        Me.RadioDaysInRows.Location = New System.Drawing.Point(95, 117)
         Me.RadioDaysInRows.Name = "RadioDaysInRows"
         Me.RadioDaysInRows.Size = New System.Drawing.Size(128, 19)
         Me.RadioDaysInRows.TabIndex = 2
+        Me.RadioDaysInRows.TabStop = True
         Me.RadioDaysInRows.Text = "روزهاي هفته در سطر"
         Me.RadioDaysInRows.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.RadioDaysInRows.UseVisualStyleBackColor = True
@@ -93,7 +97,7 @@ Partial Class frmReportSettings
         Me.CheckBoxDetails.Checked = True
         Me.CheckBoxDetails.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBoxDetails.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.CheckBoxDetails.Location = New System.Drawing.Point(272, 84)
+        Me.CheckBoxDetails.Location = New System.Drawing.Point(151, 62)
         Me.CheckBoxDetails.Name = "CheckBoxDetails"
         Me.CheckBoxDetails.Size = New System.Drawing.Size(103, 19)
         Me.CheckBoxDetails.TabIndex = 3
@@ -104,20 +108,83 @@ Partial Class frmReportSettings
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.SystemColors.Control
+        Me.Panel1.Controls.Add(Me.CheckBoxExamDate)
+        Me.Panel1.Controls.Add(Me.CheckBoxCourseGroup)
+        Me.Panel1.Controls.Add(Me.CheckBoxCourseNumber)
+        Me.Panel1.Controls.Add(Me.CheckBoxCourseName)
         Me.Panel1.Controls.Add(Me.CheckBoxRememberSettings)
         Me.Panel1.Controls.Add(Me.RadioDaysInCols)
         Me.Panel1.Controls.Add(Me.RadioDaysInRows)
         Me.Panel1.Controls.Add(Me.CheckBoxDetails)
-        Me.Panel1.Location = New System.Drawing.Point(8, 8)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(408, 132)
+        Me.Panel1.Size = New System.Drawing.Size(321, 275)
         Me.Panel1.TabIndex = 4
+        '
+        'CheckBoxExamDate
+        '
+        Me.CheckBoxExamDate.AutoSize = True
+        Me.CheckBoxExamDate.Checked = True
+        Me.CheckBoxExamDate.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBoxExamDate.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.CheckBoxExamDate.Location = New System.Drawing.Point(138, 224)
+        Me.CheckBoxExamDate.Name = "CheckBoxExamDate"
+        Me.CheckBoxExamDate.Size = New System.Drawing.Size(85, 19)
+        Me.CheckBoxExamDate.TabIndex = 8
+        Me.CheckBoxExamDate.Text = "تاريخ امتحان"
+        Me.CheckBoxExamDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.CheckBoxExamDate.UseVisualStyleBackColor = True
+        '
+        'CheckBoxCourseGroup
+        '
+        Me.CheckBoxCourseGroup.AutoSize = True
+        Me.CheckBoxCourseGroup.Checked = True
+        Me.CheckBoxCourseGroup.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBoxCourseGroup.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.CheckBoxCourseGroup.Location = New System.Drawing.Point(115, 199)
+        Me.CheckBoxCourseGroup.Name = "CheckBoxCourseGroup"
+        Me.CheckBoxCourseGroup.Size = New System.Drawing.Size(108, 19)
+        Me.CheckBoxCourseGroup.TabIndex = 7
+        Me.CheckBoxCourseGroup.Text = "شماره گروه درس"
+        Me.CheckBoxCourseGroup.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.CheckBoxCourseGroup.UseVisualStyleBackColor = True
+        '
+        'CheckBoxCourseNumber
+        '
+        Me.CheckBoxCourseNumber.AutoSize = True
+        Me.CheckBoxCourseNumber.Checked = True
+        Me.CheckBoxCourseNumber.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBoxCourseNumber.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.CheckBoxCourseNumber.Location = New System.Drawing.Point(140, 174)
+        Me.CheckBoxCourseNumber.Name = "CheckBoxCourseNumber"
+        Me.CheckBoxCourseNumber.Size = New System.Drawing.Size(83, 19)
+        Me.CheckBoxCourseNumber.TabIndex = 6
+        Me.CheckBoxCourseNumber.Text = "شماره درس"
+        Me.CheckBoxCourseNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.CheckBoxCourseNumber.UseVisualStyleBackColor = True
+        '
+        'CheckBoxCourseName
+        '
+        Me.CheckBoxCourseName.AutoSize = True
+        Me.CheckBoxCourseName.Checked = True
+        Me.CheckBoxCourseName.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBoxCourseName.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.CheckBoxCourseName.Location = New System.Drawing.Point(156, 149)
+        Me.CheckBoxCourseName.Name = "CheckBoxCourseName"
+        Me.CheckBoxCourseName.Size = New System.Drawing.Size(67, 19)
+        Me.CheckBoxCourseName.TabIndex = 5
+        Me.CheckBoxCourseName.Text = "نام درس"
+        Me.CheckBoxCourseName.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.CheckBoxCourseName.UseVisualStyleBackColor = True
         '
         'CheckBoxRememberSettings
         '
         Me.CheckBoxRememberSettings.AutoSize = True
+        Me.CheckBoxRememberSettings.Checked = True
+        Me.CheckBoxRememberSettings.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBoxRememberSettings.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.CheckBoxRememberSettings.Location = New System.Drawing.Point(27, 24)
+        Me.CheckBoxRememberSettings.Location = New System.Drawing.Point(125, 28)
         Me.CheckBoxRememberSettings.Name = "CheckBoxRememberSettings"
         Me.CheckBoxRememberSettings.Size = New System.Drawing.Size(149, 19)
         Me.CheckBoxRememberSettings.TabIndex = 4
@@ -130,7 +197,7 @@ Partial Class frmReportSettings
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.ClientSize = New System.Drawing.Size(418, 164)
+        Me.ClientSize = New System.Drawing.Size(321, 307)
         Me.ContextMenuStrip = Me.ContextMenuStrip1
         Me.ControlBox = False
         Me.Controls.Add(Me.Panel1)
@@ -159,4 +226,12 @@ Partial Class frmReportSettings
     Friend WithEvents CheckBoxDetails As CheckBox
     Friend WithEvents Panel1 As Panel
     Friend WithEvents CheckBoxRememberSettings As CheckBox
+    Friend WithEvents CheckBox4 As CheckBox
+    Friend WithEvents CheckBox3 As CheckBox
+    Friend WithEvents CheckBox2 As CheckBox
+    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents CheckBoxExamDate As CheckBox
+    Friend WithEvents CheckBoxCourseGroup As CheckBox
+    Friend WithEvents CheckBoxCourseNumber As CheckBox
+    Friend WithEvents CheckBoxCourseName As CheckBox
 End Class

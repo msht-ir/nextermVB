@@ -55,7 +55,7 @@ Partial Class ChooseTerm
         Me.Grid1.RowHeadersVisible = False
         Me.Grid1.RowTemplate.Height = 25
         Me.Grid1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.Grid1.Size = New System.Drawing.Size(222, 504)
+        Me.Grid1.Size = New System.Drawing.Size(176, 504)
         Me.Grid1.TabIndex = 10
         '
         'ContextMenuStrip1
@@ -63,47 +63,47 @@ Partial Class ChooseTerm
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_OK, Me.ToolStripMenuItem2, Me.Menu_Add, Me.Menu_Edit, Me.ToolStripMenuItem1, Me.Menu_Cancel})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 126)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(174, 104)
         '
         'Menu_OK
         '
         Me.Menu_OK.Name = "Menu_OK"
-        Me.Menu_OK.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_OK.Size = New System.Drawing.Size(173, 22)
         Me.Menu_OK.Text = "انتخاب / تاييد"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(170, 6)
         '
         'Menu_Add
         '
         Me.Menu_Add.Name = "Menu_Add"
-        Me.Menu_Add.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Add.Size = New System.Drawing.Size(173, 22)
         Me.Menu_Add.Text = "افزودن"
         '
         'Menu_Edit
         '
         Me.Menu_Edit.Name = "Menu_Edit"
-        Me.Menu_Edit.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Edit.Size = New System.Drawing.Size(173, 22)
         Me.Menu_Edit.Text = "ويرايش / تغيير حالت"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(170, 6)
         '
         'Menu_Cancel
         '
         Me.Menu_Cancel.Name = "Menu_Cancel"
-        Me.Menu_Cancel.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Cancel.Size = New System.Drawing.Size(173, 22)
         Me.Menu_Cancel.Text = "انصراف / خروج"
         '
         'ChooseTerm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(222, 504)
+        Me.ClientSize = New System.Drawing.Size(176, 504)
         Me.ControlBox = False
         Me.Controls.Add(Me.Grid1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog

@@ -4,8 +4,8 @@
         cboDepts.DataSource = DS.Tables("tblDepartments")
         cboDepts.DisplayMember = "DEPT"
         cboDepts.ValueMember = "ID"
-        cboDepts.SelectedValue = intUser
-        If intUser = 0 Then CheckBoxDepts.Checked = False
+        cboDepts.SelectedValue = intDept
+        If intDept = 0 Then CheckBoxDepts.Checked = False
 
         Try
             DS.Tables("tblTerms").Clear()
@@ -314,6 +314,5 @@ lbl_continue:
         Me.Dispose()
 
     End Sub
-
 
 End Class

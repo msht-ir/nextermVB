@@ -58,7 +58,7 @@ Module Module1
     Public boolLog As Boolean 'Log User Activity (YES/NO) in Setting
     Public strReportsFooter As String = "NexTerm Desktop App [ www.msht.ir ], Faculty of Science, SKU. Developer: Dr. Majid Sharifi-Tehrani (1400-1401)"
     Public strCurrentVersion As String = ""
-    Public ReportSettings As Integer = 0
+    Public ReportSettings As Integer = &HFB ' &Hfb = &B11111011 = 251 'bit4:DayInCols/Rows is off
 
     Sub Main()
         frmAbout.ShowDialog()
@@ -299,7 +299,10 @@ lbl_SelectDB:
             If boolLog = True Then ' -----------------------WRITE-LOG
                 Try
                     If Userx = "USER Faculty" Then intUser = 0
-                    Dim strDateTime As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss")
+                    'Dim strDateTime As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss")
+                    Dim timeZoneInfo As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time")
+                    Dim strDateTime As String = TimeZoneInfo.ConvertTime(DateTime.Now, timeZoneInfo).ToString("yyyy.MM.dd - HH:mm:ss")
+
                     Dim intUserID As Integer = intUser
                     Dim strNickName As String = UserNickName
                     Dim strClientName As String = LCase(Environment.MachineName)

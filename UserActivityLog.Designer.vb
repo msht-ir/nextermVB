@@ -58,7 +58,7 @@ Partial Class UserActivityLog
         Me.ContextMenuStripA.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_ReportUserActivity, Me.Menu_ReportCourses, Me.ToolStripMenuItem1, Me.Menu_Exit})
         Me.ContextMenuStripA.Name = "ContextMenuStrip1"
         Me.ContextMenuStripA.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenuStripA.Size = New System.Drawing.Size(238, 98)
+        Me.ContextMenuStripA.Size = New System.Drawing.Size(238, 76)
         '
         'Menu_ReportUserActivity
         '
