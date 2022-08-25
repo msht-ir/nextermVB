@@ -1,5 +1,5 @@
 ﻿Public Class Settings
-
+    Public cmdLineStatus As Integer = 0
     Private Sub Settings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'READ FROM DATABASE
         DS.Tables("tblSettings").Clear()
@@ -26,6 +26,10 @@
             GridSettings.Columns.Item(k).SortMode = DataGridViewColumnSortMode.Programmatic
         Next k
 
+        txtCMD.Text = ""
+        txtCMD.PasswordChar = "-"
+        txtCMD.Focus()
+
     End Sub
 
     Private Sub GridSettings_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridSettings.CellDoubleClick
@@ -40,13 +44,15 @@
             Case 0 '--------------------------------------------------  Admin Can Class
                 If DS.Tables("tblSettings").Rows(0).Item(2) = "NO" Then
                     sttng = "YES"
-                    DS.Tables("tblSettings").Rows(0).Item(2) = sttng
+                    DS.Tables("tblSettings").Rows(r).Item(2) = sttng
                     UserAccessControls = (UserAccessControls Or (2 ^ 2))
                 Else 'Admin Can Class Already YES
                     sttng = "NO"
-                    DS.Tables("tblSettings").Rows(0).Item(2) = sttng
+                    DS.Tables("tblSettings").Rows(r).Item(2) = sttng
                     UserAccessControls = (UserAccessControls And 251) ' (251 = 1111 1011 : 2^2 is off)
                 End If
+                SaveSettings()
+
             Case 1 '--------------------------------------------------  Admin Can Prog
                 If DS.Tables("tblSettings").Rows(1).Item(2) = "NO" Then
                     sttng = "YES"
@@ -57,17 +63,9 @@
                     DS.Tables("tblSettings").Rows(1).Item(2) = sttng
                     UserAccessControls = (UserAccessControls And 239) ' (239 = 1110 1111 : 2^4 is off)
                 End If
-            Case 3 '--------------------------------------------------  Write Logs?
-                If DS.Tables("tblSettings").Rows(3).Item(2) = "NO" Then
-                    sttng = "YES"
-                    DS.Tables("tblSettings").Rows(3).Item(2) = sttng
-                    boolLog = True
-                Else 'Admin Can Prog Already YES
-                    sttng = "NO"
-                    DS.Tables("tblSettings").Rows(3).Item(2) = sttng
-                    boolLog = False
-                End If
-            Case 5 '--------------------------------------------------  bg for reports
+                SaveSettings()
+
+            Case 6 '--------------------------------------------------  bg for reports
                 Using dialog As New OpenFileDialog With {.InitialDirectory = Application.StartupPath, .Filter = "Image files (PNG format)|*.png"}
                     If dialog.ShowDialog = DialogResult.OK Then
                         sttng = dialog.FileName
@@ -77,37 +75,121 @@
                     End If
                 End Using
                 sttng = sttng.Replace("\", "/")
-                DS.Tables("tblSettings").Rows(r).Item(2) = sttng
-            Case Else '-------------------------------------------------- Other settings
-                sttng = Trim(InputBox("تغيير داده شود به", "تنظيمات نکسترم", sttng))
-                If sttng = "" Then Exit Sub
-                DS.Tables("tblSettings").Rows(r).Item(2) = sttng
-        End Select
+                DS.Tables("tblSettings").Rows(6).Item(2) = sttng
+                SaveSettings()
 
-        '//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
-            Case "SqlServer"
-                strSQL = "UPDATE Settings SET iHerbsValue = @sttng WHERE ID = @ID"
-                Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
-                cmd.CommandType = CommandType.Text
-                cmd.Parameters.AddWithValue("@sttng", sttng)
-                cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(r).Item(0).ToString)
-                Dim i As Integer = cmd.ExecuteNonQuery()
-                Exit Sub
-            Case "Access"
-                strSQL = "UPDATE Settings SET iHerbsValue = @sttng WHERE ID = @ID"
-                Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
-                cmd.CommandType = CommandType.Text
-                cmd.Parameters.AddWithValue("@sttng", sttng)
-                cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(r).Item(0).ToString)
-                Dim i As Integer = cmd.ExecuteNonQuery()
-                Exit Sub
+                'Case Else '-------------------------------------------------- Other settings
+                '    sttng = Trim(InputBox("تغيير داده شود به", "تنظيمات نکسترم", sttng))
+                '    If sttng = "" Then Exit Sub
+                '    DS.Tables("tblSettings").Rows(r).Item(2) = sttng
         End Select
 
     End Sub
 
-    Private Sub Menu_ExitSetup_Click(sender As Object, e As EventArgs) Handles Menu_ExitSetup.Click
+    Private Sub txtCMD_TextChanged(sender As Object, e As EventArgs) Handles txtCMD.TextChanged
+        If txtCMD.Text = "" Then Exit Sub
+        Try
+            Select Case cmdLineStatus
+                Case 0 'Ready for Commands
+                    Select Case txtCMD.Text.ToLower
+                        Case "set class on"
+                            DS.Tables("tblSettings").Rows(0).Item(2) = "YES"
+                            txtCMD.Text = "" : cmdLineStatus = 0
+                        Case "set class off"
+                            DS.Tables("tblSettings").Rows(0).Item(2) = "NO"
+                            txtCMD.Text = "" : cmdLineStatus = 0
+                        Case "set prog on"
+                            DS.Tables("tblSettings").Rows(1).Item(2) = "YES"
+                            txtCMD.Text = "" : cmdLineStatus = 0
+                        Case "set prog off"
+                            DS.Tables("tblSettings").Rows(1).Item(2) = "NO"
+                            txtCMD.Text = "" : cmdLineStatus = 0
+                        Case "set log on"
+                            DS.Tables("tblSettings").Rows(4).Item(2) = "YES"
+                            txtCMD.Text = "" : cmdLineStatus = 0
+                        Case "set log off"
+                            DS.Tables("tblSettings").Rows(4).Item(2) = "NO"
+                            txtCMD.Text = "" : cmdLineStatus = 0
+                        Case "set admin pass"
+                            cmdLineStatus = 2 'be ready for input admin pass
+                            txtCMD.Text = DS.Tables("tblSettings").Rows(2).Item(2)
+                            txtCMD.SelectionStart = Len(txtCMD.Text)
+                            txtCMD.PasswordChar = ""
+                        Case "set version"
+                            cmdLineStatus = 3 'be ready for input build info
+                            txtCMD.Text = DS.Tables("tblSettings").Rows(3).Item(2)
+                            txtCMD.SelectionStart = Len(txtCMD.Text)
+                            txtCMD.PasswordChar = ""
+                        Case "set owner info"
+                            cmdLineStatus = 5 'be ready for input owner info
+                            txtCMD.Text = DS.Tables("tblSettings").Rows(5).Item(2)
+                            txtCMD.SelectionStart = Len(txtCMD.Text)
+                            txtCMD.PasswordChar = ""
+                        Case "quit", "exit"
+                            Menu_ExitSetup_Click()
+
+                    End Select
+
+                Case 2 '---------------------------------------------------------- input admin pass
+                    If Mid(txtCMD.Text, Len(txtCMD.Text), 1) = "#" Then
+                        Dim sttng As String = Mid(txtCMD.Text, 1, Len(txtCMD.Text) - 1)
+                        DS.Tables("tblSettings").Rows(2).Item(2) = sttng
+                        SaveSettings()
+                        cmdLineStatus = 0 'reset, ready for commands
+                        txtCMD.Text = ""
+                        txtCMD.PasswordChar = "-"
+                    End If
+
+                Case 3 '------------------------------------------------------- input build info
+                    If Mid(txtCMD.Text, Len(txtCMD.Text), 1) = "#" Then
+                        Dim sttng As String = Mid(txtCMD.Text, 1, Len(txtCMD.Text) - 1)
+                        DS.Tables("tblSettings").Rows(3).Item(2) = sttng
+                        SaveSettings()
+                        cmdLineStatus = 0 'reset, ready for commands
+                        txtCMD.Text = ""
+                        txtCMD.PasswordChar = "-"
+                    End If
+
+                Case 5 '----------------------------------------------------------- input owner info
+                    If Mid(txtCMD.Text, Len(txtCMD.Text), 1) = "#" Then
+                        Dim sttng As String = Mid(txtCMD.Text, 1, Len(txtCMD.Text) - 1)
+                        DS.Tables("tblSettings").Rows(5).Item(2) = sttng
+                        SaveSettings()
+                        cmdLineStatus = 0 'reset, ready for commands
+                        txtCMD.Text = ""
+                        txtCMD.PasswordChar = "-"
+                    End If
+
+            End Select
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+
+    End Sub
+
+    Private Sub SaveSettings()
+        For r As Integer = 0 To GridSettings.Rows.Count - 1
+            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                Case "SqlServer"
+                    strSQL = "UPDATE Settings SET iHerbsValue = @sttng WHERE ID = @ID"
+                    Dim cmd As New SqlClient.SqlCommand(strSQL, CnnSS)
+                    cmd.CommandType = CommandType.Text
+                    cmd.Parameters.AddWithValue("@sttng", DS.Tables("tblsettings").Rows(r).Item(2))
+                    cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(r).Item(0).ToString)
+                    Dim i As Integer = cmd.ExecuteNonQuery()
+                Case "Access"
+                    strSQL = "UPDATE Settings SET iHerbsValue = @sttng WHERE ID = @ID"
+                    Dim cmd As New OleDb.OleDbCommand(strSQL, CnnAC)
+                    cmd.CommandType = CommandType.Text
+                    cmd.Parameters.AddWithValue("@sttng", DS.Tables("tblsettings").Rows(r).Item(2))
+                    cmd.Parameters.AddWithValue("@ID", DS.Tables("tblSettings").Rows(r).Item(0).ToString)
+                    Dim i As Integer = cmd.ExecuteNonQuery()
+            End Select
+        Next r
+
+    End Sub
+    Private Sub Menu_ExitSetup_Click() Handles Menu_ExitSetup.Click
+        SaveSettings()
         DS.Tables("tblSettings").Clear()
         Try
             ' //Get all prefs//
@@ -137,13 +219,7 @@
         Catch ex As Exception
             MsgBox("خطا در بخش تنظيمات نکسترم", vbOKOnly, "نکسترم") 'MsgBox(ex.ToString)
             boolLog = False
-
         End Try
-
-
-
-
-
 
         Me.Dispose()
 

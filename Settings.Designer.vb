@@ -29,6 +29,7 @@ Partial Class Settings
         Me.GridSettings = New System.Windows.Forms.DataGridView()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Menu_ExitSetup = New System.Windows.Forms.ToolStripMenuItem()
+        Me.txtCMD = New System.Windows.Forms.TextBox()
         CType(Me.GridSettings, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -67,8 +68,9 @@ Partial Class Settings
         Me.GridSettings.RowHeadersVisible = False
         Me.GridSettings.RowTemplate.Height = 25
         Me.GridSettings.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.GridSettings.Size = New System.Drawing.Size(553, 224)
+        Me.GridSettings.Size = New System.Drawing.Size(553, 214)
         Me.GridSettings.TabIndex = 12
+        Me.GridSettings.TabStop = False
         '
         'ContextMenuStrip1
         '
@@ -84,14 +86,27 @@ Partial Class Settings
         Me.Menu_ExitSetup.Size = New System.Drawing.Size(144, 22)
         Me.Menu_ExitSetup.Text = "تاييد / بازگشت"
         '
+        'txtCMD
+        '
+        Me.txtCMD.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.txtCMD.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtCMD.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.txtCMD.ForeColor = System.Drawing.SystemColors.ControlDark
+        Me.txtCMD.Location = New System.Drawing.Point(31, 251)
+        Me.txtCMD.Name = "txtCMD"
+        Me.txtCMD.PasswordChar = Global.Microsoft.VisualBasic.ChrW(45)
+        Me.txtCMD.Size = New System.Drawing.Size(242, 18)
+        Me.txtCMD.TabIndex = 0
+        '
         'Settings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.ClientSize = New System.Drawing.Size(553, 250)
+        Me.ClientSize = New System.Drawing.Size(553, 288)
         Me.ContextMenuStrip = Me.ContextMenuStrip1
         Me.ControlBox = False
+        Me.Controls.Add(Me.txtCMD)
         Me.Controls.Add(Me.GridSettings)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -101,9 +116,11 @@ Partial Class Settings
         CType(Me.GridSettings, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents GridSettings As DataGridView
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents Menu_ExitSetup As ToolStripMenuItem
+    Friend WithEvents txtCMD As TextBox
 End Class

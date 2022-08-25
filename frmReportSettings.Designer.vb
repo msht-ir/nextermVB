@@ -69,7 +69,7 @@ Partial Class frmReportSettings
         '
         Me.RadioDaysInCols.AutoSize = True
         Me.RadioDaysInCols.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioDaysInCols.Location = New System.Drawing.Point(92, 92)
+        Me.RadioDaysInCols.Location = New System.Drawing.Point(68, 92)
         Me.RadioDaysInCols.Name = "RadioDaysInCols"
         Me.RadioDaysInCols.Size = New System.Drawing.Size(131, 19)
         Me.RadioDaysInCols.TabIndex = 1
@@ -82,7 +82,7 @@ Partial Class frmReportSettings
         Me.RadioDaysInRows.AutoSize = True
         Me.RadioDaysInRows.Checked = True
         Me.RadioDaysInRows.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.RadioDaysInRows.Location = New System.Drawing.Point(95, 117)
+        Me.RadioDaysInRows.Location = New System.Drawing.Point(71, 117)
         Me.RadioDaysInRows.Name = "RadioDaysInRows"
         Me.RadioDaysInRows.Size = New System.Drawing.Size(128, 19)
         Me.RadioDaysInRows.TabIndex = 2
@@ -97,7 +97,7 @@ Partial Class frmReportSettings
         Me.CheckBoxDetails.Checked = True
         Me.CheckBoxDetails.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBoxDetails.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.CheckBoxDetails.Location = New System.Drawing.Point(151, 62)
+        Me.CheckBoxDetails.Location = New System.Drawing.Point(127, 62)
         Me.CheckBoxDetails.Name = "CheckBoxDetails"
         Me.CheckBoxDetails.Size = New System.Drawing.Size(103, 19)
         Me.CheckBoxDetails.TabIndex = 3
@@ -107,7 +107,7 @@ Partial Class frmReportSettings
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.SystemColors.Control
+        Me.Panel1.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Panel1.Controls.Add(Me.CheckBoxExamDate)
         Me.Panel1.Controls.Add(Me.CheckBoxCourseGroup)
         Me.Panel1.Controls.Add(Me.CheckBoxCourseNumber)
@@ -119,7 +119,7 @@ Partial Class frmReportSettings
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(321, 275)
+        Me.Panel1.Size = New System.Drawing.Size(291, 275)
         Me.Panel1.TabIndex = 4
         '
         'CheckBoxExamDate
@@ -128,7 +128,7 @@ Partial Class frmReportSettings
         Me.CheckBoxExamDate.Checked = True
         Me.CheckBoxExamDate.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBoxExamDate.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.CheckBoxExamDate.Location = New System.Drawing.Point(138, 224)
+        Me.CheckBoxExamDate.Location = New System.Drawing.Point(114, 224)
         Me.CheckBoxExamDate.Name = "CheckBoxExamDate"
         Me.CheckBoxExamDate.Size = New System.Drawing.Size(85, 19)
         Me.CheckBoxExamDate.TabIndex = 8
@@ -142,7 +142,7 @@ Partial Class frmReportSettings
         Me.CheckBoxCourseGroup.Checked = True
         Me.CheckBoxCourseGroup.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBoxCourseGroup.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.CheckBoxCourseGroup.Location = New System.Drawing.Point(115, 199)
+        Me.CheckBoxCourseGroup.Location = New System.Drawing.Point(91, 199)
         Me.CheckBoxCourseGroup.Name = "CheckBoxCourseGroup"
         Me.CheckBoxCourseGroup.Size = New System.Drawing.Size(108, 19)
         Me.CheckBoxCourseGroup.TabIndex = 7
@@ -156,7 +156,7 @@ Partial Class frmReportSettings
         Me.CheckBoxCourseNumber.Checked = True
         Me.CheckBoxCourseNumber.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBoxCourseNumber.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.CheckBoxCourseNumber.Location = New System.Drawing.Point(140, 174)
+        Me.CheckBoxCourseNumber.Location = New System.Drawing.Point(116, 174)
         Me.CheckBoxCourseNumber.Name = "CheckBoxCourseNumber"
         Me.CheckBoxCourseNumber.Size = New System.Drawing.Size(83, 19)
         Me.CheckBoxCourseNumber.TabIndex = 6
@@ -170,7 +170,7 @@ Partial Class frmReportSettings
         Me.CheckBoxCourseName.Checked = True
         Me.CheckBoxCourseName.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBoxCourseName.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.CheckBoxCourseName.Location = New System.Drawing.Point(156, 149)
+        Me.CheckBoxCourseName.Location = New System.Drawing.Point(132, 149)
         Me.CheckBoxCourseName.Name = "CheckBoxCourseName"
         Me.CheckBoxCourseName.Size = New System.Drawing.Size(67, 19)
         Me.CheckBoxCourseName.TabIndex = 5
@@ -184,7 +184,7 @@ Partial Class frmReportSettings
         Me.CheckBoxRememberSettings.Checked = True
         Me.CheckBoxRememberSettings.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBoxRememberSettings.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.CheckBoxRememberSettings.Location = New System.Drawing.Point(125, 28)
+        Me.CheckBoxRememberSettings.Location = New System.Drawing.Point(101, 28)
         Me.CheckBoxRememberSettings.Name = "CheckBoxRememberSettings"
         Me.CheckBoxRememberSettings.Size = New System.Drawing.Size(149, 19)
         Me.CheckBoxRememberSettings.TabIndex = 4
@@ -196,8 +196,8 @@ Partial Class frmReportSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.ClientSize = New System.Drawing.Size(321, 307)
+        Me.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.ClientSize = New System.Drawing.Size(291, 303)
         Me.ContextMenuStrip = Me.ContextMenuStrip1
         Me.ControlBox = False
         Me.Controls.Add(Me.Panel1)

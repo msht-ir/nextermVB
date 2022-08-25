@@ -132,7 +132,7 @@ Partial Class frmTermProgs
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.BackColor = System.Drawing.Color.CadetBlue
+        Me.MenuStrip1.BackColor = System.Drawing.Color.DarkKhaki
         Me.MenuStrip1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Menu_1, Me.Menu_2, Me.Menu_4, Me.Menu_Report})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
@@ -154,60 +154,63 @@ Partial Class frmTermProgs
         '
         Me.Menu_Userx.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_Userx.Name = "Menu_Userx"
-        Me.Menu_Userx.Size = New System.Drawing.Size(149, 22)
+        Me.Menu_Userx.ShortcutKeys = System.Windows.Forms.Keys.F2
+        Me.Menu_Userx.Size = New System.Drawing.Size(180, 22)
         Me.Menu_Userx.Text = "کاربر ..."
         '
         'Menu_ChangePass
         '
         Me.Menu_ChangePass.Name = "Menu_ChangePass"
-        Me.Menu_ChangePass.Size = New System.Drawing.Size(149, 22)
+        Me.Menu_ChangePass.Size = New System.Drawing.Size(180, 22)
         Me.Menu_ChangePass.Text = "تغيير کلمه عبور"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(146, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
         '
         'Menu_Settings
         '
         Me.Menu_Settings.Name = "Menu_Settings"
-        Me.Menu_Settings.Size = New System.Drawing.Size(149, 22)
+        Me.Menu_Settings.ShortcutKeys = System.Windows.Forms.Keys.F4
+        Me.Menu_Settings.Size = New System.Drawing.Size(180, 22)
         Me.Menu_Settings.Text = "تنظيمات ..."
         '
         'Menu_Help
         '
         Me.Menu_Help.Name = "Menu_Help"
-        Me.Menu_Help.Size = New System.Drawing.Size(149, 22)
+        Me.Menu_Help.Size = New System.Drawing.Size(180, 22)
         Me.Menu_Help.Text = "راهنما"
         '
         'Menu_About
         '
         Me.Menu_About.Name = "Menu_About"
-        Me.Menu_About.Size = New System.Drawing.Size(149, 22)
+        Me.Menu_About.Size = New System.Drawing.Size(180, 22)
         Me.Menu_About.Text = "درباره"
         '
         'ToolStripMenuItem6
         '
         Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
-        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(146, 6)
+        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(177, 6)
         '
         'Menu_Notes
         '
         Me.Menu_Notes.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_Notes.Name = "Menu_Notes"
-        Me.Menu_Notes.Size = New System.Drawing.Size(149, 22)
+        Me.Menu_Notes.Size = New System.Drawing.Size(180, 22)
         Me.Menu_Notes.Text = "يادداشت ..."
         '
         'ToolStripMenuItem8
         '
         Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
-        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(146, 6)
+        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(177, 6)
         '
         'Menu_Quit
         '
         Me.Menu_Quit.ForeColor = System.Drawing.Color.IndianRed
         Me.Menu_Quit.Name = "Menu_Quit"
-        Me.Menu_Quit.Size = New System.Drawing.Size(149, 22)
+        Me.Menu_Quit.ShortcutKeys = System.Windows.Forms.Keys.F8
+        Me.Menu_Quit.Size = New System.Drawing.Size(180, 22)
         Me.Menu_Quit.Text = "خروج از برنامه"
         '
         'Menu_2
@@ -304,44 +307,44 @@ Partial Class frmTermProgs
         '
         Me.Menu_UserActivityLogs.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_UserActivityLogs.Name = "Menu_UserActivityLogs"
-        Me.Menu_UserActivityLogs.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_UserActivityLogs.Size = New System.Drawing.Size(160, 22)
         Me.Menu_UserActivityLogs.Text = "گزارش فعاليت ها"
         '
         'Menu_ReportStaffProgsInTerms
         '
         Me.Menu_ReportStaffProgsInTerms.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_ReportStaffProgsInTerms.Name = "Menu_ReportStaffProgsInTerms"
-        Me.Menu_ReportStaffProgsInTerms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportStaffProgsInTerms.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ReportStaffProgsInTerms.Text = "مرور برنامه اساتيد"
         '
         'ToolStripMenuItem5
         '
         Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(157, 6)
         '
         'Menu_ReportEntriesPrograms
         '
         Me.Menu_ReportEntriesPrograms.Name = "Menu_ReportEntriesPrograms"
-        Me.Menu_ReportEntriesPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportEntriesPrograms.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ReportEntriesPrograms.Text = "برنامه ورودي ها"
         '
         'Menu_ReportClassPrograms
         '
         Me.Menu_ReportClassPrograms.Name = "Menu_ReportClassPrograms"
-        Me.Menu_ReportClassPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportClassPrograms.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ReportClassPrograms.Text = "برنامه کلاس ها"
         '
         'Menu_ReportStaffPrograms
         '
         Me.Menu_ReportStaffPrograms.Name = "Menu_ReportStaffPrograms"
-        Me.Menu_ReportStaffPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportStaffPrograms.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ReportStaffPrograms.Text = "برنامه اساتيد"
         '
         'Menu_ReportTechPrograms
         '
         Me.Menu_ReportTechPrograms.Enabled = False
         Me.Menu_ReportTechPrograms.Name = "Menu_ReportTechPrograms"
-        Me.Menu_ReportTechPrograms.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ReportTechPrograms.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ReportTechPrograms.Text = "برنامه کارشناسان"
         '
         'Grid4
@@ -1001,4 +1004,5 @@ Partial Class frmTermProgs
     Friend WithEvents Menu_TermsDefault_Set As ToolStripMenuItem
     Friend WithEvents Menu_TermsDefault_Clear As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem8 As ToolStripSeparator
+    Friend WithEvents DToolStripMenuItem As ToolStripTextBox
 End Class
