@@ -20,7 +20,8 @@
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
-
+        If intDept > 0 Then ComboBox1.SelectedValue = intDept
+        If intTerm > 0 Then ListBox2.SelectedValue = intTerm
 
     End Sub
 
@@ -228,4 +229,5 @@
         End Try
 
     End Sub
+
 End Class

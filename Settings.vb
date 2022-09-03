@@ -46,25 +46,27 @@
                     sttng = "YES"
                     DS.Tables("tblSettings").Rows(r).Item(2) = sttng
                     UserAccessControls = (UserAccessControls Or (2 ^ 2))
+                    WriteLOG(50)
                 Else 'Admin Can Class Already YES
                     sttng = "NO"
                     DS.Tables("tblSettings").Rows(r).Item(2) = sttng
                     UserAccessControls = (UserAccessControls And 251) ' (251 = 1111 1011 : 2^2 is off)
+                    WriteLOG(51)
                 End If
                 SaveSettings()
-
             Case 1 '--------------------------------------------------  Admin Can Prog
                 If DS.Tables("tblSettings").Rows(1).Item(2) = "NO" Then
                     sttng = "YES"
                     DS.Tables("tblSettings").Rows(1).Item(2) = sttng
                     UserAccessControls = (UserAccessControls Or (2 ^ 4))
+                    WriteLOG(52)
                 Else 'Admin Can Prog Already YES
                     sttng = "NO"
                     DS.Tables("tblSettings").Rows(1).Item(2) = sttng
                     UserAccessControls = (UserAccessControls And 239) ' (239 = 1110 1111 : 2^4 is off)
+                    WriteLOG(53)
                 End If
                 SaveSettings()
-
             Case 6 '--------------------------------------------------  bg for reports
                 Using dialog As New OpenFileDialog With {.InitialDirectory = Application.StartupPath, .Filter = "Image files (PNG format)|*.png"}
                     If dialog.ShowDialog = DialogResult.OK Then
@@ -77,7 +79,6 @@
                 sttng = sttng.Replace("\", "/")
                 DS.Tables("tblSettings").Rows(6).Item(2) = sttng
                 SaveSettings()
-
                 'Case Else '-------------------------------------------------- Other settings
                 '    sttng = Trim(InputBox("تغيير داده شود به", "تنظيمات نکسترم", sttng))
                 '    If sttng = "" Then Exit Sub
@@ -95,21 +96,27 @@
                         Case "set class on"
                             DS.Tables("tblSettings").Rows(0).Item(2) = "YES"
                             txtCMD.Text = "" : cmdLineStatus = 0
+                            WriteLOG(50)
                         Case "set class off"
                             DS.Tables("tblSettings").Rows(0).Item(2) = "NO"
                             txtCMD.Text = "" : cmdLineStatus = 0
+                            WriteLOG(51)
                         Case "set prog on"
                             DS.Tables("tblSettings").Rows(1).Item(2) = "YES"
                             txtCMD.Text = "" : cmdLineStatus = 0
+                            WriteLOG(52)
                         Case "set prog off"
                             DS.Tables("tblSettings").Rows(1).Item(2) = "NO"
                             txtCMD.Text = "" : cmdLineStatus = 0
+                            WriteLOG(53)
                         Case "set log on"
                             DS.Tables("tblSettings").Rows(4).Item(2) = "YES"
                             txtCMD.Text = "" : cmdLineStatus = 0
+                            WriteLOG(56)
                         Case "set log off"
                             DS.Tables("tblSettings").Rows(4).Item(2) = "NO"
                             txtCMD.Text = "" : cmdLineStatus = 0
+                            WriteLOG(57)
                         Case "set admin pass"
                             cmdLineStatus = 2 'be ready for input admin pass
                             txtCMD.Text = DS.Tables("tblSettings").Rows(2).Item(2)
@@ -127,7 +134,6 @@
                             txtCMD.PasswordChar = ""
                         Case "quit", "exit"
                             Menu_ExitSetup_Click()
-
                     End Select
 
                 Case 2 '---------------------------------------------------------- input admin pass
@@ -135,6 +141,7 @@
                         Dim sttng As String = Mid(txtCMD.Text, 1, Len(txtCMD.Text) - 1)
                         DS.Tables("tblSettings").Rows(2).Item(2) = sttng
                         SaveSettings()
+                        WriteLOG(54)
                         cmdLineStatus = 0 'reset, ready for commands
                         txtCMD.Text = ""
                         txtCMD.PasswordChar = "-"
@@ -145,6 +152,7 @@
                         Dim sttng As String = Mid(txtCMD.Text, 1, Len(txtCMD.Text) - 1)
                         DS.Tables("tblSettings").Rows(3).Item(2) = sttng
                         SaveSettings()
+                        WriteLOG(55)
                         cmdLineStatus = 0 'reset, ready for commands
                         txtCMD.Text = ""
                         txtCMD.PasswordChar = "-"
@@ -155,11 +163,11 @@
                         Dim sttng As String = Mid(txtCMD.Text, 1, Len(txtCMD.Text) - 1)
                         DS.Tables("tblSettings").Rows(5).Item(2) = sttng
                         SaveSettings()
+                        WriteLOG(58)
                         cmdLineStatus = 0 'reset, ready for commands
                         txtCMD.Text = ""
                         txtCMD.PasswordChar = "-"
                     End If
-
             End Select
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -188,6 +196,63 @@
         Next r
 
     End Sub
+
+    Private Sub WriteLOG(intActivity As Integer)
+        If boolLog = True Then
+            'WRITE-LOG 'There is a similar SUB() in TermProgs_Form
+            If Userx = "USER Faculty" Then intUser = 0
+            'Dim strDateTime As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss")
+            Dim timeZoneInfo As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time")
+            Dim strDateTime As String = TimeZoneInfo.ConvertTime(DateTime.Now, timeZoneInfo).ToString("yyyy.MM.dd - HH:mm:ss")
+
+            Dim strUserID As Integer = intUser.ToString
+            Dim strNickName As String = UserNickName
+            Dim strClientName As String = LCase(Environment.MachineName)
+            Dim strFrontEnd As String = LCase(strBuildInfo)
+            Dim strLog As String = ""
+            Select Case intActivity
+                Case 50 : strLog = "admin.class on"
+                Case 51 : strLog = "admin.class off"
+                Case 52 : strLog = "admin.prog on"
+                Case 53 : strLog = "admin.prog off"
+                Case 54 : strLog = "admin.pass?"
+                Case 55 : strLog = "build.info?"
+                Case 56 : strLog = "usr.log on"
+                Case 57 : strLog = "usr.log off"
+                Case 58 : strLog = "owner.info?"
+            End Select
+            Try
+                Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                    Case "SqlServer"
+                        strSQL = "INSERT INTO xLog (DateTimex, UserID, NickName, ClientName, FrontEnd, strLog) VALUES (@datetime, @userid, @nickname, @clientname, @frontend, @strlog)"
+                        Dim cmdx As New SqlClient.SqlCommand(strSQL, CnnSS)
+                        cmdx.CommandType = CommandType.Text
+                        cmdx.Parameters.AddWithValue("@datetime", strDateTime)
+                        cmdx.Parameters.AddWithValue("@userid", strUserID)
+                        cmdx.Parameters.AddWithValue("@nickname", strNickName)
+                        cmdx.Parameters.AddWithValue("@clientname", strClientName)
+                        cmdx.Parameters.AddWithValue("@frontend", strFrontEnd)
+                        cmdx.Parameters.AddWithValue("@strlog", strLog)
+                        Dim ix As Integer = cmdx.ExecuteNonQuery()
+                    Case "Access"
+                        strSQL = "INSERT INTO xLog (DateTimex, UserID, NickName, ClientName, FrontEnd, strLog) VALUES (@datetime, @userid, @nickname, @clientname, @frontend, @strlog)"
+                        Dim cmdx As New OleDb.OleDbCommand(strSQL, CnnAC)
+                        cmdx.CommandType = CommandType.Text
+                        cmdx.Parameters.AddWithValue("@datetime", strDateTime)
+                        cmdx.Parameters.AddWithValue("@userid", strUserID)
+                        cmdx.Parameters.AddWithValue("@nickname", strNickName)
+                        cmdx.Parameters.AddWithValue("@clientname", strClientName)
+                        cmdx.Parameters.AddWithValue("@frontend", strFrontEnd)
+                        cmdx.Parameters.AddWithValue("@strlog", strLog)
+                        Dim ix As Integer = cmdx.ExecuteNonQuery()
+                End Select
+            Catch ex As Exception
+                MsgBox(ex.ToString) 'Do Nothing!
+            End Try
+        End If
+
+    End Sub
+
     Private Sub Menu_ExitSetup_Click() Handles Menu_ExitSetup.Click
         SaveSettings()
         DS.Tables("tblSettings").Clear()
@@ -214,7 +279,7 @@
             If UCase(DS.Tables("tblSettings").Rows(1).Item(2)) = "YES" Then UserAccessControls = (UserAccessControls Or 16) Else UserAccessControls = (UserAccessControls And 239)  ' (16: 0001 0000) (239: 1110 1111)
 
             strFacultyPass = DS.Tables("tblSettings").Rows(2).Item(2)
-            If UCase(DS.Tables("tblSettings").Rows(3).Item(2)) = "YES" Then boolLog = True Else boolLog = False
+            If UCase(DS.Tables("tblSettings").Rows(4).Item(2)) = "YES" Then boolLog = True Else boolLog = False
             strReportBG = DS.Tables("tblSettings").Rows(5).Item(2)
         Catch ex As Exception
             MsgBox("خطا در بخش تنظيمات نکسترم", vbOKOnly, "نکسترم") 'MsgBox(ex.ToString)
@@ -224,6 +289,5 @@
         Me.Dispose()
 
     End Sub
-
 
 End Class

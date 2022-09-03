@@ -73,7 +73,7 @@
     End Sub
 
     Private Sub Menu_Guide_Click(sender As Object, e As EventArgs) Handles Menu_Guide.Click
-        Dim myansw As DialogResult = MsgBox("ار تاريخ هاي جداول فوق براي تعيين تاريخ اين درس کمک بگيريد" & vbCrLf & "پس از تاييد، در پنجره اصلي برنامه ها، تغييرات را ذخيره کنيد" & vbCrLf & "کمک بيشتري لازم است؟", vbYesNo, "نکسترم")
+        Dim myansw As DialogResult = MsgBox("از تاريخ هاي جداول فوق براي تعيين تاريخ اين درس کمک بگيريد" & vbCrLf & "پس از تاييد، در پنجره اصلي برنامه ها، تغييرات را ذخيره کنيد" & vbCrLf & "کمک بيشتري لازم است؟", vbYesNo, "نکسترم")
         If myansw = vbYes Then
             FileOpen(1, Application.StartupPath & "\NexTerm_Guide.html", OpenMode.Output)
             PrintLine(1, "<html dir=""rtl"">")

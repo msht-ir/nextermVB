@@ -68,15 +68,15 @@ lbl_SelectDB:
             Select Case Server2Connect
                 '--------------------------------------------------------- Server on Host
                 Case "NexTerm DB-1"
-                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NexTerm; User ID=mshtir_db; Password=nExTeRm_1401_uSr1abcd;")
+                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NexTerm; User ID=mshtir_nx1user; Password=nExTeRm_1401_uSrxUnO;")
                     CnnSS.Open()
                     DatabaseType = "SqlServer"
                 Case "NexTerm DB-2"
-                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NX2; User ID=mshtir_nx2user; Password=SiliconPower_740;")
+                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NX2; User ID=mshtir_nx2user; Password=nExTeRm_1401_uSrxSeCoNd;")
                     CnnSS.Open()
                     DatabaseType = "SqlServer"
                 Case "NexTerm DB-3"
-                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NX3; User ID=mshtir_nx3user; Password=nExTeRm_1401_uSr3;")
+                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NX3; User ID=mshtir_nx3user; Password=nExTeRm_1401_uSrxThiRd;")
                     CnnSS.Open()
                     DatabaseType = "SqlServer"
                     '--------------------------------------------------------- LOCAL Server

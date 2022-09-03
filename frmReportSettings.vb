@@ -1,4 +1,6 @@
-﻿Public Class frmReportSettings
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+
+Public Class frmReportSettings
     Private Sub frmReportSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If (ReportSettings And 1) = 1 Then
             CheckBoxRememberSettings.Checked = True
@@ -11,6 +13,24 @@
         Else
             CheckBoxRememberSettings.Checked = False
         End If
+
+
+        Try
+            DS.Tables("tblTerms").Clear()
+            Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                Case "SqlServer"
+                    DASS.SelectCommand.CommandText = "SELECT DISTINCT Terms.ID, Terms.Term, Terms.Active FROM Terms WHERE Terms.Active = 1 ORDER BY Term"
+                    DASS.Fill(DS, "tblTerms")
+                Case "Access"
+                    DAAC.SelectCommand.CommandText = "SELECT DISTINCT Terms.ID, Terms.Term, Terms.Active FROM Terms WHERE Terms.Active = True ORDER BY Term"
+                    DAAC.Fill(DS, "tblTerms")
+            End Select
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+        cboTerms.DataSource = DS.Tables("tblterms")
+        cboTerms.DisplayMember = "Term"
+        cboTerms.ValueMember = "ID"
 
     End Sub
 
@@ -50,8 +70,10 @@
 
     'POPMENU
     Private Sub Menu_OK_Click(sender As Object, e As EventArgs) Handles Menu_OK.Click
+        intTerm = cboTerms.SelectedValue
+        If intTerm < 1 Then Exit Sub
         SetReportSettings()
-        Retval1 = 1 '//make the report
+            Retval1 = 1 '//make the report
         Me.Dispose()
 
     End Sub

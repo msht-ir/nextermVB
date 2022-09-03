@@ -54,7 +54,7 @@ Partial Class frmShowTables
         Me.Grid1.RowHeadersVisible = False
         Me.Grid1.RowTemplate.Height = 25
         Me.Grid1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.Grid1.Size = New System.Drawing.Size(529, 536)
+        Me.Grid1.Size = New System.Drawing.Size(465, 536)
         Me.Grid1.TabIndex = 0
         '
         'ContextMenuCourses
@@ -90,7 +90,7 @@ Partial Class frmShowTables
         'btnOkExit
         '
         Me.btnOkExit.BackColor = System.Drawing.SystemColors.Control
-        Me.btnOkExit.Location = New System.Drawing.Point(192, 544)
+        Me.btnOkExit.Location = New System.Drawing.Point(157, 544)
         Me.btnOkExit.Name = "btnOkExit"
         Me.btnOkExit.Size = New System.Drawing.Size(143, 25)
         Me.btnOkExit.TabIndex = 9
@@ -102,7 +102,7 @@ Partial Class frmShowTables
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.ClientSize = New System.Drawing.Size(529, 579)
+        Me.ClientSize = New System.Drawing.Size(465, 579)
         Me.ControlBox = False
         Me.Controls.Add(Me.btnOkExit)
         Me.Controls.Add(Me.Grid1)

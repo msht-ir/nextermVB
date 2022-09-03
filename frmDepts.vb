@@ -943,6 +943,7 @@
                             MsgBox("error: " & ex.ToString)
                         End Try
                 End Select
+                WriteLOG(21)
             End If
             ListBioProg_Click()
             '//GridCourse.Refresh()
@@ -956,7 +957,7 @@
         intBioProg = ListBioProg.SelectedValue
 
         TempList.ShowDialog()
-
+        WriteLOG(22)
         ListBioProg_Click()
         GridCourse.Refresh()
 
@@ -992,6 +993,7 @@
             DS.Tables("tblCourses").Rows(r).Item(3) = Retval2
             GridCourse_CellValueChanged()
             ListBioProg_Click()
+            WriteLOG(23)
         Else
             Exit Sub
         End If
@@ -1017,6 +1019,7 @@
             PrintLine(1, GridCourse.Item(4, i).Value) 'CourseUnits
         Next i
         FileClose(1)
+        WriteLOG(24)
         MsgBox("ليست درس ذخيره شد" & vbCrLf & strFilename, vbOKOnly, "نکسترم")
 
     End Sub
@@ -1081,6 +1084,11 @@
                 Case 18 : strLog = "crs?:" & strCourse
                 Case 19 : strLog = "crs.nr?:" & intCourseNumber.ToString
                 Case 20 : strLog = "crs.unt?:" & intCourseNumber.ToString
+                Case 21 : strLog = "+crs:" & intCourseNumber.ToString
+                Case 22 : strLog = "+crs<-list"
+                Case 23 : strLog = "crs.specs?:" & intCourseNumber.ToString
+                Case 24 : strLog = "crs->export"
+
             End Select
 
             Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----

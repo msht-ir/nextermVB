@@ -39,7 +39,7 @@ Partial Class ChooseStaff
         '
         'ListStaff
         '
-        Me.ListStaff.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.ListStaff.BackColor = System.Drawing.SystemColors.Control
         Me.ListStaff.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ListStaff.ContextMenuStrip = Me.ContextMenu_Staff
         Me.ListStaff.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)

@@ -25,7 +25,6 @@
         Grid1.Columns(1).Width = 290  'CourseName
         Grid1.Columns(2).Width = 90   'CourseNumber
         Grid1.Columns(3).Width = 50   'Unit
-        Grid1.Columns(4).Width = 50   'Unit-eq
 
         Grid1.Columns(0).Visible = False     'ID
 

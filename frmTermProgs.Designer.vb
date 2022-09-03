@@ -119,6 +119,7 @@ Partial Class frmTermProgs
         Me.lbl_UserInactiveProg = New System.Windows.Forms.Label()
         Me.lbl_UserInactiveClass = New System.Windows.Forms.Label()
         Me.lbl_UserType = New System.Windows.Forms.Label()
+        Me.txtCMD0 = New System.Windows.Forms.TextBox()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.Grid4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuGrid4.SuspendLayout()
@@ -155,62 +156,62 @@ Partial Class frmTermProgs
         Me.Menu_Userx.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_Userx.Name = "Menu_Userx"
         Me.Menu_Userx.ShortcutKeys = System.Windows.Forms.Keys.F2
-        Me.Menu_Userx.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Userx.Size = New System.Drawing.Size(160, 22)
         Me.Menu_Userx.Text = "کاربر ..."
         '
         'Menu_ChangePass
         '
         Me.Menu_ChangePass.Name = "Menu_ChangePass"
-        Me.Menu_ChangePass.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_ChangePass.Size = New System.Drawing.Size(160, 22)
         Me.Menu_ChangePass.Text = "تغيير کلمه عبور"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(157, 6)
         '
         'Menu_Settings
         '
         Me.Menu_Settings.Name = "Menu_Settings"
         Me.Menu_Settings.ShortcutKeys = System.Windows.Forms.Keys.F4
-        Me.Menu_Settings.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Settings.Size = New System.Drawing.Size(160, 22)
         Me.Menu_Settings.Text = "تنظيمات ..."
         '
         'Menu_Help
         '
         Me.Menu_Help.Name = "Menu_Help"
-        Me.Menu_Help.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Help.Size = New System.Drawing.Size(160, 22)
         Me.Menu_Help.Text = "راهنما"
         '
         'Menu_About
         '
         Me.Menu_About.Name = "Menu_About"
-        Me.Menu_About.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_About.Size = New System.Drawing.Size(160, 22)
         Me.Menu_About.Text = "درباره"
         '
         'ToolStripMenuItem6
         '
         Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
-        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(157, 6)
         '
         'Menu_Notes
         '
         Me.Menu_Notes.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Menu_Notes.Name = "Menu_Notes"
-        Me.Menu_Notes.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Notes.Size = New System.Drawing.Size(160, 22)
         Me.Menu_Notes.Text = "يادداشت ..."
         '
         'ToolStripMenuItem8
         '
         Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
-        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(157, 6)
         '
         'Menu_Quit
         '
         Me.Menu_Quit.ForeColor = System.Drawing.Color.IndianRed
         Me.Menu_Quit.Name = "Menu_Quit"
         Me.Menu_Quit.ShortcutKeys = System.Windows.Forms.Keys.F8
-        Me.Menu_Quit.Size = New System.Drawing.Size(180, 22)
+        Me.Menu_Quit.Size = New System.Drawing.Size(160, 22)
         Me.Menu_Quit.Text = "خروج از برنامه"
         '
         'Menu_2
@@ -800,7 +801,7 @@ Partial Class frmTermProgs
         Me.RadioBtn1.BackColor = System.Drawing.Color.LightCyan
         Me.RadioBtn1.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
         Me.RadioBtn1.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.RadioBtn1.Location = New System.Drawing.Point(161, 597)
+        Me.RadioBtn1.Location = New System.Drawing.Point(161, 556)
         Me.RadioBtn1.Name = "RadioBtn1"
         Me.RadioBtn1.Size = New System.Drawing.Size(70, 17)
         Me.RadioBtn1.TabIndex = 39
@@ -815,7 +816,7 @@ Partial Class frmTermProgs
         Me.RadioBtn2.BackColor = System.Drawing.Color.MistyRose
         Me.RadioBtn2.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
         Me.RadioBtn2.ForeColor = System.Drawing.Color.Red
-        Me.RadioBtn2.Location = New System.Drawing.Point(159, 623)
+        Me.RadioBtn2.Location = New System.Drawing.Point(159, 582)
         Me.RadioBtn2.Name = "RadioBtn2"
         Me.RadioBtn2.Size = New System.Drawing.Size(72, 17)
         Me.RadioBtn2.TabIndex = 40
@@ -863,13 +864,25 @@ Partial Class frmTermProgs
         Me.lbl_UserType.TabIndex = 43
         Me.lbl_UserType.Text = "کاربر: دانشکده"
         '
+        'txtCMD0
+        '
+        Me.txtCMD0.BackColor = System.Drawing.Color.Gainsboro
+        Me.txtCMD0.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtCMD0.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point)
+        Me.txtCMD0.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.txtCMD0.Location = New System.Drawing.Point(43, 618)
+        Me.txtCMD0.Name = "txtCMD0"
+        Me.txtCMD0.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.txtCMD0.Size = New System.Drawing.Size(173, 22)
+        Me.txtCMD0.TabIndex = 0
+        '
         'frmTermProgs
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ClientSize = New System.Drawing.Size(1315, 661)
-        Me.ControlBox = False
+        Me.Controls.Add(Me.txtCMD0)
         Me.Controls.Add(Me.lbl_UserType)
         Me.Controls.Add(Me.lbl_UserInactiveClass)
         Me.Controls.Add(Me.lbl_UserInactiveProg)
@@ -892,7 +905,6 @@ Partial Class frmTermProgs
         Me.HelpButton = True
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmTermProgs"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -1005,4 +1017,5 @@ Partial Class frmTermProgs
     Friend WithEvents Menu_TermsDefault_Clear As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem8 As ToolStripSeparator
     Friend WithEvents DToolStripMenuItem As ToolStripTextBox
+    Friend WithEvents txtCMD0 As TextBox
 End Class

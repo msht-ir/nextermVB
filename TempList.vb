@@ -9,6 +9,7 @@
 
     End Sub
 
+    'GRID
     Private Sub GridCourse_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridCourse.CellClick
         Dim r As Integer = GridCourse.CurrentCell.RowIndex
         Dim c As Integer = GridCourse.CurrentCell.ColumnIndex
@@ -39,8 +40,12 @@
     End Sub
 
     'MENU
+    Private Sub Menu_Guide_Click(sender As Object, e As EventArgs) Handles Menu_Guide.Click
+        'Guide
+        MsgBox("راهنما دردست تهيه...", vbOKOnly, "نکسترم")
+    End Sub
     Private Sub Menu_ReadFromFile_Click() Handles Menu_ReadFromFile.Click
-
+        'clear the grid
         While GridCourse.Rows.Count > 0
             GridCourse.Rows.Remove(GridCourse.Rows(0))
         End While
@@ -78,6 +83,7 @@ lbl_Read:
             End If
             FileClose(1) 'Confirm file is closed
         Catch ex As Exception
+            'an error always exists: (read past end of file)
             'MsgBox(ex.ToString) 'MsgBox("خطا در فايل ليست دروس ", vbOKOnly, "نکسترم") ' MsgBox(ex.ToString)
             FileClose(1)
         End Try
@@ -106,7 +112,8 @@ lbl_Read:
         Next
     End Sub
 
-    Private Sub Menu_Add_Click(sender As Object, e As EventArgs) Handles Menu_Add.Click
+
+    Private Sub Menu_OK_Click(sender As Object, e As EventArgs) Handles Menu_OK.Click
         Dim intCourseSpecs As Integer = 0
         Dim intCourseUnits As Integer = 0
         Try
@@ -124,6 +131,7 @@ lbl_Read:
                             cmd.Parameters.AddWithValue("@bioprogid", intBioProg.ToString)
                             cmd.Parameters.AddWithValue("@coursename", strCourse)
                             cmd.Parameters.AddWithValue("@coursenumber", intCourseNumber.ToString)
+                            cmd.Parameters.AddWithValue("@coursespecs", intCourseSpecs.ToString)
                             cmd.Parameters.AddWithValue("@units", intCourseUnits.ToString)
                             Dim i As Integer = cmd.ExecuteNonQuery()
                         Case "Access"

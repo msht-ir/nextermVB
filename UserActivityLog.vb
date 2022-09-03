@@ -141,6 +141,7 @@
         PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>" & strReportsFooter & "</p>")
         PrintLine(1, "</body></html>")
         FileClose(1)
+        WriteLOG(61)
         Shell("explorer.exe " & Application.StartupPath & "Nexterm_log.html")
 
     End Sub
@@ -182,7 +183,7 @@
             Catch ex As Exception
                 MsgBox(ex.ToString)
             End Try
-            'WriteLOG(12)
+            WriteLOG(62)
         End If
 
         MsgBox("انجام شد", vbOKOnly, "نکسترم")
@@ -300,11 +301,63 @@ lbl_continue:
             PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>" & strReportsFooter & "</p>")
             PrintLine(1, "</body></html>")
             FileClose(1)
+            WriteLOG(63)
             Shell("explorer.exe " & Application.StartupPath & "Nexterm_ReportCourses.html")
         Catch ex As Exception
             FileClose(1)
             Exit Sub
         End Try
+
+    End Sub
+
+    'LOG
+    Private Sub WriteLOG(intActivity As Integer)
+        If boolLog = True Then
+            'WRITE-LOG 'There is a similar SUB() in TermProgs_Form
+            If Userx = "USER Faculty" Then intUser = 0
+            'Dim strDateTime As String = System.DateTime.Now.ToString("yyyy.MM.dd - HH:mm:ss")
+            Dim timeZoneInfo As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time")
+            Dim strDateTime As String = TimeZoneInfo.ConvertTime(DateTime.Now, timeZoneInfo).ToString("yyyy.MM.dd - HH:mm:ss")
+
+            Dim strUserID As Integer = intUser.ToString
+            Dim strNickName As String = UserNickName
+            Dim strClientName As String = LCase(Environment.MachineName)
+            Dim strFrontEnd As String = LCase(strBuildInfo)
+            Dim strLog As String = ""
+            Select Case intActivity
+                Case 61 : strLog = "rprt.usrlog"
+                Case 62 : strLog = "rprt.usrlog.clr"
+                Case 63 : strLog = "rprt.stats"
+            End Select
+            Try
+                Select Case DatabaseType ' ----  SqlServer ---- / ---- Access ----
+                    Case "SqlServer"
+                        strSQL = "INSERT INTO xLog (DateTimex, UserID, NickName, ClientName, FrontEnd, strLog) VALUES (@datetime, @userid, @nickname, @clientname, @frontend, @strlog)"
+                        Dim cmdx As New SqlClient.SqlCommand(strSQL, CnnSS)
+                        cmdx.CommandType = CommandType.Text
+                        cmdx.Parameters.AddWithValue("@datetime", strDateTime)
+                        cmdx.Parameters.AddWithValue("@userid", strUserID)
+                        cmdx.Parameters.AddWithValue("@nickname", strNickName)
+                        cmdx.Parameters.AddWithValue("@clientname", strClientName)
+                        cmdx.Parameters.AddWithValue("@frontend", strFrontEnd)
+                        cmdx.Parameters.AddWithValue("@strlog", strLog)
+                        Dim ix As Integer = cmdx.ExecuteNonQuery()
+                    Case "Access"
+                        strSQL = "INSERT INTO xLog (DateTimex, UserID, NickName, ClientName, FrontEnd, strLog) VALUES (@datetime, @userid, @nickname, @clientname, @frontend, @strlog)"
+                        Dim cmdx As New OleDb.OleDbCommand(strSQL, CnnAC)
+                        cmdx.CommandType = CommandType.Text
+                        cmdx.Parameters.AddWithValue("@datetime", strDateTime)
+                        cmdx.Parameters.AddWithValue("@userid", strUserID)
+                        cmdx.Parameters.AddWithValue("@nickname", strNickName)
+                        cmdx.Parameters.AddWithValue("@clientname", strClientName)
+                        cmdx.Parameters.AddWithValue("@frontend", strFrontEnd)
+                        cmdx.Parameters.AddWithValue("@strlog", strLog)
+                        Dim ix As Integer = cmdx.ExecuteNonQuery()
+                End Select
+            Catch ex As Exception
+                MsgBox(ex.ToString) 'Do Nothing!
+            End Try
+        End If
 
     End Sub
 

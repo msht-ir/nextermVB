@@ -55,7 +55,7 @@ Partial Class ChooseTerm
         Me.Grid1.RowHeadersVisible = False
         Me.Grid1.RowTemplate.Height = 25
         Me.Grid1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.Grid1.Size = New System.Drawing.Size(176, 504)
+        Me.Grid1.Size = New System.Drawing.Size(112, 504)
         Me.Grid1.TabIndex = 10
         '
         'ContextMenuStrip1
@@ -103,7 +103,7 @@ Partial Class ChooseTerm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(176, 504)
+        Me.ClientSize = New System.Drawing.Size(112, 504)
         Me.ControlBox = False
         Me.Controls.Add(Me.Grid1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog

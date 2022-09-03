@@ -70,24 +70,25 @@ Partial Class frmStaffProgs
         Me.ContextMenu_frmStaff.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Munu_Report, Me.ToolStripMenuItem1, Me.Munu_Exit})
         Me.ContextMenu_frmStaff.Name = "ContextMenu_frmStaff"
         Me.ContextMenu_frmStaff.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenu_frmStaff.Size = New System.Drawing.Size(106, 54)
+        Me.ContextMenu_frmStaff.Size = New System.Drawing.Size(181, 76)
         '
         'Munu_Report
         '
         Me.Munu_Report.Enabled = False
         Me.Munu_Report.Name = "Munu_Report"
-        Me.Munu_Report.Size = New System.Drawing.Size(105, 22)
+        Me.Munu_Report.Size = New System.Drawing.Size(180, 22)
         Me.Munu_Report.Text = "گزارش"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(102, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
         '
         'Munu_Exit
         '
+        Me.Munu_Exit.ForeColor = System.Drawing.Color.IndianRed
         Me.Munu_Exit.Name = "Munu_Exit"
-        Me.Munu_Exit.Size = New System.Drawing.Size(105, 22)
+        Me.Munu_Exit.Size = New System.Drawing.Size(180, 22)
         Me.Munu_Exit.Text = "خروج"
         '
         'ComboBox1
