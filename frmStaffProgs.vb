@@ -23,6 +23,10 @@
         If intDept > 0 Then ComboBox1.SelectedValue = intDept
         If intTerm > 0 Then ListBox2.SelectedValue = intTerm
 
+        If ((ListBox2.Items.Count > 0) And (intDefaultTermID > 0)) Then
+            ListBox2.SelectedValue = intDefaultTermID
+        End If
+
     End Sub
 
     Private Sub ComboBox1_SelectedIndexChanged() Handles ComboBox1.SelectedIndexChanged
@@ -93,6 +97,10 @@
         ListBox2.SelectedValue = 0
 
         Grid4.DataSource = ""
+
+        If ((ListBox2.Items.Count > 0) And (intDefaultTermID > 0)) Then
+            ListBox2.SelectedValue = intDefaultTermID
+        End If
 
     End Sub
 
@@ -230,4 +238,10 @@
 
     End Sub
 
+    Private Sub MenuDefaultTerm_Click(sender As Object, e As EventArgs) Handles MenuDefaultTerm.Click
+        If ListBox2.Items.Count > 0 Then
+            intDefaultTermID = ListBox2.SelectedValue
+        End If
+
+    End Sub
 End Class

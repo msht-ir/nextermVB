@@ -110,6 +110,8 @@ Partial Class UserActivityLog
         'CheckBoxFaculty
         '
         Me.CheckBoxFaculty.AutoSize = True
+        Me.CheckBoxFaculty.Checked = True
+        Me.CheckBoxFaculty.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBoxFaculty.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.CheckBoxFaculty.Location = New System.Drawing.Point(405, 35)
         Me.CheckBoxFaculty.Name = "CheckBoxFaculty"
@@ -147,11 +149,11 @@ Partial Class UserActivityLog
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(177, 4)
+        Me.Label2.Location = New System.Drawing.Point(148, 6)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(136, 15)
+        Me.Label2.Size = New System.Drawing.Size(157, 15)
         Me.Label2.TabIndex = 10
-        Me.Label2.Text = "درس هاي برنامه ريزي شده"
+        Me.Label2.Text = "آمار درس هاي برنامه ريزي شده"
         '
         'cboCoursetype
         '
@@ -209,7 +211,7 @@ Partial Class UserActivityLog
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(71, 4)
+        Me.Label1.Location = New System.Drawing.Point(71, 6)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(129, 15)
         Me.Label1.TabIndex = 9
@@ -221,7 +223,7 @@ Partial Class UserActivityLog
         Me.Radio5.BackColor = System.Drawing.Color.Transparent
         Me.Radio5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Radio5.ForeColor = System.Drawing.Color.IndianRed
-        Me.Radio5.Location = New System.Drawing.Point(98, 147)
+        Me.Radio5.Location = New System.Drawing.Point(85, 147)
         Me.Radio5.Name = "Radio5"
         Me.Radio5.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Radio5.Size = New System.Drawing.Size(76, 21)
@@ -235,7 +237,7 @@ Partial Class UserActivityLog
         Me.Radio4.BackColor = System.Drawing.Color.Transparent
         Me.Radio4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Radio4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Radio4.Location = New System.Drawing.Point(90, 120)
+        Me.Radio4.Location = New System.Drawing.Point(77, 120)
         Me.Radio4.Name = "Radio4"
         Me.Radio4.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Radio4.Size = New System.Drawing.Size(84, 21)
@@ -250,7 +252,7 @@ Partial Class UserActivityLog
         Me.Radio1.Checked = True
         Me.Radio1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Radio1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Radio1.Location = New System.Drawing.Point(86, 36)
+        Me.Radio1.Location = New System.Drawing.Point(73, 36)
         Me.Radio1.Name = "Radio1"
         Me.Radio1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Radio1.Size = New System.Drawing.Size(88, 21)
@@ -265,7 +267,7 @@ Partial Class UserActivityLog
         Me.Radio3.BackColor = System.Drawing.Color.Transparent
         Me.Radio3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Radio3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Radio3.Location = New System.Drawing.Point(70, 93)
+        Me.Radio3.Location = New System.Drawing.Point(57, 93)
         Me.Radio3.Name = "Radio3"
         Me.Radio3.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Radio3.Size = New System.Drawing.Size(104, 21)
@@ -279,7 +281,7 @@ Partial Class UserActivityLog
         Me.Radio2.BackColor = System.Drawing.Color.Transparent
         Me.Radio2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Radio2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Radio2.Location = New System.Drawing.Point(78, 63)
+        Me.Radio2.Location = New System.Drawing.Point(65, 63)
         Me.Radio2.Name = "Radio2"
         Me.Radio2.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.Radio2.Size = New System.Drawing.Size(96, 21)

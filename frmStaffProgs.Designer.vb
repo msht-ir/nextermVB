@@ -46,6 +46,7 @@ Partial Class frmStaffProgs
         Me.t1430 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.t1530 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.t1630 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MenuDefaultTerm = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextMenu_frmStaff.SuspendLayout()
         CType(Me.Grid4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridTime, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -67,10 +68,10 @@ Partial Class frmStaffProgs
         '
         'ContextMenu_frmStaff
         '
-        Me.ContextMenu_frmStaff.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Munu_Report, Me.ToolStripMenuItem1, Me.Munu_Exit})
+        Me.ContextMenu_frmStaff.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuDefaultTerm, Me.Munu_Report, Me.ToolStripMenuItem1, Me.Munu_Exit})
         Me.ContextMenu_frmStaff.Name = "ContextMenu_frmStaff"
         Me.ContextMenu_frmStaff.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ContextMenu_frmStaff.Size = New System.Drawing.Size(181, 76)
+        Me.ContextMenu_frmStaff.Size = New System.Drawing.Size(181, 98)
         '
         'Munu_Report
         '
@@ -247,6 +248,12 @@ Partial Class frmStaffProgs
         Me.t1630.HeaderText = "16:30"
         Me.t1630.Name = "t1630"
         '
+        'MenuDefaultTerm
+        '
+        Me.MenuDefaultTerm.Name = "MenuDefaultTerm"
+        Me.MenuDefaultTerm.Size = New System.Drawing.Size(180, 22)
+        Me.MenuDefaultTerm.Text = "ترم پيش فرض"
+        '
         'frmStaffProgs
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -292,4 +299,5 @@ Partial Class frmStaffProgs
     Friend WithEvents t1630 As DataGridViewTextBoxColumn
     Friend WithEvents ToolStripComboBox1 As ToolStripComboBox
     Friend WithEvents Menu_SelectStaffTech As ToolStripComboBox
+    Friend WithEvents MenuDefaultTerm As ToolStripMenuItem
 End Class

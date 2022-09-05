@@ -27,7 +27,6 @@
         Next k
 
         txtCMD.Text = ""
-        txtCMD.PasswordChar = "-"
         txtCMD.Focus()
 
     End Sub
@@ -84,59 +83,62 @@
                 '    If sttng = "" Then Exit Sub
                 '    DS.Tables("tblSettings").Rows(r).Item(2) = sttng
         End Select
+        txtCMD.Focus()
 
     End Sub
 
     Private Sub txtCMD_TextChanged(sender As Object, e As EventArgs) Handles txtCMD.TextChanged
+        'txtCMD.Text = Trim(txtCMD.Text)
         If txtCMD.Text = "" Then Exit Sub
         Try
             Select Case cmdLineStatus
                 Case 0 'Ready for Commands
-                    Select Case txtCMD.Text.ToLower
-                        Case "set class on"
+                    Select Case Trim(txtCMD.Text.ToLower)
+                        Case "cmd", "help", "guide"
+                            cmdHelp_settings()
+                            txtCMD.Text = "" : cmdLineStatus = 0
+                        Case "class on", "classon"
                             DS.Tables("tblSettings").Rows(0).Item(2) = "YES"
                             txtCMD.Text = "" : cmdLineStatus = 0
                             WriteLOG(50)
-                        Case "set class off"
+                        Case "class off", "classoff"
                             DS.Tables("tblSettings").Rows(0).Item(2) = "NO"
                             txtCMD.Text = "" : cmdLineStatus = 0
                             WriteLOG(51)
-                        Case "set prog on"
+                        Case "prog on", "progon"
                             DS.Tables("tblSettings").Rows(1).Item(2) = "YES"
                             txtCMD.Text = "" : cmdLineStatus = 0
                             WriteLOG(52)
-                        Case "set prog off"
+                        Case "prog off", "progoff"
                             DS.Tables("tblSettings").Rows(1).Item(2) = "NO"
                             txtCMD.Text = "" : cmdLineStatus = 0
                             WriteLOG(53)
-                        Case "set log on"
+                        Case "log on", "logon"
                             DS.Tables("tblSettings").Rows(4).Item(2) = "YES"
                             txtCMD.Text = "" : cmdLineStatus = 0
                             WriteLOG(56)
-                        Case "set log off"
+                        Case "log off", "logoff"
                             DS.Tables("tblSettings").Rows(4).Item(2) = "NO"
                             txtCMD.Text = "" : cmdLineStatus = 0
                             WriteLOG(57)
-                        Case "set admin pass"
+                        Case "admin pass", "adminpass"
                             cmdLineStatus = 2 'be ready for input admin pass
                             txtCMD.Text = DS.Tables("tblSettings").Rows(2).Item(2)
                             txtCMD.SelectionStart = Len(txtCMD.Text)
-                            txtCMD.PasswordChar = ""
-                        Case "set version"
+                        Case "version"
                             cmdLineStatus = 3 'be ready for input build info
                             txtCMD.Text = DS.Tables("tblSettings").Rows(3).Item(2)
                             txtCMD.SelectionStart = Len(txtCMD.Text)
-                            txtCMD.PasswordChar = ""
-                        Case "set owner info"
+                        Case "owner info", "ownerinfo"
                             cmdLineStatus = 5 'be ready for input owner info
                             txtCMD.Text = DS.Tables("tblSettings").Rows(5).Item(2)
                             txtCMD.SelectionStart = Len(txtCMD.Text)
-                            txtCMD.PasswordChar = ""
                         Case "quit", "exit"
                             Menu_ExitSetup_Click()
                     End Select
 
                 Case 2 '---------------------------------------------------------- input admin pass
+                    If Trim(txtCMD.Text.ToLower) = "quit" Or Trim(txtCMD.Text.ToLower) = "exit" Or Trim(txtCMD.Text.ToLower) = "cancel" Then Exit Sub
                     If Mid(txtCMD.Text, Len(txtCMD.Text), 1) = "#" Then
                         Dim sttng As String = Mid(txtCMD.Text, 1, Len(txtCMD.Text) - 1)
                         DS.Tables("tblSettings").Rows(2).Item(2) = sttng
@@ -144,10 +146,10 @@
                         WriteLOG(54)
                         cmdLineStatus = 0 'reset, ready for commands
                         txtCMD.Text = ""
-                        txtCMD.PasswordChar = "-"
                     End If
 
                 Case 3 '------------------------------------------------------- input build info
+                    If Trim(txtCMD.Text.ToLower) = "quit" Or Trim(txtCMD.Text.ToLower) = "exit" Or Trim(txtCMD.Text.ToLower) = "cancel" Then Exit Sub
                     If Mid(txtCMD.Text, Len(txtCMD.Text), 1) = "#" Then
                         Dim sttng As String = Mid(txtCMD.Text, 1, Len(txtCMD.Text) - 1)
                         DS.Tables("tblSettings").Rows(3).Item(2) = sttng
@@ -155,10 +157,10 @@
                         WriteLOG(55)
                         cmdLineStatus = 0 'reset, ready for commands
                         txtCMD.Text = ""
-                        txtCMD.PasswordChar = "-"
                     End If
 
                 Case 5 '----------------------------------------------------------- input owner info
+                    If Trim(txtCMD.Text.ToLower) = "quit" Or Trim(txtCMD.Text.ToLower) = "exit" Or Trim(txtCMD.Text.ToLower) = "cancel" Then Exit Sub
                     If Mid(txtCMD.Text, Len(txtCMD.Text), 1) = "#" Then
                         Dim sttng As String = Mid(txtCMD.Text, 1, Len(txtCMD.Text) - 1)
                         DS.Tables("tblSettings").Rows(5).Item(2) = sttng
@@ -166,12 +168,45 @@
                         WriteLOG(58)
                         cmdLineStatus = 0 'reset, ready for commands
                         txtCMD.Text = ""
-                        txtCMD.PasswordChar = "-"
                     End If
             End Select
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
+
+    End Sub
+    Private Sub cmdHelp_settings()
+        FileOpen(1, Application.StartupPath & "\NexTerm_Guide.html", OpenMode.Output)
+        PrintLine(1, "<html dir=""ltr"">")
+        PrintLine(1, "<head><title>NexTerm Guide</title><style>table, th,td {border: 1px solid;}</style></head>")
+        PrintLine(1, "<body>")
+        PrintLine(1, "<p style= 'color:blue; font-family:Tahoma; font-size:12px; Text-Align:Center'>Faculty of Science, SKU</p>")
+        PrintLine(1, "<hr>")
+        PrintLine(1, "<p style='color:blue;font-family:tahoma; font-size:14px'>Command-line CMDs - Settings<br></p>")
+        PrintLine(1, "<p style='font-family:tahoma; font-size:12px'><Quick list</p>")
+        PrintLine(1, "<table style='font-family:tahoma; font-size:14px; border-collapse:collapse'>")
+        'Header
+        PrintLine(1, "<tr><th>Command > _</th><th>function / notes</th</tr>")
+        'Rows
+        PrintLine(1, "<tr><td> cmd                     </td> <td>- show this guide (list of commands in settings)           </td></tr>")
+        PrintLine(1, "<tr><td> log on                  </td> <td>- log user activities                                       </td></tr>")
+        PrintLine(1, "<tr><td> log off                 </td> <td>- disable log                                               </td></tr>")
+        PrintLine(1, "<tr><td> class on                </td> <td>- enable faculty-user to set classes                        </td></tr>")
+        PrintLine(1, "<tr><td> class off               </td> <td>- disable faculty-user to set classes                       </td></tr>")
+        PrintLine(1, "<tr><td> prog on                 </td> <td>- enable faculty-user to programme like a department-user   </td></tr>")
+        PrintLine(1, "<tr><td> prog off                </td> <td>- disable faculty-user to programme like a department-user  </td></tr>")
+        PrintLine(1, "<tr><td> admin pass -----#       </td> <td>- change admin (faculty-user) password                      </td></tr>")
+        PrintLine(1, "<tr><td> version --------#       </td> <td>- change version info on this database                      </td></tr>")
+        PrintLine(1, "<tr><td> owner info -----#       </td> <td>- change owner info of this database                        </td></tr>")
+        PrintLine(1, "<tr><td> quit                    </td> <td>- exit settings                                             </td></tr>")
+        PrintLine(1, "<tr><td> exit                    </td> <td>- exit settings                                             </td></tr>")
+        PrintLine(1, "</table><br><hr>")
+        PrintLine(1, "<p style='font-family:tahoma; font-size:8px; text-align: center'>" & strReportsFooter & "</p>")
+        PrintLine(1, "</body>")
+        PrintLine(1, "</html>")
+        FileClose(1)
+        Shell("explorer.exe " & Application.StartupPath & "NexTerm_Guide.html")
+        txtCMD.Focus()
 
     End Sub
 
@@ -196,7 +231,6 @@
         Next r
 
     End Sub
-
     Private Sub WriteLOG(intActivity As Integer)
         If boolLog = True Then
             'WRITE-LOG 'There is a similar SUB() in TermProgs_Form
@@ -280,7 +314,7 @@
 
             strFacultyPass = DS.Tables("tblSettings").Rows(2).Item(2)
             If UCase(DS.Tables("tblSettings").Rows(4).Item(2)) = "YES" Then boolLog = True Else boolLog = False
-            strReportBG = DS.Tables("tblSettings").Rows(5).Item(2)
+            strReportBG = DS.Tables("tblSettings").Rows(6).Item(2)
         Catch ex As Exception
             MsgBox("خطا در بخش تنظيمات نکسترم", vbOKOnly, "نکسترم") 'MsgBox(ex.ToString)
             boolLog = False
@@ -290,4 +324,11 @@
 
     End Sub
 
+    Private Sub Settings_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If e.CloseReason = CloseReason.UserClosing Then
+            e.Cancel = True
+            MsgBox("براي خروج از منو استفاده کنيد ", vbOKOnly, "نکسنرم")
+        End If
+
+    End Sub
 End Class

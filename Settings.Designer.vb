@@ -88,14 +88,13 @@ Partial Class Settings
         '
         'txtCMD
         '
-        Me.txtCMD.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.txtCMD.BackColor = System.Drawing.Color.Gainsboro
         Me.txtCMD.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtCMD.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.txtCMD.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.txtCMD.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point)
+        Me.txtCMD.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.txtCMD.Location = New System.Drawing.Point(21, 250)
         Me.txtCMD.Name = "txtCMD"
-        Me.txtCMD.PasswordChar = Global.Microsoft.VisualBasic.ChrW(45)
-        Me.txtCMD.Size = New System.Drawing.Size(414, 16)
+        Me.txtCMD.Size = New System.Drawing.Size(220, 20)
         Me.txtCMD.TabIndex = 0
         '
         'Settings

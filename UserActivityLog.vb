@@ -23,7 +23,7 @@
         cboTerms.DataSource = DS.Tables("tblterms")
         cboTerms.DisplayMember = "Term"
         cboTerms.ValueMember = "ID"
-
+        cboTerms.SelectedValue = intTerm
         Dim boolENBL As Boolean = True
         Try
             Select Case Userx
