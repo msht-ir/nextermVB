@@ -67,15 +67,15 @@ lbl_SelectDB:
             Select Case Server2Connect
                 '--------------------------------------------------------- Server on Host
                 Case "NexTerm DB-1"
-                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NexTerm; User ID=xxx; Password=xxx;")
+                    CnnSS = New SqlClient.SqlConnection("Server=xxxx.xxx.com\sqlserver2019; Initial Catalog=xxxx; User ID=xxx; Password=xxx;")
                     CnnSS.Open()
                     DatabaseType = "SqlServer"
                 Case "NexTerm DB-2"
-                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NX2; User ID=xxx; Password=xxx;")
+                    CnnSS = New SqlClient.SqlConnection("Server=xxxx.xxxx.com\sqlserver2019; Initial Catalog=xxxx; User ID=xxx; Password=xxx;")
                     CnnSS.Open()
                     DatabaseType = "SqlServer"
                 Case "NexTerm DB-3"
-                    CnnSS = New SqlClient.SqlConnection("Server=setareh.r1host.com\sqlserver2019; Initial Catalog=mshtir_NX3; User ID=xxx; Password=xxx;")
+                    CnnSS = New SqlClient.SqlConnection("Server=xxxx.xxxx.com\sqlserver2019; Initial Catalog=xxxx; User ID=xxx; Password=xxx;")
                     CnnSS.Open()
                     DatabaseType = "SqlServer"
                     '--------------------------------------------------------- LOCAL Server
